@@ -18,12 +18,24 @@ class OtherBookingsDetailsVC: BaseVC {
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "others")
+        return AppImages.others_hotels
     }
     
     private var navBarHeight: CGFloat {
         return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
+    var maxValue: CGFloat = 1.0
+    var minValue: CGFloat = 0.0
+    var finalMaxValue: Int = 0
+    var currentProgress: CGFloat = 0
+    var currentProgressIntValue: Int = 0
+    
+    var isScrollingFirstTime: Bool = true
+    var isNavBarHidden:Bool = true
+    let headerHeightToAnimate: CGFloat = 30.0
+    var isHeaderAnimating: Bool = false
+    var isBackBtnTapped = false
+    let refreshControl = UIRefreshControl()
     
     // MARK: - IBOutlets
     
@@ -34,27 +46,48 @@ class OtherBookingsDetailsVC: BaseVC {
         didSet {
             self.dataTableView.estimatedRowHeight = 100.0
             self.dataTableView.rowHeight = UITableView.automaticDimension
-            self.dataTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
+            //self.dataTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.dataTableView.estimatedSectionHeaderHeight = 0
             self.dataTableView.sectionHeaderHeight = 0
+            self.dataTableView.backgroundColor = AppColors.screensBackground.color
         }
     }
     
     @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
     // MARK: - LifeCycle
-    
     // MARK: ===========
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .bookingDetailFetched, object: nil)
+    }
+    
     override func initialSetup() {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
-        self.viewModel.getBookingDetail()
-        self.statusBarStyle = .default
+        //self.statusBarStyle = .darkContent
         self.topNavBarHeightConstraint.constant = self.navBarHeight
-        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
-        self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: .white))
+        self.topNavBar.configureLeftButton(normalImage: AppImages.backGreen, selectedImage: AppImages.backGreen)
+        self.topNavBar.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton)
+        self.topNavBar.navTitleLabel.numberOfLines = 1
         self.setupParallaxHeader()
         self.registerNibs()
+        self.configureTableHeaderView()
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        //self.dataTableView.refreshControl = refreshControl
+        if self.viewModel.bookingDetail == nil{//Don't Hit API when comming from deep link
+            self.viewModel.getBookingDetail(showProgress: true)
+            self.viewModel.calculateWeatherLabelWidths(usingFor: self.viewModel.bookingDetail?.product.lowercased() == "flight" ? .flight : .hotel)
+
+        }else{
+            self.getBookingDetailSucces(showProgress: false)
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
+
+
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .OtherBookingsDetails)
+            
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -72,6 +105,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func bindViewModel() {
@@ -86,14 +120,42 @@ class OtherBookingsDetailsVC: BaseVC {
         }
     }
     
-    // MARK: - Functions
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.dataTableView.reloadData()
+    }
     
+    @objc func bookingDetailFetched(_ note: Notification) {
+        if let object = note.object as? BookingDetailModel {
+            printDebug("BookingDetailModel")
+            if self.viewModel.bookingId == object.id {
+                self.viewModel.bookingDetail = object
+                self.getBookingDetailSucces(showProgress: false)
+            }
+        }
+    }
+    
+    // MARK: - Functions
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getBookingDetail(showProgress: false)
+    }
     // MARK: ===========
     
     /// ConfigureCheckInOutView
     func configureTableHeaderView() {
         if let view = self.headerView {
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM ''yy") ?? "")
+            
+            var dateToDisplay = ""
+            let date = self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM yyyy") ?? ""
+//            if !date.isEmpty{
+//                var newDate = date
+//                newDate.insert(contentsOf: "’", at: newDate.index(newDate.startIndex, offsetBy: newDate.count-2))
+//                dateToDisplay = newDate
+//            }
+            
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: date)
+            
+            //self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM’ yy") ?? "")
             view.dividerView.isHidden = true
         }
     }
@@ -101,6 +163,8 @@ class OtherBookingsDetailsVC: BaseVC {
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
         let parallexHeaderMinHeight = CGFloat(0.0)//navigationController?.navigationBar.bounds.height ?? 74
+        self.headerView?.translatesAutoresizingMaskIntoConstraints = false
+        self.headerView?.widthAnchor.constraint(equalToConstant: dataTableView?.width ?? 0.0).isActive = true
         self.dataTableView.parallaxHeader.view = self.headerView
         self.dataTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.dataTableView.parallaxHeader.height = parallexHeaderHeight
@@ -118,7 +182,33 @@ class OtherBookingsDetailsVC: BaseVC {
         self.dataTableView.registerCell(nibName: TravellersDetailsTableViewCell.reusableIdentifier)
     }
     
-    // MARK: - IBActions
-    
-    // MARK: ===========
+    func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+                
+                let jsonDict : JSONDictionary = ["OtherBookingPayOnlineBookingId":self.viewModel.bookingId]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .OtherBookingsDetailsDepositPayOnlineOptionSelected, value: jsonDict)
+
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
+                
+            case 1:
+                //PayOfflineNRegister
+
+                let jsonDict : JSONDictionary = ["OtherBookingPayOfflineBookingId":self.viewModel.bookingId]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .OtherBookingsDetailsDepositPayOfflineOptionSelected, value: jsonDict)
+
+                
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
+                printDebug("PayOfflineNRegister")
+                
+            default:
+                printDebug("no need to implement")
+            }
+        }
+    }
 }

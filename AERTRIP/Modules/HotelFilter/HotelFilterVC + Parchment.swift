@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parchment
 
 // To display the view controllers, and how they traverse from one page to another
 extension HotelFilterVC: PagingViewControllerDataSource {
@@ -33,8 +32,8 @@ extension HotelFilterVC : PagingViewControllerDelegate, PagingViewControllerSize
         if let pagingIndexItem = pagingItem as? MenuItem {
             let text = pagingIndexItem.title
             
-            let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font) + 20.0
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+            return text.widthOfString(usingFont: font) + 23.0
         }
         
         return 100.0
@@ -42,7 +41,57 @@ extension HotelFilterVC : PagingViewControllerDelegate, PagingViewControllerSize
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        let pagingIndexItem = pagingItem as! MenuItem
-        HotelFilterVM.shared.lastSelectedIndex = pagingIndexItem.index
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            HotelFilterVM.shared.lastSelectedIndex = pagingIndexItem.index
+        }
+        
+        if didTapFilter {
+            didTapFilter = false
+            return
+        }
+        if let pagingIndexItem = pagingItem as? MenuItemForFilter {
+            logSwipeEvent(filterIndex: pagingIndexItem.index)
+        }
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            if HotelFilterVM.shared.lastSelectedIndex == pagingIndexItem.index {
+                hideFilter(tappedOutside: false)
+            }
+            didTapFilter = true
+            logTapEvent(filterIndex: pagingIndexItem.index)
+        }
+    }
+}
+
+// MARK: Analytics
+extension HotelFilterVC {
+    func logTapEvent(filterIndex: Int) {
+        var selectedEvent: FirebaseEventLogs.EventsTypeName = .FlightSortFilterTapped
+        switch filterIndex {
+        case 0:             selectedEvent = .HotelSortFilterTapped
+        case 1:             selectedEvent = .HotelDistanceFilterTapped
+        case 2:             selectedEvent = .HotelPriceFilterTapped
+        case 3:             selectedEvent = .HotelRatingsFilterTapped
+        case 4:             selectedEvent = .HotelAmenitiesFilterTapped
+        case 5:             selectedEvent = .HotelRoomFilterTapped
+        default: break
+        }
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: selectedEvent)
+    }
+    
+    func logSwipeEvent(filterIndex: Int) {
+        var selectedEvent: FirebaseEventLogs.EventsTypeName = .FlightSortFilterSwiped
+        switch filterIndex {
+        case 0:             selectedEvent = .HotelSortFilterSwiped
+        case 1:             selectedEvent = .HotelDistanceFilterSwiped
+        case 2:             selectedEvent = .HotelPriceFilterSwiped
+        case 3:             selectedEvent = .HotelRatingsFilterSwiped
+        case 4:             selectedEvent = .HotelAmenitiesFilterSwiped
+        case 5:             selectedEvent = .HotelRoomFilterSwiped
+        default: break
+        }
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: selectedEvent)
     }
 }

@@ -15,9 +15,11 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var passengerNameLabel: UILabel!
     @IBOutlet weak var dividerView: UIView!
     @IBOutlet weak var frequentFlyerLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.layoutIfNeeded()
         self.setUpFont()
         self.setUpText()
         self.setUpTextColor()
@@ -25,7 +27,7 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layoutIfNeeded()
+        self.contentView.layoutSubviews()
     }
     
     override func prepareForReuse() {
@@ -48,7 +50,7 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
     }
     
     func configureCell(profileImage: String, salutationImage: UIImage, passengerName: String, age: String) {
-        self.layoutIfNeeded()
+        self.contentView.layoutSubviews()
         if profileImage.isEmpty {
             self.profileImageView.image = salutationImage
             

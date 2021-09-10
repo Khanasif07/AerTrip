@@ -1,0 +1,24 @@
+//
+//  FlightBaggageTableViewCell.m
+//  Aertrip
+//
+//  Created by Kakshil Shah on 8/8/18.
+//  Copyright © 2018 Aertrip. All rights reserved.
+//
+
+#import "FlightBaggageTableViewCell.h"
+
+@implementation FlightBaggageTableViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

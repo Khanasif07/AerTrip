@@ -10,8 +10,8 @@ import UIKit
 
 protocol TwoPartEditTableViewCellDelegate: class {
     func twoPartDeleteCellTapped(_ indexPath: IndexPath)
-    func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer)
-    func rightViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer)
+    func twoPartEditLeftViewTap(_ indexPath: IndexPath, textField: UITextField)
+    func rightViewTap(_ indexPath: IndexPath, textField: UITextField)
     func twoPartEditTextField(_ indexPath: IndexPath, _ fullString: String)
 }
 
@@ -65,6 +65,7 @@ class TwoPartEditTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
         addGesture()
     }
@@ -83,6 +84,9 @@ class TwoPartEditTableViewCell: UITableViewCell {
     
     private func configureCell() {
         self.updateFFTitle()
+        
+        rightTextField.textColor = AppColors.textFieldTextColor51
+        leftTextField.textColor = AppColors.textFieldTextColor51
         if let ff = self.ffData {
            // frequentFlyerImageView.kf.setImage(with: URL(string: ff.logoUrl))
             frequentFlyerImageView.setImageWithUrl(ff.logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: false)
@@ -111,8 +115,11 @@ class TwoPartEditTableViewCell: UITableViewCell {
             leftTitleLabel.text = LocalizedString.IssueDate.localized
             rightTitleLabel.text = LocalizedString.ExpiryDate.localized
             deleteButton.isHidden = true
-            leftTextField.isEnabled = false
-            rightTextField.isEnabled = false
+            leftTextField.isEnabled = true
+            rightTextField.isEnabled = true
+            
+            leftTextField.delegate = self
+            rightTextField.delegate = self
         }
     }
     
@@ -125,19 +132,20 @@ class TwoPartEditTableViewCell: UITableViewCell {
         let rightViewGesture = UITapGestureRecognizer(target: self, action: #selector(middleViewTap(gesture:)))
         rightViewGesture.numberOfTapsRequired = 1
         rightView.isUserInteractionEnabled = true
+        rightTextField.tag = 290
         rightView.addGestureRecognizer(rightViewGesture)
     }
     
     @objc func leftViewTap(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {
-            delegate?.twoPartEditLeftViewTap(idxPath, gesture)
+            delegate?.twoPartEditLeftViewTap(idxPath, textField: leftTextField)
         }
     }
     
     @objc func middleViewTap(gesture: UITapGestureRecognizer) {
         printDebug("middle view tapped")
         if let idxPath = indexPath {
-            delegate?.rightViewTap(idxPath, gesture)
+            delegate?.rightViewTap(idxPath, textField: rightTextField)
         }
     }
     
@@ -151,6 +159,18 @@ class TwoPartEditTableViewCell: UITableViewCell {
 // MARK: - UITextFieldDelegate methods
 
 extension TwoPartEditTableViewCell: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if let idxPath = indexPath {
+        if textField == leftTextField {
+            delegate?.twoPartEditLeftViewTap(idxPath, textField: leftTextField)
+        } else {
+            delegate?.rightViewTap(idxPath, textField: rightTextField)
+
+        }
+        }
+        return true
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         printDebug("text field text \(textField.text ?? " ")")
         guard let inputMode = textField.textInputMode else {

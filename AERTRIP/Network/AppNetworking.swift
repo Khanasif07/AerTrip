@@ -8,7 +8,7 @@
 import Foundation
 import SystemConfiguration
 import Alamofire
-import SwiftyJSON
+//import SwiftyJSON
 
 typealias JSONDictionary = [String: Any]
 typealias JSONDictionaryArray = [JSONDictionary]
@@ -22,39 +22,26 @@ enum AppNetworking {
         case image, video
     }
     
+    static var textLog = TextLog()
+        
     static let username = ""
     static let password = ""
     //static var manager:AFHTTPSessionManager?
     internal typealias Success = ((JSON) -> Void) //success response clouser
     internal typealias Failure = ((_ error : NSError) -> Void) //failure response clouser
     internal typealias Progress = ((Double) -> Void) //shows the upload progress
+    internal typealias SucessWithData = ((Data)->())?
     
     static let noInternetError = NSError(code: -4531, localizedDescription: LocalizedString.NoInternet.localized)
     //check device has internet connection or not
     static var isConnectedToNetwork : Bool {
-        
-        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
-        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
-            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
-                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
-            }
-        }
-
-        var flags = SCNetworkReachabilityFlags()
-        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
-            return false
-        }
-        let isReachable = flags == .reachable
-        let needsConnection = flags == .connectionRequired
-        return (isReachable && !needsConnection)
+        return AppGlobals.shared.isNetworkRechable()
     }
     
     static private func addMandatoryParams(toExistingParams params: JSONDictionary) -> JSONDictionary {
         
         var temp = params
-        temp["_"] = Int(Date().timeIntervalSince1970)
+//        temp["_"] = Int(Date().timeIntervalSince1970)
         
         return temp
     }
@@ -65,10 +52,12 @@ enum AppNetworking {
                      headers : HTTPHeaders = [:],
                      loader : Bool = true,
                      success : @escaping Success,
+                     successWithData : SucessWithData = nil,
                      failure : @escaping Failure){
         
         
-        request(URLString: endPoint.path, httpMethod: .post, parameters: parameters, headers: headers, success: success, failure: failure)
+//        request(URLString: endPoint.path, httpMethod: .post, parameters: parameters, headers: headers, success: success, failure: failure)
+        request(URLString: endPoint.path, httpMethod: .post, parameters: parameters, headers: headers, success: success, successWithData: successWithData, failure: failure)
     }
     
     static func POST(endPointPath : String,
@@ -76,8 +65,8 @@ enum AppNetworking {
                      headers : HTTPHeaders = [:],
                      loader : Bool = true,
                      success : @escaping Success,
+                     successWithData : SucessWithData = nil,
                      failure : @escaping Failure){
-        
         
         request(URLString: endPointPath.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? "", httpMethod: .post, parameters: parameters, headers: headers, success: success, failure: failure)
     }
@@ -100,9 +89,10 @@ enum AppNetworking {
                     loader : Bool = true,
                     loaderContainerView: UIView? = nil,
                     success : @escaping Success,
+                    successWithData : SucessWithData = nil,
                     failure : @escaping Failure) {
         
-        request(URLString: endPoint.path, httpMethod: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: headers, loaderContainerView: loaderContainerView, success: success, failure: failure)
+        request(URLString: endPoint.path, httpMethod: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: headers, loaderContainerView: loaderContainerView, success: success, successWithData:successWithData,failure: failure)
     }
     static func GET(endPoint : String,
                     parameters : JSONDictionary = [:],
@@ -110,6 +100,7 @@ enum AppNetworking {
                     loader : Bool = true,
                     loaderContainerView: UIView? = nil,
                     success : @escaping Success,
+                    successWithData : SucessWithData = nil,
                     failure : @escaping Failure) {
         
         request(URLString: endPoint, httpMethod: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: headers, loaderContainerView: loaderContainerView, success: success, failure: failure)
@@ -184,7 +175,7 @@ enum AppNetworking {
             printDebug(e.localizedDescription)
             
             if (e as NSError).code == NSURLErrorNotConnectedToInternet {
-                printDebug("response: \(e)\nresponse url: \(URLString)")
+//                printDebug("response: \(e)\nresponse url: \(URLString)")
             }
             failure(e as NSError)
             
@@ -235,6 +226,7 @@ enum AppNetworking {
                                 loader : Bool = false,
                                 loaderContainerView: UIView? = nil,
                                 success : @escaping Success,
+                                successWithData : SucessWithData = nil,
                                 failure : @escaping Failure) {
         
         
@@ -245,20 +237,21 @@ enum AppNetworking {
         
         if isLocalServerUrl{
             
-            printDebug("request params: \(addMandatoryParams(toExistingParams: parameters))\nrequest url: \(URLString)\nmethod: \(httpMethod)")
+//            printDebug("request params: \(addMandatoryParams(toExistingParams: parameters))\nrequest url: \(URLString)\nmethod: \(httpMethod)")
             
             guard let data = "\(username):\(password)".data(using: String.Encoding.utf8) else { return  }
             
             let base64LoginString = data.base64EncodedString()
             header["content-type"] = "application/x-www-form-urlencoded"
             header["Authorization"] = "Basic \(base64LoginString)"
+          
             if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty {
                 
                 header["Access-Token"] = accessToken
             }
             else {
-                header["api-key"] = APIEndPoint.apiKey.rawValue
-                printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
+                header["api-key"] = AppKeys.apiKey//APIEndPoint.apiKey.rawValue
+
             }
             
             
@@ -267,7 +260,7 @@ enum AppNetworking {
             }
         }
         else{
-            printDebug("request params: \(parameters)\nrequest url: \(URLString)\nmethod: \(httpMethod)")
+//            printDebug("request params: \(parameters)\nrequest url: \(URLString)\nmethod: \(httpMethod)")
         }
         
         guard self.isConnectedToNetwork else {
@@ -280,28 +273,51 @@ enum AppNetworking {
             header["X-Auth-Token"] = xToken
         }
         
+//        printDebug("headers: \(header)")
+        AF.session.configuration.timeoutIntervalForRequest = 200
+        AF.session.configuration.timeoutIntervalForResource = 200
+        
        let request = AF.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
                           encoding: encoding,
-                          headers: header)
+                          headers: header,requestModifier: {$0.timeoutInterval = 200})
         
         request.responseString { (data) in
-            printDebug(data)
+            //printDebug(data)
         }
         
-        self.addCookies(forUrl: request.request?.url)
+        self.addCookies(forUrl: request.request?.url, from: "AppNetworking")
         
+        
+        let requestDate = Date.getCurrentDate()
+
         request.responseData { (response:DataResponse) in
                             
-                            printDebug(headers)
-            
             //save the X-Auth-Token for the security perpose as discussed with aertrip backend
             if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
                 UserDefaults.setObject("\(xToken)", forKey: UserDefaults.Key.xAuthToken.rawValue)
             }
+//            printDebug("Cookies:--\(HTTPCookieStorage.shared.cookies(for: request.request!.url!))")
             
-            AppNetworking.saveCookies(fromUrl: response.response?.url)
+            
+            AppNetworking.saveCookies(fromUrl: response.response?.url, from: "AppNetworking")
+                        
+            
+            
+//            if let url = response.response?.url?.absoluteString{
+//                if url.contains(APIEndPoint.login.rawValue)
+//                {
+//                    if let keys = response.response?.allHeaderFields {
+//                        if let val = keys["Set-Cookie"] as? String{
+//                            UserDefaults.standard.set(val, forKey: "loginCookie")
+//                        }
+//                    }
+//                }
+//            }
+//
+            
+            
             
                             if loader { hideLoader() }
                             
@@ -309,18 +325,52 @@ enum AppNetworking {
                                 
                             case .success(let value):
                                 if value.isEmpty, let resData = response.data, let string = String(data: resData, encoding: String.Encoding.utf8) {
-                                    printDebug("response: \(string)\nresponse url: \(URLString)")
+//                                    printDebug("response: \(string)\nresponse url: \(URLString)")
                                 }
                                 else {
-                                    printDebug("response: \(value)\nresponse url: \(URLString)")
+//                                    printDebug("response: \(value)\nresponse url: \(URLString)")
                                 }
-                                success(JSON(value))
+                                
+                                let jsonVal = JSON(value)
+                                
+                                // Logger for request
+                                self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: request.request?.url))")
+                                
+                                self.textLog.write("\n##########################################################################################\nAPI PARAMETERS :::\(String(describing: parameters))")
+
+                                self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.request?.allHTTPHeaderFields))\n")
+                                
+                                self.textLog.write("\nREQUEST HEADER DESCRIPTION :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.cURLDescription()))\n")
+
+                                
+                                
+                                self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: response.response?.allHeaderFields))\n")
+
+                                // Logger for response
+                                self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(jsonVal)\n##########################################################################################\n")
+                                
+//                                printDebug(jsonVal)
+                                success(jsonVal)
+                                if let responseData = response.data{
+                                    //For flight details where data is required for parser.
+                                    successWithData?(responseData)
+                                }
                                 
                             case .failure(let e):
+                                
+                                // Logger for request
+                                self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: request.request?.url))")
+
+                                self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.request?.allHTTPHeaderFields))\n")
                                 
                                 if (e as NSError).code == NSURLErrorNotConnectedToInternet {
                                     
                                     printDebug("response: \(e)\nresponse url: \(URLString)")
+                                    
+                                    self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: response.response?.allHeaderFields))\n")
+
+                                    // Logger for response
+                                    self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) :::::::: response: \(e)\nresponse url: \(URLString)\n##########################################################################################\n")
                                     
                                     // Handle Internet Not available UI
                                     if loader {
@@ -329,6 +379,7 @@ enum AppNetworking {
                                 }
                                 else{
                                     printDebug("response: some error occured\nresponse url: \(URLString)")
+                                                                        self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) :::::::: response: some error occured\nresponse url: \(URLString)error: \(e as NSError)\n##########################################################################################\n")
                                 }
                                 failure(e as NSError)
                             }
@@ -371,8 +422,7 @@ enum AppNetworking {
             printDebug("Access-Token: \(accessToken)")
         }
         else {
-            header["Api-Key"] = APIEndPoint.apiKey.rawValue
-            printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
+            header["api-key"] = AppKeys.apiKey
         }
         
         for head in headers {
@@ -391,7 +441,7 @@ enum AppNetworking {
             return
         }
         
-        self.addCookies(forUrl: url.url)
+        self.addCookies(forUrl: url.url, from: "AppNetworking")
         
         
 
@@ -430,7 +480,7 @@ enum AppNetworking {
               method: httpMethod,
               headers: header).response{ response in
                 
-                AppNetworking.saveCookies(fromUrl: response.response?.url)
+                AppNetworking.saveCookies(fromUrl: response.response?.url, from: "AppNetworking")
                 switch response.result{
                     
                 case .success(let value):
@@ -550,17 +600,22 @@ enum AppNetworking {
 
 
 extension AppNetworking {
-    private static func addCookies(forUrl: URL?) {
+    
+    static func addCookies(forUrl: URL?, from : String) {
+//        printDebug("fetch cookie from...\(from)")
         if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
             for cookie in allCookies {
                 HTTPCookieStorage.shared.setCookie(cookie)
+//                printDebug("cookie added from \(from)....\(cookie)")
             }
         }
     }
     
-    private static func saveCookies(fromUrl: URL?) {
+     static func saveCookies(fromUrl: URL?, from : String) {
+//        printDebug("save cookie from....\(from)")
         if let cookies = HTTPCookieStorage.shared.cookies {
             UserDefaults.saveCustomObject(customObject: cookies, forKey: UserDefaults.Key.currentUserCookies.rawValue)
+//            printDebug("cookie saved from \(from)....\(cookies)")
         }
     }
 }

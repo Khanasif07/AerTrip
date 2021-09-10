@@ -24,17 +24,14 @@ open class ATDividerView: UIView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if !isFrameUpdated {
-            self.updatedFrame()
-            isFrameUpdated = true
-        } else {
-            isFrameUpdated = false
-        }
+        self.updatedFrame()
+
     }
     
     //MARK:- Properties
     //MARK:- Private
     private var isFrameUpdated = false
+    private let dividerView = UIView()
     
     //MARK:- Public
     var defaultHeight: CGFloat = 0.5 {
@@ -49,21 +46,110 @@ open class ATDividerView: UIView {
         }
     }
     
+    var isSettingForErrorState:Bool = false{
+        didSet{
+            self.setColorForError()
+        }
+    }
+    
+    override open var backgroundColor: UIColor? {
+        willSet {
+            if let color = newValue, color != .clear {
+                self.backgroundColor = .clear
+            }
+        }
+    }
+    
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetup() {
-        
+        self.addSubview(dividerView)
         self.updatedFrame()
         self.updatedBackgroundColor()
+        self.dividerView.clipsToBounds = true
     }
     
     private func updatedBackgroundColor() {
-        self.backgroundColor = defaultBackgroundColor
+        self.backgroundColor = .clear
+        dividerView.backgroundColor = defaultBackgroundColor
+    }
+    
+    private func setColorForError(){
+        dividerView.backgroundColor = self.isSettingForErrorState ? AppColors.themeRed : defaultBackgroundColor
     }
     
     private func updatedFrame() {
-        let height = (1.0 / self.contentScaleFactor)
-        self.frame = CGRect(x: self.x, y: self.y, width: self.width, height: defaultHeight)
+        //self.translatesAutoresizingMaskIntoConstraints = true
+//        let height = (1.0 / self.contentScaleFactor)
+        dividerView.frame = CGRect(x: 0, y: 0, width: self.width, height: defaultHeight)
+    }
+}
+
+open class ATVerticalDividerView: UIView {
+    
+    //MARK:- View Life Cycle
+    //MARK:-
+    init() {
+        super.init(frame: CGRect.zero)
+        self.initialSetup()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.initialSetup()
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        self.updatedFrame()
+
+    }
+    
+    //MARK:- Properties
+    //MARK:- Private
+    private var isFrameUpdated = false
+    private let dividerView = UIView()
+    
+    //MARK:- Public
+    var defaultWidth: CGFloat = 0.5 {
+        didSet {
+            self.updatedFrame()
+        }
+    }
+    
+    var defaultBackgroundColor: UIColor = AppColors.divider.color {
+        didSet {
+            self.updatedBackgroundColor()
+        }
+    }
+    
+    override open var backgroundColor: UIColor? {
+        willSet {
+            if let color = newValue, color != .clear {
+                self.backgroundColor = .clear
+            }
+        }
+    }
+    
+    
+    //MARK:- Methods
+    //MARK:- Private
+    private func initialSetup() {
+        self.addSubview(dividerView)
+        self.updatedFrame()
+        self.updatedBackgroundColor()
+        self.dividerView.clipsToBounds = true
+    }
+    
+    private func updatedBackgroundColor() {
+        self.backgroundColor = .clear
+        dividerView.backgroundColor = defaultBackgroundColor
+    }
+    
+    private func updatedFrame() {
+        //self.translatesAutoresizingMaskIntoConstraints = true
+//        let height = (1.0 / self.contentScaleFactor)
+        dividerView.frame = CGRect(x: 0, y: 0, width: self.defaultWidth, height: self.height)
     }
 }

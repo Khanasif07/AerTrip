@@ -53,7 +53,7 @@ class GroupTableViewCell: UITableViewCell {
         
         groupNameTextField.isEnabled = true
         
-        if groupName.lowercased() == LocalizedString.Others.localized.lowercased() {
+        if groupName.lowercased() == LocalizedString.Others.localized.lowercased() || groupName.lowercased() == LocalizedString.Me.localized.lowercased(){
              self.deleteButton.isHidden = true
         } else {
              self.deleteButton.isHidden = false

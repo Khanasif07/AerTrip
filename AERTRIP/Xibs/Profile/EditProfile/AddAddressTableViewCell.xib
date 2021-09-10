@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -15,19 +16,29 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="273" id="KGk-i7-Jjw" customClass="AddAddressTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="273"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="294" id="KGk-i7-Jjw" customClass="AddAddressTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="273"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="294"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cfo-1a-dW3">
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cfo-1a-dW3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="263"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnX-oS-u73">
                                 <rect key="frame" x="0.0" y="0.0" width="266" height="43.5"/>
                                 <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6e2-Ln-898">
+                                        <rect key="frame" x="0.0" y="0.0" width="257" height="43.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGz-fd-bcj">
+                                        <rect key="frame" x="0.0" y="0.0" width="257" height="43.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDz-wV-uFX">
                                         <rect key="frame" x="16" y="10" width="250" height="22.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
@@ -42,13 +53,21 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="HGz-fd-bcj" secondAttribute="bottom" id="1pt-yE-MDU"/>
                                     <constraint firstItem="iDz-wV-uFX" firstAttribute="top" secondItem="bnX-oS-u73" secondAttribute="top" constant="10" id="6EY-uP-rTU"/>
                                     <constraint firstAttribute="height" constant="43.5" id="8T8-u1-HRn"/>
+                                    <constraint firstItem="HGz-fd-bcj" firstAttribute="leading" secondItem="bnX-oS-u73" secondAttribute="leading" id="8Uf-LH-zQd"/>
+                                    <constraint firstItem="6e2-Ln-898" firstAttribute="leading" secondItem="bnX-oS-u73" secondAttribute="leading" id="AnX-GG-DCx"/>
+                                    <constraint firstItem="6e2-Ln-898" firstAttribute="top" secondItem="bnX-oS-u73" secondAttribute="top" id="CxP-ch-KpQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="6e2-Ln-898" secondAttribute="bottom" id="JhN-TC-em2"/>
                                     <constraint firstAttribute="trailing" secondItem="X6n-gx-G47" secondAttribute="trailing" id="LkO-85-aM7"/>
+                                    <constraint firstItem="X6n-gx-G47" firstAttribute="leading" secondItem="6e2-Ln-898" secondAttribute="trailing" id="Qw8-or-w3N"/>
                                     <constraint firstItem="iDz-wV-uFX" firstAttribute="leading" secondItem="bnX-oS-u73" secondAttribute="leading" constant="16" id="SIy-zs-Dqc"/>
                                     <constraint firstAttribute="bottom" secondItem="iDz-wV-uFX" secondAttribute="bottom" constant="11" id="fea-7k-GFj"/>
+                                    <constraint firstItem="X6n-gx-G47" firstAttribute="leading" secondItem="HGz-fd-bcj" secondAttribute="trailing" id="mLY-cl-piv"/>
+                                    <constraint firstItem="HGz-fd-bcj" firstAttribute="top" secondItem="bnX-oS-u73" secondAttribute="top" id="qNS-hm-plA"/>
                                     <constraint firstAttribute="trailing" secondItem="iDz-wV-uFX" secondAttribute="trailing" id="sgh-Hj-gdJ"/>
                                     <constraint firstItem="X6n-gx-G47" firstAttribute="centerY" secondItem="iDz-wV-uFX" secondAttribute="centerY" id="ycq-BQ-zam"/>
                                 </constraints>
@@ -68,6 +87,9 @@
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1s-hK-EDN" userLabel="dividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="87.5" width="250" height="0.5"/>
@@ -104,7 +126,7 @@
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MxT-0A-VCw">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MxT-0A-VCw" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="43.5" width="117" height="0.5"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -112,7 +134,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="MxT-0A-VCw" firstAttribute="top" secondItem="Upn-U7-H0G" secondAttribute="bottom" id="0bB-P3-4MC"/>
                                             <constraint firstItem="Upn-U7-H0G" firstAttribute="leading" secondItem="TEb-97-pxR" secondAttribute="leading" constant="16" id="6oE-Ya-z9d"/>
@@ -132,7 +154,7 @@
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wfd-0S-Xaf">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wfd-0S-Xaf" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="43.5" width="117" height="0.5"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -140,7 +162,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Wfd-0S-Xaf" firstAttribute="top" secondItem="ivg-7Q-PdW" secondAttribute="bottom" id="FOo-Iz-hoC"/>
                                             <constraint firstItem="ivg-7Q-PdW" firstAttribute="leading" secondItem="EmK-Pi-ha5" secondAttribute="leading" constant="16" id="GkP-CD-ONp"/>
@@ -152,7 +174,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="TEb-97-pxR" firstAttribute="leading" secondItem="tyr-Wf-fX5" secondAttribute="leading" id="GWD-5f-TNP"/>
                                     <constraint firstAttribute="height" constant="43.5" id="I9Y-5s-7HK"/>
@@ -198,7 +220,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="I4d-qe-2c6" firstAttribute="top" secondItem="aLv-IZ-FCW" secondAttribute="top" constant="10" id="7c5-lQ-i4K"/>
                                     <constraint firstAttribute="bottom" secondItem="I4d-qe-2c6" secondAttribute="bottom" constant="11" id="8lZ-4d-R7Q"/>
@@ -209,7 +231,7 @@
                                     <constraint firstAttribute="trailing" secondItem="I4d-qe-2c6" secondAttribute="trailing" id="uTM-ou-8Cp"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Umh-6z-Rdc">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Umh-6z-Rdc">
                                 <rect key="frame" x="282" y="120.5" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="bDz-qX-QMb"/>
@@ -258,30 +280,43 @@
                             <constraint firstItem="i1s-hK-EDN" firstAttribute="leading" secondItem="Cfo-1a-dW3" secondAttribute="leading" constant="16" id="zWz-Y0-Tsd"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r10-PF-5nI" userLabel="cellDivider" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="263.5" width="320" height="0.5"/>
-                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="l9Y-GH-bzf"/>
-                        </constraints>
-                    </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iA0-UP-Lr2" userLabel="cellDivider" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iA0-UP-Lr2" userLabel="cellDivider" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="263" width="320" height="0.5"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="sAl-Jk-pBj"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ULm-w9-qde">
+                        <rect key="frame" x="0.0" y="263.5" width="320" height="10"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XsZ-Tw-vqR" userLabel="cellDivider" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="9.5" width="320" height="0.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="ZiM-b1-fsE"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="XsZ-Tw-vqR" firstAttribute="leading" secondItem="ULm-w9-qde" secondAttribute="leading" id="YQV-sB-9RS"/>
+                            <constraint firstAttribute="bottom" secondItem="XsZ-Tw-vqR" secondAttribute="bottom" id="cRr-Pg-1JX"/>
+                            <constraint firstAttribute="height" constant="10" id="jxK-l7-sae"/>
+                            <constraint firstAttribute="trailing" secondItem="XsZ-Tw-vqR" secondAttribute="trailing" id="rql-FD-tds"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="r10-PF-5nI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="83A-RK-E7Y"/>
+                    <constraint firstItem="ULm-w9-qde" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="AWX-47-eX7"/>
+                    <constraint firstAttribute="trailing" secondItem="ULm-w9-qde" secondAttribute="trailing" id="Abu-gM-jbT"/>
                     <constraint firstAttribute="trailing" secondItem="iA0-UP-Lr2" secondAttribute="trailing" id="Cnh-Mt-qgg"/>
-                    <constraint firstItem="r10-PF-5nI" firstAttribute="top" secondItem="iA0-UP-Lr2" secondAttribute="bottom" id="FJE-w9-OuJ"/>
-                    <constraint firstAttribute="trailing" secondItem="r10-PF-5nI" secondAttribute="trailing" id="OLA-MV-5Jf"/>
+                    <constraint firstItem="ULm-w9-qde" firstAttribute="top" secondItem="iA0-UP-Lr2" secondAttribute="bottom" id="Od8-Ue-if9"/>
+                    <constraint firstAttribute="bottom" secondItem="ULm-w9-qde" secondAttribute="bottom" id="WlC-oC-eMr"/>
                     <constraint firstItem="Cfo-1a-dW3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="X6Y-Vw-gL0"/>
                     <constraint firstItem="iA0-UP-Lr2" firstAttribute="top" secondItem="Cfo-1a-dW3" secondAttribute="bottom" id="iW8-bL-NjF"/>
                     <constraint firstAttribute="trailing" secondItem="Cfo-1a-dW3" secondAttribute="trailing" id="kEg-kR-sel"/>
+                    <constraint firstItem="iA0-UP-Lr2" firstAttribute="top" secondItem="Cfo-1a-dW3" secondAttribute="bottom" id="kom-TQ-zbL"/>
                     <constraint firstItem="iA0-UP-Lr2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="oe4-Z2-Eu2"/>
                     <constraint firstItem="Cfo-1a-dW3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qr9-ac-227"/>
                 </constraints>
@@ -291,22 +326,34 @@
                 <outlet property="addressLineOneTextField" destination="Sq4-GW-EgE" id="4Vb-Cl-y0B"/>
                 <outlet property="addressLineTwoTextField" destination="21c-IL-jVe" id="Nw5-Tb-eIJ"/>
                 <outlet property="addressTypeLabel" destination="iDz-wV-uFX" id="WTp-To-wUi"/>
+                <outlet property="addressTypeTextField" destination="6e2-Ln-898" id="g8v-cZ-ADg"/>
                 <outlet property="addressTypeView" destination="bnX-oS-u73" id="pe4-Hz-t1r"/>
                 <outlet property="bottomDivider" destination="iA0-UP-Lr2" id="OPv-23-8oQ"/>
-                <outlet property="cellDividerView" destination="r10-PF-5nI" id="Ffe-YZ-3km"/>
-                <outlet property="cellDividerViewHeightConstraint" destination="l9Y-GH-bzf" id="Boc-JD-iwA"/>
+                <outlet property="citySeparator" destination="MxT-0A-VCw" id="mQe-Ef-BcJ"/>
                 <outlet property="cityTextField" destination="Upn-U7-H0G" id="hwo-ev-zgS"/>
                 <outlet property="countryLabel" destination="I4d-qe-2c6" id="lSw-9U-ZOQ"/>
                 <outlet property="countryView" destination="aLv-IZ-FCW" id="toR-ca-GTk"/>
+                <outlet property="dataDisplayView" destination="Cfo-1a-dW3" id="1wm-6u-yJU"/>
                 <outlet property="deleteButton" destination="Umh-6z-Rdc" id="fcv-NT-PBw"/>
+                <outlet property="labelSeparator" destination="w3N-e2-cIH" id="WhY-7S-H6C"/>
+                <outlet property="postalCodeSeparator" destination="Wfd-0S-Xaf" id="Lbb-YP-d5U"/>
                 <outlet property="postalCodeTextField" destination="ivg-7Q-PdW" id="qpG-9f-IwM"/>
+                <outlet property="seperatorDividerView" destination="XsZ-Tw-vqR" id="u9w-dM-1ea"/>
+                <outlet property="seperatorView" destination="ULm-w9-qde" id="Rul-si-yaH"/>
+                <outlet property="seperatorViewHeightConstraint" destination="jxK-l7-sae" id="o8i-M9-mgK"/>
+                <outlet property="stateSeparator" destination="byy-xE-RXX" id="IZK-0Y-jeJ"/>
                 <outlet property="stateTextField" destination="zZk-DM-xlE" id="FXI-5O-imA"/>
+                <outlet property="streetOneSeparator" destination="i1s-hK-EDN" id="mbk-fu-l8Z"/>
+                <outlet property="streetTwoSeparator" destination="Kjg-Zr-gZe" id="u4k-n9-OEB"/>
             </connections>
-            <point key="canvasLocation" x="137.59999999999999" y="155.17241379310346"/>
+            <point key="canvasLocation" x="137.59999999999999" y="164.6176911544228"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="blackDownArrow" width="9" height="6"/>
         <image name="redMinusButton" width="22" height="22"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

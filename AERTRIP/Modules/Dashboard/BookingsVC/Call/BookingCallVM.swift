@@ -21,8 +21,8 @@ class BookingCallVM {
 //    var airportData: [(airPortTitle: String, title: String, number: String)] = [("VIE", "Athens, GR", "119-164-1011"), ("GOI", "Venice, IT", "503-799-2816"), ("VCE", "Monclova, MX", "401-203-4573"), ("TSF", "Fort Worth Alliance Air…", "541-144-9238")]
     
     var aertripData: [Aertrip] = []
-    var airlineData: [Airline] = []
-    var airportData: [Airport] = []
+    var airlineData: [BookingAirline] = []
+    var airportData: [BookingAirport] = []
     var hotelData: [Hotel] = []
     var contactInfo: ContactInfo?
     var usingFor: BookingCallVCUsingFor = .flight
@@ -31,28 +31,42 @@ class BookingCallVM {
     func getIntialData() {
         if let contactInfo = self.contactInfo {
             if usingFor == .flight {
+                
+                
+                self.aertripData = contactInfo.aertrip
+                self.airlineData = contactInfo.airlines
+                self.airportData.removeAll()
+                contactInfo.airport.forEach { (airport) in
+                    if !airport.phone.isEmpty {
+                        self.airportData.append(airport)
+                    }
+                }
+                //self.airportData = contactInfo.airport
                 if !contactInfo.aertrip.isEmpty {
                     self.section.append(LocalizedString.Aertip.localized)
                 }
                 if !contactInfo.airlines.isEmpty {
                     self.section.append(LocalizedString.Airlines.localized)
                 }
-                if !contactInfo.airport.isEmpty {
+                if !airportData.isEmpty {
                     self.section.append(LocalizedString.Airports.localized)
                 }
+            } else {
                 
                 self.aertripData = contactInfo.aertrip
-                self.airlineData = contactInfo.airlines
-                self.airportData = contactInfo.airport
-            } else {
+                self.hotelData.removeAll()
+                contactInfo.hotel.forEach { (model) in
+                    if !model.phone.isEmpty {
+                        self.hotelData.append(model)
+                    }
+                }
+                
                 if !contactInfo.aertrip.isEmpty {
                     self.section.append(LocalizedString.Aertip.localized)
                 }
-                if !contactInfo.hotel.isEmpty {
+                if !self.hotelData.isEmpty {
                     self.section.append(LocalizedString.Hotel.localized)
                 }
-                self.aertripData = contactInfo.aertrip
-                self.hotelData = contactInfo.hotel
             }
            
         }

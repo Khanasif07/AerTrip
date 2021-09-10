@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddAddressTableViewCellDelegate:class {
-    func addressTypeViewTapped(_ indexPath: IndexPath)
+    func addressTypeViewTapped(_ indexPath: IndexPath, textField: UITextField)
     func countryViewTapped(_ indexPath:IndexPath)
     func addAddressTextField(_ textfield:UITextField,_ indexPath:IndexPath,_ fullString:String)
     func deleteAddressCellTapped(_ indexPath:IndexPath)
@@ -19,6 +19,7 @@ class AddAddressTableViewCell: UITableViewCell {
     
     // MARK: - IB Outlets
     
+    @IBOutlet weak var addressTypeTextField: UITextField!
     @IBOutlet weak var addressTypeLabel: UILabel!
     @IBOutlet weak var addressLineOneTextField: UITextField!
     
@@ -29,22 +30,49 @@ class AddAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var postalCodeTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var countryLabel:UILabel!
-    @IBOutlet weak var cellDividerViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var cellDividerView: ATDividerView!
     @IBOutlet weak var addressTypeView: UIView!
     @IBOutlet weak var countryView: UIView!
     
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var bottomDivider: ATDividerView!
+    @IBOutlet weak var seperatorView: UIView!
+    @IBOutlet weak var seperatorDividerView: ATDividerView!
+    @IBOutlet weak var seperatorViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var labelSeparator: ATDividerView!
+    @IBOutlet weak var streetOneSeparator: ATDividerView!
+    @IBOutlet weak var streetTwoSeparator: ATDividerView!
+    @IBOutlet weak var citySeparator: ATDividerView!
+    @IBOutlet weak var postalCodeSeparator: ATDividerView!
+    @IBOutlet weak var stateSeparator: ATDividerView!
     
+    @IBOutlet weak var dataDisplayView: UIView!
+
     // MARK: - Variables
     weak var delegate:AddAddressTableViewCellDelegate?
+    
+    var hideSepratorView = false {
+        didSet {
+            self.mangeSeparatorView()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-      self.cellDividerView.defaultHeight = 1.0
+      //self.cellDividerView.defaultHeight = 1.0
+        hideSepratorView = true
+        seperatorView.backgroundColor = AppColors.greyO4
+        dataDisplayView.backgroundColor = AppColors.profileContentBackground
+        addressTypeTextField.textColor = AppColors.themeBlack
+        addressTypeLabel.textColor = AppColors.themeBlack
+        addressLineOneTextField.textColor = AppColors.themeBlack
+        addressLineTwoTextField.textColor = AppColors.themeBlack
+        cityTextField.textColor = AppColors.themeBlack
+        postalCodeTextField.textColor = AppColors.themeBlack
+        stateTextField.textColor = AppColors.themeBlack
+        countryLabel.textColor = AppColors.themeBlack
+
     }
     
     
@@ -86,10 +114,16 @@ class AddAddressTableViewCell: UITableViewCell {
         
     }
     
+    func mangeSeparatorView() {
+        seperatorView.isHidden = hideSepratorView
+        seperatorDividerView.isHidden = hideSepratorView
+        self.seperatorViewHeightConstraint.constant = hideSepratorView ? 0  : 10
+        self.contentView.layoutIfNeeded()
+    }
     
     @objc func addressTypeTapped(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {
-          delegate?.addressTypeViewTapped(idxPath)
+            delegate?.addressTypeViewTapped(idxPath, textField: self.addressTypeTextField)
         }
     }
     
@@ -106,7 +140,15 @@ class AddAddressTableViewCell: UITableViewCell {
         }
     }
     
+    func setSeparatorForError(isError:Bool, with address:Address){
+        self.changeSeparatorColor(isForError: (isError && address.isDuplicate))
+    }
     
+    private func changeSeparatorColor(isForError:Bool){
+        [bottomDivider, seperatorDividerView, labelSeparator, streetOneSeparator, streetTwoSeparator, citySeparator,postalCodeSeparator, stateSeparator].forEach { sep in
+            sep.isSettingForErrorState = isForError
+        }
+    }
     
     
 }
@@ -114,6 +156,7 @@ class AddAddressTableViewCell: UITableViewCell {
 
 extension AddAddressTableViewCell:UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        self.changeSeparatorColor(isForError: false)
         printDebug("text field text \(textField.text ?? " ")")
         guard let inputMode = textField.textInputMode else {
             return false
@@ -138,7 +181,12 @@ extension AddAddressTableViewCell:UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        self.changeSeparatorColor(isForError: false)
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.changeSeparatorColor(isForError: false)
     }
 }
 

@@ -11,7 +11,7 @@ import UIKit
 protocol HCDataSelectionVMDelegate: class {
     func willFetchConfirmItineraryData()
     func fetchConfirmItineraryDataSuccess()
-    func fetchConfirmItineraryDataFail()
+    func fetchConfirmItineraryDataFail(errors: ErrorCodes)
     func willCallForItenaryDataTraveller()
     func callForItenaryDataTravellerSuccess()
     func callForItenaryDataTravellerFail(errors: ErrorCodes)
@@ -48,6 +48,14 @@ class HCDataSelectionVM {
     var specialRequest: String = ""
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
+    var locid = ""
+//    var panCard: String = "CEQPK4956K"
+    var panCard: String = ""
+    var detailPageRoomRate: Rates?
+    var minContactLimit = 10
+    var maxContactLimit = 10
+    var canShowErrorForEmailPhone = false
+    var isContinueButtonTapped = false
     
     // MARK: - Private
     
@@ -66,10 +74,11 @@ class HCDataSelectionVM {
             guard let sSelf = self else { return }
             if success {
                 sSelf.itineraryData = itData
+                sSelf.itineraryData?.hotelDetails?.locid = sSelf.locid
                 sSelf.delegate?.fetchConfirmItineraryDataSuccess()
             } else {
                 printDebug(errors)
-                sSelf.delegate?.fetchConfirmItineraryDataFail()
+                sSelf.delegate?.fetchConfirmItineraryDataFail(errors: errors)
             }
         }
     }
@@ -91,12 +100,12 @@ class HCDataSelectionVM {
     }
     
     func isValidateData(vc: UIViewController) -> Bool {
-        var isValid = false
+        var isValid = true
         
         // check for guest details valid or not
         for (_, room) in GuestDetailsVM.shared.guests.enumerated() {
             for (_, guest) in room.enumerated() {
-                if (guest.firstName.isEmpty || guest.firstName.count < 3) || (guest.lastName.isEmpty || guest.lastName.count < 3)  || guest.salutation.isEmpty {
+                if (guest.firstName.isEmpty || guest.firstName.count < 1) || (guest.lastName.isEmpty || guest.lastName.count < 1)  || guest.salutation.isEmpty {
                     isValid = false
                     AppToast.default.showToastMessage(message: LocalizedString.GuestDetailsMessage.localized)
                     return isValid
@@ -105,20 +114,41 @@ class HCDataSelectionVM {
                 }
             }
         }
-        // check if mobile number is valid or Not
-        if self.mobileNumber.isEmpty {
-            AppToast.default.showToastMessage(message: LocalizedString.EnterMobileNumberMessage.localized)
-            isValid = false
-        }
+        
         // check if mobile isd is valid or Not
         if self.mobileIsd.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.EnterIsdMessage.localized)
-            isValid = false
+            return false
         }
+        
+        
+        // check if mobile number is valid or Not
+        if self.mobileNumber.isEmpty {
+            AppToast.default.showToastMessage(message: LocalizedString.EnterMobileNumberMessage.localized)
+            return false
+        }
+        
+        if self.mobileNumber.count < self.minContactLimit {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterValidMobileNumber.localized)
+            return false
+        }
+        
+        
         // check if email is empty or Not
         if self.email.isEmpty || !self.email.checkValidity(.Email) {
             AppToast.default.showToastMessage(message: LocalizedString.EnterEmailAddressMessage.localized)
-            isValid = false
+            return false
+        }
+        
+        
+        
+        
+        if (self.itineraryData?.hotelDetails?.pan_required ?? false) {
+            // check if panCard is empty or Not
+            if self.panCard.isEmpty || !self.panCard.checkValidity(.PanCard) {
+                AppToast.default.showToastMessage(message: LocalizedString.EnterPanCardMessage.localized)
+                return false
+            }
         }
         return isValid
     }
@@ -134,27 +164,31 @@ class HCDataSelectionVM {
                 params["t[\(i)][_t][\(j)][lname]"] = guest.lastName
                 params["t[\(i)][_t][\(j)][sal]"] = guest.salutation
                 if guest.passengerType == .Adult {
-                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType
+                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType.rawValue
                 } else {
-                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType
+                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType.rawValue
                     params["t[\(i)][_t][\(j)][age]"] = guest.age
                 }
                 params["t[\(i)][_t][\(j)][id]"] = guest.id
+                
+                printDebug("guest.id: \(guest.id)")
+                printDebug("guest.apiId: \(guest.apiId)")
+
             }
         }
         
         /* Hardcode guest params required for testing if required */
         
-//        params["t[0][_t][0][fname]"] = "Pawan"
-//        params["t[0][_t][0][lname]"] =  "Kumar"
-//        params["t[0][_t][0][sal]:"] =  "Mr"
-//        params["t[0][_t][0][ptype]"] =  "ADT"
-//        params["t[0][_t][0][id]"] = "13332"
-//        params["t[0][_t][1][fname]"] = "fdsfs"
-//        params["t[0][_t][1][lname]"] = "fsdfsdfsdf"
-//        params["t[0][_t][1][sal]"] =  "Mr"
-//        params["t[0][_t][1][ptype]"] =  "ADT"
-//        params["t[0][_t][1][id]"] = "0"
+        //        params["t[0][_t][0][fname]"] = "Pawan"
+        //        params["t[0][_t][0][lname]"] =  "Kumar"
+        //        params["t[0][_t][0][sal]:"] =  "Mr"
+        //        params["t[0][_t][0][ptype]"] =  "ADT"
+        //        params["t[0][_t][0][id]"] = "13332"
+        //        params["t[0][_t][1][fname]"] = "fdsfs"
+        //        params["t[0][_t][1][lname]"] = "fsdfsdfsdf"
+        //        params["t[0][_t][1][sal]"] =  "Mr"
+        //        params["t[0][_t][1][ptype]"] =  "ADT"
+        //        params["t[0][_t][1][id]"] = "0"
         
         // rid and qid in parameters
         if let rate = self.itineraryData?.hotelDetails?.rates?.first , let roomRates = rate.roomsRates {
@@ -164,21 +198,22 @@ class HCDataSelectionVM {
             }
         }
         
-//        params["t[0][rid]"] = self.itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
-//        params["t[0][qid]"] = self.itineraryData?.hotelDetails?.rates?.first?.qid
+        //        params["t[0][rid]"] = self.itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
+        //        params["t[0][qid]"] = self.itineraryData?.hotelDetails?.rates?.first?.qid
         params["special"] = self.specialRequest
         params["other"] = self.other
         
         params["mobile"] = self.mobileNumber
         params["mobile_isd"] = self.mobileIsd
         params["it_id"] = self.itineraryData?.it_id
+        params["t_pan"] = self.panCard
         
         for value in selectedSpecialRequest {
             params["preference[\(value)]"] = true
         }
-
         
-//        self.delegate?.willCallForItenaryDataTraveller()
+        
+        //        self.delegate?.willCallForItenaryDataTraveller()
         APICaller.shared.callItenaryDataForTravellerAPI(itinaryId: self.itineraryData?.it_id ?? "", params: params, loader: false) { [weak self] success, errors, _, itinerary in
             guard let sSelf = self else { return }
             if success {
@@ -196,13 +231,13 @@ class HCDataSelectionVM {
         if (rate.roomsRates?.count ?? 0) > 0 {
             presentedCell.append(.roomBedsTypeCell)
         }
-//        } else {
-//            for room in rate.roomsRates ?? [] {
-//                if room.name != currentRoom.name {
-//                    presentedCell.append(.roomBedsTypeCell)
-//                }
-//            }
-//        }
+        //        } else {
+        //            for room in rate.roomsRates ?? [] {
+        //                if room.name != currentRoom.name {
+        //                    presentedCell.append(.roomBedsTypeCell)
+        //                }
+        //            }
+        //        }
         if let boardInclusion =  rate.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
             presentedCell.append(.inclusionCell)
         } else if let internetData =  rate.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {
@@ -227,7 +262,12 @@ class HCDataSelectionVM {
         firstSectionCells.append(.hotelRatingCell)
         firstSectionCells.append(.addressCell)
         firstSectionCells.append(.checkInOutDateCell)
-        firstSectionCells.append(.amenitiesCell)
+        if !hotelData.info.isEmpty {
+            firstSectionCells.append(.overViewCell)
+        }
+        if ((hotelData.amenities?.main) != nil) {
+            firstSectionCells.append(.amenitiesCell)
+        }
         if !hotelData.locid.isEmpty {
             firstSectionCells.append(.tripAdvisorRatingCell)
         }
@@ -243,22 +283,24 @@ class HCDataSelectionVM {
             // Room details cell only for room label cell
             self.sectionData.append([.roomDetailsCell])
             for rate in ratesData {
-                self.sectionData.append(self.dataForTableCell(rate: rate, currentRoom: rate.roomsRates?.first ?? RoomsRates()))
-                var tempData = [RoomsRates: Int] ()
-                for currentRoom in rate.roomsRates ?? [] {
-                    var count = 1
-                    for otherRoom in rate.roomsRates ?? [] {
-                        if (otherRoom.uuRid != currentRoom.uuRid) , currentRoom.rid == otherRoom.rid {
-                            if otherRoom == currentRoom {
-                                count = count + 1
-                            }
-                        }
-                    }
-                    tempData[currentRoom] = count
-                }
-                if !roomRates.contains(array: [tempData]) {
-                    self.roomRates.append(tempData)
-                }
+//                self.sectionData.append(self.dataForTableCell(rate: rate, currentRoom: rate.roomsRates?.first ?? RoomsRates()))
+                self.sectionData.append(rate.tableViewRowCell)
+                self.roomRates.append(rate.roomData)
+//                var tempData = [RoomsRates: Int] ()
+//                for currentRoom in rate.roomsRates ?? [] {
+//                    var count = 1
+//                    for otherRoom in rate.roomsRates ?? [] {
+//                        if (otherRoom.uuRid != currentRoom.uuRid) , currentRoom.rid == otherRoom.rid {
+//                            if otherRoom == currentRoom {
+//                                count = count + 1
+//                            }
+//                        }
+//                    }
+//                    tempData[currentRoom] = count
+//                }
+//                if !roomRates.contains(array: [tempData]) {
+//                    self.roomRates.append(tempData)
+//                }
             }
             printDebug(self.roomRates)
         }
@@ -274,6 +316,7 @@ class HCDataSelectionVM {
         
         //save locally and update ui
         self.hotelInfo?.fav = self.hotelInfo?.fav == "0" ? "1" : "0"
+        
         _ = self.hotelInfo?.afterUpdate
         self.delegate?.updateFavouriteSuccess(withMessage: "")
         
@@ -281,6 +324,10 @@ class HCDataSelectionVM {
             if let sSelf = self {
                 if isSuccess {
                     sSelf.delegate?.updateFavouriteSuccess(withMessage: successMessage)
+                    if sSelf.itineraryData?.hotelDetails != nil{
+                        sSelf.itineraryData!.hotelDetails!.fav = (sSelf.itineraryData!.hotelDetails!.fav == "0") ? "1" : "0"
+                    }
+                    
                 } else {
                     if let _ = UserInfo.loggedInUserId {
                         //revert back in API not success fav/unfav locally
@@ -322,4 +369,13 @@ class HCDataSelectionVM {
             }
         }
     }
+}
+
+///Log events for firebase.
+extension HCDataSelectionVM{
+
+    func logEvent(with event:FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logHotelsCheckoutEvents(with: event)
+    }
+    
 }

@@ -28,12 +28,17 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
         headerView.topSeparatorView.isHidden = false
         
         var dateStr = ""
-        if let event = self.getEvent(forIndexPath: IndexPath(row: 0, section: section), forTableView: tableView).event {
+        if let event = self.getEvent(forIndexPath: IndexPath(row: 0, section: section)).event {
             dateStr = event.onAccountDate?.toString(dateFormat: "dd MMM YYYY") ?? ""
         }
-        headerView.headerLabel.text = dateStr
+        headerView.headerLabel.text = dateStr.uppercased()
+        headerView.headerLabel.textColor = AppColors.themeGray60
         headerView.backgroundColor = AppColors.themeGray04
         headerView.containerView.backgroundColor = AppColors.themeGray04
+        
+        
+        headerView.topSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+        headerView.bottomSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
         return headerView
     }
     
@@ -50,7 +55,7 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (currentEvent, allCount) = self.getEvent(forIndexPath: indexPath, forTableView: tableView)
+        let (currentEvent, allCount) = self.getEvent(forIndexPath: indexPath)
 
         guard let event = currentEvent, let cell = self.tableView.dequeueReusableCell(withIdentifier: OnAccountEventCell.reusableIdentifier) as? OnAccountEventCell else {
             return UITableViewCell()
@@ -66,11 +71,28 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.dividerView.isHidden = (indexPath.row >= (allCount - 1))
             cell.dividerViewLeadingConstraint.constant = 16.0
         }
-        
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
-    func getEvent(forIndexPath indexPath: IndexPath, forTableView: UITableView) -> (event: OnAccountLedgerEvent?, allCount: Int){
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let (currentEvent, _) = self.getEvent(forIndexPath: indexPath)
+//        if let event = self.getDetailsEvents(with: currentEvent){
+//            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .accountLadger)
+//        }else{
+            AppFlowManager.default.moveToAccountLadgerDetailsForOnAccount(forEvent: currentEvent, detailType: .outstandingLadger)
+//        }
+        
+        
+//        if let bID = currentEvent?.transactionId, !bID.isEmpty {
+//
+//            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: true, complition: { [weak self] (status) in
+//
+//            })
+//        }
+    }
+    
+    func getEvent(forIndexPath indexPath: IndexPath) -> (event: OnAccountLedgerEvent?, allCount: Int){
         
         guard !self.viewModel.accountDetails.isEmpty else {
             return (nil, 0)
@@ -83,6 +105,12 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         return (allEvent[indexPath.row], allEvent.count)
+    }
+    
+    func getDetailsEvents(with event: OnAccountLedgerEvent?)->AccountDetailEvent?{
+        guard let accLagers = self.viewModel.accountLadegerDetails,let ladger =   Array(accLagers.values) as? [[AccountDetailEvent]], let event = event else {return nil}
+        let events = ladger.flatMap{$0}
+        return events.first(where: {$0.voucherNo == event.voucherNo})
     }
 }
 
@@ -124,9 +152,10 @@ class OnAccountEventCell: UITableViewCell {
         self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
         self.amountLabel.font = AppFonts.Regular.withSize(16.0)
         
-        self.titleLabel.textColor = AppColors.themeTextColor
+        self.titleLabel.textColor = AppColors.themeBlack//themeTextColor
         self.descriptionLabel.textColor = AppColors.themeGray40
-        self.amountLabel.textColor = AppColors.themeTextColor
+        self.amountLabel.textColor = AppColors.themeBlack//themeTextColor
+        
     }
     
     private func resetAllText() {

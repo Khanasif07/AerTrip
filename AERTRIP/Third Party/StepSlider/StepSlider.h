@@ -108,7 +108,7 @@ IB_DESIGNABLE
 @property (nonatomic) StepSliderTextOrientation labelOrientation;
 
 /**
- *  If `YES` adjust first and last labels to StepSlider frame. And change alingment to left and right. 
+ *  If `YES` adjust first and last labels to StepSlider frame. And change alingment to left and right.
  *  Otherwise label position is same as trackCircle, and aligment always is center.
  */
 @property (nonatomic) IBInspectable BOOL adjustLabel;

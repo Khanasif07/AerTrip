@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 class MyBookingsVC: BaseVC {
     // Mark:- Variables
@@ -16,11 +15,20 @@ class MyBookingsVC: BaseVC {
     private var currentIndex: Int = 0
     private var allTabsStr: [String] = []
     // Parchment View
-    fileprivate var parchmentView : PagingViewController?
+    var parchmentView : PagingViewController?
     private var allChildVCs :[UIViewController] = []
     
     private var previousOffset = CGPoint.zero
     private var isBookingApiRunned = false
+//    private var statusBarBlurView : UIVisualEffectView!
+//    private var headerBlurView : UIVisualEffectView!
+    private var statusBarHeight : CGFloat {
+        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+    }
+    
+    private var time: Float = 0.0
+    private var timer: Timer?
+    
     // Mark:- IBOutlets
     //================
     @IBOutlet weak var topNavBar: TopNavigationView! {
@@ -33,7 +41,8 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar! {
         didSet {
-            self.searchBar.backgroundColor = AppColors.screensBackground.color
+            self.searchBar.backgroundColor = .clear//AppColors.themeWhiteDashboard
+            self.searchBar.textFieldColor = AppColors.themeWhiteDashboard
             self.searchBar.placeholder = LocalizedString.search.localized
             self.searchBar.delegate = self
         }
@@ -42,54 +51,114 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var emptyStateImageView: UIImageView!
     @IBOutlet weak var emptyStateTitleLabel: UILabel!
     @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
-    
+    @IBOutlet weak var blurBackgroundView: BlurView!
+    @IBOutlet weak var progressView: AppProgressView!
     
     // Mark:- LifeCycle
     
     override func initialSetup() {
         self.topNavBar.configureNavBar(title: LocalizedString.MyBookings.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+        self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIconSelected)
         self.topNavBar.firstRightBtnTrailingConst.constant = 3.0
         //        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
-        self.searchBar.cornerRadius = 10.0
+        self.topNavBar.firstRightButton.isHidden = true
+        self.searchBar.cornerradius = 10.0
         self.searchBar.clipsToBounds = true
         self.hideAllData()
-        
+        MyBookingFilterVM.shared.searchText = ""
+        MyBookingsVM.shared.isFetchingBooking = false
+        setBlurView()
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .MyBookings)
+
+
     }
+    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
-            if noti == .myBookingFilterApplied {
-                self.topNavBar.firstRightButton.isSelected = true
-            }
-            else if noti == .myBookingFilterCleared {
+            
+            switch noti {
+            case .myBookingFilterApplied:
+                if  MyBookingFilterVM.shared.isFilterAplied() {
+                    self.topNavBar.firstRightButton.isSelected = true
+                    self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIconSelected, selectedImage: AppImages.bookingFilterIconSelected)
+                } else {
+                    self.topNavBar.firstRightButton.isSelected = false
+                    self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIcon)
+                }
+                                
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterApplied)
+                    
+            case .myBookingFilterCleared:
                 self.topNavBar.firstRightButton.isSelected = false
+                self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIcon)
                 MyBookingFilterVM.shared.setToDefault()
-            }
-            else if noti == .myBookingCasesRequestStatusChanged {
-                MyBookingsVM.shared.getBookings(shouldCallWillDelegate: false)
+                
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterCleared)
+
+
+            case .myBookingCasesRequestStatusChanged:
+                MyBookingsVM.shared.getBookings(showProgress: true)
+            default:
+                break
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        clearFilters()
+        if !MyBookingsVM.shared.deepLinkBookingId.isEmpty{
+            MyBookingsVM.shared.getBookingDetails(showProgress: true)
+        }
+        
     }
     
     // MARK:- Override methods
     override func viewDidLayoutSubviews() {
-        self.parchmentView?.view.frame = self.childContainerView.bounds
-        self.parchmentView?.loadViewIfNeeded()
+        if allTabsStr.count > 1 {
+            self.parchmentView?.view.frame = self.childContainerView.bounds
+            self.parchmentView?.loadViewIfNeeded()
+        } else {
+            if let firstVC = self.allChildVCs.first {
+                firstVC.view.frame = self.childContainerView.bounds
+                firstVC.view.layoutIfNeeded()
+            }
+        }
+        
     }
-    
-    override func setupTexts() {
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "booking_Emptystate")
-        self.emptyStateTitleLabel.text = LocalizedString.NoBookingsYet.localized
-        self.emptyStateSubTitleLabel.text = LocalizedString.StartYourWanderlustJourneyWithUs.localized
-    }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if !isBookingApiRunned {
             isBookingApiRunned = true
-            MyBookingsVM.shared.getBookings()
+            MyBookingsVM.shared.getBookings(showProgress: true)
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //addCustomBackgroundBlurView()
+        self.statusBarColor = AppColors.clear
+        self.statusBarStyle = .default
+    }
+        
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.clear
+//        self.headerBlurView.removeFromSuperview()
+//        self.statusBarBlurView.removeFromSuperview()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.setBlurView()
+    }
+    
+    override func setupTexts() {
+        self.emptyStateImageView.image = AppImages.booking_Emptystate
+        self.emptyStateTitleLabel.text = LocalizedString.NoBookingsYet.localized
+        self.emptyStateSubTitleLabel.text = LocalizedString.StartYourWanderlustJourneyWithUs.localized
+    }
+    
     override func setupFonts() {
         self.topNavBar.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.emptyStateTitleLabel.font = AppFonts.Regular.withSize(22.0)
@@ -100,25 +169,48 @@ class MyBookingsVC: BaseVC {
         self.emptyStateTitleLabel.textColor = AppColors.themeBlack
         self.emptyStateSubTitleLabel.textColor = AppColors.themeGray60
         self.topNavBar.navTitleLabel.textColor = AppColors.textFieldTextColor51
+        self.searchBarContainerView.backgroundColor = AppColors.clear
+        self.childContainerView.backgroundColor = AppColors.clear
+        self.blurBackgroundView.isHidden = !self.isLightTheme()
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func bindViewModel() {
         MyBookingsVM.shared.delgate = self
     }
+    
+    
+    private func setBlurView(){
+        //Remove prominent effect view to header color issue
+        self.blurBackgroundView.subviews.first?.removeFromSuperview()
+        //add regular effect view for blur effect
+        if !isLightTheme(){
+            blurBackgroundView.isHidden = isLightTheme()
+        }else{
+            blurBackgroundView.addBlurEffect(style: .regular, alpha: 1.0)
+        }
+        
+    }
+    
     // Asif Change
     public func setUpViewPager() {
-        self.currentIndex = 0
+        
         self.allChildVCs.removeAll()
         if allTabsStr.contains("Upcoming"){
             let upcomingVC = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
+            upcomingVC.showFirstDivider = allTabsStr.count ==  1
             self.allChildVCs.append(upcomingVC)
         }
+        
         if  allTabsStr.contains("Completed"){
             let completedVC = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
+            completedVC.showFirstDivider = allTabsStr.count ==  1
             self.allChildVCs.append(completedVC)
         }
+        
         if  allTabsStr.contains("Cancelled"){
             let cancelledVC = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
+            cancelledVC.showFirstDivider = allTabsStr.count ==  1
             self.allChildVCs.append(cancelledVC)
         }
         self.view.layoutIfNeeded()
@@ -126,21 +218,44 @@ class MyBookingsVC: BaseVC {
             self.parchmentView?.view.removeFromSuperview()
             self.parchmentView = nil
         }
-        setupParchmentPageController()
+        if allTabsStr.count > 1 {
+            setupParchmentPageController()
+        } else {
+            if let firstVC = self.allChildVCs.first {
+                firstVC.view.frame = self.childContainerView.bounds
+                self.childContainerView.addSubview(firstVC.view)
+                self.childContainerView.backgroundColor = UIColor.red
+            }
+        }
     }
     
     // Added to replace the existing page controller, added Asif Khan
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing =  self.allTabsStr.count == 2 ? (UIDevice.screenWidth - 273.0) : (UIDevice.screenWidth - 273.0)/2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: self.allTabsStr.count == 2 ? 59.0 : 28.0, bottom: 0.0, right:  self.allTabsStr.count == 2 ? 64.0 : 29.0)
-        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
+        var textWidth: CGFloat = 0
+        allTabsStr.forEach { (str) in
+           textWidth += str.widthOfString(usingFont: AppFonts.Regular.withSize(16.0))
+        }
+        var menuItemSpacing: CGFloat = 0
+        if self.allTabsStr.count > 2 {
+            menuItemSpacing = (UIDevice.screenWidth - (textWidth))/4 //(textWidth + 28 + 28)/2 (screen width - textspace + leading and trailing constant space) / number of tabs - 1
+        } else {
+            menuItemSpacing = (UIDevice.screenWidth - (textWidth))/3 //(textWidth + 59.0 + 59.0)
+        }
+        
+        self.parchmentView?.menuItemSpacing = menuItemSpacing // self.allTabsStr.count == 2 ? (UIDevice.screenWidth - 273.0) : (UIDevice.screenWidth - 270.0)/2
+       // self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: self.allTabsStr.count == 2 ? 59.0 : 28.0, bottom: 0.0, right:  self.allTabsStr.count == 2 ? 59.0 : 28.0)
+
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: menuItemSpacing, bottom: 0.0, right:  menuItemSpacing)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
@@ -151,10 +266,13 @@ class MyBookingsVC: BaseVC {
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
-        self.parchmentView?.select(index: 0)
-        
+        self.parchmentView?.select(index: self.currentIndex)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
+        self.parchmentView?.select(index: self.currentIndex)
+
+        self.parchmentView?.menuBackgroundColor = UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }
     
     
@@ -190,6 +308,8 @@ class MyBookingsVC: BaseVC {
             self.emptyStateSubTitleLabel.isHidden = false
             self.childContainerView.isHidden = true
             self.searchBarContainerView.isHidden = true
+            self.blurBackgroundView.isHidden = true
+            self.topNavBar.firstRightButton.isHidden = true
         } else {
             self.emptyStateImageView.isHidden = true
             self.emptyStateTitleLabel.isHidden = true
@@ -198,6 +318,8 @@ class MyBookingsVC: BaseVC {
             self.searchBarContainerView.isHidden = false
             self.instantiateChildVC()
             self.setUpViewPager()
+            self.blurBackgroundView.isHidden = (!self.isLightTheme())
+            self.topNavBar.firstRightButton.isHidden = false
         }
     }
     
@@ -229,6 +351,50 @@ class MyBookingsVC: BaseVC {
         self.childContainerView.isHidden = true
         self.searchBarContainerView.isHidden = true
     }
+
+    
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer?.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer?.invalidate()
+            delay(seconds: 0.5) {
+                self.timer?.invalidate()
+                self.progressView?.isHidden = true
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
 }
 
 
@@ -246,6 +412,10 @@ extension MyBookingsVC: TopNavigationViewDelegate {
         printDebug("topNavBarFirstRightButtonAction")
         self.dismissKeyboard()
         AppFlowManager.default.showBookingFilterVC(self)
+        topNavBar.firstRightButton.isEnabled = false
+        delay(seconds: 0.2) { [weak self] in
+            self?.topNavBar.firstRightButton.isEnabled = true
+        }
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
@@ -271,26 +441,47 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
+        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
     }
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         // depending onthe text size, give the width of the menu item
-        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+        if let pagingIndexItem = pagingItem as? MenuItem{
             let text = pagingIndexItem.title
             
-            let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font) + 2.5
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+            return text.widthOfString(usingFont: font)
         }
         
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        let pagingIndexItem = pagingItem as! PagingIndexItem
-        self.currentIndex = pagingIndexItem.index
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            self.currentIndex = pagingIndexItem.index
+        }
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+        guard let pagingIndexItem = pagingItem as? MenuItem else {return}
+        let bookingTab:String
+        switch self.allChildVCs[pagingIndexItem.index].self{
+        case is UpcomingBookingsVC: bookingTab = "upcoming"
+        case is CompletedVC: bookingTab = "comleted"
+        case is CancelledVC: bookingTab = "cancelled"
+        default: bookingTab = ""
+        }
+                
+        let jsonDict : JSONDictionary = ["BookingTabType":bookingTab]
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsList, value: jsonDict)
+
+    }
+    
+    private func clearFilters() {
+        MyBookingFilterVM.shared.setToDefault()
+        MyBookingFilterVM.shared.lastSelectedIndex = 0
     }
 }
 

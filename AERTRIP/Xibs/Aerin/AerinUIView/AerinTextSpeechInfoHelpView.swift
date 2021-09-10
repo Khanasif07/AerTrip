@@ -35,7 +35,7 @@ class AerinTextSpeechInfoHelpView: UIView {
     // Test Data
     
     let sections = ["Flight","Hotel"]
-    let sectionImages = ["flight","hotelAerinIcon"]
+    let sectionImages = [AppImages.flight, AppImages.hotelAerinIcon]
     let sectionsFlight = ["Flight from Mumbai to Delhi", "Flight from Mumbai to Delhi","Bombay to Delhi flight tomorrow","Bombay to Delhi flight tomorrow","Flight on diwali from New York to Mumbai","Flight on diwali from New York to Mumbai"]
     
     let sectionHotel = ["Find hotels near me","Find hotels in Dubai on 30th June","5 star hotels in New York","Hotels with good Wi-Fi in Andheri","Check Taj hotels in Mumbai","Find stay near Shirdi for 6 peoples with 2 rooms on this friday"]
@@ -171,7 +171,7 @@ extension AerinTextSpeechInfoHelpView : UITableViewDataSource, UITableViewDelega
         
         
         infoHeader.sectionTitleLabel.text = self.sections[section]
-        infoHeader.sectionImageView.image = #imageLiteral(resourceName: self.sectionImages[section])
+        infoHeader.sectionImageView.image = self.sectionImages[section]
         return infoHeader
     }
     

@@ -27,6 +27,7 @@ class BookingAmenityCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureCell() {
+        self.backgroundColor = AppColors.themeBlack26
         self.amenityImageView.image = amenity?.icon
         self.amenityTitle.text = amenity?.title
     }

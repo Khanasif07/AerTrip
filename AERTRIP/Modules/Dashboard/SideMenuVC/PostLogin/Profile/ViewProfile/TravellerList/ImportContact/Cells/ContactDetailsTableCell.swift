@@ -15,6 +15,8 @@ class ContactDetailsTableCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var profileImageWidth: NSLayoutConstraint!
+    @IBOutlet weak var profileImageTrailing: NSLayoutConstraint!
     
     var contact: ATContact? {
         didSet {
@@ -53,17 +55,18 @@ class ContactDetailsTableCell: UITableViewCell {
     private func initialSetup() {
         self.contentView.layoutIfNeeded()
         self.userImageView.makeCircular()
+        self.userImageView.contentMode = .scaleAspectFill
     }
     
     private func setupTextAndColor() {
         self.nameLabel.textColor = AppColors.themeBlack
         self.nameLabel.font = AppFonts.Regular.withSize(18.0)
+        dividerView.backgroundColor = AppColors.dividerColor
     }
 
     private func populateData() {
         if contact != nil {
             self.selectionButton.isSelected = false
-            self.nameLabel.text = self.contact?.fullName ?? ""
             let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
             self.userImageView.image = placeholder
             self.userImageView.makeCircular(borderWidth: 0.0, borderColor: AppColors.themeGray20)
@@ -81,8 +84,11 @@ class ContactDetailsTableCell: UITableViewCell {
                 age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
             let firstName = self.contact?.firstName ?? ""
-            let lastName = self.contact?.lastName ?? ""
-            self.nameLabel.appendFixedText(text: "\(firstName) \(lastName)", fixedText: age)
+//            let lastName = self.contact?.lastName ?? ""
+            
+            let fullName = self.contact?.fullName ?? ""
+
+            self.nameLabel.appendFixedText(text: "\(fullName)", fixedText: age)
             self.nameLabel.AttributedFont(textFont : AppFonts.Regular.withSize(18.0), textColor : AppColors.themeBlack)
             self.nameLabel.AttributedFontForText(text: firstName, textFont: AppFonts.SemiBold.withSize(18.0))
             if !age.isEmpty {
@@ -90,6 +96,7 @@ class ContactDetailsTableCell: UITableViewCell {
             }
             
             if showSalutationImage {
+                self.userImageView.makeCircular(borderWidth: 0.0, borderColor: AppColors.themeGray20)
                 self.userImageView.cancelImageDownloading()
                 self.userImageView.image =  AppGlobals.shared.getEmojiIcon(dob: self.contact?.dob ?? "", salutation: self.contact?.salutation ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
@@ -119,5 +126,10 @@ class ContactDetailsTableCell: UITableViewCell {
                 self.nameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
             }
         }
+    }
+    
+    func manageProfileImage(isNeedToHide: Bool){
+        self.profileImageWidth.constant = isNeedToHide ? 0 : 20
+        self.profileImageTrailing.constant = isNeedToHide ? 0 : 12
     }
 }

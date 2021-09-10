@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
-class ATEmailSelectorTextView: UITextView {
+class ATEmailSelectorTextView: IQTextView {
 
     //MARK:- Proverties
     //MARK:- Private
@@ -22,6 +23,11 @@ class ATEmailSelectorTextView: UITextView {
     }
     
     private var allTags: [String] {
+//        var arr = textRemovingWhitespacesAndNewlines.components(separatedBy: _tagSeparator).reduce(into: [""]) { (unique, element) in
+//            if !element.isEmpty, !unique.contains(element), element.checkValidity(.Email) {
+//                unique.append(element)
+//            }
+//        }
         var arr = textRemovingWhitespacesAndNewlines.components(separatedBy: _tagSeparator).reduce(into: [""]) { (unique, element) in
             if !element.isEmpty, !unique.contains(element) {
                 unique.append(element)
@@ -174,8 +180,18 @@ class ATEmailSelectorTextView: UITextView {
         
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: tagsString, attributes: [NSAttributedString.Key.foregroundColor : tagSeparatorColor, NSAttributedString.Key.font: tagSeparatorFont])
         
+//        let paragraphStyle = NSMutableParagraphStyle()
+//
+//        paragraphStyle.lineSpacing = 10
+//
+//        paragraphStyle.maximumLineHeight = 18
+        
+//        attString.addAttributes([NSAttributedString.Key.paragraphStyle : paragraphStyle], range: (text as NSString).range(of: text))
+        
         for tag in allTags {
-            attString.addAttributes([NSAttributedString.Key.font: inactiveTagFont, NSAttributedString.Key.foregroundColor : inactiveTagFontColor, NSAttributedString.Key.backgroundColor: inactiveTagBackgroundColor], range: (text as NSString).range(of: tag))
+            attString.addAttributes([NSAttributedString.Key.font: inactiveTagFont, NSAttributedString.Key.foregroundColor : activeTagFontColor, NSAttributedString.Key.backgroundColor: activeTagBackgroundColor], range: (text as NSString).range(of: tag))
+            
+            
         }
         attributedText = attString
         isLastTagSelected = false
@@ -189,6 +205,9 @@ class ATEmailSelectorTextView: UITextView {
         
         if let lastTag = allTags.last {
             attString.addAttributes([NSAttributedString.Key.font: activeTagFont, NSAttributedString.Key.foregroundColor : activeTagFontColor, NSAttributedString.Key.backgroundColor: activeTagBackgroundColor], range: (text as NSString).range(of: lastTag))
+//            let paragraphStyle = NSMutableParagraphStyle()
+//            paragraphStyle.lineSpacing = 2
+//            attString.addAttributes([NSAttributedString.Key.paragraphStyle : paragraphStyle], range: (text as NSString).range(of: text))
             isLastTagSelected = true
         }
         

@@ -28,6 +28,9 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var secondShadowCard: UIView!
     @IBOutlet weak var ratingContainerLeadingConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var thirdHotelImageview: UIImageView!
+    @IBOutlet weak var secondHotelImageView: UIImageView!
+    @IBOutlet weak var secondViewBottomConstataints: NSLayoutConstraint!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
@@ -44,6 +47,11 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     var hotelData: HotelsModel? {
         didSet {
             self.populateData()
+        }
+    }
+    var hotelList: [HotelSearched]? {
+        didSet {
+            self.setupOtherHotelImages()
         }
     }
     
@@ -73,10 +81,28 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         self.setupPageControl()
         self.scrollSize = self.hotelImageView.frame.size.width
         
-        self.bgView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.1), offset: CGSize.zero, opacity: 0.4, shadowRadius: 4.0)
-        self.hotelImageView.cornerRadius = 10.0
-        self.scrollView.cornerRadius = 10.0
-        self.gradientView.cornerRadius = 10.0
+//        self.bgView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        let shadow = AppShadowProperties()
+        self.bgView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+        
+//        self.firstShadowCard.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+
+        self.firstShadowCard.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+        
+//        self.secondShadowCard.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        
+        self.secondShadowCard.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+
+        self.hotelImageView.cornerradius = 10.0
+        self.scrollView.cornerradius = 10.0
+        self.gradientView.cornerradius = 10.0
+        self.secondHotelImageView.cornerradius = 10.0
+        self.thirdHotelImageview.cornerradius = 10.0
+
+        self.hotelImageView.contentMode = .scaleAspectFill
+        self.secondHotelImageView.contentMode = .scaleAspectFill
+        self.thirdHotelImageview.contentMode = .scaleAspectFill
+
     }
     
     override func layoutSubviews() {
@@ -86,12 +112,12 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     
     private func setupShadowCards() {
         self.firstShadowCard.backgroundColor = AppColors.themeGray40
-        self.firstShadowCard.layer.cornerRadius = 10.0
-        self.firstShadowCard.layer.masksToBounds = true
+//        self.firstShadowCard.layer.cornerRadius = 10.0
+//        self.firstShadowCard.layer.masksToBounds = true
         
-        self.secondShadowCard.backgroundColor = AppColors.themeBlackGreen
-        self.secondShadowCard.layer.cornerRadius = 10.0
-        self.secondShadowCard.layer.masksToBounds = true
+        self.secondShadowCard.backgroundColor = AppColors.themeGray40
+//        self.secondShadowCard.layer.cornerRadius = 10.0
+//        self.secondShadowCard.layer.masksToBounds = true
     }
     
     private func setUpInstagramDotGalleryView() {
@@ -112,8 +138,17 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         
         for index in 0..<5 {
             let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
-            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
-            // view.image = UIImage(named: "tickIcon")
+            view.contentMode = .scaleAspectFill
+            //view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
+            view.setImageWithUrl(imageUrl: self.hotelListData?.thumbnail?.first ?? "", placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [unowned self] (image, error) in
+                if let downloadedImage = image {
+                    view.image = downloadedImage
+                } else {
+                     view.image = AppImages.hotelCardNoImagePlaceHolder
+                }
+            }
+            
+            // view.image = AppImages.CheckedGreenRadioButton
             scrollView.addSubview(view)
         }
     }
@@ -129,9 +164,18 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         self.greenCircleRatingView.rating = self.hotelData?.taRating ?? 0
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
-        if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
+//        if let image = UIImage(named: "hotelCardPlaceHolder") {
+//            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
+//        }
+        self.hotelImageView.cancelImageDownloading()
+        self.hotelImageView.setImageWithUrl(imageUrl: self.hotelData?.photo ?? "", placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [weak self] (image, error) in
+            if let downloadedImage = image {
+                self?.hotelImageView.image = downloadedImage
+            } else {
+                 self?.hotelImageView.image = AppImages.hotelCardNoImagePlaceHolder
+            }
         }
+        
     }
 
     private func populateHotelData() {
@@ -153,18 +197,71 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
             self.greenCircleRatingView.rating = rating
         }
         
-        self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
-        var price : Double = self.hotelListData?.price ?? 0.0
-        if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight {
-            price = self.hotelListData?.perNightPrice ?? 0.0
+//        self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
+        
+        var listPrice = self.hotelListData?.perNightListPrice
+        var price : Double? = self.hotelListData?.perNightPrice
+        
+        
+        if  let filter = UserInfo.hotelFilter, filter.priceType == .Total  {
+            price = self.hotelListData?.listPrice == 0 ? self.hotelListData?.price : self.hotelListData?.listPrice
+            listPrice = self.hotelListData?.price
         }
-        self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
+
+        if listPrice == 0{
+            self.actualPriceLabel.text = ""
+            self.actualPriceLabel.attributedText = nil
+        }else{
+            let attributeString: NSMutableAttributedString =   (listPrice ?? 0.0).getConvertedAmount(using: AppFonts.Regular.withSize(16))
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
+            self.actualPriceLabel.attributedText = attributeString
+            self.actualPriceLabel.AttributedFontForText(text: (price ?? 0.0).getPreferredCurrency, textFont: AppFonts.Regular.withSize(12))
+            actualPriceLabel.isHidden = price == listPrice
+        }
+        self.discountedPriceLabel.attributedText = (price ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(22))
+        self.discountedPriceLabel.AttributedFontForText(text: (price ?? 0.0).getPreferredCurrency, textFont: AppFonts.SemiBold.withSize(16))
+        
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
+        
+        self.hotelImageView.cancelImageDownloading()
+        self.hotelImageView.setImageWithUrl(imageUrl: self.hotelListData?.thumbnail?.first ?? "", placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [weak self] (image, error) in
+            if let downloadedImage = image {
+                self?.hotelImageView.image = downloadedImage
+            } else {
+                 self?.hotelImageView.image = AppImages.hotelCardNoImagePlaceHolder
+            }
+        }
+    }
+    
+    private func setupOtherHotelImages() {
+        self.secondHotelImageView.cancelImageDownloading()
+        self.thirdHotelImageview.cancelImageDownloading()
+        self.secondHotelImageView.image = nil
+        self.thirdHotelImageview.image = nil
+        
+        if self.hotelList?.indices.contains(1) ?? false, let hotel =  self.hotelList?[1] {
+            self.secondHotelImageView.setImageWithUrl(imageUrl: hotel.thumbnail?.first ?? "", placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [weak self] (image, error) in
+            if let downloadedImage = image {
+                self?.secondHotelImageView.image = downloadedImage
+            } else {
+                 self?.secondHotelImageView.image = AppImages.hotelCardNoImagePlaceHolder
+            }
+        }
+        }
+        if self.hotelList?.indices.contains(2) ?? false, let hotel =  self.hotelList?[2] {
+            self.thirdHotelImageview.setImageWithUrl(imageUrl: hotel.thumbnail?.first ?? "", placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [weak self] (image, error) in
+            if let downloadedImage = image {
+                self?.thirdHotelImageview.image = downloadedImage
+            } else {
+                 self?.thirdHotelImageview.image = AppImages.hotelCardNoImagePlaceHolder
+            }
+        }
+        }
     }
     
     private func setupPageControl() {
         self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
-        self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
+        self.pageControl.currentPageIndicatorTintColor = AppColors.unicolorWhite
     }
     
     private func updateMutiPhotos() {

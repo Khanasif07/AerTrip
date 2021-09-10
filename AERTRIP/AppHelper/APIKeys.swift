@@ -45,7 +45,7 @@ enum APIKeys: String {
     case country_code = "country_code"
     case salutation = "salutation"
     case facebook   = "facebook"
-    case google     = "google"
+    case google     = "google_oauth"
     case linkedin   = "linkedin"
     case token
     case paxId = "pax_id"
@@ -62,6 +62,7 @@ enum APIKeys: String {
     case hash_key
     case hotel_min_star
     case hotel_max_star
+    case hotel
     case hotels
     case hid
     case name
@@ -92,6 +93,7 @@ enum APIKeys: String {
     case hotelFilter = "hotelFilter"
     case hotelFilterApplied = "hotelFilterApplied"
     case profileImg = "profile_img"
+    case userTag = "user_tag"
     
     case dest_id = "dest_id"
     case dest_type = "dest_type"
@@ -111,7 +113,9 @@ enum APIKeys: String {
     case a = "a"
     case radius = "r"
     case underScore = "_"
-   
+    case search_nearby = "search_nearby"
+    case filters = "filters"
+
 
     
     case facilities = "facilities"
@@ -141,6 +145,10 @@ enum APIKeys: String {
     case amenities = "amenities"
     case title = "title"
     case lng = "lng"
+    case priceType = "priceType"
+    case sort = "sort"
+    case sortType = "sortType"
+    case orderAscending = "orderAscending"
     
     //BulkBookings
     case source = "source"
@@ -153,6 +161,13 @@ enum APIKeys: String {
     case preferred = "preferred"
     case special_request = "special_request"
     case pType = "pType"
+    case cabinclass = "cabinclass"
+    case adult = "adult"
+//    case child = "child"
+    case infant = "infant"
+    case totalLegs = "totalLegs"
+    case tripType = "trip_type"
+    case returnDate = "return"
     
     //HotelDetails
     case photos = "photos"
@@ -267,6 +282,7 @@ enum APIKeys: String {
     case ratingImageUrl = "rating_image_url"
     case localizedName = "localized_name"
     case date = "date"
+    case url = "url"
     
     //itinerary data
     case payment_amount
@@ -300,7 +316,11 @@ enum APIKeys: String {
     case it_id
     case traveller_master
     case special_requests
+    case pan_required
+    case is_price_change
+    case amenities_group_order
 
+    
     case is_applied = "is_applied"
     case coupon_title = "coupon_title"
     case description = "description"
@@ -311,6 +331,7 @@ enum APIKeys: String {
     case currencyPref = "currency_pref"
     case booking_id = "booking_id"
     case cid
+    case cases
     
     case trip_id
     case sdate
@@ -329,7 +350,8 @@ enum APIKeys: String {
     case per_night_cost
     case num_guests
     case currency_code
-    
+    case currency_icon
+
     // Final Checkout VC
     case grossAmout = "gross_amount"
     case netAmount = "net_amount"
@@ -347,6 +369,7 @@ enum APIKeys: String {
     case ptype
     case zip
     case telephone = "tel"
+    case phone
     case total_usage_limit
     case per_user_usage_limit
     case is_payment_method_mapped
@@ -414,6 +437,9 @@ enum APIKeys: String {
     case creationDate
     case currentEvent
     
+    case transfer = "transfer"
+    case wifi = "wifi"
+    
     // MARK: - Booking module
     case bid
     case booking_date
@@ -422,4 +448,40 @@ enum APIKeys: String {
     case action_required
     case bstatus
     case search = "search"
+    case request
+    case password_reset = "password-reset"
+    case new_password = "new_password"
+    case event_start_date = "event_start_date"
+    case event_end_date = "event_end_date"
+    case extra_data = "extra_data"
+    
+    //MARK:- ChatBot
+    
+//    case sessionId = "session_id"
+    
+    case fullfilment = "fullfilment"
+    case delta = "delta"
+    case depart = "depart"
+    case origin = "origin"
+    case cabinClass = "cabinClass"
+    
+    case emailAddress = "emailAddress"
+    case birthday = "birthday"
+    case profile = "profile"
+    
+    case deviceId = "device_id"
+    case version = "version"
+    case deviceType = "device_type"
+    
+    case userInstalledVersion = "user_installed_version"
+    case currentLatestVersion = "current_latest_version"
+    case updateRequired = "update_required"
+ 
+    case line3 = "line3"
+    case country_name = "country_name"
+    case line2 = "postal_code"
+    case postal_code = "line2"
+    case line1 = "line1"
+    
+    case preferred_currency = "preferred_currency"
 }

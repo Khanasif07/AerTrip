@@ -2,7 +2,7 @@
 //  GMSPanoramaView.h
 //  Google Maps SDK for iOS
 //
-//  Copyright 2013 Google LLC
+//  Copyright 2013 Google Inc.
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
 //  Service: https://developers.google.com/maps/terms
@@ -13,7 +13,6 @@
 
 #import "GMSOrientation.h"
 #import "GMSPanoramaLayer.h"
-#import "GMSPanoramaSource.h"
 
 @class GMSMarker;
 @class GMSPanorama;
@@ -21,7 +20,7 @@
 @class GMSPanoramaCameraUpdate;
 @class GMSPanoramaView;
 
-NS_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN;
 
 /** Delegate for events on GMSPanoramaView. */
 @protocol GMSPanoramaViewDelegate<NSObject>
@@ -118,7 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * Can be set to nil to clear the view.
  */
-@property(nonatomic, nullable) GMSPanorama *panorama;
+@property(nonatomic, strong, nullable) GMSPanorama *panorama;
 
 /** GMSPanoramaView delegate. */
 @property(nonatomic, weak, nullable) IBOutlet id<GMSPanoramaViewDelegate> delegate;
@@ -136,7 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * This does not limit programmatic movement of the camera.
  */
-@property(nonatomic) BOOL orientationGestures;
+@property(nonatomic, assign) BOOL orientationGestures;
 
 /**
  * Controls whether zoom gestures are enabled (default) or disabled. If enabled, users may pinch to
@@ -144,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * This does not limit programmatic movement of the camera.
  */
-@property(nonatomic) BOOL zoomGestures;
+@property(nonatomic, assign) BOOL zoomGestures;
 
 /**
  * Controls whether navigation gestures are enabled (default) or disabled. If enabled, users may use
@@ -152,24 +151,24 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * This does not limit programmatic control of the panorama.
  */
-@property(nonatomic) BOOL navigationGestures;
+@property(nonatomic, assign) BOOL navigationGestures;
 
 /**
  * Controls whether the tappable navigation links are hidden or visible (default). Hidden navigation
  * links cannot be tapped.
  */
-@property(nonatomic) BOOL navigationLinksHidden;
+@property(nonatomic, assign) BOOL navigationLinksHidden;
 
 /**
  * Controls whether the street name overlays are hidden or visible (default).
  */
-@property(nonatomic) BOOL streetNamesHidden;
+@property(nonatomic, assign) BOOL streetNamesHidden;
 
 /**
  * Controls the panorama's camera. Setting a new camera here jumps to the new camera value, with no
  * animation.
  */
-@property(nonatomic) GMSPanoramaCamera *camera;
+@property(nonatomic, strong) GMSPanoramaCamera *camera;
 
 /**
  * Accessor for the custom CALayer type used for the layer.
@@ -206,23 +205,6 @@ NS_ASSUME_NONNULL_BEGIN
  * |coordinate|.
  */
 - (void)moveNearCoordinate:(CLLocationCoordinate2D)coordinate radius:(NSUInteger)radius;
-
-/**
- * Similar to moveNearCoordinate: but allows specifying a source near |coordinate|.
- *
- * This API is experimental and may not always filter by source.
- */
-- (void)moveNearCoordinate:(CLLocationCoordinate2D)coordinate source:(GMSPanoramaSource)source;
-
-/**
- * Similar to moveNearCoordinate: but allows specifying a search radius (meters) around
- * |coordinate| and a source.
- *
- * This API is experimental and may not always filter by source.
- */
-- (void)moveNearCoordinate:(CLLocationCoordinate2D)coordinate
-                    radius:(NSUInteger)radius
-                    source:(GMSPanoramaSource)source;
 
 /**
  * Requests a panorama with |panoramaID|.
@@ -273,28 +255,6 @@ NS_ASSUME_NONNULL_BEGIN
                    nearCoordinate:(CLLocationCoordinate2D)coordinate
                            radius:(NSUInteger)radius;
 
-/**
- * Convenience constructor for GMSPanoramaView, which searches for and displays a GMSPanorama near
- * |coordinate|. This performs a similar action to that of moveNearCoordinate:source, and will call
- * the same delegate methods.
- *
- * This API is experimental and may not always filter by source.
- */
-+ (instancetype)panoramaWithFrame:(CGRect)frame
-                   nearCoordinate:(CLLocationCoordinate2D)coordinate
-                           source:(GMSPanoramaSource)source;
-/**
- * Convenience constructor for GMSPanoramaView, which searches for and displays a GMSPanorama near
- * |coordinate|. This performs a similar action to that of moveNearCoordinate:radius:source, and
- * will call the same delegate methods.
- *
- * This API is experimental and may not always filter by source.
- */
-+ (instancetype)panoramaWithFrame:(CGRect)frame
-                   nearCoordinate:(CLLocationCoordinate2D)coordinate
-                           radius:(NSUInteger)radius
-                           source:(GMSPanoramaSource)source;
-
 @end
 
-NS_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END;

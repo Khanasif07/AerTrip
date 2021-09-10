@@ -36,25 +36,37 @@ class TotalPayableNowCell: UITableViewCell {
         self.setUpText()
         self.setUpFont()
         self.setUpColor()
-        
+//        self.totalPayableNowLabel.text = LocalizedString.TotalPayableNow.localized
+
         self.topDeviderView.isHidden = true
         self.bottomDeviderView.isHidden = true
     }
     
-    private func setUpText() {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        totalPriceLabel.attributedText = nil
+    }
+    
+    func setUpText() {
         self.totalPayableNowLabel.text = LocalizedString.TotalPayableNow.localized
-        
         self.totalPayableTextTopConstraint.constant = (currentUsingFor == .totalPayableAmout) ? 9.0 : 0.0
         self.totalPayableTextBottomConstraint.constant = (currentUsingFor == .totalPayableAmout) ? 14.5 : 0.0
     }
     
     private func setUpFont() {
-        self.totalPayableNowLabel.font = AppFonts.Regular.withSize(((currentUsingFor == .totalPayableAmout) ? 18.0 : 16.0))
-        self.totalPriceLabel.font = AppFonts.SemiBold.withSize(((currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0))
+        self.totalPayableNowLabel.font = AppFonts.Regular.withSize(((currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0))
+//        self.totalPriceLabel.font = AppFonts.SemiBold.withSize(((currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0))
     }
     
     private func setUpColor() {
         self.totalPayableNowLabel.textColor = AppColors.themeBlack
         self.totalPriceLabel.textColor = AppColors.themeBlack
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
+    
+    internal func setupFotFinalCheckoutScreen() {
+        self.totalPayableTextTopConstraint.constant = 9
+        self.totalPayableTextBottomConstraint.constant = 9
+        self.contentView.layoutIfNeeded()
     }
 }

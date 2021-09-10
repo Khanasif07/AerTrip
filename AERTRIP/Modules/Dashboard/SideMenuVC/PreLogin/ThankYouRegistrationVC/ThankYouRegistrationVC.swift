@@ -99,6 +99,7 @@ class ThankYouRegistrationVC: BaseVC {
     
     
     @IBAction func openEmailAppButtonAction(_ sender: UIButton) {
+        self.viewModel.logEvents(with: .OpenEmailApp)
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Mail_Default.localized, LocalizedString.Gmail.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: {(alert,index) in
             
@@ -138,9 +139,10 @@ extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false)
         self.view.backgroundColor = AppColors.screensBackground.color
         
-        if self.viewModel.type ==  .deeplinkSetPassword || self.viewModel.type == .deeplinkResetPassword {
-            
+        if self.viewModel.type ==  .deeplinkSetPassword {
             self.viewModel.webserviceForGetRegistrationData()
+        } else if self.viewModel.type == .deeplinkResetPassword {
+            self.viewModel.webserviceForValidateFromToken()
         }
         
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
@@ -172,7 +174,11 @@ extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
 
 extension ThankYouRegistrationVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        if self.navigationController?.viewControllers.count == 1 {
+            AppFlowManager.default.goToDashboard()
+        } else {
+           AppFlowManager.default.popViewController(animated: true)
+        }
     }
 }
 

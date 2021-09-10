@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+/*
 final class SwipeNavigationController: UINavigationController {
     
     var isPushingViewController = false
@@ -69,3 +69,4 @@ extension SwipeNavigationController: UINavigationControllerDelegate {
         return externalDelegate?.navigationController?(navigationController, interactionControllerFor: animationController)
     }
 }
+*/

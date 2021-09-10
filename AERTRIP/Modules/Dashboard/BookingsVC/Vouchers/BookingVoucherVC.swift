@@ -18,13 +18,35 @@ class BookingVoucherVC: BaseVC {
     var payButtonRef: ATButton?
     // MARK:- Variables
     let viewModel = BookingVoucherVM()
+    let refreshControl = UIRefreshControl()
     
     // MARK:- View life cycle
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .bookingDetailFetched, object: nil)
+    }
+    
     override func initialSetup() {
+        self.voucherTableView.contentInset = UIEdgeInsets(top: topNavigationView.height - 0.5 , left: 0.0, bottom: 10.0, right: 0.0)
         self.voucherTableView.dataSource = self
         self.voucherTableView.delegate = self
         self.registerXib()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.voucherTableView.refreshControl = refreshControl
+    }
+    
+    @objc func bookingDetailFetched(_ note: Notification) {
+        if let object = note.object as? BookingDetailModel {
+            printDebug("BookingDetailModel")
+            if self.viewModel.bookingId == object.id {
+                self.viewModel.receipt = object.receipt
+                self.voucherTableView.reloadData()
+            }
+        }
     }
     
     // MARK:- Helper methods
@@ -39,6 +61,11 @@ class BookingVoucherVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func setupColors() {
+        self.voucherTableView.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     func registerXib() {
         self.voucherTableView.registerCell(nibName: BookingVoucherTableViewCell.reusableIdentifier)
         self.voucherTableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
@@ -46,29 +73,34 @@ class BookingVoucherVC: BaseVC {
     }
     
     private func showDepositOptions() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized, LocalizedString.ChequeDemandDraft.localized, LocalizedString.FundTransfer.localized], colors: [AppColors.themeDarkGreen, AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             
             switch index {
             case 0:
                 //PayOnline
-                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .addOns)
+                                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsVoucherDepositPayOnlineOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
+
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
                 
-            case 2:
-                //ChequeDemandDraft
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
-                printDebug("ChequeDemandDraft")
-                
-            case 3:
-                //FundTransfer
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
-                printDebug("FundTransfer")
+            case 1:
+                //PayOfflineNRegister
+                                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsVoucherDepositPayOfflineOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
+
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
+                printDebug("PayOfflineNRegister")
                 
             default:
                 printDebug("no need to implement")
             }
         }
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getBookingDetail()
     }
 }
 
@@ -140,6 +172,8 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
         guard let voucherCell = self.voucherTableView.dequeueReusableCell(withIdentifier: "BookingVoucherTableViewCell") as? BookingVoucherTableViewCell else {
             fatalError("BookingVoucherTableViewCell not found ")
         }
+        voucherCell.contentView.backgroundColor = AppColors.themeBlack26
+        voucherCell.priceLabel.backgroundColor = AppColors.themeBlack26
         
         if indexPath.section == 0 {
             //booking
@@ -147,6 +181,9 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
             if let count = self.viewModel.receipt?.otherVoucher.count {
                 voucherCell.dividerView.isHidden = (indexPath.row == (count - 1))
             }
+            voucherCell.titleLabel.text = self.viewModel.receipt?.otherVoucher[indexPath.row].basic?.event ??  "Booking"
+            voucherCell.paymentTypeImageView.isHidden = true
+            voucherCell.topDividerView.isHidden = false
         }
         else if indexPath.section == 1 {
             //receipt
@@ -154,19 +191,20 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
             if let count = self.viewModel.receipt?.receiptVoucher.count {
                 voucherCell.dividerView.isHidden = (indexPath.row == (count - 1))
             }
+            voucherCell.paymentTypeImageView.isHidden = false
+            
         }
         else {
             //pay
-            voucherCell.amount = self.viewModel.receipt?.totalAmountDue ?? 0.0
+            voucherCell.receipt = self.viewModel.receipt
+//            voucherCell.amount = self.viewModel.receipt?.totalAmountDue ?? 0.0
         }
         
-        voucherCell.payButtonAction = { button in
-            AppGlobals.shared.showUnderDevelopment()
-            if !self.viewModel.caseId.isEmpty {
+        voucherCell.payButtonAction = { [weak self] button in
+            //AppGlobals.shared.showUnderDevelopment()
                 button.isLoading = true
-                self.payButtonRef = button
-                self.viewModel.getAddonPaymentItinerary()
-            }
+                self?.payButtonRef = button
+                self?.viewModel.getBookingOutstandingPayment()
         }
         
         return voucherCell
@@ -177,14 +215,14 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
             //booking
             //open booking details
             if let vchr = self.viewModel.receipt?.otherVoucher[indexPath.row] {
-                AppFlowManager.default.moveToBookingInvoiceVC(forVoucher: vchr)
+                AppFlowManager.default.moveToBookingInvoiceVC(forVoucher: vchr, bookingId: self.viewModel.bookingId, isReciept: false, receiptIndex: indexPath.row)
             }
         }
         else if indexPath.section == 1 {
             //receipt
             //open receipt details
             if let vchr = self.viewModel.receipt?.receiptVoucher[indexPath.row] {
-                AppFlowManager.default.moveToBookingInvoiceVC(forVoucher: vchr)
+                AppFlowManager.default.moveToBookingInvoiceVC(forVoucher: vchr, bookingId: self.viewModel.bookingId, isReciept: true, receiptIndex: indexPath.row)
             }
         }
     }
@@ -192,12 +230,35 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
 
 
 extension BookingVoucherVC: BookingVoucherVMDelegate {
+    func willGetBookingDetail() {
+        
+    }
+    
+    func getBookingDetailSucces(model: BookingDetailModel) {
+        NotificationCenter.default.post(name: .bookingDetailFetched, object: model)
+        self.refreshControl.endRefreshing()
+    }
+    
+    func getBookingDetailFaiure(error: ErrorCodes) {
+        self.refreshControl.endRefreshing()
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
+    }
+    
     func getAddonPaymentItinerarySuccess() {
         self.payButtonRef?.isLoading = false
         self.showDepositOptions()
     }
     
     func getAddonPaymentItineraryFail() {
+        self.payButtonRef?.isLoading = false
+    }
+    
+    func getBookingOutstandingPaymentSuccess() {
+        self.payButtonRef?.isLoading = false
+        self.showDepositOptions()
+    }
+    
+    func getBookingOutstandingPaymentFail() {
         self.payButtonRef?.isLoading = false
     }
 }

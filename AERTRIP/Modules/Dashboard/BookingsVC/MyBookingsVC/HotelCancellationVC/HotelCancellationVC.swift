@@ -14,13 +14,15 @@ class HotelCancellationVC: BaseVC {
     //MARK:===========
     let viewModel = HotelCancellationVM()
     var expandedIndexPaths = [IndexPath]() // Array for storing indexPath
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     //MARK:- IBOutlets
     //MARK:===========
     @IBOutlet weak var topNavBar: BookingTopNavBarWithSubtitle!
+    @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var hotelCancellationTableView: UITableView! {
         didSet {
-            self.hotelCancellationTableView.contentInset = UIEdgeInsets.zero
+            //self.hotelCancellationTableView.contentInset = UIEdgeInsets.zero
         }
     }
     @IBOutlet weak var cancellationButtonOutlet: UIButton!
@@ -34,7 +36,19 @@ class HotelCancellationVC: BaseVC {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
+    }
+    
     override func initialSetup() {
+        self.hotelCancellationTableView.contentInset = UIEdgeInsets(top: topNavBar.height, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.topNavBar.configureView(title: LocalizedString.Cancellation.localized, subTitle: LocalizedString.SelectHotelOrRoomsForCancellation.localized, isleftButton: false, isRightButton: true)
         self.registerXibs()
         self.hotelCancellationTableView.delegate = self
@@ -42,14 +56,26 @@ class HotelCancellationVC: BaseVC {
         self.topNavBar.delegate = self
         self.cancellationButtonOutlet.isUserInteractionEnabled = false
         self.totalNetRefundContainerView.isHidden = true
+        if self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count == 1{
+            self.updateSelectAll()
+        }
+        self.gradientView.addGredient(isVertical: false)
+        
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .MyBookingsHotelCancellation)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     override func setupColors() {
-        self.cancellationButtonOutlet.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-        self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+        self.cancellationButtonOutlet.addGredient(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors)
+        self.cancellationButtonOutlet.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(0.5), for: .normal)
         self.hotelCancellationTableView.backgroundColor = AppColors.themeGray04
         self.totalNetRefundTitleLabel.textColor = AppColors.themeBlack
         self.totalNetRefundLabelAmountLabel.textColor = AppColors.themeBlack
+        self.totalNetRefundContainerView.backgroundColor = AppColors.themeBlack26
 
     }
     
@@ -74,6 +100,6 @@ class HotelCancellationVC: BaseVC {
     //MARK:- IBActions
     //MARK:===========
     @IBAction func cancellationButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .hotelCancellationReview, legs: nil, selectedRooms: self.viewModel.selectedRooms)
+        AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .hotelCancellationReview, legs: nil, selectedRooms: self.viewModel.selectedRooms, bookingDetails: self.viewModel.bookingDetail)
     }
 }

@@ -23,7 +23,7 @@ extension UIView {
         }
     }
     
-    public var cornerRadius: CGFloat {
+    public var cornerradius: CGFloat {
         get {
             return self.layer.cornerRadius
         }
@@ -140,6 +140,17 @@ extension UIView {
     
     // MARK: - set round corners by clips to bounds
     
+    func roundedCorners(cornerRadius: CGFloat){
+        self.clipsToBounds = true
+        self.cornerradius = cornerRadius
+    }
+    
+    func roundCorners() {
+        layer.masksToBounds = true
+        layer.cornerRadius = height/2
+        clipsToBounds = true
+    }
+    
     func roundTopCorners(cornerRadius: CGFloat) {
         self.clipsToBounds = true
         self.addShadow(cornerRadius: cornerRadius, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], color: .clear, offset: .zero, opacity: 0.0, shadowRadius: 0.0)
@@ -157,6 +168,23 @@ extension UIView {
         self.layer.shadowOffset = offset
         self.layer.shadowOpacity = opacity
         self.layer.shadowRadius = shadowRadius
+    }
+    
+    /// adds shadow in the view
+    public func addShadow(ofColor color: UIColor = #colorLiteral(red: 0.01568627451, green: 0.01960784314, blue: 0.09803921569, alpha: 0.5), radius: CGFloat = 7, offset: CGSize = .zero, opacity: Float = 0.3, cornerRadius: CGFloat? = nil) {
+        layer.shadowColor = color.cgColor
+        layer.shadowOffset = offset
+        layer.shadowRadius = radius
+        layer.shadowOpacity = opacity
+        layer.masksToBounds = false
+        if let r = cornerRadius {
+            layer.shadowPath = UIBezierPath(roundedRect: layer.bounds, cornerRadius: r).cgPath
+        }
+    }
+    
+    func setBorder(borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear) {
+        self.layer.borderWidth = borderWidth
+        self.layer.borderColor = borderColor.cgColor
     }
     
     /// SHOW VIEW
@@ -212,13 +240,13 @@ extension UIView {
         return nil
     }
     
-    func addNoDataLable(_ withDataCount: Int, withMessage: String = "No Data Found", withFont: UIFont = UIFont.systemFont(ofSize: 18.0), textColor: UIColor = UIColor.lightGray) {
+    func addNoDataLable(_ withDataCount: Int, withMessage: String = LocalizedString.noDataFound.localized, withFont: UIFont = UIFont.systemFont(ofSize: 18.0), textColor: UIColor = UIColor.lightGray) {
         self.removeNoDataLabel()
         
         if withDataCount <= 0 {
             let msgLabel = UILabel()
             msgLabel.frame = self.bounds
-            msgLabel.text = withMessage.isEmpty ? "No Data Found" : withMessage
+            msgLabel.text = withMessage.isEmpty ? LocalizedString.noDataFound.localized : withMessage
             msgLabel.textAlignment = NSTextAlignment.center
             msgLabel.tag = 862548
             msgLabel.font = withFont
@@ -269,7 +297,7 @@ extension UIView {
         self.transform = CGAffineTransform(rotationAngle: rotationAngle)
         self.clipsToBounds = true
     }
-    
+     
     var collectionViewCell: UICollectionViewCell? {
         var subviewClass = self
         
@@ -296,20 +324,30 @@ extension UIView {
     }
 
     
-    func showBlurLoader(frame: CGRect) {
-        let blurLoader = BlurLoader(frame: frame)
-        self.addSubview(blurLoader)
-    }
-    
-    func removeBluerLoader() {
-        if let blurLoader = subviews.first(where: { $0 is BlurLoader }) {
-            blurLoader.removeFromSuperview()
-        }
-    }
+//    func showBlurLoader(frame: CGRect) {
+//        let blurLoader = BlurLoader(frame: frame)
+//        self.addSubview(blurLoader)
+//    }
+//    
+//    func removeBluerLoader() {
+//        if let blurLoader = subviews.first(where: { $0 is BlurLoader }) {
+//            blurLoader.removeFromSuperview()
+//        }
+//    }
     
     func collectionViewIndexPath(_ collectionView: UICollectionView) -> IndexPath? {
         if let cell = self.collectionViewCell {
             return collectionView.indexPath(for: cell)
+        }
+        return nil
+    }
+    
+    func tableViewIndexPath(_ tableView: UITableView) -> IndexPath? {
+        
+        if let cell = self.tableViewCell {
+            
+            return tableView.indexPath(for: cell)
+            
         }
         return nil
     }
@@ -403,7 +441,7 @@ extension UIView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.name = "dottedLine"
         shapeLayer.strokeColor = dashColor.cgColor
-        shapeLayer.lineWidth = 1
+        shapeLayer.lineWidth = 0.5
         shapeLayer.lineDashPattern = [dashLength, gapLength] as [NSNumber] // 3 is the length of dash, 2 is length of the gap.
         
         let path = CGMutablePath()
@@ -437,7 +475,7 @@ extension UIView {
             shadowLayer.name = "cardShadow"
             shadowLayer.shadowColor = UIColor.black.withAlphaComponent(0.4).cgColor
             shadowLayer.shadowPath = shadowLayer.path
-            shadowLayer.shadowOffset = CGSize(width: 1, height: 1)
+            shadowLayer.shadowOffset = CGSize(width: 0, height: 3)
             shadowLayer.shadowOpacity = 0.8
             shadowLayer.shadowRadius = 3
             
@@ -483,5 +521,112 @@ extension UIView {
         return image
         
 //    }
+    }
+}
+
+// FLIGHTS
+
+extension UIView {
+    
+    func setupDashedView(strokeColor : UIColor = AppColors.flightCellDashColor) {
+        
+        self.backgroundColor = .clear
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = strokeColor.cgColor
+
+        shapeLayer.lineWidth = 2
+        shapeLayer.lineDashPattern = [2,3]
+        
+        let path = CGMutablePath()
+        path.addLines(between: [CGPoint(x: 0, y: 0),
+                                CGPoint(x: self.frame.width, y: 0)])
+        shapeLayer.path = path
+        self.layer.backgroundColor = UIColor.clear.cgColor
+        self.layer.addSublayer(shapeLayer)
+        self.clipsToBounds = true
+        
+    }
+    
+    func addShimmerEffect( to views : [UIView], backgroundClr : UIColor = AppColors.shimmerEffectLayerColor, gradientColors : [UIColor] = [AppColors.unicolorWhite.withAlphaComponent(0), AppColors.shimmerEffectColor, AppColors.unicolorWhite.withAlphaComponent(0)]) {
+        
+        for view in views {
+            animate(view: view, backgroundClr : backgroundClr, gradientColors :gradientColors)
+        }
+    }
+    
+    func animate(view:UIView, backgroundClr : UIColor, gradientColors : [UIColor]) {
+        
+        let colorLayer = CALayer()
+        colorLayer.backgroundColor = backgroundClr.cgColor
+        //UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1).cgColor
+        colorLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+        colorLayer.name = "colorLayer"
+        view.layer.addSublayer(colorLayer)
+        view.autoresizesSubviews = true
+        view.clipsToBounds = true
+        view.cornerradius = 2
+        // 2. Add loader Layer
+        let multiplier = CGFloat(4.0)
+        let width = view.frame.width
+        let height = view.frame.height
+        
+        let gradientLayer = CAGradientLayer()
+               
+        let gradients = gradientColors.map { $0.cgColor }
+        
+        gradientLayer.colors = gradients
+        
+//        gradientLayer.colors = [AppColors.unicolorWhite.withAlphaComponent(0).cgColor,
+//                                AppColors.shimmerEffectColor.cgColor,
+//                                AppColors.unicolorWhite.withAlphaComponent(0).cgColor]
+
+        gradientLayer.name = "loaderLayer"
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: multiplier * width, height:  multiplier * view.bounds.height)
+        
+        let degrees =  -45.0
+        let radians = CGFloat(degrees * Double.pi / 180)
+        gradientLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
+        
+        view.layer.addSublayer(gradientLayer)
+        
+        // 3. Animate loader layer
+        let animation = CABasicAnimation(keyPath: "transform.translation.x")
+        animation.duration = 2.0
+        animation.fromValue = -multiplier * width
+        animation.toValue = multiplier * width
+        animation.repeatCount = Float.infinity
+        gradientLayer.add(animation, forKey: "smartLoader")
+        
+        let animation2 = CABasicAnimation(keyPath: "transform.translation.y")
+        animation2.duration = 2.0
+        animation2.fromValue = -multiplier * height
+        animation2.toValue = multiplier * height
+        animation2.repeatCount = Float.infinity
+        gradientLayer.add(animation2, forKey: "smartLoader2")
+        
+    }
+    
+    @objc func nudgeAnimation() {
+        self.transform = CGAffineTransform(translationX: -20, y: 0);
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.15, initialSpringVelocity: 7.0, options: [], animations: {
+
+            self.transform = CGAffineTransform.identity
+        })
+    }
+}
+
+extension UIView {
+    func roundParticularCorners(_ radius: CGFloat, _ corners: CACornerMask) {
+        self.clipsToBounds = true
+        self.layer.cornerRadius = radius
+        self.layer.maskedCorners = corners
+    }
+}
+
+extension UIView {
+    func isLightTheme() -> Bool {
+        traitCollection.userInterfaceStyle == .light
     }
 }

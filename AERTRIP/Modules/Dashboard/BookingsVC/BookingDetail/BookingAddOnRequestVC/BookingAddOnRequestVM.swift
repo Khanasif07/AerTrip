@@ -9,14 +9,19 @@
 import UIKit
 
 protocol BookingAddOnRequestVMDelegate: class {
-    func getCaseHistorySuccess()
-    func getCaseHistoryFail()
+    func willGetCaseHistory(showProgress: Bool)
+    func getCaseHistorySuccess(showProgress: Bool)
+    func getCaseHistoryFail(showProgress: Bool)
     
     func makeRequestConfirmSuccess()
     func makeRequestConfirmFail()
     
     func getAddonPaymentItinerarySuccess()
     func getAddonPaymentItineraryFail()
+    
+    func willGetCommunicationDetail()
+    func getCommunicationDetailSuccess(htmlString: String, title: String,indexPath: IndexPath)
+    func getCommunicationDetailFail(indexPath: IndexPath)
 }
 
 class BookingAddOnRequestVM {
@@ -43,42 +48,67 @@ class BookingAddOnRequestVM {
     private func fetchCaseDetailData() {
         var temp: JSONDictionary = [:]
         
-        guard let caseD = caseData, let history = caseHistory else {
+        guard let history = caseHistory else {
             self.caseDetailData = temp
             return
         }
+        
+        var sortNum = 0
 
-        temp["00Case Status"] = caseD.resolutionStatus.rawValue
-        temp["01Agent"] = caseD.csrName.isEmpty ? LocalizedString.dash.localized : "🎧 \(caseD.csrName)"
+        temp["00Case Status"] = history.resolutionStatus.rawValue
+        if !history.csrName.isEmpty {
+            sortNum += 1
+            temp["0\(sortNum)Agent"] = history.csrName.isEmpty ? LocalizedString.dash.localized : history.csrName//"🎧 \(caseD.csrName)"
+        }
         
-        let dateStr = caseD.requestDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
-        temp["02Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr
-        temp["03Associate Booking ID"] = history.associatedBid.isEmpty ? LocalizedString.dash.localized : history.associatedBid
-        temp["04Reference Case ID"] = history.referenceCaseId.isEmpty ? LocalizedString.dash.localized : history.referenceCaseId
+        let dateStr = history.requestDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
+        if !dateStr.isEmpty {
+            sortNum += 1
+        temp["0\(sortNum)Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr
+        }
         
+        let closeDateStr = history.closedDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
+        if !closeDateStr.isEmpty {
+            sortNum += 1
+        temp["0\(sortNum)Closed on"] = closeDateStr.isEmpty ? LocalizedString.dash.localized : closeDateStr
+        }
+        
+        if !history.associatedBid.isEmpty {
+            sortNum += 1
+        temp["0\(sortNum)Associate Booking ID"] = history.associatedBid.isEmpty ? LocalizedString.dash.localized : history.associatedBid
+        }
+        if !history.referenceCaseId.isEmpty {
+            sortNum += 1
+        temp["0\(sortNum)Reference Case ID"] = history.referenceCaseId.isEmpty ? LocalizedString.dash.localized : history.referenceCaseId
+        }
+        var index = 0
         for (idx,val) in history.associatedVouchersArr.enumerated() {
+            if !val.isEmpty {
             if idx == 0 {
-                temp["1\(idx)Associate Voucher No."] = val.isEmpty ? LocalizedString.dash.localized : val
+                temp["1\(index)Associate Voucher No."] = val.isEmpty ? LocalizedString.dash.localized : val
             }
             else {
-                temp["1\(idx)"] = val
+                temp["1\(index)"] = val
+            }
+                index += 1
             }
         }
         
         self.caseDetailData = temp
     }
     
-    func getCaseHistory() {
+    func getCaseHistory(showProgress: Bool) {
+        self.delegate?.willGetCaseHistory(showProgress: showProgress)
         let param: JSONDictionary = ["case_id": caseData?.id ?? ""]
         APICaller.shared.getCaseHistory(params: param) { [weak self](success, errore, history) in
             guard let sSelf = self else {return}
             
             if success {
                 sSelf.caseHistory = history
-                sSelf.delegate?.getCaseHistorySuccess()
+                sSelf.delegate?.getCaseHistorySuccess(showProgress: showProgress)
             }
             else {
-                sSelf.delegate?.getCaseHistoryFail()
+                sSelf.delegate?.getCaseHistoryFail(showProgress: showProgress)
             }
         }
     }
@@ -117,4 +147,21 @@ class BookingAddOnRequestVM {
             }
         }
     }
+    
+    func getCommunicationDetail(commonHash: String, templateId: String, title: String, indexPath: IndexPath) {
+        self.delegate?.willGetCommunicationDetail()
+        let params = ["comm_hash": commonHash,"template_id": templateId]
+        APICaller.shared.getcommunicationDetailAPI(params: params) {[weak self] (success, errors, htmlString) in
+            if success {
+                self?.delegate?.getCommunicationDetailSuccess(htmlString: htmlString, title: title, indexPath: indexPath)
+            }
+            else {
+                self?.delegate?.getCommunicationDetailFail(indexPath: indexPath)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                
+            }
+        }
+    }
+    
 }
+

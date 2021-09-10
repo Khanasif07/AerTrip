@@ -7,16 +7,12 @@
 //
 
 import UIKit
-import Parchment
 
-struct AccountSelectedFilter {
-    var fromDate: Date? = nil
-    var toDate: Date? = nil
-    var voucherType: String = ""
-}
+
 
 protocol ADEventFilterVCDelegate: class {
-    func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?)
+    func applyFilter()
+    func clearAllFilter()
 }
 
 class ADEventFilterVC: BaseVC {
@@ -33,42 +29,39 @@ class ADEventFilterVC: BaseVC {
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var mainBackView: UIView!
     //MARK:- Properties
     //MARK:- Public
-    var voucherTypes: [String] = []
     weak var delegate: ADEventFilterVCDelegate?
-    var oldFilter: AccountSelectedFilter?
-    var minFromDate: Date?
     
     //MARK:- Private
-    private var selectedFilter: AccountSelectedFilter = AccountSelectedFilter()
-    private var currentIndex: Int = 0
-//    fileprivate weak var categoryView: ATCategoryView!
+    //    fileprivate weak var categoryView: ATCategoryView!
     
     // Parchment View
     private var parchmentView : PagingViewController?
     private let allTabsStr: [String] = [LocalizedString.DateSpan.localized, LocalizedString.VoucherType.localized]
-//    private var allTabs: [ATCategoryItem] {
-//        var temp = [ATCategoryItem]()
-//        for title in self.allTabsStr {
-//            var obj = ATCategoryItem()
-//            obj.title = title
-//            temp.append(obj)
-//        }
-//        return temp
-//    }
+    //    private var allTabs: [ATCategoryItem] {
+    //        var temp = [ATCategoryItem]()
+    //        for title in self.allTabsStr {
+    //            var obj = ATCategoryItem()
+    //            obj.title = title
+    //            temp.append(obj)
+    //        }
+    //        return temp
+    //    }
     private var allChildVCs: [UIViewController] = [UIViewController(), UIViewController()]
     
     private var travelDateVC = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
     private var adVoucherTypeVC = ADVoucherTypeVC.instantiate(fromAppStoryboard: .Account)
-    
+    private var filtersTabs =  [MenuItem]()
+
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
         
-        if !self.voucherTypes.isEmpty {
-            self.voucherTypes.insert("All", at: 0)
-        }
+//        if !ADEventFilterVM.shared.voucherTypes.isEmpty {
+//            ADEventFilterVM.shared.voucherTypes.insert(LocalizedString.ALL.localized, at: 0)
+//        }
         
         self.topNavBar.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isDivider: false)
         
@@ -79,51 +72,70 @@ class ADEventFilterVC: BaseVC {
         self.topNavBar.configureFirstRightButton(normalTitle: done, selectedTitle: done, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.mainContainerView.roundBottomCorners(cornerRadius: 10.0)
         
-        if let old = self.oldFilter {
-            self.selectedFilter = old
-        }
-        else {
-            self.selectedFilter = AccountSelectedFilter()
-            self.selectedFilter.fromDate = self.minFromDate
-            self.selectedFilter.toDate = Date()
-        }
-    
-        travelDateVC.oldToDate = self.oldFilter?.toDate
-        travelDateVC.oldFromDate = self.oldFilter?.fromDate
-        travelDateVC.minFromDate = self.minFromDate
+        
+        
+        travelDateVC.oldToDate = ADEventFilterVM.shared.toDate
+        travelDateVC.oldFromDate = ADEventFilterVM.shared.fromDate
+        travelDateVC.minFromDate = ADEventFilterVM.shared.minFromDate
+        travelDateVC.minDate = ADEventFilterVM.shared.minDate
+        travelDateVC.maxDate = ADEventFilterVM.shared.maxDate
+
         
         travelDateVC.delegate = self
         
         
         adVoucherTypeVC.delegate = self
-        adVoucherTypeVC.viewModel.allTypes = self.voucherTypes
         
         
-        if self.selectedFilter.voucherType.isEmpty {
-            self.didSelect(voucher: self.voucherTypes.first ?? "")
-        }
-        
-        if let vchr = self.oldFilter?.voucherType, let indx = self.voucherTypes.firstIndex(of: vchr) {
-            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: indx, section: 0)
-        }
-        else {
-            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
-        }
+        //        if self.selectedFilter.voucherType.isEmpty {
+        //            self.didSelect(voucher: self.voucherTypes.first ?? "")
+        //        }
+//        let vchr = ADEventFilterVM.shared.voucherType
+//        if let indx = ADEventFilterVM.shared.voucherTypes.firstIndex(of: vchr) {
+//            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: indx, section: 0)
+//        }
+//        else {
+//            adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
+//        }
         
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
-
-        self.hide(animated: false)
-        delay(seconds: 0.01) { [weak self] in
-            self?.setUpViewPager()
+        
+//        self.hide(animated: false)
+//        self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: -self.mainContainerView.height)
+        //        delay(seconds: 0.01) { [weak self] in
+        self.setUpViewPager()
+        //        }
+        //for header blur
+        // self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavBar.backgroundColor = AppColors.clear
+        mainBackView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+        DispatchQueue.main.async {
+            self.setupGesture()
+            self.checkDoneBtnState()
         }
-        self.setupGesture()
+        self.hide(animated: false)
+        self.show(animated: true)
+    }
+    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.show(animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.show(animated: true)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.parchmentView?.view.frame = self.childContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
     }
     
     override func viewDidLayoutSubviews() {
@@ -140,21 +152,30 @@ class ADEventFilterVC: BaseVC {
     }
     
     override func setupColors() {
-        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray40
+//        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray40
+        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray153
+        self.mainBackView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.childContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        
     }
     
     //MARK:- Methods
     //MARK:- Private
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.mainContainerViewTopConstraint.constant = 0.0
+            self.mainContainerView.transform = .identity
+//            self.mainContainerViewTopConstraint.constant = 0.0
+            self.mainBackView.alpha = 1.0
             self.view.layoutIfNeeded()
         })
     }
     
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.mainContainerViewTopConstraint.constant = -(self.mainContainerView.height)
+//            self.mainContainerViewTopConstraint.constant = -(self.mainContainerView.height)
+            self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: -self.mainContainerView.height)
+            self.mainBackView.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: { _ in
             if shouldRemove {
@@ -165,7 +186,11 @@ class ADEventFilterVC: BaseVC {
     
     
     private func setUpViewPager() {
-        self.currentIndex = 0
+        for i in 0..<(allTabsStr.count){
+            let obj = MenuItem(title: HotelFilterVM.shared.allTabsStr[i], index: i, isSelected: false)
+            filtersTabs.append(obj)
+        }
+        setBadgesOnAllCategories()
         self.allChildVCs.removeAll()
         self.allChildVCs.append(travelDateVC)
         self.allChildVCs.append(adVoucherTypeVC)
@@ -177,67 +202,67 @@ class ADEventFilterVC: BaseVC {
         setupParchmentPageController()
     }
     
-      // Added to replace the existing page controller, added Asif Khan
-      private func setupParchmentPageController(){
-          
+    // Added to replace the existing page controller, added Asif Khan
+    private func setupParchmentPageController(){
+        
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (UIDevice.screenWidth - 268.0)
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 59.0, bottom: 0.0, right: 46.0)
+        var textWidth: CGFloat = 0
+         allTabsStr.forEach { (str) in
+            textWidth += str.widthOfString(usingFont: AppFonts.Regular.withSize(16.0)) + 22
+         }
+         var menuItemSpacing: CGFloat = 0
+         if self.allTabsStr.count > 2 {
+             menuItemSpacing = (UIDevice.screenWidth - (textWidth))/4 //(textWidth + 28 + 28)/2 (screen width - textspace + leading and trailing constant space) / number of tabs - 1
+         } else {
+             menuItemSpacing = (UIDevice.screenWidth - (textWidth))/3 //(textWidth + 59.0 + 59.0)
+         }
+         self.parchmentView?.menuItemSpacing = menuItemSpacing
+         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: menuItemSpacing, bottom: 0.0, right:  menuItemSpacing)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50.0)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
         self.childContainerView.addSubview(self.parchmentView!.view)
-        
+        self.parchmentView?.menuBackgroundColor = AppColors.clear
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
-        self.parchmentView?.select(index: 0)
+        self.parchmentView?.select(index: ADEventFilterVM.shared.currentIndex)
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-      }
+    }
     
-//    private func setupPagerView() {
-//        var style = ATCategoryNavBarStyle()
-//        style.height = 50.0
-//        style.interItemSpace = (self.allTabsStr.count > 2) ? 50.0 : 55.0
-//        style.itemPadding = (self.allTabsStr.count > 2) ? 25.0 : 28.0
-//        style.isScrollable = false
-//        style.layoutAlignment = .left
-//        style.isEmbeddedToView = true
-//        style.showBottomSeparator = true
-//        style.bottomSeparatorColor = AppColors.themeGray40
-//        style.defaultFont = AppFonts.Regular.withSize(16.0)
-//        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-//        style.indicatorColor = AppColors.themeGreen
-//        style.normalColor = AppColors.textFieldTextColor51
-//        style.selectedColor = AppColors.themeBlack
-//        style.badgeDotSize = CGSize(width: 4.0, height: 4.0)
-//        style.badgeBackgroundColor = AppColors.themeGreen
-//        style.badgeBorderColor = AppColors.clear
-//        style.badgeBorderWidth = 0.0
-//
-//
-//        let categoryView = ATCategoryView(frame: self.childContainerView.bounds, categories: self.allTabs, childVCs: [travelDateVC, adVoucherTypeVC], parentVC: self, barStyle: style)
-//        categoryView.interControllerSpacing = 0.0
-//        categoryView.navBar.internalDelegate = self
-//        self.childContainerView.addSubview(categoryView)
-//        self.categoryView = categoryView
-//
-//        // Set last Selected Index on Nav bar
-//        self.categoryView.select(at: 0)
-//        self.setBadgesOnAllCategories()
-//    }
+    
     
     private func setBadgesOnAllCategories() {
+        
+        for (idx,tab) in self.allTabsStr.enumerated() {
+            
+            switch tab.lowercased() {
+            case LocalizedString.DateSpan.localized.lowercased():
+                if ADEventFilterVM.shared.toDate != nil || ADEventFilterVM.shared.fromDate != nil {
+                    filtersTabs[idx].isSelected = false
+                } else {
+                    filtersTabs[idx].isSelected = true
+                }
+                
+            case LocalizedString.VoucherType.localized.lowercased():
+                filtersTabs[idx].isSelected  = ADEventFilterVM.shared.selectedVoucherType.isEmpty
+                
+            default:
+                printDebug("not useable case")
+            }
+        }
     }
     
     private func setupGesture() {
@@ -246,9 +271,9 @@ class ADEventFilterVC: BaseVC {
         gestureRecognizer.numberOfTapsRequired = 1
         gestureRecognizer.numberOfTouchesRequired = 1
         gestureRecognizer.delegate = self
-        view.addGestureRecognizer(gestureRecognizer)
+        self.mainBackView.addGestureRecognizer(gestureRecognizer)
     }
-
+    
     //MARK:- Public
     
     
@@ -257,6 +282,16 @@ class ADEventFilterVC: BaseVC {
         
         self.hide(animated: true, shouldRemove: true)
     }
+    
+    private func checkDoneBtnState() {
+        if  ADEventFilterVM.shared.isFilterAplied {
+            self.topNavBar.leftButton.isEnabled = true
+            self.topNavBar.leftButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        } else {
+            self.topNavBar.leftButton.isEnabled = false
+            self.topNavBar.leftButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        }
+    }
 }
 
 //MARK:- Extensions
@@ -264,48 +299,79 @@ extension ADEventFilterVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //clear all
-        self.delegate?.adEventFilterVC(filterVC: self, didChangedFilter: nil)
-        self.hide(animated: true, shouldRemove: true)
+        ADEventFilterVM.shared.setToDefault()
+        self.delegate?.clearAllFilter()
+        self.allChildVCs.forEach { (viewController) in
+            if let vc = viewController as? TravelDateVC {
+                vc.oldToDate = ADEventFilterVM.shared.toDate
+                vc.oldFromDate = ADEventFilterVM.shared.fromDate
+//                vc.minFromDate = ADEventFilterVM.shared.minFromDate
+                vc.minDate  = ADEventFilterVM.shared.minFromDate
+                vc.maxDate = ADEventFilterVM.shared.maxDate
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? ADVoucherTypeVC {
+                vc.setFilterValues()
+            }
+        }
+        checkDoneBtnState()
+        reloadMenu()
+        // self.hide(animated: true, shouldRemove: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //done
-        self.delegate?.adEventFilterVC(filterVC: self, didChangedFilter: self.selectedFilter)
+        self.delegate?.applyFilter()
         self.hide(animated: true, shouldRemove: true)
     }
 }
 
-//MARK:- ATCategoryNavBarDelegate
-extension ADEventFilterVC: ATCategoryNavBarDelegate {
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        self.currentIndex = toIndex
-    }
-}
 
 //MARK:- UIGestureRecognizerDelegate Method
 extension ADEventFilterVC {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return (touch.view === self.view)
+        return (touch.view === self.mainBackView)
     }
 }
 
 extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
-
-    func didSelect(voucher: String) {
-        if !voucher.isEmpty, voucher.lowercased() != "all" {
-            self.selectedFilter.voucherType = voucher
-        }
-        else {
-            self.selectedFilter.voucherType = ""
-        }
+    
+    func didSelect() {
+//        if !voucher.isEmpty, voucher.lowercased() != "all" {
+//            ADEventFilterVM.shared.voucherType = voucher
+//        }
+//        else {
+//            ADEventFilterVM.shared.voucherType = ""
+//        }
+        self.delegate?.applyFilter()
+        checkDoneBtnState()
+        reloadMenu()
     }
     
-    func didSelect(toDate: Date, forType: TravelDateVC.UsingFor) {
-        self.selectedFilter.toDate = toDate
+    func didSelect(toDate: Date?, forType: TravelDateVC.UsingFor) {
+        ADEventFilterVM.shared.toDate = toDate
+        self.delegate?.applyFilter()
+        checkDoneBtnState()
+        reloadMenu()
     }
     
-    func didSelect(fromDate: Date, forType: TravelDateVC.UsingFor) {
-        self.selectedFilter.fromDate = fromDate
+    func didSelect(fromDate: Date?, forType: TravelDateVC.UsingFor) {
+        ADEventFilterVM.shared.fromDate = fromDate
+        self.delegate?.applyFilter()
+        checkDoneBtnState()
+        reloadMenu()
+    }
+    
+    func reloadMenu(){
+        DispatchQueue.main.async {
+        self.setBadgesOnAllCategories()
+        UIView.setAnimationsEnabled(false)
+        UIView.animate(withDuration: 0, animations: {
+            self.parchmentView?.reloadMenu()
+        }) { (_) in
+            UIView.setAnimationsEnabled(true)
+        }
+        }
     }
 }
 
@@ -319,27 +385,29 @@ extension ADEventFilterVC : PagingViewControllerDataSource , PagingViewControlle
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
+        return MenuItem(title: self.allTabsStr[index], index: index, isSelected: filtersTabs[index].isSelected )
     }
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         // depending onthe text size, give the width of the menu item
-        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+        if let pagingIndexItem = pagingItem as? MenuItem{
             let text = pagingIndexItem.title
             
-            let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font)
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+            return text.widthOfString(usingFont: font) + 20
         }
         
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        let pagingIndexItem = pagingItem as! PagingIndexItem
-        self.currentIndex = pagingIndexItem.index
+        if let pagingIndexItem = pagingItem as?  MenuItem {
+            ADEventFilterVM.shared.currentIndex = pagingIndexItem.index
+        }
     }
+    
 }
 
 

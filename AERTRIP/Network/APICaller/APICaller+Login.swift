@@ -48,7 +48,12 @@ extension APICaller {
                 
                 if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
                     
+                    
+                    let preferedCurrencyCode = jsonData[APIKeys.data.rawValue][APIKeys.preferred_currency.rawValue].stringValue
+                    
                     UserInfo.loggedInUserId = "\(id)"
+                    UserInfo.preferredCurrencyCode = preferedCurrencyCode
+                    
                     if let gen = userData[APIKeys.generalPref.rawValue] as? JSONDictionary {
                         userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
@@ -62,6 +67,12 @@ extension APICaller {
                     if let img = UserInfo.loggedInUser?.profileImagePlaceholder() {
                         UserInfo.loggedInUser?.profilePlaceholder = img
                     }
+                    
+                    CurrencyControler.shared.getCurrencies { (success, currencies, topCurrencies) in
+                        
+                    }
+                    
+//                    APICaller.shared.getCurrencies(completionBlock: {_ , _ in })
                 }
                 completionBlock(true, [])
                 
@@ -105,6 +116,9 @@ extension APICaller {
                         userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
+                    
+                    APICaller.shared.getCurrencies(completionBlock: {_ , _ in })
+                    
                 }
                 completionBlock(true, [])
                 
@@ -255,7 +269,7 @@ extension APICaller {
         
         AppNetworking.POST(endPoint: APIEndPoint.updateUserDetail, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
-            
+//            print(data)
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
                 if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
                     
@@ -264,6 +278,8 @@ extension APICaller {
                         userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
+                    
+                    APICaller.shared.getCurrencies(completionBlock: {_ , _ in })
                 }
                 completionBlock(true, [])
                 
@@ -294,6 +310,34 @@ extension APICaller {
         }
         
         AppNetworking.GET(endPoint: endPoint, parameters: params, loader: loader, success: { [weak self] (data) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                completionBlock(true, [], jsonData["data"]["email"].stringValue)
+                
+            }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
+                completionBlock(false, errors, "")
+            })
+            
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], "")
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
+            }
+        }
+    }
+    
+    //MARK: - Api for Validate From Token
+    //MARK: -
+    func callValidateFromTokenApi(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ email: String)->Void ) {
+        
+        AppNetworking.POST(endPoint: .validateFromToken, parameters: params, loader: loader, success: { [weak self] (data) in
             
             guard let sSelf = self else {return}
             

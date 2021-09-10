@@ -21,7 +21,7 @@ extension UIViewController{
         
         self.addChild(childViewController)
         let frame = self.view.bounds
-
+        
         childViewController.view.frame = frame
         self.view.addSubview(childViewController.view)
         
@@ -58,7 +58,7 @@ extension UIViewController{
             self.navigationController?.navigationBar.titleTextAttributes =   ttleTextAttributes
         }
     }
-
+    
     ///function to push the target from navigation Stack
     func pushToController(_ viewController:UIViewController, animated:Bool = true){
         
@@ -127,11 +127,11 @@ extension UIViewController{
                       optionsColor:UIColor = AppColors.themeGreen,
                       cameraDevice: UIImagePickerController.CameraDevice = .rear) {
         
-        let alertController = UIAlertController(title: "Choose from options", message: "", preferredStyle: UIAlertController.Style.actionSheet)
+        let alertController = UIAlertController(title: LocalizedString.chooseFromOption.localized, message: "", preferredStyle: UIAlertController.Style.actionSheet)
         
         if photoGallary {
             
-            let alertActionGallery = UIAlertAction(title: "Photo Library", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionGallery = UIAlertAction(title: LocalizedString.PhotoLibrary.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 self.checkAndOpenLibrary(delegate: delegate)
             }
             
@@ -140,7 +140,7 @@ extension UIViewController{
         }
         
         if camera{
-            let alertActionCamera = UIAlertAction(title: "Camera", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCamera = UIAlertAction(title: LocalizedString.Camera.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 
                 !UIDevice.isSimulator ? self.checkAndOpenCamera(delegate: delegate, cameraDevice: cameraDevice):self.checkAndOpenLibrary(delegate: delegate)
             }
@@ -148,7 +148,7 @@ extension UIViewController{
             alertActionCamera.setValue(optionsColor, forKey: "titleTextColor")
             alertController.addAction(alertActionCamera)
         }
-        let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { (action:UIAlertAction) in
+        let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.cancel) { (action:UIAlertAction) in
             
         }
         
@@ -184,7 +184,7 @@ extension UIViewController{
             }
             else if !UIDevice.isSimulator{
                 
-                self.showAlert(title: "", message: "Camera not available", buttonTitle: "OK", onCompletion: nil)
+                self.showAlert(title: "", message: LocalizedString.cameraNotAvailable.localized, buttonTitle: LocalizedString.Ok.localized.capitalized, onCompletion: nil)
             }
         }
         else {
@@ -203,7 +203,7 @@ extension UIViewController{
                         self.present(image_picker, animated: true, completion: nil)
                     }
                     else if !UIDevice.isSimulator{
-                        self.showAlert(title: "", message: "Camera not available", buttonTitle: "OK", onCompletion: nil)
+                        self.showAlert(title: "", message: LocalizedString.cameraNotAvailable.localized, buttonTitle: LocalizedString.Ok.localized.capitalized, onCompletion: nil)
                     }
                     }
                     
@@ -214,12 +214,12 @@ extension UIViewController{
             else {
                 if authStatus == AVAuthorizationStatus.restricted {
                     
-                    let alertController = UIAlertController(title: "", message: "You have been restricted from using the camera on this device Without camera access this feature wont work", preferredStyle: UIAlertController.Style.alert)
+                    let alertController = UIAlertController(title: "", message: LocalizedString.restrictedCameraUse.localized, preferredStyle: UIAlertController.Style.alert)
                     
-                    let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                    let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                         UIApplication.openSettingsApp
                     }
-                    let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                    let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                     }
                     alertController.addAction(alertActionSettings)
                     alertController.addAction(alertActionCancel)
@@ -227,12 +227,12 @@ extension UIViewController{
                 }
                 else {
                     
-                    let alertController = UIAlertController(title: "", message: "Please change your privacy setting from the Settings app and allow access to camera", preferredStyle: UIAlertController.Style.alert)
+                    let alertController = UIAlertController(title: "", message: LocalizedString.changeSettingForCameraUse.localized, preferredStyle: UIAlertController.Style.alert)
                     
-                    let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                    let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                         UIApplication.openSettingsApp
                     }
-                    let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                    let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                     }
                     alertController.addAction(alertActionSettings)
                     alertController.addAction(alertActionCancel)
@@ -247,24 +247,25 @@ extension UIViewController{
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
         case .authorized:
-            
-            let image_picker = UIImagePickerController()
-            image_picker.delegate = delegate
-            image_picker.modalPresentationStyle = .fullScreen
-            let sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.photoLibrary
-            image_picker.sourceType = sourceType
-            image_picker.allowsEditing=true
-            self.present(image_picker, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                let image_picker = UIImagePickerController()
+                image_picker.delegate = delegate
+                image_picker.modalPresentationStyle = .fullScreen
+                let sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.photoLibrary
+                image_picker.sourceType = sourceType
+                image_picker.allowsEditing=true
+                self.present(image_picker, animated: true, completion: nil)
+            }
             
         //handle authorized status
         case .denied:
             
-            let alertController = UIAlertController(title: "", message: "Please change your privacy setting from the Settings app and allow access to library", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.changeSettingForLibraryUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
             }
             alertController.addAction(alertActionSettings)
             alertController.addAction(alertActionCancel)
@@ -272,12 +273,12 @@ extension UIViewController{
             
         case .restricted :
             
-            let alertController = UIAlertController(title: "", message: "You have been restricted from using the library on this device Without camera access this feature wont work", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.restrictedLibraryUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
             }
             alertController.addAction(alertActionSettings)
             alertController.addAction(alertActionCancel)
@@ -354,6 +355,28 @@ extension UIViewController{
         
         self.view.addSubview(blurView)
     }
+    
+    func makePhoneCall(phoneNumber: String) {
+        var uc = URLComponents()
+        uc.scheme = "tel"
+        uc.path = phoneNumber
+        
+        if let phoneURL = uc.url {
+            let alert = UIAlertController(title: phoneNumber, message: nil, preferredStyle: .alert)
+            alert.view.tintColor = AppColors.themeGreen
+            alert.addAction(UIAlertAction(title: LocalizedString.Call.localized, style: .default, handler: { _ in
+                if UIApplication.shared.canOpenURL(phoneURL){
+                    UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
+                }else{
+                    AppToast.default.showToastMessage(message: LocalizedString.callingNotAvailable.localized)
+                }
+            }))
+            alert.addAction(UIAlertAction(title: LocalizedString.Cancel.localized, style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 extension UINavigationController {
@@ -373,12 +396,12 @@ extension UIViewController {
         
         if CNContactStore.authorizationStatus(for: .contacts) == .denied {
             flag = false
-            let alertController = UIAlertController(title: "", message: "Please change your privacy setting from the Settings app and allow access to Contacts", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.changeSettingForContactsUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 printDebug("Cancel tapped")
                 canceled?()
             }
@@ -388,12 +411,12 @@ extension UIViewController {
         }
         else if CNContactStore.authorizationStatus(for: .contacts) == .restricted {
             flag = false
-            let alertController = UIAlertController(title: "", message: "You have been restricted from accessing the contacts on this device without contacts access this feature wont work", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.restrictedContactsUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 printDebug("Cancel tapped")
                 canceled?()
             }
@@ -408,23 +431,24 @@ extension UIViewController {
         return flag
     }
     
-    func fetchContacts(complition: @escaping ((_ contacts: [CNContact]) -> Void), canceled: (() -> Void)? = nil) {
+    func fetchContacts(complition: @escaping ((_ contacts: [CNContact]) -> Void), canceled: (() -> Void)? = nil, authorizied: (() -> ())? = nil) {
         
         func retrieveContactsWithStore(_ store: CNContactStore) {
-
+            
             let contactStore = CNContactStore()
             let keysToFetch = [
                 CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
                 CNContactEmailAddressesKey,
                 CNContactPhoneNumbersKey,
-                CNContactImageDataKey,CNContactBirthdayKey] as [Any]
+                CNContactImageDataKey,CNContactBirthdayKey,CNContactPostalAddressesKey] as [Any]
+            // CNContactNoteKey
             
             // Get all the containers
             var allContainers: [CNContainer] = []
             do {
                 allContainers = try contactStore.containers(matching: nil)
             } catch {
-                print("Error fetching containers")
+                printDebug("Error fetching containers")
             }
             
             var results: [CNContact] = []
@@ -434,10 +458,10 @@ extension UIViewController {
                 let fetchPredicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
                 
                 do {
-                    let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+                    let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch as? [CNKeyDescriptor] ?? [])
                     results.append(contentsOf: containerResults)
                 } catch {
-                    print("Error fetching results for container")
+                    printDebug("Error fetching results for container")
                 }
             }
             
@@ -447,9 +471,10 @@ extension UIViewController {
         let store = CNContactStore()
         
         if CNContactStore.authorizationStatus(for: .contacts) == .notDetermined {
-
+            
             store.requestAccess(for: .contacts) { (authorized, error) in
                 if authorized {
+                    authorizied?()
                     retrieveContactsWithStore(store)
                 }
                 else {
@@ -460,9 +485,81 @@ extension UIViewController {
                 }
             }
         } else if self.isContactsAuthorized(canceled: {
-             canceled?()
+            canceled?()
         }) {
             retrieveContactsWithStore(store)
         }
+    }
+}
+
+extension UIViewController {
+    
+    func presentAsPushAnimation(_ viewControllerToPresent: UIViewController) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        viewControllerToPresent.view.isHidden = true
+        DispatchQueue.main.async {
+            self.present(viewControllerToPresent, animated: false){
+                viewControllerToPresent.view.isHidden = false
+                viewControllerToPresent.view.layer.add(transition, forKey: kCATransition)
+            }
+        }
+    }
+    
+    func dismissAsPopAnimation(complition: (()->())? = nil) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        self.view.window?.layer.add(transition, forKey: kCATransition)
+        
+        dismiss(animated: false, completion: complition)
+    }
+    
+    func dismissAsPopAnimationWithReveal(complition: (()->())? = nil) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        self.view.window?.layer.add(transition, forKey: kCATransition)
+        dismiss(animated: false, completion: complition)
+    }
+    
+    
+    func openUrl(_ urlString: String) {
+        if let url = URL(string: urlString)
+        {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            else {
+                if UIApplication.shared.canOpenURL(url as URL) {
+                    UIApplication.shared.openURL(url as URL)
+                }
+            }
+        }
+    }
+}
+
+
+// MARK: Added by Rishabh
+@objc extension UIViewController {
+//    func hideKeyboardWhenTappedAround() {
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+//        tap.cancelsTouchesInView = true
+//        view.addGestureRecognizer(tap)
+//    }
+//
+//    @objc private func dismissKeyboard() {
+//        view.endEditing(true)
+//    }
+    
+    @objc func isLightTheme() -> Bool {
+        traitCollection.userInterfaceStyle == .light
     }
 }

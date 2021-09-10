@@ -18,9 +18,11 @@ class QueryStatusCollectionCell: UICollectionViewCell {
     //================
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var iconHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var iconTrailingConstraint: NSLayoutConstraint!
     
     var statusText: String = "" {
         didSet {
@@ -35,37 +37,45 @@ class QueryStatusCollectionCell: UICollectionViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.statusView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     //MARK:- Functions
     //================
     private func configUI() {
-        self.statusLabel.textColor = AppColors.themeBlack
+        self.statusLabel.textColor = AppColors.themeGray60
         self.statusLabel.font = AppFonts.Regular.withSize(14.0)
         self.backgroundColor = AppColors.clear
         self.containerView.backgroundColor = AppColors.clear
         self.clipsToBounds = true
+        self.statusView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setData() {
         self.statusLabel.text = self.statusText
         self.statusImageView.image = nil
         
-        self.statusLabel.textColor = AppColors.themeBlack
+        self.statusLabel.textColor = AppColors.themeGray60
         if self.statusText.lowercased().hasSuffix("successful") {
-            self.iconHeightConstraint.constant = 22.0
-            self.statusImageView.image = #imageLiteral(resourceName: "checkIcon")
-        }
-        else if self.statusText.lowercased().hasSuffix("required") {
+            self.iconHeightConstraint.constant = 22
+            self.iconTrailingConstraint.constant = -7
+            self.statusImageView.image = AppImages.checkIcon
+        } else if self.statusText.lowercased().hasSuffix("required") {
             self.iconHeightConstraint.constant = 8.0
-            self.statusImageView.image = #imageLiteral(resourceName: "ic_red_dot")
-        }
-        else if self.statusText.lowercased().hasSuffix("pending") {
+            self.iconTrailingConstraint.constant = 0
+            self.statusImageView.image = AppImages.ic_red_dot
+        } else if self.statusText.lowercased().hasSuffix("pending") {
             self.iconHeightConstraint.constant = 8.0
-            self.statusImageView.image = #imageLiteral(resourceName: "ic_red_dot")
-        }
-        else if self.statusText.lowercased().hasSuffix("aborted") {
-            self.statusLabel.textColor = AppColors.themeGray20
+            self.iconTrailingConstraint.constant = 0
+            self.statusImageView.image = AppImages.ic_red_dot
+        } else if self.statusText.lowercased().hasSuffix("aborted") ||
+                    self.statusText.lowercased().hasSuffix("terminated") {
+            self.statusLabel.textColor = AppColors.themeGray40
             self.statusImageView.image = nil
             self.iconHeightConstraint.constant = 0.0
+            self.iconTrailingConstraint.constant = 8
         }
     }
     

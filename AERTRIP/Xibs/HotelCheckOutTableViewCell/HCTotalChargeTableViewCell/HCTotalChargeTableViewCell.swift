@@ -27,6 +27,11 @@ class HCTotalChargeTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        self.totalCostLabel.attributedText = nil
+        self.configUI()
+    }
+    
     //Mark:- Methods
     //==============
     ///COnfigure UI
@@ -41,11 +46,18 @@ class HCTotalChargeTableViewCell: UITableViewCell {
         self.totalChargeLabel.textColor = AppColors.themeBlack
         self.totalCostLabel.textColor = AppColors.themeBlack
         self.paymentModeLabel.textColor = AppColors.themeGray40
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
-    ///COnfigure Cell
+    ///Configure Cell
     internal func configCell(mode: String , totalCharge: String) {
         self.paymentModeLabel.text = mode.capitalizedFirst()
-        self.totalCostLabel.text = "\(totalCharge)"
+        self.totalCostLabel.attributedText = "\(totalCharge)".asStylizedPrice(using: AppFonts.SemiBold.withSize(26.0))
+    }
+    
+    
+    internal func configCellWithAmount(mode: String , totalCharge: Double) {
+        self.paymentModeLabel.text = mode.capitalizedFirst()
+        self.totalCostLabel.attributedText = (totalCharge).getConvertedAmount(using: AppFonts.SemiBold.withSize(26.0))
     }
 }

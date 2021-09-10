@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "TA OWL@1x.png",
       "idiom" : "universal",
-      "filename" : "tripAdviser.png",
       "scale" : "1x"
     },
     {
+      "filename" : "TA OWL@2x.png",
       "idiom" : "universal",
-      "filename" : "tripAdviser@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "TA OWL@3x.png",
       "idiom" : "universal",
-      "filename" : "tripAdviser@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

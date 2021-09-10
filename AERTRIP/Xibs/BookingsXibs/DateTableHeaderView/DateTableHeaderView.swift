@@ -19,6 +19,8 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var dateLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var dataLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topDividerView: ATDividerView!
+    @IBOutlet weak var bottomDividerView: ATDividerView!
     
     //Mark:- LifeCycle
     //================
@@ -44,6 +46,8 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
         self.configUI()
+        self.topDividerView.isHidden = true
+        self.bottomDividerView.isHidden = true
     }
     
     ///ConfigureUI
@@ -57,6 +61,18 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
         self.dateLabel.text = date
         self.dateLabelTopConstraint.constant = isFirstHeaderView ? 16.0 : 25.0
         self.dataLabelBottomConstraint.constant = 5.0
+    }
+    
+    internal func configViewForBooking(date: String , isFirstHeaderView: Bool) {
+        self.dateLabel.font = AppFonts.SemiBold.withSize(16.0)
+        self.dateLabel.text = date
+        self.dateLabelTopConstraint.constant = isFirstHeaderView ? 10 : 0
+        self.dataLabelBottomConstraint.constant = 0
+        self.topDividerView.isHidden = true
+        self.bottomDividerView.isHidden = true
+        self.contentView.backgroundColor = AppColors.themeWhite
+        self.backgroundColor = AppColors.themeWhite
+        self.contentView.layoutIfNeeded()
     }
 }
 

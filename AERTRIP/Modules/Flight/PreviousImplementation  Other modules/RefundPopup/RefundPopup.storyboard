@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Refund Popup View Controller-->
+        <scene sceneID="xXR-DE-3UU">
+            <objects>
+                <viewController storyboardIdentifier="RefundPopupController" id="sgT-ni-2NP" customClass="RefundPopupViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="duU-JE-LE3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJB-CO-sOc">
+                                <rect key="frame" x="25" y="100" width="270" height="245"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refund Amount" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VeD-LD-bxr">
+                                        <rect key="frame" x="74.5" y="16" width="121" height="23"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 8,000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1w-sW-GGp">
+                                        <rect key="frame" x="93.5" y="39" width="82.5" height="35.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This will cancel this booking and the amount will be refunded to your {ModeOfPayment}" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="701-gH-GgS">
+                                        <rect key="frame" x="16" y="79.5" width="238" height="53"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Srq-ob-8Lx" userLabel="LineView">
+                                        <rect key="frame" x="-0.5" y="154.5" width="270" height="1"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="lqQ-Jr-i0k"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGF-Yo-jke">
+                                        <rect key="frame" x="103" y="160.5" width="63" height="35"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                        <state key="normal" title="Confirm">
+                                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="confirmAction:" destination="sgT-ni-2NP" eventType="touchUpInside" id="CdM-yU-RJ7"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpo-Lk-hnt" userLabel="LineView">
+                                        <rect key="frame" x="-0.5" y="200" width="270" height="1"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="9aU-Pe-vAR"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eOn-5h-dSq">
+                                        <rect key="frame" x="109" y="206" width="51" height="35"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelAction:" destination="sgT-ni-2NP" eventType="touchUpInside" id="Wyu-dr-VDZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="F1w-sW-GGp" firstAttribute="centerX" secondItem="VeD-LD-bxr" secondAttribute="centerX" id="093-1E-q0e"/>
+                                    <constraint firstItem="iGF-Yo-jke" firstAttribute="top" secondItem="Srq-ob-8Lx" secondAttribute="bottom" constant="5" id="2fy-Ac-vqk"/>
+                                    <constraint firstItem="Srq-ob-8Lx" firstAttribute="top" secondItem="701-gH-GgS" secondAttribute="bottom" constant="22" id="60z-LV-4G8"/>
+                                    <constraint firstAttribute="width" constant="270" id="9b6-Rp-SFa"/>
+                                    <constraint firstItem="gpo-Lk-hnt" firstAttribute="top" secondItem="Srq-ob-8Lx" secondAttribute="bottom" constant="44" id="Bb6-06-Xdw"/>
+                                    <constraint firstItem="VeD-LD-bxr" firstAttribute="centerX" secondItem="BJB-CO-sOc" secondAttribute="centerX" id="F5a-x9-aU9"/>
+                                    <constraint firstItem="eOn-5h-dSq" firstAttribute="centerX" secondItem="gpo-Lk-hnt" secondAttribute="centerX" id="FxK-Qv-bnh"/>
+                                    <constraint firstItem="701-gH-GgS" firstAttribute="leading" secondItem="BJB-CO-sOc" secondAttribute="leading" constant="16" id="IlJ-rL-94o"/>
+                                    <constraint firstItem="gpo-Lk-hnt" firstAttribute="centerX" secondItem="BJB-CO-sOc" secondAttribute="centerX" id="MUx-2i-Gun"/>
+                                    <constraint firstItem="eOn-5h-dSq" firstAttribute="top" secondItem="gpo-Lk-hnt" secondAttribute="bottom" constant="5" id="Wic-Be-BvZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="gpo-Lk-hnt" secondAttribute="bottom" constant="44" id="b5P-EY-s3Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="701-gH-GgS" secondAttribute="trailing" constant="16" id="dCX-JE-pzd"/>
+                                    <constraint firstItem="VeD-LD-bxr" firstAttribute="top" secondItem="BJB-CO-sOc" secondAttribute="top" constant="16" id="fcv-g0-woY"/>
+                                    <constraint firstItem="F1w-sW-GGp" firstAttribute="top" secondItem="VeD-LD-bxr" secondAttribute="bottom" id="h6P-zu-YAX"/>
+                                    <constraint firstItem="Srq-ob-8Lx" firstAttribute="centerX" secondItem="BJB-CO-sOc" secondAttribute="centerX" id="lqN-ow-qqm"/>
+                                    <constraint firstItem="gpo-Lk-hnt" firstAttribute="width" secondItem="BJB-CO-sOc" secondAttribute="width" id="mWz-vt-6s5"/>
+                                    <constraint firstItem="Srq-ob-8Lx" firstAttribute="width" secondItem="BJB-CO-sOc" secondAttribute="width" id="oYa-qJ-wq1"/>
+                                    <constraint firstItem="701-gH-GgS" firstAttribute="top" secondItem="F1w-sW-GGp" secondAttribute="bottom" constant="5" id="rpU-8g-qE9"/>
+                                    <constraint firstItem="iGF-Yo-jke" firstAttribute="centerX" secondItem="BJB-CO-sOc" secondAttribute="centerX" id="vrK-v5-4Ke"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.boundToMask" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="BJB-CO-sOc" firstAttribute="centerX" secondItem="lsP-5z-tjD" secondAttribute="centerX" id="0y8-jF-rxE"/>
+                            <constraint firstItem="BJB-CO-sOc" firstAttribute="top" secondItem="lsP-5z-tjD" secondAttribute="top" constant="80" id="evz-Qu-vYq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lsP-5z-tjD"/>
+                    </view>
+                    <connections>
+                        <outlet property="paymentModeDescriptionLabel" destination="701-gH-GgS" id="Pdn-tj-Hui"/>
+                        <outlet property="refundAmountLabel" destination="F1w-sW-GGp" id="yyV-Ea-8BU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1zW-0G-mVc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="175" y="262"/>
+        </scene>
+    </scenes>
+</document>

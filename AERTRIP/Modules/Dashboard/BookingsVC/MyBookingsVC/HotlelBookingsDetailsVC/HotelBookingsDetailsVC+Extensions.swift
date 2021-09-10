@@ -8,6 +8,7 @@
 
 import MXParallaxHeader
 import UIKit
+import PassKit
 
 // MARK: - Extensions
 
@@ -26,7 +27,8 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
         switch currentSection[indexPath.row] {
         case .hotelBookingInfoCell:
-            return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddress ?? "NA").sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: (UIDevice.screenWidth - 50.0), height: 10000.0)).height + 190.0
+            return UITableView.automaticDimension
+            //return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddress ?? "NA").sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: (UIDevice.screenWidth - 64.0), height: 10000.0)).height + 190.0
         case .roomNameAndTypeCell:
             return UITableView.automaticDimension
         case .travellersCell:
@@ -64,24 +66,27 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         case .mobileCell:
             return UITableView.automaticDimension
         case .gstCell:
-            return UITableView.automaticDimension
+            return self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? true ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
         case .billingAddressCell:
             return UITableView.automaticDimension
         case .flightsOptionsCell:
             return UITableView.automaticDimension
-        case .weatherHeaderCell:
-            return UITableView.automaticDimension
-        case .weatherInfoCell:
-            return UITableView.automaticDimension
-        case .weatherFooterCell:
-            return UITableView.automaticDimension
+        case .weatherHeaderCell, .weatherInfoCell, .weatherFooterCell:
+            return (self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true) ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
         case .addToCalenderCell:
             return UITableView.automaticDimension
         case .addToAppleWallet:
             return UITableView.automaticDimension
         case .tripChangeCell:
             return UITableView.automaticDimension
+        case .bookAnotherRoomCell:
+            return UITableView.automaticDimension
+        default:
+            return UITableView.automaticDimension
         }
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -113,6 +118,8 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getAddOnsCell(tableView, indexPath: indexPath)
         case .cancellationCell:
             return self.getCancellationCell(tableView, indexPath: indexPath)
+        case .reschedulingCell:
+            return self.getReschedulingCell(tableView, indexPath: indexPath)
         case .refundCell:
             return self.getRefundCell(tableView, indexPath: indexPath)
         case .paymentPendingCell:
@@ -143,40 +150,79 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getAddToWalletCell(tableView, indexPath: indexPath)
         case .tripChangeCell:
             return self.getTripChangeCell(tableView, indexPath: indexPath)
+        case .bookAnotherRoomCell:
+            return self.getBookAnotherRoomCell(tableView, indexPath: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
-        
-        
-        if self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false, indexPath.section == 0, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
-            // cases
-            AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
-        }
-            
-        else if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false), indexPath.section == 1, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
-            // cases
-            
-            AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
-        } else if indexPath.section <= self.viewModel.noOfLegCellAboveLeg {
-            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail,hotelTitle: self.navigationTitleText)
-        } else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
-            printDebug("Trip change table view Cell tapped")
-            self.tripChangeIndexPath = indexPath
-            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
-        }
-        else if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
-            if cell.usingFor == .addToCalender {
-                self.addToCalender()
-            } else {
-                self.addToAppleWallet()
+        let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
+        switch currentSection[indexPath.row] {
+        case .hotelBookingInfoCell, .roomNameAndTypeCell, .travellersCell :
+            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail,hotelTitle: self.navigationTitleText, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+        case .cancellationsReqCell, .addOnRequestCell, .reschedulingRequestCell :
+            if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+                AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
             }
+        case .tripChangeCell:
+            self.tripChangeIndexPath = indexPath
+            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo(), dismissalStatusBarStyle: .darkContent)
+        case .addToAppleWallet :
+            self.addToAppleWallet(indexPath: indexPath)
+        case .addToCalenderCell:
+            self.addToCalender()
+        case .bookAnotherRoomCell:
+            self.bookAnotherRoom()
+        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell, .paidCell, .reschedulingCell:
+            if let rcpt = self.viewModel.bookingDetail?.receipt {
+                AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
+            }
+        case .paymentPendingCell: self.getOutstandingDetails()
+        default:  break
         }
-        else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
-            //move to voucher vc
-            AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
-        }
+        
+        /*
+         if self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false, indexPath.section == 0, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+         // cases
+         AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
+         }
+         
+         else if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false), indexPath.section == 1, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+         // cases
+         
+         AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
+         } else if indexPath.section <= self.viewModel.noOfLegCellAboveLeg {
+         AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail,hotelTitle: self.navigationTitleText)
+         } else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
+         printDebug("Trip change table view Cell tapped")
+         self.tripChangeIndexPath = indexPath
+         AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
+         }
+         else if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+         switch cell.usingFor {
+         case .addToCalender:
+         self.addToCalender()
+         case .addToTrips:
+         AppGlobals.shared.showUnderDevelopment()
+         case .bookSameFlight:
+         AppGlobals.shared.showUnderDevelopment()
+         case .addToAppleWallet:
+         AppGlobals.shared.showUnderDevelopment()
+         case .bookAnotherRoom:
+         AppGlobals.shared.showUnderDevelopment()
+         }
+         }
+         else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
+         //move to voucher vc
+         AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
+         }
+         */
+    }
+    
+    func getOutstandingDetails(){
+        
+        self.viewModel.getBookingOutstandingPayment()
     }
 }
 
@@ -186,23 +232,45 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequest.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized], colors: [self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.specialRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        if self.viewModel.bookingDetail == nil {
+            return
+        }
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
+        var isHotelBooked = false
+        if self.viewModel.bookingDetail?.bookingStatus.rawValue.lowercased() == "booked"{
+            isHotelBooked = true
+        }
+
+
+        
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequestNonCaps.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized, LocalizedString.reloadDetail.localized], colors: [self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.specialRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, isHotelBooked ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, isFromBooking: true, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: {[weak self]  _, index in
             switch index {
             case 0:
-                if let bdtl = self.viewModel.bookingDetail, bdtl.cancellationRequestAllowed {
+                if let bdtl = self?.viewModel.bookingDetail, bdtl.cancellationRequestAllowed {
                     printDebug("Process Cancellation")
-                    AppFlowManager.default.presentToHotelCancellationVC(bookingDetail: bdtl)
+                    
+                    let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsProcessCancellationBookingId": bdtl.id ]
+                    FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsProcessCancellationOptionSelected, value: jsonDict)
+
+
+                    AppFlowManager.default.presentToHotelCancellationVC(bookingDetail: bdtl, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
                 else {
                     printDebug("Process Cancellation not allowed")
                 }
                 
             case 1:
-                if let bdtl = self.viewModel.bookingDetail, bdtl.specialRequestAllowed {
-                    AppFlowManager.default.moveToSpecialRequestVC(forBookingId: bdtl.bookingDetail?.bookingId ?? "")
+                if let bdtl = self?.viewModel.bookingDetail, bdtl.specialRequestAllowed {
+
                     printDebug("Special Request")
+                    
+                    let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsProcessSpecialRequestBookingId": bdtl.id ]
+                    FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsProcessSpecialRequestOptionSelected, value: jsonDict)
+
+                    AppFlowManager.default.moveToSpecialRequestVC(forBookingId: bdtl.bookingDetail?.bookingId ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+
                 }
                 else {
                     printDebug("Special Request not allowed")
@@ -210,11 +278,28 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 
             case 2:
                 printDebug("Download ")
-                let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self.viewModel.bookingDetail?.id ?? "")"
+                
+                let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsDownloadDetailsBookingId": self?.viewModel.bookingDetail?.id ?? ""]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsDownloadDetailsOptionSelected, value: jsonDict)
+
+                let endPoint = "\(APIEndPoint.baseUrlPath.rawValue)dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoint, screenTitle: LocalizedString.Voucher.localized)
+                
             case 3:
-                AppGlobals.shared.showUnderDevelopment()
                 printDebug("Resend Confirmation mail ")
+                
+                let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsResendConfirmationMailBookingId": self?.viewModel.bookingDetail?.id ?? ""]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsResendConfirmationMailOptionSelected, value: jsonDict)
+
+
+                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+            case 4:
+                            printDebug("reload result")
+                
+                let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsReloadDetailsBookingId": self?.viewModel.bookingDetail?.id ?? ""]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsReloadDetailsOptionSelected, value: jsonDict)
+
+                self?.viewModel.getBookingDetail(showProgress: true)
             default:
                 printDebug("default")
             }
@@ -237,16 +322,16 @@ extension HotlelBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
             printDebug(request)
             sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .downloading
             sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadRequest = request
-        }, progressUpdate: { [weak self] progress in
-            guard let sSelf = self else { return }
-            sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].progressUpdate?(progress)
-        }, success: { [weak self] success in
-            guard let sSelf = self else { return }
-            sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .downloaded
-            UIView.performWithoutAnimation {
-                sSelf.bookingDetailsTableView.reloadData()
-            }
-            printDebug(success)
+            }, progressUpdate: { [weak self] progress in
+                guard let sSelf = self else { return }
+                sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].progressUpdate?(progress)
+            }, success: { [weak self] success in
+                guard let sSelf = self else { return }
+                sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .downloaded
+                UIView.performWithoutAnimation {
+                    sSelf.bookingDetailsTableView.reloadData()
+                }
+                printDebug(success)
         }) { [weak self] error in
             guard let sSelf = self else { return }
             sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .notDownloaded
@@ -268,24 +353,105 @@ extension HotlelBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
 //==========================
 extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
     
-  
-    func updateForParallexProgress() {
+    
+    //    func updateForParallexProgress() {
+    //        let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
+    //
+    //        printDebug("progress %f \(prallexProgress)")
+    //        if prallexProgress <= 0.5 {
+    //            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+    //                guard let sSelf = self else { return }
+    //                sSelf.topNavBar.firstRightButton.isSelected = true
+    //                sSelf.topNavBar.leftButton.isSelected = true
+    //                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
+    //
+    //                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.navigationTitleText ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+    //                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
+    //                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
+    //                sSelf.topNavBar.dividerView.isHidden = false
+    //            }
+    //        } else {
+    //            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+    //                guard let sSelf = self else { return }
+    //                sSelf.topNavBar.firstRightButton.isSelected = false
+    //                sSelf.topNavBar.leftButton.isSelected = false
+    //                sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
+    //                sSelf.topNavBar.navTitleLabel.text = ""
+    //                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
+    //                sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
+    //                sSelf.topNavBar.dividerView.isHidden = true
+    //            }
+    //        }
+    //        self.headerView?.layoutIfNeeded()
+    //    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
+    }
+    
+    @objc func updateForParallexProgress() {
         let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
+        printDebug("intial progress value \(prallexProgress)")
         
-        printDebug("progress %f \(prallexProgress)")
-        if prallexProgress <= 0.5 {
-            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
-                guard let sSelf = self else { return }
-                sSelf.topNavBar.firstRightButton.isSelected = true
-                sSelf.topNavBar.leftButton.isSelected = true
-                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
+        printDebug("progress value \(prallexProgress)")
+        
+        
+        if isScrollingFirstTime && prallexProgress > 1.0 {
+            maxValue = prallexProgress
+            minValue = abs(1 - prallexProgress)
+            finalMaxValue = Int(maxValue * 100)
+            isScrollingFirstTime = false
+            printDebug("minvalue \(minValue) and maxValue \(maxValue)")
+        }
+        //
+        //
+        if minValue...maxValue ~= prallexProgress {
+            printDebug("progress value \(prallexProgress)")
+            let intValue =  finalMaxValue - Int(prallexProgress * 100)
+            
+            printDebug(" int value \(intValue)")
+            let newProgress: Float = (Float(1) - (Float(1.3)  * (Float(intValue) / 100)))
+            
+            printDebug("new progress value \(newProgress)")
+            
+            
+            printDebug("CGFloat progress  Value is \(newProgress.toCGFloat.roundTo(places: 3))")
+            
+            self.currentProgressIntValue = intValue
+            self.currentProgress = newProgress.toCGFloat
+            
+        }
+        //
+        if prallexProgress  <= 0.7 {
+            if isNavBarHidden {
                 
-                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.navigationTitleText ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
-                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
-                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
-                sSelf.topNavBar.dividerView.isHidden = false
+                self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavBar.firstRightButton.isSelected = false
+                    sSelf.topNavBar.leftButton.isSelected = false
+                    sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
+                    sSelf.topNavBar.navTitleLabel.text = ""
+                    sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
+                    sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
+                    sSelf.topNavBar.dividerView.isHidden = true
+                }
+                
+            } else {
+                
+                self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavBar.firstRightButton.isSelected = true
+                    sSelf.topNavBar.leftButton.isSelected = true
+                    sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
+                    
+                    sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.navigationTitleText ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+                    sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
+                    sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
+                    sSelf.topNavBar.dividerView.isHidden = false
+                }
             }
         } else {
+            
             self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = false
@@ -296,24 +462,41 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
                 sSelf.topNavBar.dividerView.isHidden = true
             }
+            
         }
-        self.headerView?.layoutIfNeeded()
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.updateForParallexProgress()
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.updateForParallexProgress()
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.updateForParallexProgress()
+//        self.topNavBar.backView.backgroundColor = AppColors.clear
+        self.isNavBarHidden = false
+        
     }
 }
 
 extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
+    
+    func addToCalendar() {
+        addToCalender()
+    }
+    
+    func share() {
+        if let url = viewModel.bookingDetail?.shareUrl{
+            if !url.isEmpty{
+                let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsUrlToShare":url]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsShareOptionSelected, value: jsonDict)
+
+                let textToShare = [ "I have Booked the Hotel with Aertrip\n\(url)" ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                
+                self.present(activityViewController, animated: true, completion: nil)
+            }
+
+        }
+
+    }
+    
+    func bookSameFlightOrRoom() {
+        bookAnotherRoom()
+    }
+    
     func addToTrips() {
         AppGlobals.shared.showUnderDevelopment()
     }
@@ -323,29 +506,124 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func openDirections() {
+        let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsOpenDirectionsBookingId":viewModel.bookingId]
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsOpenDirectionsOptionSelected, value: jsonDict)
+
         
         // Need to Booking Direction VC
         AppGlobals.shared.redirectToMap(sourceView: self.view, originLat: "", originLong: "", destLat: self.viewModel.bookingDetail?.bookingDetail?.latitude ?? "", destLong: self.viewModel.bookingDetail?.bookingDetail?.longitude ?? "")
     }
     
     func openCallDetail() {
-        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo,usingFor: .hotel,hotel: self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? "")
+        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo,usingFor: .hotel,hotel: self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
     }
     
     func addToCalender() {
+                
+        let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsAddToCalenderBookingId":self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""]
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsAddToCalenderOptionSelected, value: jsonDict)
+
+
         if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
             let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
-            AppGlobals.shared.addEventToCalender(title: "Hotel Booking: \(bId)", startDate: start, endDate: end, notes: "You've a booking in '\(self.navigationTitleText)' hotel.\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
+            
+            let title = "Hotel: \(self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""), \(self.viewModel.bookingDetail?.bookingDetail?.city ?? "")"
+            let location = self.viewModel.bookingDetail?.bookingDetail?.hotelAddress ?? ""
+            let bookingId = "Booking Id: \(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")"
+            let confirmationCode = "Confirmation Code: \(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")"
+            // confirmation code pending to append
+            let notes = bookingId //+ "\n \(confirmationCode)"
+            
+            AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end, location: location,  notes: notes, uniqueId: bId)
         }
     }
     
-    func addToAppleWallet() {
-        AppGlobals.shared.showUnderDevelopment()
+    //    func addToAppleWallet() {
+    //        AppGlobals.shared.showUnderDevelopment()
+    //    }
+    func addToAppleWallet(indexPath: IndexPath) {
+        
+        printDebug("Add To Apple Wallet")
+        let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(self.viewModel.bookingDetail?.id ?? "")"
+        printDebug("endPoints: \(endPoints)")
+        guard let url = URL(string: endPoints) else {return}
+        self.viewModel.showWaletLoader = true
+        if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+            cell.actionButton.isLoading = true
+        } else {
+            self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
+        }
+        AppGlobals.shared.downloadWallet(fileURL: url, showLoader: false) {[weak self] (passUrl) in
+            DispatchQueue.main.async {
+                if let localURL = passUrl {
+                    printDebug("localURL: \(localURL)")
+                    self?.addWallet(passFilePath: localURL)
+                }
+                self?.viewModel.showWaletLoader = false
+                if let cell = self?.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+                    cell.actionButton.isLoading = false
+                } else {
+                    self?.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
+                }
+            }
+        }
+        
     }
     
+    private func addWallet(passFilePath: URL) {
+        // let filePath = Bundle.main.path(forResource: "DealsPasses", ofType: "pkpass")!
+        guard let passData = try? Data(contentsOf: passFilePath) else {return}
+        do {
+            let newpass = try PKPass.init(data: passData)
+            if let addController =  PKAddPassesViewController(pass: newpass){
+                addController.delegate = self
+                self.present(addController, animated: true)
+            }
+        } catch {
+            printDebug(error)
+        }
+    }
+    
+    func bookAnotherRoom() {
+
+        let booking = self.viewModel.bookingDetail?.bookingDetail
+        if let hotelName = booking?.hotelName, let address = booking?.hotelAddress, let lat =  booking?.latitude, let long = booking?.longitude, let city = booking?.city, let hotelId = booking?.hotelId, let checkIn = booking?.checkIn, let checkOut = booking?.checkOut {
+            
+            
+            let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsBookAnotherRoomHotelId":hotelId]
+            FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsBookAnotherRoomOptionSelected, value: jsonDict)
+
+            var hotelData = HotelFormPreviosSearchData()
+            hotelData.cityName = city
+            hotelData.lat = lat
+            hotelData.lng = long
+            var splittedStringArray = address.components(separatedBy: ",")
+            splittedStringArray.removeFirst()
+            let stateName = splittedStringArray.joined(separator: ",")
+            hotelData.stateName = stateName
+            
+            hotelData.destType = "Hotel"
+            hotelData.destName = hotelName + ", \(address)"
+            hotelData.destId = "\(hotelId):gn"
+            
+            if checkIn.isGreaterThan(Date()) {
+                hotelData.checkInDate = checkIn.toString(dateFormat: "yyyy-MM-dd")
+                hotelData.checkOutDate = checkOut.toString(dateFormat: "yyyy-MM-dd")
+            }
+            
+            hotelData.roomNumber     =  1
+            hotelData.adultsCount    = [2]
+            HotelsSearchVM.hotelFormData = hotelData
+            HotelsSearchVM.isComminFromRecentWhatNext = true
+            AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
+        }
+    }
     func webCheckinServices(url: String) {
         // TODO: - Need to be synced with backend Api key
         guard let url = url.toUrl else { return }
+        let jsonDict : JSONDictionary = ["MyBookingsWebCheckinurl":url]
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsWebCheckinOptionSelected, value: jsonDict)
+
         AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")
     }
 }
@@ -367,10 +645,17 @@ extension HotlelBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
 extension HotlelBookingsDetailsVC: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
         printDebug("\(trip)")
-        AppToast.default.showToastMessage(message: LocalizedString.HotelTripChangeMessage.localized + "\(trip.name)")
         self.updatedTripDetail = trip
+        self.viewModel.bookingDetail?.tripInfo?.eventId = tripDetails?.event_id ?? ""
+        self.viewModel.bookingDetail?.tripInfo?.tripId = tripDetails?.trip_id ?? ""
+        self.viewModel.bookingDetail?.tripInfo?.name = tripDetails?.name ?? ""
+        AppToast.default.showToastMessage(message: LocalizedString.HotelTripChangeMessage.localized + "\(trip.name)")
         if let indexPath = self.tripChangeIndexPath {
             self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
         }
+        self.viewModel.getTripOwnerApi()
     }
+}
+extension HotlelBookingsDetailsVC: PKAddPassesViewControllerDelegate {
+    
 }

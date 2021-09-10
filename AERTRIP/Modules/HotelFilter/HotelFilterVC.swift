@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import Parchment
 
 protocol HotelFilteVCDelegate: class {
     func doneButtonTapped()
     func clearAllButtonTapped()
+    func collectionViewContentOffset(offsetX: CGFloat)
     
 }
 
@@ -30,14 +30,15 @@ class HotelFilterVC: BaseVC {
     @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainBackView: UIView!
+    @IBOutlet weak var blurBackGroundView: UIView!
+    @IBOutlet weak var filterContainerView: UIView!
+    
+    @IBOutlet weak var filterIconDividerView: ATDividerView!
+    @IBOutlet weak var separatorView: UIView!
     
     // MARK: - Private
     
-    private var currentIndex: Int = 0 {
-        didSet {
-            
-        }
-    }
+//    private var currentIndex: Int = 0
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -48,6 +49,9 @@ class HotelFilterVC: BaseVC {
     var filtersTabs =  [MenuItem]()
     var selectedIndex: Int = HotelFilterVM.shared.lastSelectedIndex
     var isFilterApplied:Bool = false
+    
+    // Only for analytics
+    var didTapFilter = false
     
     var allChildVCs: [UIViewController] = [UIViewController]()
     weak var delegate : HotelFilteVCDelegate?
@@ -75,21 +79,24 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.view.frame = self.dataContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        delay(seconds: 0.5) { [weak self] in
+        delay(seconds: 0.1) { [weak self] in
             self?.show(animated: true)
         }
+        self.statusBarColor = AppColors.clear
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.clear
     }
     
     // MARK: - Overrider methods
     
     override func setupTexts() {
-        let navigationTitleText = HotelFilterVM.shared.totalHotelCount > 0 ? " \(HotelFilterVM.shared.filterHotelCount) of \(HotelFilterVM.shared.totalHotelCount) Results" : ""
         self.clearAllButton.setTitle(LocalizedString.ClearAll.localized, for: .normal)
         self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-        self.navigationTitleLabel.text = navigationTitleText
+        self.setNavigationTitle()
     }
     
     override func setupFonts() {
@@ -99,9 +106,11 @@ class HotelFilterVC: BaseVC {
     }
     
     override func setupColors() {
-        self.clearAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.navigationTitleLabel.textColor = AppColors.themeGray40
+        self.clearAllButton.setTitleColor(AppColors.commonThemeGreen, for: .normal)
+        self.doneButton.setTitleColor(AppColors.commonThemeGreen, for: .normal)
+        self.navigationTitleLabel.textColor = AppColors.themeGray153
+        filterIconDividerView.isHidden = true
+        separatorView.backgroundColor = AppColors.dividerColor
     }
     
     
@@ -125,16 +134,49 @@ class HotelFilterVC: BaseVC {
             //  self?.show(animated: true)
             self?.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         }
+//        blurBackGroundView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
+//        filterContainerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
+        blurBackGroundView.backgroundColor = AppColors.themeWhiteDashboard
+        filterContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        
+    }
+    
+    private func setNavigationTitle() {
+        let navigationTitleText = HotelFilterVM.shared.totalHotelCount > 0 ? " \(HotelFilterVM.shared.filterHotelCount) of \(HotelFilterVM.shared.totalHotelCount) Results" : ""
+        self.navigationTitleLabel.text = navigationTitleText
+        
+        if HotelFilterVM.shared.filterHotelCount == 0 {
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .NoResultsApplyingHotelFilters)
+        }
     }
     
     private func  setFilterButton() {
+        self.isFilterApplied = false
         filtersTabs.forEach { (Item) in
             if Item.isSelected == false {
                 self.isFilterApplied = true
             }
         }
-        self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
-        self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .selected)
+      //  self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
+        self.isFilterAppliedBtn.setImage(isFilterApplied  ? AppImages.ic_hotel_filter_applied : AppImages.ic_hotel_filter, for: .selected)
+        
+        if  isFilterApplied {
+            //self.topNavBar.firstRightButton.isEnabled = true
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            self.isFilterAppliedBtn.setImage(AppImages.ic_hotel_filter_applied, for: .normal)
+            self.isFilterAppliedBtn.setImage(AppImages.ic_hotel_filter_applied, for: .selected)
+
+            self.clearAllButton.isEnabled = true
+            self.clearAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        } else {
+            //self.topNavBar.firstRightButton.isEnabled = false
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            self.isFilterAppliedBtn.setImage(AppImages.ic_hotel_filter, for: .normal)
+            self.isFilterAppliedBtn.setImage(AppImages.ic_hotel_filter, for: .selected)
+            
+            self.clearAllButton.isEnabled = false
+            self.clearAllButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        }
     }
     
     private func initiateFilterTabs() {
@@ -148,6 +190,7 @@ class HotelFilterVC: BaseVC {
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
+            self.mainBackView.alpha = 1.0
             self.view.layoutIfNeeded()
         })
     }
@@ -155,6 +198,7 @@ class HotelFilterVC: BaseVC {
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = -(self.mainContainerView.height)
+            self.mainBackView.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: { _ in
             if shouldRemove {
@@ -166,7 +210,7 @@ class HotelFilterVC: BaseVC {
     
     private func setupPagerView() {
         self.allChildVCs.removeAll()
-//        self.selectedIndex = HotelFilterVM.shared.lastSelectedIndex
+        //        self.selectedIndex = HotelFilterVM.shared.lastSelectedIndex
         
         for i in 0..<HotelFilterVM.shared.allTabsStr.count {
             if i == 1 {
@@ -189,7 +233,7 @@ class HotelFilterVC: BaseVC {
                 self.allChildVCs.append(vc)
             }
         }
-        self.view.layoutIfNeeded()
+        //self.view.layoutIfNeeded()
         if let _ = self.parchmentView{
             self.parchmentView?.view.removeFromSuperview()
             self.parchmentView = nil
@@ -203,29 +247,34 @@ class HotelFilterVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
+        parchmentView?.view.backgroundColor = AppColors.themeWhiteDashboard
         self.parchmentView?.menuItemSpacing = 10.0
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 51.0, bottom: 0.0, right: 0.0)
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 41.0, bottom: 0.0, right: 11.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
-        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 7.5, bottom: 0, right: 7.5), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 11.5, bottom: 0, right: 11.5), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
-//        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
+        //        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
         self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.parchmentView?.borderColor = .clear//AppColors.divider.color
         self.dataContainerView.addSubview(self.parchmentView!.view)
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: selectedIndex)
-        
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
+        self.parchmentView?.menuBackgroundColor = UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        
+        HotelFilterVM.shared.lastSelectedIndex = selectedIndex
     }
     
     
@@ -236,9 +285,13 @@ class HotelFilterVC: BaseVC {
             
             switch tab.lowercased() {
             case LocalizedString.Sort.localized.lowercased():
-                filtersTabs[idx].isSelected = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? true : false
+                if HotelFilterVM.shared.isFilterAppliedForDestinetionFlow {
+                    filtersTabs[idx].isSelected = (HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: true)) ? true : false
+                } else {
+                    filtersTabs[idx].isSelected = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? true : false
+                }
                 
-            case LocalizedString.Range.localized.lowercased():
+            case LocalizedString.Distance.localized.lowercased():
                 filtersTabs[idx].isSelected  = (HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? true : false
                 
             case LocalizedString.Price.localized.lowercased():
@@ -256,14 +309,17 @@ class HotelFilterVC: BaseVC {
                 
                 
                 let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
+                let taDiff = HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
                 if 1...4 ~= diff.count {
                     filtersTabs[idx].isSelected =  false
                 }
-                else if !HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
+                else if 1...4 ~= taDiff.count {
                     filtersTabs[idx].isSelected =  false
                 }
                 else if HotelFilterVM.shared.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
                     filtersTabs[idx].isSelected =  false
+                } else if HotelFilterVM.shared.isIncludeTAUnrated != HotelFilterVM.shared.defaultIsIncludeTAUnrated {
+                    filtersTabs[idx].isSelected = false
                 }
             case LocalizedString.Amenities.localized.lowercased():
                 if !HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty {
@@ -288,6 +344,7 @@ class HotelFilterVC: BaseVC {
         self.setFilterButton()
     }
     
+    
     private func setupGesture() {
         let gestureRecognizer = UITapGestureRecognizer(target: self,action: #selector(outsideAreaTapped))
         gestureRecognizer.cancelsTouchesInView = false
@@ -297,48 +354,99 @@ class HotelFilterVC: BaseVC {
         mainBackView.addGestureRecognizer(gestureRecognizer)
     }
     
+    private func saveAndApplyFilter() {
+        //        if UserInfo.hotelFilter == nil {
+        //            HotelFilterVM.shared.lastSelectedIndex = 0
+        //        }
+        HotelFilterVM.shared.saveDataToUserDefaults()
+        delegate?.doneButtonTapped()
+        delegate?.collectionViewContentOffset(offsetX: self.parchmentView?.collectionView.contentOffset.x ?? 0)
+    }
+    
     // MARK: - IB Action
     
     @IBAction func clearAllButtonTapped(_ sender: Any) {
-        self.hide(animated: true, shouldRemove: true)
+        // self.hide(animated: true, shouldRemove: true)
         delegate?.clearAllButtonTapped()
+        reloadMenu()
+        self.allChildVCs.forEach { (viewController) in
+            if let vc = viewController as? PriceVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? RangeVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? RatingVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? AmenitiesVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? RoomVC {
+                vc.setFilterValues()
+            }else if let vc = viewController as? SortVC {
+                vc.setFilterValues()
+            }
+        }
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: .ClearAllHotelFilters)
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
+        saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
-        delegate?.doneButtonTapped()
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: .CloseHotelFilterUsingDone)
     }
     
     @objc func  outsideAreaTapped() {
+        hideFilter(tappedOutside: true)
+    }
+    
+    func hideFilter(tappedOutside: Bool) {
+        saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
-        if UserInfo.hotelFilter == nil {
-            HotelFilterVM.shared.lastSelectedIndex = 0
+        if tappedOutside {
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .CloseHotelFiltersByOutsideClick)
         }
     }
     
-    
-    
-}
-
-
-extension HotelFilterVC: ATCategoryNavBarDelegate {
-    
-    func categoryNavBar(_ navBar: ATCategoryNavBar, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
-        printDebug("Manage will switch to next index ")
-    }
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        self.currentIndex = toIndex
-        HotelFilterVM.shared.lastSelectedIndex = toIndex
+    @IBAction func filterBtnTapped(_ sender: Any) {
+        if HotelFilterVM.shared.lastSelectedIndex != 0 {
+            parchmentView?.select(index: 0, animated: true)
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .HotelSortFilterByTapOnFilterIcon)
+        } else {
+            hideFilter(tappedOutside: false)
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .CloseHotelFilterByTappingFilter)
+        }
     }
     
-    
-    
 }
-
-
 
 extension HotelFilterVC: HotelFilterVMDelegate {
+    func updateHotelsCount() {
+        self.setNavigationTitle()
+    }
+    
     func updateFiltersTabs() {
+        printDebug("updateFiltersTabs")
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(self.updateFilter), with: nil, afterDelay: 0.5)
+    }
+    
+    @objc func updateFilter() {
+        printDebug("updateFilter")
+        reloadMenu()
+        saveAndApplyFilter()
+    }
+    
+    func reloadMenu(){
+        DispatchQueue.main.async {
         self.setBadgesOnAllCategories()
+        UIView.setAnimationsEnabled(false)
+        UIView.animate(withDuration: 0, animations: {
+            self.parchmentView?.reloadMenu()
+        }) { (_) in
+            UIView.setAnimationsEnabled(true)
+        }
+        }
     }
 }

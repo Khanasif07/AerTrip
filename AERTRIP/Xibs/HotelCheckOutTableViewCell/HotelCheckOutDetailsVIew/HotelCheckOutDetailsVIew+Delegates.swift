@@ -65,10 +65,10 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
             if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: rates) {
                 return cell
             }
-//        case .paymentPolicyCell:
-//            if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: rates) {
-//                return cell
-//            }
+            //        case .paymentPolicyCell:
+            //            if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: rates) {
+            //                return cell
+        //            }
         case .notesCell:
             if let cell = self.getNotesCell(indexPath: indexPath, ratesData: rates) {
                 return cell
@@ -81,15 +81,18 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
-                if indexPath.row == 2 {
-                    guard let parentVC = self.parentViewController as? HCDataSelectionVC, let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters, let destParams = self.viewModel else { return }
-                    AppGlobals.shared.redirectToMap(sourceView: self, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
-                } else if indexPath.row == 3 {
-                    AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel?.info ?? "")
+            let sectionData = self.sectionData[indexPath.section]
+            switch sectionData[indexPath.row] {
+            case .addressCell:
+                guard let parentVC = self.parentViewController as? HCDataSelectionVC, let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters, let destParams = self.viewModel else { return }
+                AppGlobals.shared.redirectToMap(sourceView: self, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+            case .overViewCell:
+                AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel?.info ?? "")
+            case .tripAdvisorRatingCell:
+                if let locid = self.viewModel?.locid {
+                    !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel?.hid ?? "") : printDebug(locid + "location id is empty")
                 }
-            } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil, let locid = self.viewModel?.locid {
-                !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel?.hid ?? "") : printDebug(locid + "location id is empty")
+            default: break
             }
         }
     }
@@ -105,10 +108,10 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
                 return 0.0
             } else {
                 if indexPath.section == 0, indexPath.row == 2 {
-                        let text = hotelData.address + "Maps   "
-                        let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                        return size.height + 46.5
-                            + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
+                    let text = hotelData.address + "Maps   "
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    return size.height + 46.5
+                        + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
                 }
             }
             
@@ -123,7 +126,7 @@ extension HotelCheckOutDetailsVIew: GetFullInfoDelegate {
             self.allIndexPath.append(indexPath)
             self.hotelDetailsTableView.reloadData()
         } else {
-            if let index = self.allIndexPath.index(of: indexPath){
+            if let index = self.allIndexPath.firstIndex(of: indexPath){
                 self.allIndexPath.remove(at: index)
             }
             self.hotelDetailsTableView.reloadData()
@@ -147,7 +150,7 @@ extension HotelCheckOutDetailsVIew: TopNavigationViewDelegate {
 extension HotelCheckOutDetailsVIew: HotelDetailAmenitiesCellDelegate {
     func viewAllButtonAction() {
         if let hotelData = self.viewModel {
-            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups , amentites: hotelData.amenities)
+            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups , amentites: hotelData.amenities, amenitiesGroupOrder: hotelData.amenities_group_order)
         }
     }
 }
@@ -161,16 +164,16 @@ extension HotelCheckOutDetailsVIew: UIScrollViewDelegate {
             // show
             self.headerView.navTitleLabel.text = self.hotelInfo?.hotelName
             self.headerView.animateBackView(isHidden: false, completion: nil)
-            let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+            let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.save_icon_green
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
-            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+            self.headerView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
         } else {
             // hide
             self.headerView.navTitleLabel.text = ""
             self.headerView.animateBackView(isHidden: true, completion: nil)
-            let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+            let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.saveHotels
             self.headerView.leftButton.setImage(buttonImage, for: .normal)
-            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+            self.headerView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
         }
     }
     
@@ -203,6 +206,12 @@ extension HotelCheckOutDetailsVIew: HotelDetailsImgSlideCellDelegate {
 // Mark:- ATGallery Delegate And Datasource
 //========================================
 extension HotelCheckOutDetailsVIew: ATGalleryViewDelegate, ATGalleryViewDatasource {
+    func galleryViewWillClose(galleryView: ATGalleryViewController) {
+    }
+    
+    func galleryViewDidClose(galleryView: ATGalleryViewController) {
+    }
+    
     func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
         return self.viewModel?.photos.count ?? 0
     }
@@ -223,7 +232,7 @@ extension HotelCheckOutDetailsVIew: ATGalleryViewDelegate, ATGalleryViewDatasour
 extension HotelCheckOutDetailsVIew: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
         if let parentVC = self.parentViewController {
-            AppGlobals.shared.shareWithActivityViewController(VC: parentVC, shareData: "https://beta.aertrip.com")
+            AppGlobals.shared.shareWithActivityViewController(VC: parentVC, shareData: AppKeys.baseUrl)
         }
     }
 }

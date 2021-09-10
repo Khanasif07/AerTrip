@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class PeriodicStatementVC: BaseVC {
     
     //MARK:- IBOutlets
@@ -23,8 +22,8 @@ class PeriodicStatementVC: BaseVC {
     private var currentIndex: Int = 0
     private let selectedIndex:Int = 0
     
-    fileprivate weak var categoryView: ATCategoryView!
-    
+    //fileprivate weak var categoryView: ATCategoryView!
+    fileprivate var parchmentView : PagingViewController?
     private var allChildVCs: [PeriodicStatementListVC] = []
     
     
@@ -35,47 +34,45 @@ class PeriodicStatementVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+        
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsPeriodicStatement, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        self.categoryView?.frame = self.dataContainerView.bounds
-        self.categoryView?.layoutIfNeeded()
+    override func viewDidLayoutSubviews() {
+        self.parchmentView?.view.frame = self.dataContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        topNavView.darkView.isHidden = isLightTheme()
     }
     
     override func bindViewModel() {
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
+        dataContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        topNavView.darkView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     //MARK:- Methods
     //MARK:- Private
-    private func initialSetups() {
-        self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
-        
+    private func initialSetups() {        
         self.currentIndex = 0
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.PeriodicStatement.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
         
         self.setupPagerView()
+        //for header blur
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
+        topNavView.darkView.isHidden = isLightTheme()
     }
     
     private func setupPagerView() {
-        var style = ATCategoryNavBarStyle()
-        style.height = 51.0
-        style.interItemSpace = 17.0
-        style.itemPadding = 8.0
-        style.isScrollable = true
-        style.layoutAlignment = .center
-        style.isEmbeddedToView = true
-        style.showBottomSeparator = true
-        style.bottomSeparatorColor = AppColors.themeGray40
-        style.defaultFont = AppFonts.Regular.withSize(16.0)
-        style.selectedFont = AppFonts.Regular.withSize(16.0)
-        style.indicatorColor = AppColors.themeGreen
-        style.indicatorHeight = 2.0
-        style.indicatorCornerRadius = 2.0
-        style.normalColor = AppColors.themeBlack
-        style.selectedColor = AppColors.themeBlack
         
         self.allChildVCs.removeAll()
         
@@ -88,17 +85,47 @@ class PeriodicStatementVC: BaseVC {
             self.allChildVCs.append(vc)
         }
         
-        if let _ = self.categoryView {
-            self.categoryView.removeFromSuperview()
-            self.categoryView = nil
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
         }
-        let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-        categoryView.interControllerSpacing = 0.0
-        categoryView.navBar.delegate = self
-        self.dataContainerView.addSubview(categoryView)
-        self.categoryView = categoryView
+        setupParchmentPageController()
     }
     
+    // Added to replace the existing page controller, added Asif Khan
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController()
+        self.parchmentView?.menuItemSpacing = 35
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15.0, bottom: 0.0, right: 0.0)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets.zero)
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.register(nib, for: MenuItem.self)
+        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.dataContainerView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
+        if self.allChildVCs.count != 0{
+            self.parchmentView?.select(index: 0)
+        }
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+        
+        parchmentView?.menuBackgroundColor = .clear
+        parchmentView?.collectionView.backgroundColor = .clear
+    }
     private func reloadList() {
         self.setupPagerView()
     }
@@ -109,12 +136,44 @@ class PeriodicStatementVC: BaseVC {
 
 extension PeriodicStatementVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .navigateBack, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
         AppFlowManager.default.popViewController(animated: true)
     }
 }
 
-extension PeriodicStatementVC: ATCategoryNavBarDelegate {
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        self.currentIndex = toIndex
+extension PeriodicStatementVC : PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
+    
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int{
+        self.viewModel.allYears.count
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
+        return self.allChildVCs[index]
+    }
+    
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return MenuItem(title: self.viewModel.allYears[index], index: index, isSelected:false)
+    }
+    
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
+        
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? MenuItem{
+            let text = pagingIndexItem.title
+            
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+            return text.widthOfString(usingFont: font)
+        }
+        
+        return 100.0
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
+        
+        if let pagingIndexItem = pagingItem as?  MenuItem {
+        self.currentIndex = pagingIndexItem.index
+        }
     }
 }

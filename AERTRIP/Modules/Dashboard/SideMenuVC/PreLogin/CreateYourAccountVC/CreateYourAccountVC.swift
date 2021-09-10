@@ -50,20 +50,26 @@ class CreateYourAccountVC: BaseVC {
         topNavBar.delegate = self
         self.emailTextField.titleYPadding = 12.0
         self.emailTextField.hintYPadding = 12.0
+        self.emailTextField.lineErrorColor = AppColors.themeRed
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.view.backgroundColor = AppColors.screensBackground.color
-        self.registerButton.isEnabled = false
+        //self.registerButton.isEnabled = false
+        self.registerButton.configureCommonGreenButton()
         self.emailTextField.delegate  = self
         self.emailTextField.text = self.viewModel.email
         self.emailTextField.autocorrectionType = .no
-        self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
-        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
-        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
-        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+        //self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
+//        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+//        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+//        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
 
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
+        
+        self.registerButton.isEnabledShadow = true
+        self.textFieldValueChanged(emailTextField)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,8 +122,8 @@ class CreateYourAccountVC: BaseVC {
         self.notRegisterYetLabel.textColor = AppColors.themeBlack
         self.headerTitleLabel.textColor = AppColors.themeBlack
         self.loginHereButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.registerButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-        self.registerButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+//        self.registerButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+//        self.registerButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     override func bindViewModel() {
@@ -131,10 +137,16 @@ class CreateYourAccountVC: BaseVC {
         self.view.endEditing(true)
         if self.viewModel.isValidEmail(vc: self) {
             self.viewModel.webserviceForCreateAccount()
+        } else {
+            let isValidEmail = !self.viewModel.email.checkInvalidity(.Email)
+            self.emailTextField.isError = !isValidEmail
+            let emailPlaceHolder = self.emailTextField.placeholder ?? ""
+            self.emailTextField.attributedPlaceholder = NSAttributedString(string: emailPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         }
     }
     
     @IBAction func loginHereButtonAction(_ sender: UIButton) {
+        self.viewModel.logEvent(with: .login)
         AppFlowManager.default.moveToLoginVC(email: self.viewModel.email)
     }
 }
@@ -159,18 +171,22 @@ private extension CreateYourAccountVC {
             
             label.handleCustomTap(for: privacyPolicy) { element in
                 
-                guard let url = URL(string: AppConstants.privacyPolicy) else {return}
-                let safariVC = SFSafariViewController(url: url)
-                self.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+                guard let url = URL(string: AppKeys.privacyPolicy) else {return}
+//                let safariVC = SFSafariViewController(url: url)
+//                self.present(safariVC, animated: true, completion: nil)
+//                safariVC.delegate = self
+                self.viewModel.logEvent(with: .openPrivacy)
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.privacy_policy.localized.capitalized)
             }
             
             label.handleCustomTap(for: termsOfUse) { element in
                 
-                guard let url = URL(string: AppConstants.termsOfUse) else {return}
-                let safariVC = SFSafariViewController(url: url)
-                self.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+                guard let url = URL(string: AppKeys.termsOfUse) else {return}
+                self.viewModel.logEvent(with: .OpenTermsOfUse)
+//                let safariVC = SFSafariViewController(url: url)
+//                self.present(safariVC, animated: true, completion: nil)
+//                safariVC.delegate = self
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.terms_of_use.localized.capitalized)
             }
         }
     }
@@ -183,14 +199,18 @@ extension CreateYourAccountVC {
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.email = (textField.text ?? "").removeAllWhitespaces
-        self.registerButton.isEnabled = self.viewModel.email.count > 0
+        //self.registerButton.isEnabled = self.viewModel.email.count > 0
+        self.registerButton.isEnabledShadow = !self.viewModel.isEnableRegisterButton
         
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         //for verify the data
-        self.emailTextField.isError = self.viewModel.email.checkInvalidity(.Email)
+        let isValidEmail = !self.viewModel.email.checkInvalidity(.Email)
+        self.emailTextField.isError = !isValidEmail
+        let emailPlaceHolder = self.emailTextField.placeholder ?? ""
+        self.emailTextField.attributedPlaceholder = NSAttributedString(string: emailPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         
     }
     
@@ -220,6 +240,7 @@ extension CreateYourAccountVC: CreateYourAccountVMDelegate {
     
     func didRegisterSuccess(email: String) {
         self.registerButton.isLoading = false
+        self.viewModel.logEvent(with: .ProceedToThankYouForRegistering)
         AppFlowManager.default.moveToRegistrationSuccefullyVC(type: .setPassword, email: email)
     }
     

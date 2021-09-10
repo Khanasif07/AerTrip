@@ -18,7 +18,7 @@ class RoomVC: UIViewController {
     // MARK: -  IB Outlet
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var roomSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var roomSegmentedControl: GreenDotSegmentControl!
     
     // MARK: - Variables
     
@@ -41,36 +41,52 @@ class RoomVC: UIViewController {
         registerXib()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setFilterValues()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentControlTitle()
+    }
+    
     // MARK: - Helper methods
     
     private func doInitialSetUp() {
+        view.backgroundColor = AppColors.themeWhiteDashboard
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         roomSegmentedControl.selectedSegmentIndex = 0
         roomSegmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
-        roomSegmentedControl.setWidth(95, forSegmentAt: 0)
-        roomSegmentedControl.setWidth(95, forSegmentAt: 2)
+        let segmentTabWidth: CGFloat = self.view.width > 320 ? 95 : 70
+        roomSegmentedControl.setWidth(segmentTabWidth, forSegmentAt: 0)
+        roomSegmentedControl.setWidth(segmentTabWidth, forSegmentAt: 2)
         tableView.reloadData()
         if #available(iOS 13.0, *) {
-            roomSegmentedControl.tintColor = AppColors.themeWhite
-            roomSegmentedControl.selectedSegmentTintColor = AppColors.themeGreen
-            roomSegmentedControl.tintColor = .clear
-            
-            roomSegmentedControl.apportionsSegmentWidthsByContent = true
-            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeWhite], for: UIControl.State.selected)
+//            roomSegmentedControl.backgroundColor = AppColors.themeWhite
+//            roomSegmentedControl.selectedSegmentTintColor = AppColors.themeGreen
+//
+//            roomSegmentedControl.apportionsSegmentWidthsByContent = true
+//            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeWhite], for: UIControl.State.selected)
             
             let font: [AnyHashable : Any] = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(14)]
-            roomSegmentedControl.setTitleTextAttributes(font as! [NSAttributedString.Key : Any], for: .normal)
-            roomSegmentedControl.layer.borderColor = AppColors.themeGreen.cgColor
-            roomSegmentedControl.layer.borderWidth = 2.0
-            roomSegmentedControl.layer.cornerRadius = 2.0
-            roomSegmentedControl.layer.masksToBounds = true
-            
-            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], for: UIControl.State.normal)
+            roomSegmentedControl.setTitleTextAttributes(font as? [NSAttributedString.Key : Any], for: .normal)
+//            roomSegmentedControl.layer.borderColor = AppColors.themeGreen.cgColor
+//            roomSegmentedControl.layer.borderWidth = 1.0
+//            roomSegmentedControl.layer.cornerRadius = 4.0
+//            roomSegmentedControl.layer.masksToBounds = true
+//
+//            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], for: UIControl.State.normal)
+//            roomSegmentedControl.setBacgroundColor()
         } else {
             // Fallback on earlier versions
+           // roomSegmentedControl.selectedSegmentTintColor = AppColors.themeGreen
+            roomSegmentedControl.tintColor = AppColors.themeGreen
         }
+        updateSegmentControlTitle()
     }
     
     private func registerXib() {
@@ -93,8 +109,37 @@ class RoomVC: UIViewController {
         }
         tableView.reloadData()
     }
+    
+    private func updateSegmentControlTitle() {
+        
+        var title = LocalizedString.Meal.localized
+        if !HotelFilterVM.shared.roomMeal.isEmpty {
+            title += " •"
+        }
+        roomSegmentedControl?.setTitle(title, forSegmentAt: 0)
+        if UIScreen.width >= 375{///in case of iPhone Se 1st generation.
+            title = LocalizedString.cancellationPolicy.localized
+        }else{
+            title = LocalizedString.policy.localized
+        }
+              
+        if !HotelFilterVM.shared.roomCancelation.isEmpty {
+            title += " •"
+        }
+        roomSegmentedControl?.setTitle(title, forSegmentAt: 1)
+        
+        title = LocalizedString.Others.localized
+        if !HotelFilterVM.shared.roomOther.isEmpty {
+            title += " •"
+        }
+        roomSegmentedControl?.setTitle(title, forSegmentAt: 2)
+    }
+    
+    func setFilterValues() {
+        updateSegmentControlTitle()
+        tableView?.reloadData()
+    }
 }
-
 // MARK: - UITableViewDataSource
 
 extension RoomVC: UITableViewDataSource, UITableViewDelegate {
@@ -165,5 +210,39 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
         self.tableView.reloadData()
+        updateSegmentControlTitle()
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        
+        logRoomEvent()
+    }
+    
+    private func logRoomEvent() {
+        var valueStr = ""
+        var filterType = ""
+        
+        switch roomType {
+        case .meal:
+            HotelFilterVM.shared.roomMeal.forEach { (amen) in
+                valueStr.append("\(amen), ")
+            }
+            filterType = "Meal"
+        case .cancellationPolicy:
+            HotelFilterVM.shared.roomCancelation.forEach { (amen) in
+                valueStr.append("\(amen), ")
+            }
+            filterType = "Cancellation"
+        case .others:
+            HotelFilterVM.shared.roomOther.forEach { (amen) in
+                valueStr.append("\(amen), ")
+            }
+            filterType = "Others"
+        }
+        
+        if valueStr.suffix(2) == ", " {
+            valueStr.removeLast(2)
+        }
+        
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Room.rawValue, AnalyticsKeys.type.rawValue: filterType, AnalyticsKeys.values.rawValue: valueStr]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
 }

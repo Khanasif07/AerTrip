@@ -35,6 +35,13 @@ class CustomMarker: UIView {
     var isSelected: Bool = false {
         didSet {
             self.updateSelection()
+            self.updateMakerImage()
+        }
+    }
+    
+    var isDetailsShown = false{
+        didSet{
+            updateMakerImage()
         }
     }
     
@@ -46,19 +53,34 @@ class CustomMarker: UIView {
     func doInitialSetup() {
         isFavourite = false
         
-        self.priceView.addShadow(cornerRadius: 8.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.5), offset: CGSize(width: 0.0, height: 3.0), opacity: 0.5, shadowRadius: 2.0)
+        updateFav()
+        self.priceView.addShadow(cornerRadius: 8.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0.0, height: 3.0), opacity: 1, shadowRadius: 3.0)
+    }
+    
+    func updateMakerImage(){
+        self.priceView.isHidden = !(isDetailsShown || isSelected)
+        self.connectorView.isHidden = !(isDetailsShown || isSelected)
     }
     
     private func configureData() {
         self.isFavourite = (hotel?.fav ?? "0") == "1"
         
-        var price : Double = hotel?.price ?? 0.0
-        if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight {
-            price = hotel?.perNightPrice ?? 0.0
+        var price : Double = hotel?.perNightPrice ?? 0.0
+        if  let filter = UserInfo.hotelFilter, filter.priceType == .Total {
+            price = hotel?.price ?? 0.0
         }
         
 //        let str = NSAttributedString(string: hotel?.hotelName?.substring(to: 4) ?? "")
-        self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
+//        ttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.Regular.withSize(12))
+
+        self.priceLabel.attributedText = price.getConvertedAmount(using: AppFonts.SemiBold.withSize(16.0))
+        self.priceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.SemiBold.withSize(12.0))
+        updateMakerImage()
+        
+//        self.priceLabel.sizeToFit()
+        self.priceView.layoutSubviews()
+        self.layoutIfNeeded()
+
     }
     
     private func updateFav() {
@@ -69,12 +91,12 @@ class CustomMarker: UIView {
         if isFavourite {
             priceView.layer.borderColor = AppColors.themeRed.cgColor
             priceView.backgroundColor = AppColors.themeRed
-            priceLabel.textColor = AppColors.themeWhite
+            priceLabel.textColor = AppColors.unicolorWhite
             connectorView.backgroundColor = AppColors.themeRed
-            iconImageView.image = #imageLiteral(resourceName: "favHotelWithShadowMarker")
+            iconImageView.image = AppImages.favHotelWithShadowMarker
         }
         else {
-            iconImageView.image = #imageLiteral(resourceName: "clusterSmallTag")
+            iconImageView.image = AppImages.clusterSmallTag
             self.updateSelection()
         }
     }
@@ -90,12 +112,12 @@ class CustomMarker: UIView {
 //            return
 //        }
         
-        connectorView.backgroundColor = isSelected ? AppColors.themeGreen : AppColors.themeWhite
+        connectorView.backgroundColor = (isFavourite ? AppColors.themeRed : AppColors.themeGreen)
         
         priceView.layer.borderColor = isSelected ? AppColors.clear.cgColor : (isFavourite ? AppColors.themeRed.cgColor : AppColors.themeGreen.cgColor)
         priceView.layer.borderWidth = isSelected ? 0.0 : 1.0
-        priceView.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : AppColors.themeWhite
+        priceView.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : (isFavourite ? AppColors.markUnselectedFavColor : AppColors.mapsUnselectedColor)
 
-        priceLabel.textColor = isSelected ? AppColors.themeWhite : (isFavourite ? AppColors.themeRed : AppColors.themeGreen)
+        priceLabel.textColor = isSelected ? AppColors.unicolorWhite : (isFavourite ? AppColors.themeRed : AppColors.grayWhite)
     }
 }

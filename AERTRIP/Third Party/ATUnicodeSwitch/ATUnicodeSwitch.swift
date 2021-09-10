@@ -102,7 +102,7 @@ class ATUnicodeSwitch: UIControl {
   
   private func setupBackground() {
     isUserInteractionEnabled = true
-    layer.cornerRadius = cornerRadius
+    layer.cornerRadius = cornerradius
   }
   
   private func setupBackgroundLabels() {

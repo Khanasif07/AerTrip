@@ -8,6 +8,11 @@
 
 struct HotelReceiptModel {
     
+    enum BookingStatusType: String {
+        case pending
+        case booked
+    }
+    
     var hid: String = ""// "549143"
     var hname: String = "" //"Hotel Blue Sapphire"
     var address: String = ""// "3351-54 Bank Street, Christian Colony, Karol Bagh, New Delhi 110005, New Delhi - 110005, India"
@@ -31,7 +36,7 @@ struct HotelReceiptModel {
     var travellers: [[TravellersList]] = []
     var part_payment: JSONDictionaryArray = [[:]]
     //    var booking_params: BookingParams?
-    var booking_status: String = ""
+    var booking_status: BookingStatusType = .pending
     var penalty_array: JSONDictionaryArray = [[:]]
 //    var cancellation_penalty: String
     var isRefundable: Bool = false //is_refundable
@@ -39,6 +44,9 @@ struct HotelReceiptModel {
     var flight_link_param: JSONDictionary = [:]
     var payment_details: PaymentDetails?
     var trip_details: TripDetails?
+    var whatNext:[WhatNext] = []
+    var eventStartDate: Date?
+    var eventEndDate: Date?
     
     //Mark:- Initialization
     //=====================
@@ -154,7 +162,7 @@ struct HotelReceiptModel {
             self.part_payment = obj
         }
         if let obj = json[APIKeys.booking_params.rawValue] as? JSONDictionary , let bookingStatus = obj[APIKeys.booking_status.rawValue]{
-            self.booking_status = "\(bookingStatus)".removeNull
+            self.booking_status = BookingStatusType(rawValue: "\(bookingStatus)".removeNull) ?? .pending
         }
         if let obj = json[APIKeys.penalty_array.rawValue] as? JSONDictionaryArray {
             self.penalty_array = obj
@@ -173,6 +181,29 @@ struct HotelReceiptModel {
         }
         if let obj = json[APIKeys.trip_details.rawValue] as? JSONDictionary {
             self.trip_details = TripDetails(json: obj)
+        }
+        
+        
+        if  let date = json[APIKeys.checkin.rawValue], let time = json[APIKeys.checkin_time.rawValue]{
+            // "2019-02-01"
+            self.eventStartDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        if  let date = json[APIKeys.checkout.rawValue], let time = json[APIKeys.checkout_time.rawValue]{
+            // "2019-02-01"
+            self.eventEndDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        if let whatNext = json["whatsNext"]{
+            self.whatNext = JSON(whatNext).arrayValue.map{WhatNext($0, isFor: "hotel")}
+            self.whatNext = self.whatNext.filter({ whtNxt -> Bool in
+                if whtNxt.product == ""{
+                    return false
+                }else if (whtNxt.productType == .flight) && (whtNxt.origin == "" || whtNxt.destination == ""){
+                    return false
+                }else{
+                    return true
+                }
+            })//.filter{$0.product != ""}
         }
     }
 
@@ -429,13 +460,20 @@ struct PaymentDetails {
     var mode: String = ""
     var info: PaymentInfo?
     
-    init() {
-        self.init(json: [:])
-    }
+//    init() {
+//        self.init(json: [:])
+//    }
     
     var jsonDict: JSONDictionary {
         return [APIKeys.mode.rawValue: self.mode,
                 APIKeys.info.rawValue: self.info ?? PaymentInfo()]
+    }
+    
+    init(_ json:JSON = JSON()){
+        
+        self.mode = json[APIKeys.mode.rawValue].stringValue
+        self.info = PaymentInfo(json[APIKeys.info.rawValue])
+        
     }
     
     init(json: JSONDictionary) {
@@ -452,8 +490,14 @@ struct PaymentInfo {
     var transaction_id: String = ""
     var payment_amount: Double = 0.0
     
-    init() {
-        self.init(json: [:])
+//    init() {
+//        self.init(json: [:])
+//    }
+    
+    init(_ json:JSON = JSON()){
+        
+        transaction_id = json[APIKeys.transaction_id.rawValue].stringValue
+        self.payment_amount = json[APIKeys.payment_amount.rawValue].doubleValue
     }
     
     var jsonDict: JSONDictionary {
@@ -490,6 +534,19 @@ struct TripDetails {
                 APIKeys.is_updated.rawValue: self.is_updated,
                 APIKeys.trip_key.rawValue: self.trip_key,
                 APIKeys.name.rawValue: self.name]
+    }
+    
+    init(_ json:JSON = JSON()) {
+        self.booking_id = json[APIKeys.booking_id.rawValue].stringValue
+        self.trip_id = json[APIKeys.trip_id.rawValue].stringValue
+        self.is_updated = json[APIKeys.is_updated.rawValue].stringValue
+        if let obj = json[APIKeys.event_id.rawValue].array{
+            self.event_id = obj.first?.stringValue ?? ""
+        }else{
+            self.event_id = json[APIKeys.event_id.rawValue].stringValue
+        }
+        self.trip_key = json[APIKeys.trip_key.rawValue].stringValue
+        self.name = json[APIKeys.name.rawValue].stringValue
     }
     
     init(json: JSONDictionary) {

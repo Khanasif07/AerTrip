@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PhoneNumberKit
 
 class ViewProfileDetailTableViewCell: UITableViewCell {
     
@@ -16,15 +17,34 @@ class ViewProfileDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var sepratorLeadingConstraint: NSLayoutConstraint!
     
+    enum CellType {
+        case mobile
+        case other
+    }
+        
     override func awakeFromNib() {
         super.awakeFromNib()
       
-        
+        self.contentView.backgroundColor = AppColors.profileContentBackground
+        headerTitleLabel.textColor = AppColors.flightFormGray
+        contentLabel.textColor = AppColors.themeBlack
     }
 
     
-    func configureCell(_ title:String,_ content:String) {
+    func configureCell(_ title:String,_ content:String, _ type: CellType = .other) {
         headerTitleLabel.text = title.capitalizedFirst()
         contentLabel.text = content
+        
+        if type == .mobile {
+            do {
+                let mobileNum = content
+                let phoneNumber = try PhoneNumberKit().parse(mobileNum)
+                print(phoneNumber)
+                let formattedNumber = PhoneNumberKit().format(phoneNumber, toType: .international)
+                contentLabel.text = formattedNumber
+            } catch {
+                
+            }
+        }
     }
 }

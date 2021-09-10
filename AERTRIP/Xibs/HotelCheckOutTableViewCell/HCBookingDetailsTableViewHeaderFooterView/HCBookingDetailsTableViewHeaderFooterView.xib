@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,25 +22,32 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gH7-Qy-K6H">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ticket_down" translatesAutoresizingMaskIntoConstraints="NO" id="ltA-4b-Osx">
+                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ticket_down" translatesAutoresizingMaskIntoConstraints="NO" id="ltA-4b-Osx">
                             <rect key="frame" x="0.0" y="56" width="375" height="7"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOKING DETAILS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kN2-Ur-UhO">
-                            <rect key="frame" x="16" y="36" width="343" height="18"/>
+                            <rect key="frame" x="16" y="26" width="107.5" height="18"/>
                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mi7-85-VBu">
+                            <rect key="frame" x="245" y="18" width="114" height="34"/>
+                            <state key="normal" title="Email Itinerary"/>
+                            <connections>
+                                <action selector="emailIternaryBtnTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="UZd-Jj-Xej"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="kN2-Ur-UhO" firstAttribute="leading" secondItem="gH7-Qy-K6H" secondAttribute="leading" constant="16" id="6tG-wd-6gv"/>
                         <constraint firstItem="ltA-4b-Osx" firstAttribute="leading" secondItem="gH7-Qy-K6H" secondAttribute="leading" id="IIK-Nv-tYu"/>
+                        <constraint firstItem="Mi7-85-VBu" firstAttribute="centerY" secondItem="kN2-Ur-UhO" secondAttribute="centerY" id="JMV-6k-hIW"/>
                         <constraint firstAttribute="trailing" secondItem="ltA-4b-Osx" secondAttribute="trailing" id="KpO-Su-Ynn"/>
-                        <constraint firstItem="kN2-Ur-UhO" firstAttribute="top" secondItem="gH7-Qy-K6H" secondAttribute="top" constant="36" id="OtY-NF-XSP"/>
-                        <constraint firstAttribute="bottom" secondItem="kN2-Ur-UhO" secondAttribute="bottom" constant="9" id="QRz-gB-qKN"/>
-                        <constraint firstAttribute="trailing" secondItem="kN2-Ur-UhO" secondAttribute="trailing" constant="16" id="Xxt-vc-xBd"/>
+                        <constraint firstItem="kN2-Ur-UhO" firstAttribute="top" secondItem="gH7-Qy-K6H" secondAttribute="top" constant="26" id="OtY-NF-XSP"/>
+                        <constraint firstAttribute="trailing" secondItem="Mi7-85-VBu" secondAttribute="trailing" constant="16" id="YYw-qH-TIM"/>
                         <constraint firstAttribute="bottom" secondItem="ltA-4b-Osx" secondAttribute="bottom" id="g92-nI-ujX"/>
                     </constraints>
                 </view>
@@ -59,7 +64,9 @@
             <connections>
                 <outlet property="bookingDetailsLabel" destination="kN2-Ur-UhO" id="AFS-We-epg"/>
                 <outlet property="containerView" destination="gH7-Qy-K6H" id="xxF-Dr-Q1l"/>
+                <outlet property="emailIternaryButton" destination="Mi7-85-VBu" id="Vrb-vc-7Hn"/>
             </connections>
+            <point key="canvasLocation" x="140" y="149.77511244377811"/>
         </view>
     </objects>
     <resources>

@@ -36,6 +36,8 @@ class FrequentFlyerTableViewCell: UITableViewCell {
     @IBOutlet weak var leftSeparatorView: ATDividerView!
     @IBOutlet weak var rightSeparatorView: ATDividerView!
     
+    @IBOutlet weak var airlineSeparatorView: ATDividerView!
+    @IBOutlet weak var lelfSeparatorLeadingConstraint: NSLayoutConstraint!
     // MARK: - Variables
     
     weak var delegate: FrequentFlyerTableViewCellDelegate?
@@ -62,6 +64,11 @@ class FrequentFlyerTableViewCell: UITableViewCell {
         // Initialization code
         frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
         addGesture()
+        self.contentView.backgroundColor = AppColors.profileContentBackground
+        self.leftSeparatorView.backgroundColor = AppColors.dividerColor
+        self.rightSeparatorView.backgroundColor = AppColors.dividerColor
+        self.airlineSeparatorView.backgroundColor = AppColors.dividerColor
+
     }
     
     override func prepareForReuse() {
@@ -97,6 +104,7 @@ class FrequentFlyerTableViewCell: UITableViewCell {
             frequentFlyerLabel.textColor = AppColors.textFieldTextColor51
         }
         rightTextField.text = ff.number
+        rightTextField.textColor = AppColors.textFieldTextColor51
         rightTextField.delegate = self
         titleLabel.text = LocalizedString.FrequentFlyer.rawValue
         leftTitleLabel.textColor = AppColors.themeGray20
@@ -105,6 +113,18 @@ class FrequentFlyerTableViewCell: UITableViewCell {
         deleteButton.isHidden = false
         leftTextField.isEnabled = false
         rightTextField.isEnabled = true
+        
+    }
+    
+    func setupForError(isNeedToShowError:Bool){
+        if isNeedToShowError, let ff = self.ffData{
+            let airlineName = ff.airlineName.lowercased().replacingOccurrences(of: LocalizedString.SelectAirline.localized.lowercased(), with: "")
+            self.airlineSeparatorView.isSettingForErrorState = ((airlineName.removeAllWhitespaces.isEmpty && !ff.number.removeAllWhitespaces.isEmpty) || ff.isDuplicate)
+            self.rightSeparatorView.isSettingForErrorState  = ((!airlineName.removeAllWhitespaces.isEmpty && ff.number.removeAllWhitespaces.isEmpty) || ff.isDuplicate)
+        }else{
+            self.airlineSeparatorView.isSettingForErrorState = false
+            self.rightSeparatorView.isSettingForErrorState  = false
+        }
         
     }
     

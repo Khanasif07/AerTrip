@@ -20,7 +20,11 @@ class BulkBookingVM {
     var adultsCount: Int = 10
     var childrenCounts: Int = 0
     var checkInDate = "2019-03-20" //Date().toString(dateFormat: "YYYY-MM-DD")
-    var checkOutDate = "2019-03-25"
+    var checkOutDate = "2019-03-25" {
+        didSet {
+            printDebug("checkOutDate: \(checkOutDate)")
+        }
+    }
     var ratingCount: [Int] = []
     var source: String = ""
     var preferred: String = ""
@@ -29,7 +33,10 @@ class BulkBookingVM {
     var pType: String = "hotel"
     var enquiryId: String = ""
     var oldData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
-    
+    var searchedLocation: SearchedDestination?
+    var checkIn: Date?
+    var checkOut: Date?
+
     //MARK:- Public
     internal weak var delegate: BulkBookingVMDelegate?
     

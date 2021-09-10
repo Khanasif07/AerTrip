@@ -22,28 +22,66 @@ class ATWebViewVC: BaseVC {
         }
     }
     
+    @IBOutlet weak var navViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var blurViewContainer: BlurView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 13.0, *) {
+            self.statusBarStyle = presentingStatusBarStyle
+        }
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if #available(iOS 13.0, *) {
+            self.statusBarStyle = dismissalStatusBarStyle
+        }
+    }
     
     //MARK:- Properties
     //MARK:- Public
     var urlToLoad: URL?
     var navTitle: String = AppConstants.kAppName
+    var htmlString: String?
     
     //MARK:- Private
     private var webView: WKWebView!
+    var dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
     
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
-        topNavView.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
-        topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "searchBarClearButton"), selectedImage: #imageLiteral(resourceName: "searchBarClearButton"))
+        activityIndicatorView.color = AppColors.themeGray153
+        self.activityIndicatorView.startAnimating()
+        webView.backgroundColor = AppColors.themeWhite
+        webView.scrollView.backgroundColor = AppColors.themeWhite
+        webView.isOpaque = false
+        topNavView.configureNavBar(title: navTitle, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
+        topNavView.navTitleLabel.numberOfLines = 1
+        topNavView.navTitleLabel.lineBreakMode = .byTruncatingTail
+        topNavView.configureFirstRightButton(normalImage: AppImages.black_cross, selectedImage: AppImages.black_cross)
         topNavView.delegate = self
-        
+        topNavView.backView.backgroundColor = .clear
+        topNavView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        //blurViewContainer.addShadow(withColor: UIColor.black.withAlphaComponent(0.2))
+        //blurViewContainer.backgroundColor = UIColor.white.withAlphaComponent(0.40)
         //create webView
-        self.loadUrl()
+        if let _ = self.urlToLoad {
+            self.loadUrl()
+        } else if let _ = self.htmlString {
+            self.loadhtml()
+        }
         webView.navigationDelegate = self
+        
+        if #available(iOS 13.0, *) {
+            navViewHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,6 +100,14 @@ class ATWebViewVC: BaseVC {
         webView.load(URLRequest(url: url))
     }
     
+    private func loadhtml() {
+        guard let html = htmlString else {
+            fatalError("There is not url to load")
+        }
+        
+        webView.loadHTMLString(html, baseURL: nil)
+    }
+    
     //MARK:- Public
     
     
@@ -70,6 +116,9 @@ class ATWebViewVC: BaseVC {
 
 extension ATWebViewVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
 }

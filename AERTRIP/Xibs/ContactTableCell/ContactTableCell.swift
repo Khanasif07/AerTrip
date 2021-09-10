@@ -27,10 +27,12 @@ class ContactTableCell: UITableViewCell {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var contactTitleLabel: UILabel!
     @IBOutlet weak var dividerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textFieldView: UIView!
     
     
     private var preSelectedCountry: PKCountryModel?
     weak var delegate: ContactTableCellDelegate?
+    var minContactLimit = 10
     
     //MARK:- Life Cycle
     //MARK:-
@@ -40,12 +42,19 @@ class ContactTableCell: UITableViewCell {
         
         self.selectionStyle = .none
         configUI()
+        self.setColors()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.countryCodeContainerView.backgroundColor = AppColors.themeBlack26
+        self.textFieldView.backgroundColor = AppColors.themeBlack26
     }
     
     //MARK:- Methods
@@ -72,6 +81,7 @@ class ContactTableCell: UITableViewCell {
             preSelectedCountry = current
             flagImageView.image = current.flagImage
             countryCodeLabel.text = current.countryCode
+            minContactLimit = current.minNSN
         }
         
         contactNumberTextField.delegate = self
@@ -88,10 +98,28 @@ class ContactTableCell: UITableViewCell {
                 sSelf.flagImageView.image = selectedCountry.flagImage
                 sSelf.countryCodeLabel.text = selectedCountry.countryCode
                 sSelf.contactNumberTextField.defaultRegion = selectedCountry.ISOCode
+                sSelf.minContactLimit = selectedCountry.minNSN
                 sSelf.contactNumberTextField.text = sSelf.contactNumberTextField.nationalNumber
                 sSelf.delegate?.setIsdCode(selectedCountry,sender)
             }
         }
+    }
+    
+    internal func checkForErrorStateOfTextfield() {
+        let finalTxt = (contactNumberTextField.text ?? "").removeAllWhitespaces
+
+        titleLabel.textColor = AppColors.themeGray40
+        
+        
+//        self.editableTextField.isError = finalTxt.checkInvalidity(.Email)
+        
+        let isValidEmail = !(finalTxt.alphanumeric.count < self.minContactLimit)
+        if !isValidEmail, !finalTxt.isEmpty {
+           titleLabel.textColor = AppColors.themeRed
+        }
+        let firstName = self.contactNumberTextField.placeholder ?? ""
+        self.contactNumberTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
+        self.dividerView.isSettingForErrorState = !isValidEmail
     }
 }
 
@@ -102,6 +130,22 @@ extension ContactTableCell : UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         PKCountryPicker.default.closePicker()
+        titleLabel.textColor = AppColors.themeGray40
+        self.dividerView.isSettingForErrorState = false
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentString: NSString = textField.text! as NSString
+        let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+        
+        return (newString as String).alphanumeric.count <= self.minContactLimit
+       
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        checkForErrorStateOfTextfield()
+    }
+
 }

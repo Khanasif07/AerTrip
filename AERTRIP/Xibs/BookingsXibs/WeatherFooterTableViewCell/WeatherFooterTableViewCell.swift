@@ -37,9 +37,12 @@ class WeatherFooterTableViewCell: UITableViewCell {
         self.weatherLabel.font = AppFonts.Regular.withSize(14.0)
         
         // Color
-        self.weatherLabel.textColor = AppColors.themeGray40
+        self.weatherLabel.textColor = AppColors.themeGray60
         
         // Text
         self.weatherLabel.text = LocalizedString.WeatherFooterInfo.localized
+        
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        
     }
 }

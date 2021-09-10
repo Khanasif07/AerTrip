@@ -18,8 +18,12 @@ class FlightBookingsDetailsVC: BaseVC {
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "flightIcon")
+        return AppImages.flightIconDetailPage
     }
+    var eventTypeNavigationBarImage: UIImage {
+        return AppImages.BookingDetailFlightNavIcon
+    }
+    
     
     private var navBarHeight: CGFloat {
         return UIDevice.isIPhoneX ? 88.0 : 64.0
@@ -28,6 +32,18 @@ class FlightBookingsDetailsVC: BaseVC {
     var tripChangeIndexPath: IndexPath?
     var updatedTripDetail: TripModel?
     
+    var maxValue: CGFloat = 1.0
+    var minValue: CGFloat = 0.0
+    var finalMaxValue: Int = 0
+    var currentProgress: CGFloat = 0
+    var currentProgressIntValue: Int = 0
+    
+    var isScrollingFirstTime: Bool = true
+    var isNavBarHidden:Bool = true
+    let headerHeightToAnimate: CGFloat = 30.0
+    var isHeaderAnimating: Bool = false
+    var isBackBtnTapped = false
+    let refreshControl = UIRefreshControl()
     // MARK: - IBOutlets
     
     // MARK: -
@@ -39,10 +55,16 @@ class FlightBookingsDetailsVC: BaseVC {
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
             self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
             self.bookingDetailsTableView.sectionHeaderHeight = 0
+            self.bookingDetailsTableView.backgroundColor = AppColors.themeGray04
+            bookingDetailsTableView.showsVerticalScrollIndicator = true
         }
     }
     
     @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .bookingDetailFetched, object: nil)
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -51,19 +73,36 @@ class FlightBookingsDetailsVC: BaseVC {
     override func initialSetup() {
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType: .color(color: .white))
-        self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.topNavBar.configureLeftButton(normalImage: AppImages.backGreen, selectedImage: AppImages.backGreen)
+        self.topNavBar.navTitleLabel.numberOfLines = 1
+        //self.topNavBar.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton)
+        self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Request.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
+        self.topNavBar.isNeedExtraSpace = true
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
-        self.configureTableHeaderView()
+        self.configureTableHeaderView(hideDivider: true)
         self.setupParallaxHeader()
         self.registerNibs()
         
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        //self.bookingDetailsTableView.refreshControl = refreshControl
+        
         // Call to get booking detail
-        self.viewModel.getBookingDetail()
+        if self.viewModel.bookingDetail == nil{//Don't Hit API when comming from deep link
+            self.viewModel.getBookingDetail(showProgress: true)
+        }else{
+            self.viewModel.calculateWeatherLabelWidths(usingFor: self.viewModel.bookingDetail?.product.lowercased() == "flight" ? .flight : .hotel)
+            self.getBookingDetailSucces(showProgress: false)
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
+                
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightBookingsDetails)
     }
     
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func bindViewModel() {
@@ -79,26 +118,223 @@ class FlightBookingsDetailsVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .myBookingCasesRequestStatusChanged {
-            self.viewModel.getBookingDetail()
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .myBookingCasesRequestStatusChanged:
+                self.viewModel.getBookingDetail(showProgress: true)
+            default:
+                break
+            }
         }
     }
     
-    // MARK: - Functions
+    @objc func bookingDetailFetched(_ note: Notification) {
+        if let object = note.object as? BookingDetailModel {
+            printDebug("BookingDetailModel")
+            if self.viewModel.bookingId == object.id {
+                self.viewModel.bookingDetail = object
+                self.getBookingDetailSucces(showProgress: false)
+            }
+        }
+    }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.bookingDetailsTableView.reloadData()
+    }
+    
+    // MARK: - Functions
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getBookingDetail(showProgress: false)
+    }
     // MARK: -
     
     /// ConfigureCheckInOutView
-    func configureTableHeaderView() {
+    func configureTableHeaderView(hideDivider: Bool) {
         if let view = self.headerView {
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM''yy") ?? "")
+            
+            
+//            var dateToDisplay = ""
+            let dateToDisplay = self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM yyyy") ?? ""
+//            if !date.isEmpty{
+//                var newDate = date
+//                newDate.insert(contentsOf: "’", at: newDate.index(newDate.startIndex, offsetBy: newDate.count-2))
+//                dateToDisplay = newDate
+//            }
+            
+            
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date:dateToDisplay)
+                                
+                             
+            //self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM’ yy") ?? "")
             
             view.dividerView.isHidden = true
+            view.isBottomStroke = false
+            view.progressBottomConstraint.constant = 0.0
             if let note = self.viewModel.bookingDetail?.bookingDetail?.note, !note.isEmpty {
-                view.dividerView.isHidden = false
+                //                view.dividerView.isHidden = false
+                view.isBottomStroke = true
+                //                view.progressBottomConstraint.constant = 2.0
             }
             else if let cases = self.viewModel.bookingDetail?.cases, !cases.isEmpty {
-                view.dividerView.isHidden = false
+                //                view.dividerView.isHidden = false
+                view.isBottomStroke = true
+                //                view.progressBottomConstraint.constant = 2.0
+            }
+            
+            if !hideDivider {
+                view.dividerView.isHidden = !view.isBottomStroke
+            }
+        }
+    }
+    
+    
+    func whatNextForSameFlightBook()-> WhatNext?{
+        guard let detail = self.viewModel.bookingDetail, let fDetails = detail.bookingDetail else { return nil}
+        var whatNext = WhatNext(isFor: "flight")
+        if let leg = fDetails.leg.first {
+            whatNext.departCity = (leg.title.components(separatedBy: "→").first ?? "").trimmingCharacters(in: .whitespaces)
+            whatNext.arrivalCity = (leg.title.components(separatedBy: "→").last ?? "").trimmingCharacters(in: .whitespaces)
+            whatNext.origin = leg.parentOrigin
+            whatNext.destination = leg.parentDestination
+            whatNext.cabinclass = leg.flight.first?.cabinClass ?? "Economy"
+            if ((leg.flight.first?.departDate ?? Date()) > Date()){
+                whatNext.depart = leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            }else{
+                whatNext.depart = Date().toString(dateFormat: "dd-MM-yyyy")
+            }
+           
+            whatNext.tripType = detail.tripType
+            whatNext.adult = "\((leg.pax.filter{$0.paxType.uppercased() == "ADT"}).count)"
+            whatNext.child = "\((leg.pax.filter{$0.paxType.uppercased() == "CHD"}).count)"
+            whatNext.infant = "\((leg.pax.filter{$0.paxType.uppercased() == "INF"}).count)"
+            whatNext.departureCountryCode = leg.flight.first?.departureCountry ?? ""
+            whatNext.departAiports = leg.flight.first?.departureAirport ?? ""
+            whatNext.arrivalCountryCode = leg.flight.last?.arrivalCountryCode ?? ""
+            whatNext.arrivalAirports = leg.flight.last?.arrivalAirport ?? ""
+        }else{
+            return nil
+        }
+        
+        switch detail.tripType{
+        case "single", "return":
+            if detail.tripType != "single"{
+                
+                let dptDate = fDetails.leg.first?.flight.first?.departDate ?? Date()
+                let rtnDate = fDetails.leg.last?.flight.first?.departDate  ?? Date()
+                let difference = rtnDate.daysFrom(dptDate)
+                if (dptDate > Date()){
+                    whatNext.returnDate = fDetails.leg.last?.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+                }else {
+                    whatNext.returnDate = (Date().add(days: difference) ?? Date()).toString(dateFormat: "dd-MM-yyyy")
+                }
+//                else{
+//                    whatNext.returnDate = Date().toString(dateFormat: "dd-MM-yyyy")
+//                }
+                
+            }
+            return whatNext
+            
+        case "multi", "multicity":
+            var depart = [String]()
+            var origin = [String]()
+            var destination = [String]()
+            var departCity = [String]()
+            var arrivalCity = [String]()
+            var arrivalAriports = [String]()
+            var arrivalCountry = [String]()
+            var departAriports = [String]()
+            var departCountry = [String]()
+            var depatDateArray = [Date]()
+            
+            
+            for (index, leg) in fDetails.leg.enumerated(){
+                let departDate = (leg.flight.first?.departDate ?? Date())
+                
+                if index == 0{
+                    if (departDate > Date()){
+                        depatDateArray.append(departDate)
+                        depart.append(departDate.toString(dateFormat: "dd-MM-yyyy"))
+                    }else{
+                        depatDateArray.append(Date())
+                        depart.append(Date().toString(dateFormat: "dd-MM-yyyy"))
+                    }
+                }else{
+                    let previousDate = (fDetails.leg[index - 1].flight.first?.departDate ?? Date())
+                    
+                    if previousDate >= Date(){
+                        depatDateArray.append(departDate)
+                        depart.append(departDate.toString(dateFormat: "dd-MM-yyyy"))
+                    }else{
+                        let difference = departDate.daysFrom(previousDate)
+                        let newDptDate = depatDateArray[index - 1].add(days: difference) ?? Date()
+                        depart.append(newDptDate.toString(dateFormat: "dd-MM-yyyy"))
+                        depatDateArray.append(newDptDate)
+                    }
+                }
+                
+
+                origin.append(leg.origin)
+                destination.append(leg.destination)
+                departCity.append((leg.title.components(separatedBy: "→").first ?? "").trimmingCharacters(in: .whitespaces))
+                arrivalCity.append((leg.title.components(separatedBy: "→").last ?? "").trimmingCharacters(in: .whitespaces))
+                arrivalAriports.append(leg.flight.last?.arrivalAirport ?? "")
+                arrivalCountry.append(leg.flight.last?.arrivalCountryCode ?? "")
+                departAriports.append(leg.flight.first?.arrivalAirport ?? "")
+                departCountry.append(leg.flight.first?.arrivalCountryCode ?? "")
+            }
+            whatNext.tripType = "multi"
+            whatNext.departArr = depart
+            whatNext.originArr = origin
+            whatNext.destinationArr = destination
+            whatNext.departCityArr = departCity
+            whatNext.arrivalCityArr = arrivalCity
+            whatNext.arrivalAirportArr = arrivalAriports
+            whatNext.arrivalCountryCodeArr = arrivalCountry
+            whatNext.departAiportArr = departAriports
+            whatNext.departureCountryCodeArr = departCountry
+            return whatNext
+        default : break;
+        }
+        
+        return nil
+        
+    }
+    
+    func bookSameFlightWith(_ whatNext:WhatNext){
+        FlightWhatNextData.shared.isSettingForWhatNext = true
+        FlightWhatNextData.shared.whatNext = whatNext
+        AppFlowManager.default.goToDashboard(toBeSelect: .flight)
+        
+    }
+    
+    func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+
+                let jsonDict : JSONDictionary = ["MyBookingsFlightBookingsDetailsPayOnlineBookingId":self.viewModel.bookingId]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightBookingsDetailsPayOnlineOptionSelected, value: jsonDict)
+
+                
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
+                
+            case 1:
+                //PayOfflineNRegister
+                
+                let jsonDict : JSONDictionary = ["MyBookingsFlightBookingsDetailsPayOfflineBookingId":self.viewModel.bookingId]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightBookingsDetailsPayOfflineOptionSelected, value: jsonDict)
+
+
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
+                printDebug("PayOfflineNRegister")
+                
+            default:
+                printDebug("no need to implement")
             }
         }
     }
@@ -106,6 +342,9 @@ class FlightBookingsDetailsVC: BaseVC {
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
         let parallexHeaderMinHeight = CGFloat(0.0)//navigationController?.navigationBar.bounds.height ?? 74 // 105
+        self.headerView?.translatesAutoresizingMaskIntoConstraints = false
+        self.headerView?.widthAnchor.constraint(equalToConstant: bookingDetailsTableView?.width ?? 0.0).isActive = true
+        
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight
@@ -137,19 +376,27 @@ class FlightBookingsDetailsVC: BaseVC {
     
     func webCheckinServices(url: String) {
         // TODO: - Need to be synced with backend Api key
-        guard let url = url.toUrl else { return }
-        AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")
+        //guard let url = url.toUrl else { return }
+        //AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")
+        self.openUrl( url)
     }
     
     // Present Request Add on Frequent Flyer VC
     func presentRequestAddOnFrequentFlyer() {
+
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsRequestAddOnFrequentFlyerOptionSelected)
+        
+        
         AppFlowManager.default.presentBookingReuqestAddOnVC(bookingdata: self.viewModel.bookingDetail,delegate: self)
     }
     
     // Present Booking Rescheduling VC
     func presentBookingReschedulingVC() {
         if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg {
-            AppFlowManager.default.presentBookingReschedulingVC(legs: leg)
+
+            FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsReschedulingOptionSelected)
+
+            AppFlowManager.default.presentBookingReschedulingVC(bookingDetails: self.viewModel.bookingDetail, legs: leg)
         }
     }
 }

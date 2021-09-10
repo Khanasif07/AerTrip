@@ -27,7 +27,7 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var firstNameTextField: PKFloatLabelTextField!
     @IBOutlet weak var lastNameTextField: PKFloatLabelTextField!
     @IBOutlet weak var countryTextField: PKFloatLabelTextField!
-    @IBOutlet weak var mobileNumberTextField: PKFloatLabelTextField!
+    @IBOutlet weak var mobileNumberTextField: UITextField!
     @IBOutlet weak var letsStartedButton: ATButton!
     @IBOutlet weak var countryCodeTextField: PKFloatLabelTextField!
     @IBOutlet weak var countryCodeLabel: UILabel!
@@ -45,6 +45,9 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var verticalDividerView: UIView!
     @IBOutlet weak var switchParentContainerView: UIView!
+    @IBOutlet weak var mobileNoseperatorView: ATDividerView!
+
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -73,9 +76,6 @@ class CreateProfileVC: BaseVC {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        self.letsStartedButton.layer.cornerRadius = self.letsStartedButton.height/2
-        //self.letsStartedButton.layer.masksToBounds = true
     }
     
     override func bindViewModel() {
@@ -111,6 +111,9 @@ class CreateProfileVC: BaseVC {
         
         self.createProfileTitleLabel.textColor  = AppColors.themeBlack
         self.createProfileSubTitleLabel.textColor  = AppColors.themeBlack
+        self.firstNameTextField.lineErrorColor = AppColors.themeRed
+        self.lastNameTextField.lineErrorColor = AppColors.themeRed
+        self.countryTextField.lineErrorColor = AppColors.themeRed
        // self.letsStartedButton.layer.masksToBounds = false
         self.letsStartedButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.letsStartedButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
@@ -120,10 +123,30 @@ class CreateProfileVC: BaseVC {
     //MARK:-
     
     @IBAction func letsGetStartButton(_ sender: ATButton) {
-        
         self.view.endEditing(true)
         if self.viewModel.isValidateData {
             self.viewModel.webserviceForUpdateProfile()
+        } else {
+            if viewModel.userData.salutation.isEmpty{
+                containerView.layer.borderColor = AppColors.themeRed.cgColor
+                containerView.layer.borderWidth = 0.5
+            }
+
+            let isValidFirstName = !self.viewModel.userData.firstName.isEmpty
+            self.firstNameTextField.isError = !isValidFirstName
+            let firstNamePlaceHolder = self.firstNameTextField.placeholder ?? ""
+            self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstNamePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+            let isValidLastName = !self.viewModel.userData.lastName.isEmpty
+            self.lastNameTextField.isError = !isValidLastName
+            let lastNamePlaceHolder = self.lastNameTextField.placeholder ?? ""
+            self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastNamePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+            let isValidMobile = !(self.viewModel.userData.mobile.isEmpty || self.viewModel.userData.mobile.count < self.viewModel.userData.minContactLimit)
+            //self.mobileNumberTextField.isError = !isValidLastName
+            let mobilePlaceHolder = self.mobileNumberTextField.placeholder ?? ""
+            self.mobileNumberTextField.attributedPlaceholder = NSAttributedString(string: mobilePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidMobile ? AppColors.themeGray40 :  AppColors.themeRed])
+            self.mobileNoseperatorView.isSettingForErrorState = !isValidMobile
         }
     }
     
@@ -135,12 +158,14 @@ class CreateProfileVC: BaseVC {
         containerView.layer.cornerRadius = 20.0
         unicodeSwitch.sliderView.layer.cornerRadius = 18
         unicodeSwitch.sliderInset = 1.0
-        verticalDividerView.backgroundColor = AppColors.themeGray20
+        verticalDividerView.backgroundColor = AppColors.unicodeSwitchLineColor
     }
     
     
     @IBAction func changeSelectedIndex(_ sender: ATUnicodeSwitch) {
         verticalDividerView.isHidden = true
+        containerView.layer.borderColor = AppColors.clear.cgColor
+
         unicodeSwitch.sliderView.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.04).cgColor
         unicodeSwitch.sliderView.layer.borderWidth = 0.5
         unicodeSwitch.sliderView.dropShadowOnSwitch()
@@ -153,7 +178,7 @@ class CreateProfileVC: BaseVC {
             unicodeSwitch.titleLeft = "🙋🏻‍♂️"
             self.viewModel.userData.salutation = AppConstants.kmR
         }
-        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
+        self.letsStartedButton.isEnabledShadow  = !self.viewModel.isValidateForButtonEnable
 
     }
     
@@ -181,6 +206,10 @@ private extension CreateProfileVC {
         self.firstNameTextField.hintYPadding = 12.0
         self.lastNameTextField.hintYPadding = 12.0
         self.lastNameTextField.titleYPadding = 12.0
+        self.countryTextField.titleYPadding = 2.0
+        
+        self.mobileNoseperatorView.defaultBackgroundColor = self.countryTextField.lineColor
+        self.mobileNoseperatorView.defaultHeight = self.countryTextField.lineView.height
         //self.countryTextField.lineViewBottomSpace = 4.0
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
@@ -189,7 +218,7 @@ private extension CreateProfileVC {
         self.viewModel.userData.address?.countryCode = LocalizedString.selectedCountryCode.localized
         self.viewModel.userData.address?.country = LocalizedString.selectedCountry.localized
         self.viewModel.userData.salutation = ""
-        self.letsStartedButton.isEnabled = false
+        self.letsStartedButton.isEnabledShadow = true
         self.firstNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.mobileNumberTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
@@ -197,7 +226,7 @@ private extension CreateProfileVC {
         if let currentCountry = PKCountryPicker.default.getCurrentLocalCountryData() {
             self.setupData(forCountry: currentCountry)
         }
-        
+        self.letsStartedButton.myCornerRadius = self.letsStartedButton.height/2
     }
     
     private func setupData(forCountry: PKCountryModel) {
@@ -220,7 +249,8 @@ private extension CreateProfileVC {
         self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,with: "",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,with: "",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
-        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+//        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+        self.mobileNumberTextField.setUpTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         
         salutationPicker.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
@@ -244,7 +274,7 @@ private extension CreateProfileVC {
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red:14.0/255, green:122.0/255, blue:254.0/255, alpha: 1)
+        toolBar.tintColor = UIColor(displayP3Red:14.0/255, green:122.0/255, blue:254.0/255, alpha: 1)
         toolBar.sizeToFit()
         // TODO need to update actions for all buttons
         let cancelButton = UIBarButtonItem(title: LocalizedString.Cancel.localized, style: UIBarButtonItem.Style.plain, target: self, action: nil)
@@ -317,15 +347,42 @@ extension CreateProfileVC {
             break
         }
         
-        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
+        self.letsStartedButton.isEnabledShadow  = !self.viewModel.isValidateForButtonEnable
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+            
+        case self.firstNameTextField:
+           let isValidFirstName = !self.viewModel.userData.firstName.isEmpty
+           self.firstNameTextField.isError = !isValidFirstName
+           let firstNamePlaceHolder = self.firstNameTextField.placeholder ?? ""
+           self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstNamePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+        case self.lastNameTextField:
+          let isValidLastName = !self.viewModel.userData.lastName.isEmpty
+          self.lastNameTextField.isError = !isValidLastName
+          let lastNamePlaceHolder = self.lastNameTextField.placeholder ?? ""
+          self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastNamePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+        case self.mobileNumberTextField:
+            let isValidMobile = !(self.viewModel.userData.mobile.isEmpty || self.viewModel.userData.mobile.count < self.viewModel.userData.minContactLimit)
+            //self.mobileNumberTextField.isError = !isValidLastName
+            let mobilePlaceHolder = self.mobileNumberTextField.placeholder ?? ""
+            self.mobileNumberTextField.attributedPlaceholder = NSAttributedString(string: mobilePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidMobile ? AppColors.themeGray40 :  AppColors.themeRed])
+            self.mobileNoseperatorView.isSettingForErrorState = !isValidMobile
+            
+        default:
+            break
+        }
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        if textField === self.countryCodeTextField || textField === self.countryTextField {
+        if textField === self.countryCodeTextField{//} || textField === self.countryTextField {
             
             UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
             let model = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.userData.address?.country ?? "")
+            self.viewModel.logEvent(with: .openCC)
             PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: model) { [weak self] (selectedCountry,closePicker) in
                 printDebug("selected country data: \(selectedCountry)")
                 
@@ -343,7 +400,9 @@ extension CreateProfileVC {
             }
             return false
         } else {
-            
+            if textField == self.mobileNumberTextField{
+                self.mobileNoseperatorView.isSettingForErrorState = false
+            }
             PKCountryPicker.default.closePicker()
             if textField === self.nameTitleTextField {
                 
@@ -358,7 +417,7 @@ extension CreateProfileVC {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        let currentString: NSString = textField.text! as NSString
+        let currentString: NSString = (textField.text ?? "") as NSString
         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
         
         if textField === self.mobileNumberTextField {
@@ -454,24 +513,26 @@ extension CreateProfileVC {
     
     func setupViewForSuccessAnimation() {
         
-        self.letsStartedButton.setTitle("", for: .normal)
-        self.letsStartedButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
-
+        self.letsStartedButton.setTitle(nil, for: .normal)
+        self.letsStartedButton.setImage(AppImages.Checkmark, for: .normal)
+//        self.letStartButtonHeight.constant = 74
+//        self.letsStartButtonWidth.constant = 74
        // self.letsStartedButton.layer.masksToBounds = true
-        let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
+        //let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - (74.0)/2) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
 
-        self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
+        //self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
 
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
-            self.letsStartedButton.frame = reScaleFrame
-            self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+            self.letStartButtonHeight.constant = 74
+            self.letsStartButtonWidth.constant = 74
+            self.letsStartedButton.myCornerRadius = 74 / 2.0
             self.whiteBackgroundView.alpha = 0.5
             self.view.layoutIfNeeded()
             
         }) { (isCompleted) in
-            self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+            //self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
 
-            let tY = ((UIDevice.screenHeight - reScaleFrame.height) / 2.0) - self.letsStartedButton.y
+            let tY = ((UIDevice.screenHeight - self.letsStartedButton.height) / 2.0) - self.letsStartedButton.y
             var t = CGAffineTransform.identity
             t = t.translatedBy(x: 0.0, y: tY)
 

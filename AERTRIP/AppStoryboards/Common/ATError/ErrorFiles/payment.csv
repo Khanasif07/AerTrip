@@ -1,0 +1,10 @@
+Sr. No,Service Name,Error Code,Error Description,Error Message,Description
+1,checkout frontend page,996,Payment is invalid,There was some error processing your payment request. Please contact customer support.,
+2,checkout frontend page,998,Wallet amount is less than the total amount,Wallet amount cannot be less than Total amount. Please contact customer support.,
+3,checkout frontend page,997,Wallet amount has been locked,Wallet amount has been locked. Please contact customer support.,
+4,,,,,
+5,payment/make-payment,995,Minimum transaction amount allowed is Re. 1,Minimum transaction amount allowed is Re. 1,
+6,,994,Maximum amount is capped at Rs 5Lac,Maximum amount is capped at Rs 5Lac,
+7,,2,Booking amount is over limit of pg.,,Case id is created and same can be found in itiernary details API after this error code is returned in makepayment api.
+8,payment/register-payment,990,It Id cannot be blank.,It Id cannot be blank.,
+9,,991,Payment Method Id cannot be blank.,Payment Method Id cannot be blank.,

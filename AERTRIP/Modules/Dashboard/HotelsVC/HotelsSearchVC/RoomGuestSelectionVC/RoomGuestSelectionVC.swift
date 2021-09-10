@@ -49,15 +49,21 @@ class RoomGuestSelectionVC: BaseVC {
         return 420.0 + AppFlowManager.default.safeAreaInsets.bottom
     }
     private var mainContainerHeight: CGFloat = 0.0
-    
+    var viewTranslation = CGPoint(x: 0, y: 0)
     //MARK:- ViewLifeCycle
     //====================
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetups()
+        self.view.layoutIfNeeded()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.show(animated: true)
     }
     
     override func setupFonts() {
@@ -99,47 +105,55 @@ class RoomGuestSelectionVC: BaseVC {
     override func setupColors() {
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .selected)
-        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeBlack.withAlphaComponent(0.2), offset: CGSize(width: 0, height: -8))
+        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.appShadowColor,backgroundColor: AppColors.doneViewClearColor, offset: CGSize(width: 0, height: -8))
         
         self.roomNumberLabel.textColor = AppColors.themeBlack
-        self.guestSelectionLabel.textColor = AppColors.themeGray40
-        self.messageLabel.textColor = AppColors.themeOrange
+        self.guestSelectionLabel.textColor = AppColors.themeGray153
+        self.messageLabel.textColor = AppColors.cheapestPriceColor
         
         self.adultsTitleLabel.textColor = AppColors.themeBlack
-        self.adultsAgeLabel.textColor = AppColors.themeGray40
+        self.adultsAgeLabel.textColor = AppColors.themeGray153
         
         self.childTitleLabel.textColor = AppColors.themeBlack
-        self.childAgeLabel.textColor = AppColors.themeGray40
+        self.childAgeLabel.textColor = AppColors.themeGray153
         
         self.ageSelectionLabel.textColor = AppColors.themeBlack
+        self.doneButton.backgroundColor = AppColors.doneViewClearColor
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
     }
-    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.appShadowColor,backgroundColor: AppColors.doneViewClearColor, offset: CGSize(width: 0, height: -8))
+    }
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        
         //AddGesture:-
-        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        mainContainerView.isUserInteractionEnabled = true
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        self.view.isUserInteractionEnabled = true
+        swipeGesture.direction = .down
         swipeGesture.delegate = self
-        self.headerView.addGestureRecognizer(swipeGesture)
+        self.view.addGestureRecognizer(swipeGesture)
         
         //background view
         self.backgroundView.alpha = 1.0
-        self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+        self.backgroundView.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.001)
         self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
         
         self.setOldAges()
         self.hide(animated: false)
-        delay(seconds: 0.0) { [weak self] in
-            self?.show(animated: true)
-        }
+        //        delay(seconds: 0.0) { [weak self] in
+        //            self?.show(animated: true)
+        //        }
         
         self.firstLineView.isHidden = true
         self.secondLineView.isHidden = true
         self.doneButtonBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        
     }
     
     private func setOldAges() {
@@ -160,12 +174,12 @@ class RoomGuestSelectionVC: BaseVC {
         
         func setValue() {
             self.mainContainerBottomConstraints.constant = 0.0
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            self.view.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.3)
             self.view.layoutIfNeeded()
         }
         
         if animated {
-            UIView.animate(withDuration: animated ? 0.4 : 0.0, animations: {
+            UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseInOut, animations: {
                 setValue()
             }, completion: { (isDone) in
             })
@@ -179,18 +193,25 @@ class RoomGuestSelectionVC: BaseVC {
         
         func setValue() {
             self.mainContainerBottomConstraints.constant = -(self.mainContainerView.height)
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+            self.view.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.001)
             self.view.layoutIfNeeded()
         }
         
         if animated {
-            UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+            UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseIn, animations: {
                 setValue()
             }, completion: { (isDone) in
                 if shouldRemove {
-                    self.removeFromParentVC
+                    self.dismiss(animated: false, completion: nil)
                 }
             })
+            //            UIView.animate(withDuration: animated ? AppConstants.kCloseAnimationDuration : 0.0, animations: {
+            //                setValue()
+            //            }, completion: { (isDone) in
+            //                if shouldRemove {
+            //                    self.removeFromParentVC
+            //                }
+            //            })
         }
         else {
             setValue()
@@ -216,9 +237,9 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedAdults
             
             if oldState != button.isSelected {
-                if button.isSelected == true { self.selectButtonAnimation(button: button,isFirstTime: animated)
+                if button.isSelected == true { //self.selectButtonAnimation(button: button,isFirstTime: animated)
                 } else {
-                    self.deselectButtonAnimation(button: button,isFirstTime: animated)
+                    //self.deselectButtonAnimation(button: button,isFirstTime: animated)
                 }
             }
         }
@@ -229,9 +250,9 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedChilds
             
             if oldState != button.isSelected {
-                if button.isSelected == true  { self.selectButtonAnimation(button: button,isFirstTime: animated)
+                if button.isSelected == true  { //self.selectButtonAnimation(button: button,isFirstTime: animated)
                 } else {
-                    self.deselectButtonAnimation(button: button,isFirstTime: animated)
+                    //self.deselectButtonAnimation(button: button,isFirstTime: animated)
                 }
             }
         }
@@ -264,38 +285,37 @@ class RoomGuestSelectionVC: BaseVC {
     
     func deselectButtonAnimation(button: UIButton,isFirstTime: Bool = false){
         //Total animation duration is 1.0 seconds - This time is inside the
-//        if isFirstTime {
-//            UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: {
-//                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
-//                    //1.Expansion + button label alpha
-//                    button.imageView?.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-//                })
-//                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.33, animations: {
-//                    //2.Shrink
-//                    button.imageView?.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-//                })
-//                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.33, animations: {
-//                    //4.Move out of screen and reduce alpha to 0
-//                    button.imageView?.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
-//                })
-//            }) { (completed) in
-//                //Completion of whole animation sequence
-//                button.imageView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-//            }
-//        }
+        //        if isFirstTime {
+        //            UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: {
+        //                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
+        //                    //1.Expansion + button label alpha
+        //                    button.imageView?.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        //                })
+        //                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.33, animations: {
+        //                    //2.Shrink
+        //                    button.imageView?.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        //                })
+        //                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.33, animations: {
+        //                    //4.Move out of screen and reduce alpha to 0
+        //                    button.imageView?.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
+        //                })
+        //            }) { (completed) in
+        //                //Completion of whole animation sequence
+        //                button.imageView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        //            }
+        //        }
     }
     
     private func enableAgePicker() {
         for picker in self.agePickers {
             if (picker.tag + 1) > self.viewModel.selectedChilds {
                 picker.isHidden = true
-                self.viewModel.childrenAge[picker.tag] = 3
-                picker.selectRow(3, inComponent: 0, animated: false)
+                self.viewModel.childrenAge[picker.tag] = 1
+                picker.selectRow(1, inComponent: 0, animated: false)
             } else {
                 picker.isHidden = false
             }
-            
-            
+            picker.autoresizingMask = .flexibleWidth
         }
     }
     
@@ -312,12 +332,15 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.agesContainerView.isHidden = false
         self.ageSelectionLabel.isHidden = false
-        self.firstLineView.isHidden = false
-        self.secondLineView.isHidden = false
+        if #available(iOS 14.0, *) {} else {
+            self.firstLineView.isHidden = false
+            self.secondLineView.isHidden = false
+        }
         let mainH = self.containerHeight
         // - self.agesContainerView.frame.height
         //let mainH = self.mainContainerHeight + self.agesContainerView.frame.height
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
+            //        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 1.0
             self.view.layoutIfNeeded()
@@ -335,7 +358,8 @@ class RoomGuestSelectionVC: BaseVC {
         self.firstLineView.isHidden = true
         self.secondLineView.isHidden = true
         let mainH = self.mainContainerHeight - self.agesContainerView.frame.height
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
+            //        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 0.0
             self.view.layoutIfNeeded()
@@ -344,53 +368,72 @@ class RoomGuestSelectionVC: BaseVC {
             self.agesContainerView.isHidden = true
         })
     }
+    
+    private func applyRoomChanges() {
+        self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge, roomNumber: self.viewModel.roomNumber)
+    }
     //MARK:- Public
     
     
     //MARK:- Action
     @objc func tappedOnBackgroundView(_ sender: UIGestureRecognizer) {
+        applyRoomChanges()
         self.hide(animated: true, shouldRemove: true)
     }
     
     @IBAction func doneButtonAction(_ sender: UIButton) {
-        self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge, roomNumber: self.viewModel.roomNumber)
+        applyRoomChanges()
         self.hide(animated: true, shouldRemove: true)
     }
     
     @IBAction func adultsButtonsAction(_ sender: ATGuestButton) {
-        
+        var showMessage = false
         if sender.tag == 1 {
             //first button tapped, clear all selection except first adult
             self.viewModel.selectedAdults = sender.tag
             self.updateSelection(needToChangePickerViewHeight: false)
         }
         else {
-            var tag = (self.viewModel.selectedAdults >= sender.tag) ? (sender.tag - 1) : sender.tag
-            if (tag + self.viewModel.selectedChilds) >= self.viewModel.maxGuest {
+            var tag = sender.tag//(self.viewModel.selectedAdults >= sender.tag) ? (sender.tag - 1) : sender.tag
+            printDebug("pax count: \((tag + self.viewModel.selectedChilds))")
+            showMessage = (tag + self.viewModel.selectedChilds) > self.viewModel.maxGuest
+            if (tag + self.viewModel.selectedChilds) > self.viewModel.maxGuest {
                 tag = (self.viewModel.maxGuest - self.viewModel.selectedChilds)
+                self.viewModel.selectedAdults = (sender.tag == tag) ? (tag - 1) : tag
+            }else{
+                self.viewModel.selectedAdults = (self.viewModel.selectedAdults == tag) ? (tag - 1) : tag
             }
-            self.viewModel.selectedAdults = tag
+            // need to remove unselect on tap of selected uncomment comment logic
+            //            self.viewModel.selectedAdults = tag
+//            self.viewModel.selectedAdults = (self.viewModel.selectedAdults == tag) ? (tag - 1) : tag
             self.updateSelection(needToChangePickerViewHeight: false)
         }
-        self.checkForMaximumGuest()
-        
-        
+        if showMessage {
+            self.checkForMaximumGuest()
+        } else {
+            AppToast.default.hideToast(self, animated: false)
+        }
     }
     
     @IBAction func childrenButtonsAction(_ sender: ATGuestButton) {
-        var tag = (self.viewModel.selectedChilds >= sender.tag) ? (sender.tag - 1) : sender.tag
+        var tag = (self.viewModel.selectedChilds == sender.tag) ? (sender.tag - 1) : sender.tag
+        let showMessage = (tag + self.viewModel.selectedAdults) > self.viewModel.maxGuest
         if (tag + self.viewModel.selectedAdults) >= self.viewModel.maxGuest {
             tag = (self.viewModel.maxGuest - self.viewModel.selectedAdults)
         }
         self.viewModel.selectedChilds = tag
         self.updateSelection(needToChangePickerViewHeight: true)
-        self.checkForMaximumGuest()
+        if showMessage {
+            self.checkForMaximumGuest()
+        }else {
+            AppToast.default.hideToast(self, animated: false)
+        }
     }
     
     func checkForMaximumGuest() {
-        if (self.viewModel.selectedAdults + self.viewModel.selectedChilds) >= 6 {
-            AppToast.default.showToastMessage(message: "Max guest can not be more than 6")
-        }
+        //        if (self.viewModel.selectedAdults + self.viewModel.selectedChilds) >= 6 {
+        AppToast.default.showToastMessage(message: LocalizedString.MaxGuestSelectionMessage.localized)
+        //        }
     }
 }
 
@@ -402,9 +445,11 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        if #available(iOS 14.0, *) {} else {
         pickerView.subviews.forEach({
             $0.isHidden = $0.frame.height < 1.0
         })
+//        }
         return 13
     }
     
@@ -413,7 +458,7 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
+
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
             pickerLabel = UILabel()
@@ -428,70 +473,32 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.viewModel.childrenAge[pickerView.tag] = row
     }
+    
+//    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+//        return pickerView.width
+//    }
+    
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return (row == 0) ? "<1" : "\(row)"
+//    }
+
+//    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+//        let text = (row == 0) ? "<1" : "\(row)"
+//        let titleParagraphStyle = NSMutableParagraphStyle()
+//        titleParagraphStyle.alignment = .center
+//        let titleFont = AppFonts.Regular.withSize(23.0)
+//        return NSMutableAttributedString(string: text,
+//            attributes: [.font: titleFont,
+//            .foregroundColor: AppColors.themeBlack,
+//            .paragraphStyle: titleParagraphStyle])
+//    }
 }
 
 
 extension RoomGuestSelectionVC {
     //Handle Swipe Gesture
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: self.headerView?.window)
-        let velocity = sender.velocity(in: self.headerView)
-        print(velocity)
-        switch sender.state {
-        case .possible:
-            print(sender.state)
-        case .began:
-            self.initialTouchPoint = touchPoint
-        case .changed:
-            let touchPointDiffY = initialTouchPoint.y - touchPoint.y
-            print(touchPointDiffY)
-            if  touchPoint.y > 0.0 {
-                if touchPointDiffY > 0 {
-                    self.mainContainerBottomConstraints.constant = -( UIScreen.main.bounds.height) + touchPointDiffY
-                }
-                else {
-                    self.mainContainerBottomConstraints.constant = touchPointDiffY
-                }
-            }
-        case .cancelled:
-            print(sender.state)
-        case .ended:
-            print(sender.state)
-            panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
-        case .failed:
-            print(sender.state)
-            
-        }
-    }
-    
-    
-    ///Call to use Pan Gesture Final Animation
-    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
-        //Down Direction
-        if velocity.y < 0 {
-            if velocity.y < -300 {
-                self.openBottomSheet()
-            } else {
-                if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
-                    self.openBottomSheet()
-                } else {
-                    self.closeBottomSheet()
-                }
-            }
-        }
-            //Up Direction
-        else {
-            if velocity.y > 300 {
-                self.closeBottomSheet()
-            } else {
-                if touchPoint.y >= (UIScreen.main.bounds.height + (-self.mainContainerHeightConstraint.constant/2)){
-                    self.closeBottomSheet()
-                } else {
-                    self.openBottomSheet()
-                }
-            }
-        }
-        print(velocity.y)
+        closeBottomSheet()
     }
     
     func openBottomSheet() {
@@ -499,6 +506,10 @@ extension RoomGuestSelectionVC {
     }
     
     func closeBottomSheet() {
+        applyRoomChanges()
         self.hide(animated: true, shouldRemove: true)
     }
 }
+//https://stackoverflow.com/questions/64086579/uipickerview-rendering-incorrectly-after-ios-14-xcode-12-0-1-update
+//https://stackoverflow.com/questions/63973930/swift-uipickerview-and-text-misalignment-and-ios-14
+// https://developer.apple.com/forums/thread/659184

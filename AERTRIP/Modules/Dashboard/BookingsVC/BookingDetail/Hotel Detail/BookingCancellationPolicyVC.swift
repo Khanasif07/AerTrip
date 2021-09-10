@@ -16,6 +16,8 @@ class BookingCancellationPolicyVC: BaseVC {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var bookingPolicyTableView: ATTableView!
     
+    @IBOutlet weak var headerContainerView: UIView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     // MARK: - Variables
     let viewModel = BookingCancellationPolicyVM()
     
@@ -26,15 +28,22 @@ class BookingCancellationPolicyVC: BaseVC {
         self.bookingPolicyTableView.dataSource = self
         self.bookingPolicyTableView.delegate = self
         self.registerXib()
+        if #available(iOS 13.0, *) {
+            headerViewHeightConstraint.constant = 56
+        }
+        headerContainerView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.bookingPolicyTableView.contentInset = UIEdgeInsets(top: headerContainerView.height + 20, left: 0, bottom: 0, right: 0)
         self.bookingPolicyTableView.reloadData()
-        
+
         if self.viewModel.vcUsingType == .bookingPolicy {
             self.viewModel.getBookingPolicy()
         }
+        self.bookingPolicyTableView.backgroundColor = AppColors.themeBlack26
     }
     
     override func setupFonts() {
-        self.navTitleLabel.font = AppFonts.SemiBold.withSize(22.0)
+        self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)//AppFonts.SemiBold.withSize(22.0)
     }
     
     override func setupTexts() {
@@ -70,7 +79,7 @@ class BookingCancellationPolicyVC: BaseVC {
         }
         
         cell.configureCell(isForBookingPolicy: true,fareRules: self.viewModel.bookingPolicies, ruteString: "")
-
+        cell.setColorForBookingPolicy()
         
 //        switch indexPath.row {
 //        case 0:
@@ -108,9 +117,13 @@ class BookingCancellationPolicyVC: BaseVC {
         guard let cancellationPolicy = self.bookingPolicyTableView.dequeueReusableCell(withIdentifier: "CancellationPolicyTableViewCell") as? CancellationPolicyTableViewCell else {
             fatalError("CancellationPolicyTableViewCell not found")
         }
-        
+        cancellationPolicy.containerView.backgroundColor = AppColors.themeBlack26
+        cancellationPolicy.contentView.backgroundColor = AppColors.themeBlack26
         guard let canc = self.viewModel.bookingDetail?.bookingDetail?.cancellation, !canc.charges.isEmpty else {
-            cancellationPolicy.configureCell(cancellationTimePeriod: "cancellation not allowed.", cancellationAmount: "", cancellationType: .nonRefundable)
+            cancellationPolicy.configureCell(cancellationTimePeriod: "This booking is non-refundable. If this booking is cancelled, or modified, or in case of no show, the total price of the reservation will be charged.", cancellationAmount: "", cancellationType: .nonRefundable)
+
+            
+//            cancellationPolicy.configureCell(cancellationTimePeriod: "Cancellation not allowed", cancellationAmount: "", cancellationType: .nonRefundable)
             return cancellationPolicy
         }
         
@@ -123,9 +136,16 @@ class BookingCancellationPolicyVC: BaseVC {
             cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) or later", cancellationAmount: "", cancellationType: .nonRefundable)
         }
         else {
-            cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) to \(chargeData.toStr)", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+            ///change done for  https://app.asana.com/0/1199093003059613/1199930068999723 as per discussion with Rahul Das Survase
+            if "\(chargeData.fromStr)" == LocalizedString.dash.localized{
+                cancellationPolicy.configureCell(cancellationTimePeriod: "Before \(chargeData.toStr)", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+            } else if "\(chargeData.toStr)" == LocalizedString.dash.localized{
+                cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) or later", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+            }else{
+                cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) \(LocalizedString.dash.localized) \(chargeData.toStr)", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+            }
+            
         }
-        
         return cancellationPolicy
     }
 }
@@ -141,6 +161,10 @@ extension BookingCancellationPolicyVC: UITableViewDataSource, UITableViewDelegat
         } else {
             return self.getNumberOfCellForCancellationPolicy()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -171,6 +195,9 @@ extension BookingCancellationPolicyVC: BookingCancellationPolicyVMDelegate {
     
     func getBookingPolicySuccess() {
         self.bookingPolicyTableView.reloadData()
+        delay(seconds: 0.2) {
+            self.bookingPolicyTableView.reloadData()
+        }
     }
     
     func getBookingPolicyFail() {

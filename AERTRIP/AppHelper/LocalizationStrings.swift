@@ -31,7 +31,8 @@ enum LocalizedString: String {
     case apply = "Apply"
     case For
     case Already
-    
+    case ALL
+
     // MARK: - TextField validation
     
     // MARK: -
@@ -40,6 +41,9 @@ enum LocalizedString: String {
     case Enter_valid_email_address
     case Enter_password
     case Enter_valid_Password
+    case Email_ID_already_exists
+    case Phone_number_already_exists
+    case frequentFlyerAlreadyExists
     
     // MARK: - SocialLoginVC
     
@@ -55,7 +59,8 @@ enum LocalizedString: String {
     case AllowEmailInFacebook
     case AllowEmailInLinkedIn
     case PleaseLoginByEmailId
-    
+    case Continue_with_Apple
+
     // MARK: - LoginVC
     
     // MARK: -
@@ -128,7 +133,11 @@ enum LocalizedString: String {
     case Please_enter_new_Password
     case New_Password
     case Program
-
+    case Current_Password
+    case Please_enter_Current_Password
+    case Please_enter_Valid_Password
+    case Password_must_qualify_conditions
+    case pleaseEnterAPassword
     
     // MARK: - CreateProfileVC
     
@@ -184,7 +193,13 @@ enum LocalizedString: String {
     case Notification
     case ReferAndEarn
     case ViewAccounts
-    
+    case Support
+    case RateUs
+    case Appearance
+    case lightMode
+    case darkMode
+    case system
+
     // MARK: - CreateProfileVCDelegate
     
     // MARK: -
@@ -199,7 +214,8 @@ enum LocalizedString: String {
     case selectedCountryCode
     case selectedCountry
     case SelectedCountrySymbol = "SelectedCountySymbol"
-    
+    case PleaseEnterValidMobileNumber
+
     // MARK: - ViewProfileVC
     
     // MARK: -
@@ -217,12 +233,19 @@ enum LocalizedString: String {
     case HotelPreferences
     case QuickPay
     case LinkedAccounts
+    case AccountDetails
     case NewsLetters = "Newsletters"
     case Notifications
     case LogOut = "Log Out"
     case Gender
     case Male
     case Female
+    case ChangePassword
+    case changeMobileNumber
+    case setMobileNumner
+    case disableWalletOtp
+
+    
     
     // MARK: - ViewProfileDetailVC
     
@@ -276,6 +299,7 @@ enum LocalizedString: String {
     case Email
     case SocialProfile
     case Home
+    case Work
     case IndiaIsdCode = "IndianIsdCode"
     case Facebook
     case Phone
@@ -286,6 +310,7 @@ enum LocalizedString: String {
     case Default
     case Share
     case FloatingButtonsTitle
+    case UnfavouritesAllTitle
     // Mark: - Salutation
     case Mrs
     case Ms
@@ -298,7 +323,6 @@ enum LocalizedString: String {
     case SelectAirlineForAllFrequentFlyer
     
     // MARK: - Hotel Search
-    
     // MARK: -
     
     case PreferredStarCategory
@@ -307,6 +331,8 @@ enum LocalizedString: String {
     case star
     case searchForHotelsToAdd
     case searchHotelName
+    case NearMe
+
     
     // MARK: - Traveller List VC
     
@@ -330,14 +356,18 @@ enum LocalizedString: String {
     case GroupAlreadyExist
     case GroupNameCanNotEmpty
     case CantCreateGroupWithThisName
-    
+    case Me = "Me"
+
     // MARK: - Import Contacts
-    
+    case ImportingContacts
+    case ThisMightTakeSomeTime
+
     // MARK: -
     
     case Contacts
     case Google
     case LinkedIn
+    case Apple
     case ImportContactMessage
     case ImportFacebookMessage
     case ImportGoogleMessage
@@ -348,6 +378,7 @@ enum LocalizedString: String {
     case ConnectWithFB
     case ConnectWithLinkedIn
     case ContactsSelected
+    case ContactSelected
     case NoContactsFetched
     case SelectContactsToImport
     
@@ -379,6 +410,7 @@ enum LocalizedString: String {
     case WantMoreRooms
     case RequestBulkBooking
     case LoginAndSubmit = "Login & Submit"
+
     
     // MARK: - Room Guest Selection
     
@@ -394,13 +426,15 @@ enum LocalizedString: String {
     case ChildAges
     case MostHotelsTypicallyAllow
     case ageInYrs
-    
+    case MaxGuestSelectionMessage
+
     // MARK: - Destination Selection
     
     case CityAreaOrHotels
     case HotelsNearMe
     case RecentlySearchedDestinations
     case PopularDestinations
+    case didYouMean
     
     // MARK: - Bulk Booking
     
@@ -413,6 +447,7 @@ enum LocalizedString: String {
     case BulkEnquirySent
     case CustomerServicesShallConnect
     case Submit
+    case SpecialRequestNonCaps
     
     // MARK: - FF Search
     
@@ -447,7 +482,11 @@ enum LocalizedString: String {
     case LowToHigh
     case FiveToOne
     case NearestFirst
-    
+    case HighToLow
+    case OneToFive
+    case FurthestFirst
+    case Meal
+
     case WriteYourOwnReview
     case ViewAll
     case ReadAll
@@ -483,6 +522,7 @@ enum LocalizedString: String {
     // MARK: - RoomVC
     
     // Meal
+    case RoomOnly
     case NoMeal
     case Breakfast
     case HalfBoard
@@ -522,6 +562,7 @@ enum LocalizedString: String {
     case Choose_App
     case GMap
     case TripRating
+    case ResultUnavailable = "Result unavailable"
 
     // MARK: - Hotel Result VC
     
@@ -538,6 +579,7 @@ enum LocalizedString: String {
     case NoHotelFoundMessage
     case NoHotelFoundMessageOnFilter
     case NoHotelFoundFilter
+    case NoHotelMatchedYourFilters
     case Inclusion
     case OtherInclusions
     case CancellationPolicy
@@ -549,19 +591,36 @@ enum LocalizedString: String {
     case HotelDetailsEmptyState
     case ResetFilter
     case ConfirmationEmail
-    
+    case UnfavouriteAll
+    case UnfavouriteAllMessage
+    case Unfavourite
+    case ShowingResultsFor
+    case Clear
+    case viewMorePhoto
+    case pricesArePerNight
+    case pricesAreFor
+    case allIncl
+    case allInclusive
+
     // Mail Composer View
     case ContactUsAertrip
     case CopyrightAertrip
     case CheckoutMyFavouriteHotels
     case SendWithSpace
     case PleaseEnterEmail
+    case EnterEmail
+    case FavoriteHotelsInfoSentMessage
+
     
     // Select Trip Screen
     case SelectTrip
     case CreateNewTrip
     case NameYourTrip
     case PleaseSelectTrip
+    
+    // Hotel Detail screen
+    case HotelHasAlreadyBeenSavedToTrip
+    case flightHasAlreadyBeenSavedToTrip
     
     // Hotel Checkout Deatail Selection screen
     case Guests
@@ -581,6 +640,11 @@ enum LocalizedString: String {
     case FareBreakup
     case TotalPayableNow
     case Confirm
+    case PanCard
+    case EnterPanCardMessage
+    case FirstLastNameCharacterLimitMessage
+    case TravelSafetyGuidelines
+
     
     // Hotel Checkout Coupons VC
     case Coupons
@@ -604,6 +668,7 @@ enum LocalizedString: String {
     case FareRules
     case CheckOutPrivacyAndPolicyTerms
     case CheckOutFareRulesPrivacyAndPolicyTerms
+    case CheckOutPrivacyAndPolicyTermsFlight
     case PayableWalletMessage
     case NetEffectiveFare
     case GrossFare
@@ -613,9 +678,16 @@ enum LocalizedString: String {
     case CurrencyOptions
     case CheckOutCurrencyOptionInfoMessage
     case Rating
+    case PerAdult
+    case PerChild
+    case PerInfant
+    case WeHaveNotedYourBookingRequirement
+    case WeHaveNotedYourBookingRequirementMessage
+    case paymentFails
     
     // Select Guests
     case SelectGuests
+    case SelectPassengers
     
     case EmailItineraries
     case SendToAll
@@ -640,6 +712,7 @@ enum LocalizedString: String {
     case Change
     case YourBookingIDIs
     case YourCaseIDIs
+    case YourBookingID 
     case AndAllDetailsWillBeSentToYourEmail
     case YouAreAllDoneLabel
     case AddToAppleWallet
@@ -654,13 +727,17 @@ enum LocalizedString: String {
     case WhatNext
     case InstantCashBackAppliedText
     case WalletCashBackAppliedText
-    case CouponApplied = "Coupon Applied:"
+    case CouponApplied = "Coupon Applied: "
     case convenienceFee1
     case convenienceFee2
     case ConfirmBooking
     case ConvenienceFee
     case InvalidCouponCodeText
     case PleaseEnterCouponCode
+    case BookingConfirmed
+    case BookingIsInProcess
+    case ConvenienceFeeNonRefundables
+    case non_Refundable
     
     case EnterIsdMessage
     case GuestDetailsMessage
@@ -683,6 +760,9 @@ enum LocalizedString: String {
     case Amount
     case Pending
     case Voucher
+    case CancellationFor
+    case ReschedulingFor
+
     
     // MARK: - BookingVC
     
@@ -713,6 +793,7 @@ enum LocalizedString: String {
     case TravellersAddOns
     case BookingPolicy
     case cancellationPolicy
+    case policy
     case OpenInMaps
     case OpenInGoogleMaps
     case CancellationFee
@@ -734,6 +815,7 @@ enum LocalizedString: String {
     case VoucherNo
     case DownloadInvoice
     case DownloadReceipt
+    case DownloadVoucher
     case Directions
     case RequestAddOnsAndFF
     case AddOns
@@ -744,6 +826,7 @@ enum LocalizedString: String {
     case Rescheduling
     case AddOnRequestSent
     case AddOnRequestMesage
+    case requestInProcess
     case PNRNo
     case SaleAmount
     case ConfirmationNo
@@ -759,6 +842,17 @@ enum LocalizedString: String {
     case AddToTrips
     case BookSameFlight
     case Traveller
+    case FlightInfo
+    case Baggage
+    case NoBaggage
+    case NoInfo
+    case BaggageDetailsMessage
+    case CharactersRemaining
+    case BookAnotherRoom
+    case AddOnRequestPayment
+    case AddOnRequestPaymentMessage
+    case BookingPayment
+    case BookingPaymentMessage
     
     // Booking Action sheet text
     case RequestAddOnAndFrequentFlyer
@@ -789,6 +883,8 @@ enum LocalizedString: String {
     case ShowPendingActionsOnly
     case DateSpan
     case VoucherType
+    case hereAreYourResults = "hereAreYourResults"
+    case seeResultsAgain = "seeResultsAgain"
     
     // MARK: - Import Contact Screen
     
@@ -827,6 +923,11 @@ enum LocalizedString: String {
     case ClearFilters
     case BookingID
     case OpeningBalance
+    case NoBookingsMatchYourFilters
+    case NoBookingAvailableMessage
+    case NoTransactionsMatchYourFilters
+    case TryDifferentFiltersOrClearAll
+
     
     // MARK: - OutStanding Ladger
     
@@ -840,6 +941,7 @@ enum LocalizedString: String {
     case CreditShort
     case SelectBookingsPay
     case MakePayment
+    case SelectSameCurrencyOnly
     
     // MARK: - On Account Screen
     
@@ -872,11 +974,15 @@ enum LocalizedString: String {
     case DepositDate
     case TransferType
     case EnterUTRSwiftCode
-    
+    case DepositAmountErrorMessage
+    case ModeOfPayment
+
     case Camera
     case PhotoLibrary
     case Document
     case ChooseOptionToSelect
+    case requestNoted
+    case maximumOnlineLimit
     
     // MARK: - OTHER BOOKING PRODUCT DETAIL
     
@@ -953,7 +1059,7 @@ enum LocalizedString: String {
     case Infant
     case FlightDomesticCancellationRequest
     case CancellationRequest
-    
+    case callingNotAvailable
     // MARK: -
     case UnderDevelopment
     case OperatedBy
@@ -964,6 +1070,21 @@ enum LocalizedString: String {
     case NoNotificationYet
     case NotificationInfo
     
+    //MARK: - Passengers Selections
+    case firstName3Char
+    case fistNameNumeric
+    case lastName3Char
+    case lastNameNumeric
+    case fillContactDetails
+    case adultAgeError
+    case childAgeError
+    case infantAgeError
+    case fillAllPassengerDetails
+    case enterISD
+    case enterGSTName
+    case enterGSTBillName
+    case notValidGST
+    
     
     // MARK: - Disconnect linkedin issue
     case DisconnectAccountMessage
@@ -972,6 +1093,7 @@ enum LocalizedString: String {
     case No
     case SendingEmail
     case LedgerSentToYourEmail
+    case OutstandingSentToYourEmail
     
     // MARK: - Common
     case Other
@@ -981,4 +1103,226 @@ enum LocalizedString: String {
     case Flexible
     case ContactDetails
     case KindlyDisconnectMessage
+    
+    //MARK:- Settings
+    case disableOTP
+    case Currency
+    case EnableDisableAllNotifications = "EnableDisableAllNotifications"
+    case GetNotifiedAboutYourBookings = "GetNotifiedAboutYourBookings"
+    case GetNotifiedAboutYourTripEvents = "GetNotifiedAboutYourTripEvents"
+    case GetNotifiedAboutNewOffersAndDeals = "GetNotifiedAboutNewOffersAndDeals"
+    case Ok = "Ok"
+    case AllEventSyncedToCalendarApp = "AllEventSyncedToCalendarApp"
+    case ThisFunctionalityWillBeAvailableSoon = "ThisFunctionalityWillBeAvailableSoon"
+    case TryDelhiToGoaTomorrow = "TryDelhiToGoaTomorrow"
+    case Copyright2018AllRightsReserved = "Copyright2018AllRightsReserved"
+ 
+    case ThingsYouCanAsk = "ThingsYouCanAsk"
+    
+    case FlightFromMumbaiToDelhi = "FlightFromMumbaiToDelhi"
+    case FindMeFlightFromBombayToKolkataTomorrowUnder = "FindMeFlightFromBombayToKolkataTomorrowUnder"
+    case BangloreToGoaFlightOnTheWeekendAndReturnFollowingMonday = "BangloreToGoaFlightOnTheWeekendAndReturnFollowingMonday"
+    case FlightOnDiwaliFromNewYorkToJaipur = "FlightOnDiwaliFromNewYorkToJaipur"
+   case BOMDELOn26Feb = "BOMDELOn26Feb"
+    case FlightToDubaiOn30thJun = "FlightToDubaiOn30thJun"
+    case CommingSoon = "CommingSoon"
+    case Flight = "Flight"
+  
+    
+    //Payment and checkout
+    
+    case Meals = "Meals"
+    case Seat = "Seat"
+//    case Baggage = "Baggage"
+//    case Others = "Others"
+    case Skip = "Skip"
+    
+    // Seat Map
+    case seatMap = "seatMap"
+    case mainDeck = "mainDeck"
+    case upperDeck = "upperDeck"
+    case seatTotal = "seatTotal"
+    case noSeatMapDataDesc = "noSeatMapDataDesc"
+    case seatAvailablePostBooking = "seatAvailablePostBooking"
+    
+    case noMealsDataDesc = "noMealsDataDesc"
+    
+    case noBaggageDataDesc = "noBaggageDataDesc"
+    
+    case noOtherseDataDesc = "noOtherseDataDesc"
+    
+    case DomesticCheckIn = "DomesticCheckIn"
+    case InternationalCheckIn = "InternationalCheckIn"
+    
+    case MealTotal = "MealTotal"
+
+    case Select_Passengers_To_Assign_This_Meal = "Select_Passengers_To_Assign_This_Meal"
+    
+    case Select_Passengers_To_Assign_This_Baggage = "Select_Passengers_To_Assign_This_Baggage"
+
+    case Select_Passengers = "Select_Passengers"
+    
+    case Choose_Meal = "Choose_Meal"
+    
+    case Choose_Baggage = "Choose_Baggage"
+    
+    case Reserve_Seat = "Reserve_Seat"
+
+    case PreBook_Services = "PreBook_Services"
+ 
+    case Complementary_Meal_Added = "Complementary_Meal_Added"
+    
+    case Complementary_Meal_Available = "Complementary_Meal_Available"
+    
+    case Free_Seats_Available = "Free_Seats_Available"
+
+    case Passenger_Cannot_Be_Deselected_For_Meal = "Passenger_Cannot_Be_Deselected_For_Meal"
+    
+   case Will_Be_Available_Soon = "Will_Be_Available_Soon"
+    
+    case Important = "Important"
+    
+    case Baggage_Terms_Desc = "Baggage_Terms_Desc"
+    
+    case Baggage_Terms_Point1 = "Baggage_Terms_Point1"
+    
+    case Baggage_Terms_Point2 = "Baggage_Terms_Point2"
+    
+    case Baggage_Terms_Point3 = "Baggage_Terms_Point3"
+    
+    case Baggage_Terms_Point4 = "Baggage_Terms_Point4"
+
+    case emergencySeatDesc = "emergencySeatDesc"
+    
+    case emergencySeatTerms1 = "emergencySeatTerms1"
+    case emergencySeatTerms2 = "emergencySeatTerms2"
+    case emergencySeatTerms3 = "emergencySeatTerms3"
+    case emergencySeatTerms4 = "emergencySeatTerms4"
+    case emergencySeatTerms5 = "emergencySeatTerms5"
+    case emergencySeatTerms6 = "emergencySeatTerms6"
+    case emergencySeatTerms7 = "emergencySeatTerms7"
+    case emergencySeatTerms8 = "emergencySeatTerms8"
+    case emergencySeatTerms9 = "emergencySeatTerms9"
+    case Book_Now_And_Get_Off = "Book_Now_And_Get_Off"
+    case Special_Request = "Special_Request"
+    case Special_Request_If_Any = "Special_Request_If_Any"
+    case Heads_Up_Desc = "Heads_Up_Desc"
+    
+    // FLight Filters
+    case Stops = "Stops"
+    case Times = "Times"
+    case Duration = "Duration"
+    case Quality = "Quality"
+    case Onwards = "Onwards"
+    case noLayovers = "noLayovers"
+    
+    // TripsVC
+    case tripsComingSoon = "tripsComingSoon"
+    case tripsNote = "tripsNote"
+    case tripsLink = "tripsLink"
+
+    case reloadDetail = "reloadDetail"
+    
+    //International return and multicity
+    case selectedFlightsGap
+    
+    //Location Manager
+    case placeNotFound
+
+    
+    //View Controller Extension
+    case chooseFromOption
+    case cameraNotAvailable
+    case restrictedCameraUse
+    case changeSettingForCameraUse
+    case changeSettingForLibraryUse
+    case restrictedLibraryUse
+    case changeSettingForContactsUse
+    case restrictedContactsUse
+    case noDataFound
+    
+    //AppFlowManager
+    case accessDenied
+    case microphoneAccessRequired
+    case allowMicAccess
+    
+    //AppEnum
+    case notLoggedIn
+    case emailRequired
+    case invalidEmail
+    case passwordRequired
+    case multipleAccountWithEmail
+    case incorrectEmailPassword
+    case linkExpired
+    case linkUsedToCreateUser
+    case userNotFound
+    case invalidUserData
+    case provideValidHashKey
+    case userAlreadyRegistered
+    case userAlreadyLoggedIn
+    case capchaLimitOver
+    case guestLoginNotPermitted
+    case somethingWentWrongTryAgain
+    case mobileAppOnly
+    case failedToRegisterEmailChangeRequest
+    case tokenExpired
+    case userAlreadyCreatedLink
+    case failedToCreateUser
+    case weakPassword
+    case provideNewPassword
+    case unableToSetNewPassword
+    case provideValidToken
+    case passwordAlreadyReset
+    case failedToResetPassword
+    case modeRequired
+    case enquiryRejectedByCSR
+    case failedtoUpdateStatusOfCorpEnquiry
+    case somethingWentWrongTryAfterSomeTime
+    case failedToSendEmail
+    case exceededMaximumAttemptsToResetPassword
+    case incorrectEmailId
+    
+    //App Globals
+    case googleMapNotInstalled
+    case restrictedCalendarUse
+    
+    //OTP varification
+    case oneTimePassword
+    case toProceedWalletBalance
+    case waitAminToOtp
+    case didntGetOtp
+    case enterOtp
+    case veryItsYou
+    case tochangeMobileNumber
+    case proceed
+    case kindlyEnterOtp
+    case verifyYourCredential
+    case enterAccountPasswordMsg
+    case disableOtpVerificationMsg
+    case enableOtpVerificationMsg
+    case enterMobileOtpMsg
+    case enterEmailOtpMsg
+    case enterMobileOtp
+    case enterEmailOtp
+    case newMobileNumber
+    case validOtpMsg
+    case passwordCharacterCount
+    
+    case Update_Aertrip = "Update_Aertrip"
+    case Soft_Update_Msg = "Soft_Update_Msg"
+    case Force_Update_Msg = "Force_Update_Msg"
+    case Update_Now = "Update_Now"
+    case Update_Later = "Update_Later"
+    case toChangeMobileNumber
+    
+    case Account_Details = "Account_Details"
+    case PAN = "PAN"
+    case Aadhaar = "Aadhaar"
+    case Default_Refund_Mode = "Default_Refund_Mode"
+    case Billing_Name = "Billing_Name"
+    case Billng_Address = "Billng_Address"
+    case Wallet = "Wallet"
+    case Chosen_Mode_Of_Payment = "Chosen_Mode_Of_Payment"
+    case Email_successfully_Sent = "Email_successfully_Sent"
+
 }

@@ -21,6 +21,7 @@ protocol EditProfileVMDelegate: class {
     func willCallDeleteTravellerAPI()
     func deleteTravellerAPISuccess()
     func deleteTravellerAPIFailure()
+    func getSuggestionAPIResponse()
 }
 
 class EditProfileVM {
@@ -55,7 +56,7 @@ class EditProfileVM {
     var filePath: String = ""
     var imageSource = ""
     var defaultAirlines: [FlyerModel] = []
-    
+    var userTag:String = ""
     // drop down keys
     var emailTypes: [String] = []
     var mobileTypes: [String] = []
@@ -78,25 +79,43 @@ class EditProfileVM {
     var paxId: String {
         return self.travelData?.id ?? ""
     }
+    var isSavedButtonTapped = false
+    var suggetionTags = [String]()
+    
     
     func isValidateData(vc: UIViewController) -> Bool {
         var flag = true
         
-        if self.salutation.isEmpty {
-            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
-            flag = false
-        } else if self.firstName.removeAllWhiteSpacesAndNewLines.isEmpty {
+        if self.firstName.removeAllWhiteSpacesAndNewLines.isEmpty {
+            self.logEventsForFirebase(with: .PressCTAWithoutEnteringFirstName)
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized)
             flag = false
         }
         else if self.lastName.removeAllWhiteSpacesAndNewLines.isEmpty {
+            self.logEventsForFirebase(with: .PressCTAWithoutEnteringLastName)
                 AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
                 flag = false
         }
+        else if self.salutation.isEmpty {
+            self.logEventsForFirebase(with: .PressCTAwithoutSelectingGender)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
+            flag = false
+        }
         else if !(self.email.first?.value.removeAllWhiteSpacesAndNewLines.isEmpty ?? true) {
+            let emailValArr = self.email.map { $0.value }
+            let emailValSet = Set(emailValArr)
+            self.checkEmailDuplicacy()
+            if emailValArr.count != emailValSet.count {
+                AppToast.default.showToastMessage(message: LocalizedString.Email_ID_already_exists.localized)
+                flag = false
+            }
             for email in self.email {
+                if email.value.isEmpty {
+                    continue
+                }
                 if !email.value.checkValidity(.Email) {
                     AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
+                    self.logEventsForFirebase(with: .EnterIncorrectEmail)
                     flag = false
                     break
                 }
@@ -136,41 +155,57 @@ class EditProfileVM {
             
         }
         
-        if !self.email.isEmpty {
-            for (index, _) in self.email.enumerated() {
-                if index > 0 {
-                    if self.email[index - 1].value == self.email[index].value {
-                        AppToast.default.showToastMessage(message: "All email should be unique")
+        if !self.mobile.isEmpty {
+//            var isValid = true
+            
+            let mobileValArr = self.mobile.map { $0.valueWithISD }
+            let mobileValSet = Set(mobileValArr)
+            self.checkMobileDuplicacy()
+            if mobileValArr.count != mobileValSet.count {
+                AppToast.default.showToastMessage(message: LocalizedString.Phone_number_already_exists.localized)
+                flag = false
+            }
+            
+            for (_, mob) in self.mobile.enumerated() {
+                
+                if mob.value.count < mob.minValidation {
+                    if mob.isd == "+91" {
+                        AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
                         flag = false
+                    } else {
+                        if mob.minValidation != mob.maxValidation {
+                            AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
+                            flag = false
+                        }
                     }
                 }
+                                
             }
         }
         
-        if !self.mobile.isEmpty {
-            var isValid = true
-            for (index, _) in self.mobile.enumerated() {
-                isValid = self.mobile[index].isValide
-                if index > 0 {
-                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
-                        AppToast.default.showToastMessage(message: LocalizedString.AllMobileNumberShouldUnique.localized)
-                        flag = false
-                    }
-                }
-                
-                if !(AppConstants.kMinPhoneLength...AppConstants.kMaxPhoneLength ~= self.mobile[index].value.count) && !self.mobile[index].value.isEmpty{
-                      AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
-                    flag = false
-                }
+        if !self.social.isEmpty{
+            if self.checkDuplicateSocial(){
+            AppToast.default.showToastMessage(message: "Social account already exists")
+              flag = false
+            }
+        }
+        
+        if !self.addresses.isEmpty{
+            if self.checkDuplicateAddress(){
+            AppToast.default.showToastMessage(message: "Address is already exists")
+              flag = false
+            }
+        }
+        
+        if !self.frequentFlyer.isEmpty {
+            let ff = self.frequentFlyer.map({"\($0.airlineCode)\($0.number)".removeAllWhitespaces}).filter{!$0.isEmpty}
+            
+            let ffSet = Set(ff)
+            if ffSet.count != ff.count {
+                AppToast.default.showToastMessage(message: LocalizedString.frequentFlyerAlreadyExists.localized)
+                flag = false
             }
             
-            
-//            if !isValid {
-//                AppToast.default.showToastMessage(message:LocalizedString.EnterAllValidMobileNumber.localized )
-//                flag = false
-//            }
-        }
-        if !self.frequentFlyer.isEmpty {
             for (index, _) in self.frequentFlyer.enumerated() {
 //                if index > 0 {
 //                    if self.frequentFlyer[index - 1].airlineName == self.frequentFlyer[index].airlineName {
@@ -178,6 +213,7 @@ class EditProfileVM {
 //                        flag = false
 //                    }
 //                }
+                self.checkFFDuplicacy()
                 if !self.frequentFlyer[index].airlineName.removeAllWhiteSpacesAndNewLines.isEmpty, self.frequentFlyer[index].airlineName != LocalizedString.SelectAirline.localized, self.frequentFlyer[index].number.removeAllWhiteSpacesAndNewLines.isEmpty {
                     AppToast.default.showToastMessage(message: LocalizedString.EnterAirlineNumberForAllFrequentFlyer.localized)
                     flag = false
@@ -192,6 +228,61 @@ class EditProfileVM {
         return flag
     }
     
+    
+    func checkEmailDuplicacy(){
+        var values = [String]()
+        for i in 0..<self.email.count{
+            self.email[i].isDuplicate = values.contains(self.email[i].value)
+            values.append(self.email[i].value)
+        }
+    }
+    
+    func checkMobileDuplicacy(){
+        var values = [String]()
+        for i in 0..<self.mobile.count{
+            self.mobile[i].isDuplicate = values.contains(self.mobile[i].valueWithISD)
+            values.append(self.mobile[i].valueWithISD)
+        }
+    }
+    
+    func checkFFDuplicacy(){
+        var values = [String]()
+        for i in 0..<self.frequentFlyer.count{
+            let val = "\(self.frequentFlyer[i].airlineCode)\(self.frequentFlyer[i].number)"
+            self.frequentFlyer[i].isDuplicate = (values.contains(val) && !val.isEmpty)
+            values.append(val)
+        }
+    }
+    
+    func checkDuplicateSocial()-> Bool{
+        var values = [String]()
+        var isDuplicate = false
+        for i in 0..<self.social.count{
+            let val = (self.social[i].value.isEmpty) ?  "" : "\(self.social[i].label)\(self.social[i].value)".lowercased()
+            self.social[i].isDuplicate = (values.contains(val) && !val.isEmpty)
+            if (values.contains(val) && !val.isEmpty){
+                isDuplicate = true
+            }
+            values.append(val)
+        }
+        return isDuplicate
+    }
+        
+    func checkDuplicateAddress()-> Bool{
+        var values = [String]()
+        var isDuplicate = false
+        for i in 0..<self.addresses.count{
+            let add = "\(self.addresses[i].line1)\(self.addresses[i].line2)\(self.addresses[i].city)\(self.addresses[i].state)\(self.addresses[i].postalCode)".removeAllWhitespaces
+            let val = (add.isEmpty) ?  "" : "\(self.addresses[i].label)\(add)\(self.addresses[i].countryName)".lowercased()
+            self.addresses[i].isDuplicate = (values.contains(val) && !val.isEmpty)
+            if (values.contains(val) && !val.isEmpty){
+                isDuplicate = true
+            }
+            values.append(val)
+        }
+        return isDuplicate
+    }
+    
     func webserviceForGetDropDownkeys() {
         self.delegate?.willGetDetail()
         
@@ -200,7 +291,7 @@ class EditProfileVM {
                 self.delegate?.getSuccess(addresses, emails, mobiles, salutations, socials)
             } else {
                 self.delegate?.getFail(errors: errorCode)
-                debugPrint(errorCode)
+                printDebug(errorCode)
             }
         }
     }
@@ -213,7 +304,7 @@ class EditProfileVM {
                 self.delegate?.getPreferenceListSuccess(seatPreferences, mealPreferences)
             } else {
                 self.delegate?.getFail(errors: errorCode)
-                debugPrint(errorCode)
+                printDebug(errorCode)
             }
         }
     }
@@ -227,7 +318,7 @@ class EditProfileVM {
                 
             } else {
                 self.delegate?.getFail(errors: errorCode)
-                debugPrint(errorCode)
+//                debugPrint(errorCode)
             }
         }
     }
@@ -241,14 +332,14 @@ class EditProfileVM {
                 self.delegate?.getDefaultAirlineSuccess(data)
             } else {
                 self.delegate?.getFail(errors: errorCode)
-                debugPrint(errorCode)
+                printDebug(errorCode)
             }
         })
     }
     
     func webserviceForSaveProfile() {
         var params = JSONDictionary()
-        
+        self.logForInFoAndPersonalEvents()
         // remove default email and mobile
         var _email = self.email
         let _mobile = self.mobile
@@ -266,6 +357,7 @@ class EditProfileVM {
         params[APIKeys.passportIssueDate.rawValue] = passportIssueDate
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
         params[APIKeys.label.rawValue] = self.label
+        params[APIKeys.userTag.rawValue] = self.userTag
         
         if self.currentlyUsinfFor == .addNewTravellerList {
             params[APIKeys.id.rawValue] = ""
@@ -280,8 +372,10 @@ class EditProfileVM {
         }
         
         for (idx, mobileObj) in _mobile.enumerated() {
-            for key in Array(mobileObj.jsonDict.keys) {
-                params["contact[mobile][\(idx)][\(key)]"] = mobileObj.jsonDict[key]
+            if mobileObj.label.localized != LocalizedString.Default.localized{
+                for key in Array(mobileObj.jsonDict.keys) {
+                    params["contact[mobile][\(idx)][\(key)]"] = mobileObj.jsonDict[key]
+                }
             }
         }
         
@@ -306,18 +400,19 @@ class EditProfileVM {
             }
         }
         
-        if !seat.isEmpty, seat != LocalizedString.SelectSeatPreference.localized {
+        if !seat.isEmpty, seat != LocalizedString.Select.localized {
             params[APIKeys.seatPreference.rawValue] = seat
         }
 
-        if !meal.isEmpty, meal != LocalizedString.SelectMealPreference.localized {
-            params[APIKeys.mealPreference.rawValue] = meal
+        if !meal.isEmpty, meal != LocalizedString.Select.localized, let mealCode = self.mealPreferences.someKey(forValue: meal) {
+            params[APIKeys.mealPreference.rawValue] = mealCode
         }
         params[APIKeys.notes.rawValue] = notes
         params[APIKeys.imageSource.rawValue] = imageSource
         
         if self.filePath.isEmpty {
             params[APIKeys.profileImage.rawValue] = self.profilePicture
+            self.logEventsForFirebase(with: .EditPhoto)
         } else {
             params[APIKeys.profileImage.rawValue] = ""
         }
@@ -350,4 +445,115 @@ class EditProfileVM {
             }
         }
     }
+}
+
+
+///Logs Firebase events
+extension EditProfileVM {
+    
+    func logForInFoAndPersonalEvents(){
+        if (self.travelData?.dob.isEmpty ?? false) && (!dob.isEmpty){
+            self.logEventsForFirebase(with: .EnterDOB)
+        }else if (self.travelData?.dob != dob) && (dob != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditDOB)
+        }
+        if (self.travelData?.doa.isEmpty ?? false) && (!doa.isEmpty){
+            self.logEventsForFirebase(with: .EnterAnniversary)
+        }else if (self.travelData?.doa != doa) && (doa != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditAnniversary)
+        }
+        if (self.travelData?.notes.isEmpty ?? false) && (!notes.isEmpty){
+            self.logEventsForFirebase(with: .EnterNotes)
+        }else if (self.travelData?.notes != notes){
+            self.logEventsForFirebase(with: .EditNotes)
+        }
+        if (self.travelData?.passportNumber.isEmpty ?? false) && (!passportNumber.isEmpty){
+            self.logEventsForFirebase(with: .EnterPassportNumber)
+        }else if (self.travelData?.passportNumber != passportNumber){
+            self.logEventsForFirebase(with: .EditPassportNumber)
+        }
+        if (self.travelData?.passportIssueDate.isEmpty ?? false) && (!passportIssueDate.isEmpty){
+            self.logEventsForFirebase(with: .EnterIssueDate)
+        }else if (self.travelData?.passportIssueDate != passportIssueDate) && (passportIssueDate != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditIssueDate)
+        }
+        if (self.travelData?.passportCountry.isEmpty ?? false) && (!passportCountryCode.isEmpty){
+            self.logEventsForFirebase(with: .EnterIssueCountry)
+        }else if (self.travelData?.passportCountry != passportCountryCode) && (passportCountryCode != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditIssueCountry)
+        }
+        if (self.travelData?.passportExpiryDate.isEmpty ?? false) && (!passportExpiryDate.isEmpty){
+            self.logEventsForFirebase(with: .EnterExpiryDate)
+        }else if (self.travelData?.passportExpiryDate != passportExpiryDate) && (passportExpiryDate != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditExpiryDate)
+        }
+        
+        if !meal.isEmpty, meal != LocalizedString.Select.localized, let mealCode = self.mealPreferences.someKey(forValue: meal) {
+            if (self.travelData?.preferences.meal.value.isEmpty ?? true){
+                self.logEventsForFirebase(with: .SetMealPreference)
+            }else if self.travelData?.preferences.meal.value != mealCode{
+                self.logEventsForFirebase(with: .EditMealPreference)
+            }
+        }
+        
+        if self.frequentFlyer.count > (self.travelData?.frequestFlyer.count ?? 0){
+            if self.travelData?.frequestFlyer.count == 0{
+                for ff in self.frequentFlyer{
+                    self.logEventsForFirebase(with: .AddFF, value: ff.airlineName)
+                }
+            }else{
+                for ff in self.frequentFlyer{
+                    if self.travelData?.frequestFlyer.first(where: {$0.airlineCode == ff.airlineCode}) == nil{
+                        if ff.id == 0{
+                            self.logEventsForFirebase(with: .AddFF, value: ff.airlineName)
+                        }else{
+                            self.logEventsForFirebase(with: .EditFF)
+                        }
+                    }else if let _ = self.travelData?.frequestFlyer.first(where: {(($0.airlineCode == ff.airlineCode) && $0.number != ff.number)}){
+                        self.logEventsForFirebase(with: .EditFF)
+                    }
+                    
+                }
+            }
+        }else{
+            for ff in self.frequentFlyer{
+                if self.travelData?.frequestFlyer.first(where: {$0.airlineCode == ff.airlineCode}) == nil{
+                    if ff.id == 0{
+                        self.logEventsForFirebase(with: .AddFF, value: ff.airlineName)
+                    }else{
+                        self.logEventsForFirebase(with: .EditFF)
+                    }
+                }else if let _ = self.travelData?.frequestFlyer.first(where: {(($0.airlineCode == ff.airlineCode) && $0.number != ff.number)}){
+                    self.logEventsForFirebase(with: .EditFF)
+                }
+                
+            }
+        }
+        
+    }
+    
+    
+    
+    func logEventsForFirebase(with event: FirebaseEventLogs.EventsTypeName, value: String? = nil){
+        var type = "editMain"
+        if (self.travelData?.id == UserInfo.loggedInUser?.paxId){
+            type = "editMain"
+        }else{
+            if (self.travelData?.id.isEmpty ?? false){
+                type = "add"
+            }else {
+                type = "edit"
+            }
+        }
+        FirebaseEventLogs.shared.logEditMainTravellerEvents(with: event, value: value, key: type)
+    }
+    
+    func getTagSuggestion(with text: String){
+        APICaller.shared.callAPIForUserTagSuggestion(params: ["pronoun": text]) {[weak self] (success, tags) in
+            guard let self = self else {return}
+            self.suggetionTags = tags
+            self.delegate?.getSuggestionAPIResponse()
+        }
+    }
+    
 }

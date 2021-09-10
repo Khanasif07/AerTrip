@@ -20,8 +20,15 @@ protocol ViewProfileDetailVMDelegate: class {
 class ViewProfileDetailVM {
     
     weak var delegate: ViewProfileDetailVMDelegate?
-    var travelData: TravelDetailModel?
+    var travelData: TravelDetailModel? {
+        didSet {
+            if currentlyUsingFor == .viewProfile {
+                checkAndUpdateDefaults()
+            }
+        }
+    }
     var currentlyUsingFor: EditProfileVM.UsingFor = .viewProfile
+    var isComingFromDeepLink = false
     
     func webserviceForGetTravelDetail(isShowLoader: Bool = false) {
         var params = JSONDictionary()
@@ -40,7 +47,8 @@ class ViewProfileDetailVM {
                     UserInfo.loggedInUser?.firstName = trav.firstName
                     UserInfo.loggedInUser?.lastName = trav.lastName
                     UserInfo.loggedInUser?.profileImage = trav.profileImage
-                    
+                    UserInfo.loggedInUser?.hasPassword = trav.has_password
+
                     for email in trav.contact.email {
                         if email.label.lowercased() == LocalizedString.Default.localized.lowercased() {
                             UserInfo.loggedInUser?.email = email.value
@@ -82,7 +90,7 @@ class ViewProfileDetailVM {
                 DispatchQueue.mainAsync {
                 strongSelf.delegate?.getFail(errors: errorCode)
                 }
-                debugPrint(errorCode)
+                printDebug(errorCode)
             }
         })
     }
@@ -99,6 +107,40 @@ class ViewProfileDetailVM {
             }
         })
     }
+    
+    
+    func webserviceForGetPreferenceList() {
+        
+        APICaller.shared.callGetPreferencesListApi { success, seatPreferences, mealPreferences, errorCode in
+            if success {
+//                self.delegate?.getPreferenceListSuccess(seatPreferences, mealPreferences)
+            } else {
+//                self.delegate?.getFail(errors: errorCode)
+//                printDebug(errorCode)
+            }
+        }
+    }
+    
+    private func checkAndUpdateDefaults() {
+        
+    }
 }
 
 
+///Logs Firebase  ViewProfileDetailVC events
+extension ViewProfileDetailVM {
+    func logEventsForFirebase(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logViewTravellerEvents(with: event)
+    }
+}
+
+///Logs Firebase  ViewProfileVC events
+extension ViewProfileDetailVM {
+    func logEventsWithoutParam(with event: AnalyticsEvents){
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: event)
+    }
+     
+    func logEvents(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logProfileEvents(with: event)
+    }
+}

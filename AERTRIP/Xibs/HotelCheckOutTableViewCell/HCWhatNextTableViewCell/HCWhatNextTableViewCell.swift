@@ -11,7 +11,7 @@ import UIKit
 protocol HCWhatNextTableViewCellDelegate: class {
     func shareOnFaceBook()
     func shareOnTwitter()
-    func shareOnLinkdIn()
+    func shareOnInstagram()
 }
 
 class HCWhatNextTableViewCell: UITableViewCell {
@@ -19,13 +19,17 @@ class HCWhatNextTableViewCell: UITableViewCell {
     //Mark:- Variables
     //================
     var nextPlanString: [String] = []
+    private(set) var whatNextdata: [WhatNext] = []
     internal weak var delegate: HCWhatNextTableViewCellDelegate?
     private let collectionMargin: CGFloat  = 11.0
     private let itemSpacing : CGFloat = 0.0
     private var itemHeight: CGFloat {
-        return self.whatNextCollectionView.bounds.height
+        return 172//self.whatNextCollectionView.bounds.height
     }
     private var itemWidth: CGFloat  = 0
+    
+    var suggetionImage = AppImages.twiterIcon//hotel_green_icon
+    var selectedWhatNext: ((_ index:Int)->())?
     
     //Mark:- IBOutlets
     //================
@@ -33,7 +37,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     @IBOutlet weak var tellYourPlanLabel: UILabel!
     @IBOutlet weak var fbButton: UIButton!
     @IBOutlet weak var twitterButton: UIButton!
-    @IBOutlet weak var linkdInButton: UIButton!
+    @IBOutlet weak var instagramButton: ATButton!
     @IBOutlet weak var whatNext: UILabel!
     @IBOutlet weak var whatNextCollectionView: UICollectionView! {
         didSet {
@@ -45,11 +49,13 @@ class HCWhatNextTableViewCell: UITableViewCell {
         didSet {
             self.pageControl.tintColor = AppColors.themeGray220
             self.pageControl.currentPageTintColor = AppColors.themeGreen
-            self.pageControl.radius = 3.0
+            self.pageControl.radius = 3.5
+            self.pageControl.padding = 5.0
         }
     }
     @IBOutlet weak var whatNextStackView: UIStackView!
 
+    @IBOutlet weak var dividerView: ATDividerView!
     
     //Mark:- LifeCycle
     //================
@@ -58,21 +64,27 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
     //Mark:- Methods
     //==============
     ///COnfigure UI
     private func configUI() {
         //UI
         self.containerView.backgroundColor = AppColors.screensBackground.color
-        self.fbButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.fbButtonBackgroundColor.withAlphaComponent(0.3), offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
-        self.twitterButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.twitterBackgroundColor.withAlphaComponent(0.3), offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
-        self.linkdInButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.linkedinButtonBackgroundColor.withAlphaComponent(0.3), offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
+        self.fbButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
+        self.twitterButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
+        self.instagramButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
         //Image
-        self.fbButton.setImage(#imageLiteral(resourceName: "fbIconWhite").withRenderingMode(.alwaysTemplate), for: .normal)
-        self.fbButton.tintColor = AppColors.themeWhite
-        self.twitterButton.setImage(#imageLiteral(resourceName: "twiterIcon").withRenderingMode(.alwaysTemplate), for: .normal)
-        self.twitterButton.tintColor = AppColors.themeWhite
-        self.linkdInButton.setImage(#imageLiteral(resourceName: "linkedInIcon"), for: .normal)
+        self.fbButton.setImage(AppImages.fbIconWhite.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.fbButton.tintColor = AppColors.unicolorWhite
+        self.twitterButton.setImage(AppImages.twiterIcon.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.twitterButton.tintColor = AppColors.unicolorWhite
+        self.instagramButton.setImage(AppImages.socialInstagram, for: .normal)//.setImage(AppImages.twiterIcon, for: .normal)
+//        self.instagramButton.tintColor = AppColors.unicolorWhite
+        self.instagramButton.gradientColors = [AppColors.clear, AppColors.clear]
         //Font
         self.tellYourPlanLabel.font = AppFonts.Regular.withSize(16.0)
         self.whatNext.font = AppFonts.SemiBold.withSize(28.0)
@@ -84,11 +96,13 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.whatNext.textColor = AppColors.themeGray40
         self.fbButton.backgroundColor = AppColors.fbButtonBackgroundColor
         self.twitterButton.backgroundColor = AppColors.twitterBackgroundColor
-        self.linkdInButton.backgroundColor = AppColors.linkedinButtonBackgroundColor
+//        self.instagramButton.backgroundColor = AppColors.clear
         self.whatNextCollectionView.registerCell(nibName: HCWhatNextCollectionViewCell.reusableIdentifier)
         self.flowLayOut()
+        
+        self.contentView.layoutIfNeeded()
     }
-    
+
     ///COnfigure Cell
     internal func configCell(whatNextString: [String]) {
         self.nextPlanString = whatNextString
@@ -96,10 +110,25 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.whatNextCollectionView.reloadData()
     }
     
+    internal func configCellwith(_ whtnxt: [WhatNext], usedFor:String, isNeedToAdd:Bool) {
+        self.whatNextdata = whtnxt
+        if isNeedToAdd{
+            var wtNext = WhatNext(isFor: "Booking")
+            wtNext.product = "Booking"
+            wtNext.settingFor = usedFor
+            self.whatNextdata.insert(wtNext, at: whatNextdata.count)
+        }
+        self.pageControl.numberOfPages = self.whatNextdata.count
+        if usedFor == "hotel"{
+            self.instagramButton.setImage(AppImages.socialInstagramHotels, for: .normal)
+        }
+        self.whatNextCollectionView.reloadData()
+    }
+    
     private func flowLayOut() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        itemWidth =  self.whatNextCollectionView.bounds.width - collectionMargin * 2
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        itemWidth =  UIScreen.width - collectionMargin * 2//self.whatNextCollectionView.bounds.width - collectionMargin * 2
+        layout.sectionInset = UIEdgeInsets(top: 13, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         layout.headerReferenceSize = CGSize(width: collectionMargin, height: 0.0)
         layout.footerReferenceSize = CGSize(width: collectionMargin, height: 0.0)
@@ -119,8 +148,8 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.delegate?.shareOnTwitter()
     }
     
-    @IBAction func linkedInButtonAction(_ sender: UIButton) {
-        self.delegate?.shareOnLinkdIn()
+    @IBAction func instagramButtonAction(_ sender: UIButton) {
+        self.delegate?.shareOnInstagram()
     }
 }
 
@@ -128,13 +157,24 @@ class HCWhatNextTableViewCell: UITableViewCell {
 extension HCWhatNextTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.nextPlanString.count//10
+        return self.whatNextdata.count//10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCWhatNextCollectionViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextCollectionViewCell else { return UICollectionViewCell() }
-//        cell.nextPlanLabel.text = self.nextPlanString[indexPath.row]
+        cell.nextPlanLabel.text = self.whatNextdata[indexPath.item].whatNextStringValue//hotelsCopy2
+        switch self.whatNextdata[indexPath.item].productType {
+        case .hotel: cell.flightImageView.image = AppImages.hotel_green_icon
+        case .flight: cell.flightImageView.image = AppImages.flight_blue_icon
+        default: cell.flightImageView.image = AppImages.hotelsCopy2
+        }
+        
+        cell.flightImageView.isHidden = false
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedWhatNext?(indexPath.item)
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

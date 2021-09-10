@@ -13,7 +13,8 @@ class BookingRequestRouteTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     @IBOutlet weak var routeLabel: UILabel!
      @IBOutlet weak var routeIdLabel: UILabel!
-
+    @IBOutlet weak var dividerView: ATDividerView!
+    
     
     override func setupFonts() {
         self.routeLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -22,7 +23,7 @@ class BookingRequestRouteTableViewCell: ATTableViewCell {
     
     override func setupColors() {
         self.routeLabel.textColor = AppColors.themeBlack
-        self.routeIdLabel.textColor = AppColors.themeGray40
+        self.routeIdLabel.textColor = AppColors.themeGray153
     }
 
     func configure(title: String, detail: String) {

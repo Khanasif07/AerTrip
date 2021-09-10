@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BulkEnquirySuccessfulVCDelegate: class {
+@objc protocol BulkEnquirySuccessfulVCDelegate: AnyObject {
     func doneButtonAction()
 }
 
@@ -25,6 +25,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         var isGradient: Bool = true
         var cornerRadius: CGFloat = 0.0
         var spaceFromBottom: CGFloat = 22.5
+        var buttonHeight: CGFloat = 50.0
     }
     
     enum UsingFor {
@@ -35,6 +36,10 @@ class BulkEnquirySuccessfulVC: BaseVC {
         case cancellationProcessed
         case reschedulingRequest
         case specialRequest
+        case addOnRequestPayment
+        case bookingPayment
+        case accountDepositOnline
+        
     }
     
     //Mark:- Variables
@@ -56,7 +61,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     @IBOutlet weak var mainContainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchButtonWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchButtonHeightConstraint: NSLayoutConstraint!
     
     private var tickLayer: CAShapeLayer!
     private var tickImageSize: CGSize {
@@ -67,6 +72,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     
     var currentUsingAs = UsingFor.bulkBooking
     var searchButtonConfiguration: ButtonConfiguration = ButtonConfiguration()
+    
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -84,7 +90,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.mainTitleLabel.font = AppFonts.c.withSize(32.0)
+        self.mainTitleLabel.font = AppFonts.c.withSize(31.0)
         self.subTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.doneBtnOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
     }
@@ -101,13 +107,15 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.mainTitleLabel.adjustsFontSizeToFitWidth = true
+        self.subTitleLabel.adjustsFontSizeToFitWidth = true
         self.setupSearchButton()
         switch self.currentUsingAs {
         case .bulkBooking:
             self.mainTitleLabel.text = LocalizedString.BulkEnquirySent.localized
             self.subTitleLabel.text = LocalizedString.CustomerServicesShallConnect.localized
             self.searchButtonWidthConstraint.constant = 150.0
-            self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
+            self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 15.0)
             self.mainTitleLabel.font = AppFonts.c.withSize(31.0)
         case .accountDeposit:
@@ -151,7 +159,26 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
+        case .addOnRequestPayment:
+            self.mainTitleLabel.text = LocalizedString.AddOnRequestPayment.localized
+            self.subTitleLabel.text = LocalizedString.AddOnRequestPaymentMessage.localized
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
+        case .bookingPayment:
+            self.mainTitleLabel.text = LocalizedString.BookingPayment.localized
+            self.subTitleLabel.text = LocalizedString.BookingPaymentMessage.localized
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
+        case .accountDepositOnline:
+            self.mainTitleLabel.text = LocalizedString.BookingPayment.localized
+            self.subTitleLabel.text = LocalizedString.BookingPaymentMessage.localized
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
         }
+        
         self.searchBtnOutlet.isUserInteractionEnabled = false
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.backgroundView.alpha = 1.0
@@ -162,8 +189,12 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.mainTitleLabel.isHidden = true
         self.subTitleLabel.isHidden = true
         self.doneBtnOutlet.isHidden = true
+        containerView.backgroundColor = AppColors.themeBlack26
     }
-    
+    //    "AddOnRequestPayment" = "Payment Successful";
+    //    "AddOnRequestPaymentMessage" = "Thank you for your payment. We will book your add-ons and send you a confirmation shortly.";
+    //    "BookingPayment" = "Payment Successful";
+    //    "BookingPaymentMessage" = "Thank you for your payment.";
     private func setupSearchButton() {
         
         self.searchBtnOutlet.setTitle(searchButtonConfiguration.text, for: .normal)
@@ -180,21 +211,28 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.searchBtnOutlet.titleLabel?.font = searchButtonConfiguration.textFont
         
         self.searchButtonWidthConstraint.constant = searchButtonConfiguration.width
-        self.searchButtonBottomConstraint.constant = searchButtonConfiguration.spaceFromBottom
+        self.searchButtonHeightConstraint.constant = searchButtonConfiguration.buttonHeight
+        
+        printDebug(self.containerView.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y)
+        let y = self.view.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y - self.searchBtnOutlet.height
+        self.searchBtnOutlet.transform = CGAffineTransform(translationX:  0, y: y)
     }
     
     //Mark:- Methods
     //==============
     //Private
     private func hide(animated: Bool, shouldRemove: Bool = false) {
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.mainContainerBottomConstraint.constant = -(self.containerView.height + 100)
-            self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            if shouldRemove {
-                self.removeFromParentVC
-                NotificationCenter.default.post(name: .bulkEnquirySent, object: nil)
-            }
+        let height = self.containerView.height
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+            self?.mainContainerBottomConstraint.constant = -(height + 100)
+            self?.view.layoutIfNeeded()
+            }, completion: { [weak self] (isDone) in
+                if shouldRemove {
+                    self?.removeFromParentVC
+                    if self?.currentUsingAs == .bulkBooking {
+                        NotificationCenter.default.post(name: .bulkEnquirySent, object: nil)
+                    }
+                }
         })
     }
     
@@ -202,58 +240,41 @@ class BulkEnquirySuccessfulVC: BaseVC {
     private func setupViewForSuccessAnimation() {
         self.searchBtnOutlet.setTitle(nil, for: .normal)
         self.searchBtnOutlet.setImage(nil, for: .normal)
-        let reScaleFrame = CGRect(x: (self.containerView.width - 62.0) / 2.0, y: self.searchBtnOutlet.y, width: 62.0, height: 62.0)
-        self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
         
+        // self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
-            self.searchBtnOutlet.frame = reScaleFrame
-            self.searchBtnOutlet.myCornerRadius = reScaleFrame.height / 2.0
+            self.searchButtonHeightConstraint.constant = 62
+            self.searchButtonWidthConstraint.constant = 62
+            self.searchBtnOutlet.myCornerRadius = 62 / 2.0
             self.view.layoutIfNeeded()
             
         }) { (isCompleted) in
-            self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
-            let yPerSafeArea = self.mainTitleLabel.frame.origin.y + self.view.safeAreaInsets.bottom + 26.0 + 5
+            
             let tY: CGFloat
-            if UIDevice.isIPhoneX {
-                tY = (((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y)
-            } else {
-                tY = (((self.view.frame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y + 15.0)
-            }
-            //- yPerSafeArea
-            //            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y //- yPerSafeArea
+            tY = ((self.containerView.height) / 2.0) - self.searchBtnOutlet.height/2 - 115
             var t = CGAffineTransform.identity
             t = t.translatedBy(x: 0.0, y: tY )
             UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
                 self.searchBtnOutlet.transform = t
                 self.containerView.alpha = 1.0
             }) { (isCompleted) in
-//                self.mainTitleLabel.bottom = self.searchBtnOutlet.bottom + 26.0
-//                self.subTitleLabel.bottom = self.mainTitleLabel.bottom + 16.0
-//                self.doneBtnOutlet.bottom = self.subTitleLabel.bottom + 120.0
                 self.animatingCheckMark()
                 delay(seconds: AppConstants.kAnimationDuration + 0.1, completion: {
-                    self.finalTransFormation(tY: tY - yPerSafeArea)
+                    self.finalTransFormation()
                 })
             }
         }
     }
     
-    private func finalTransFormation(tY: CGFloat) {
+    private func finalTransFormation() {
         
-        let newReScaleFrame = CGRect(x: (self.containerView.width - 62.0) / 2.0, y: self.searchBtnOutlet.y, width: 62.0, height: 62.0)
-        var t = CGAffineTransform.identity
-        t = t.translatedBy(x: 0.0, y: tY )
         self.mainTitleLabel.isHidden = false
         self.subTitleLabel.isHidden = false
         self.doneBtnOutlet.isHidden = false
         UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
-            self.searchBtnOutlet.frame = newReScaleFrame
             self.updateTickPath()
-            self.searchBtnOutlet.myCornerRadius = newReScaleFrame.height / 2.0
-            self.searchBtnOutlet.transform = t
-//            self.mainTitleLabel.bottom = self.bulkLabelBottom
-//            self.subTitleLabel.bottom = self.customerLabelBottom
-//            self.doneBtnOutlet.bottom = self.doneBtnBottom
+            self.searchBtnOutlet.myCornerRadius = self.searchBtnOutlet.width / 2.0
+            self.searchBtnOutlet.transform = .identity
             self.mainTitleLabel.alpha = 1.0
             self.subTitleLabel.alpha = 1.0
             self.doneBtnOutlet.alpha = 1.0
@@ -271,7 +292,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.tickLayer = shapeLayer
         shapeLayer.frame = CGRect(x: (self.searchBtnOutlet.frame.width - tickImageSize.width) / 2.0, y: ((self.searchBtnOutlet.frame.height - tickImageSize.height) / 2.0), width: tickImageSize.width, height: tickImageSize.height)
         shapeLayer.fillColor = AppColors.clear.cgColor
-        shapeLayer.strokeColor = AppColors.themeWhite.cgColor
+        shapeLayer.strokeColor = AppColors.unicolorWhite.cgColor
         shapeLayer.lineWidth = tickLineWidth
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.lineJoin = CAShapeLayerLineJoin.round
@@ -309,4 +330,12 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.hide(animated: true, shouldRemove: true)
         self.delegate?.doneButtonAction()
     }
+}
+
+extension BulkEnquirySuccessfulVC {
+    
+    @objc func setConfigForFlightsBulkBooking() {
+        
+    }
+    
 }

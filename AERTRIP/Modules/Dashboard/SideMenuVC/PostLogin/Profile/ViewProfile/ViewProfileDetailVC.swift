@@ -30,7 +30,7 @@ class ViewProfileDetailVC: BaseVC {
     var frequentFlyer: [FrequentFlyer] = []
     var informations: [String] = []
     let passportDetaitTitle: [String] = [LocalizedString.passportNo.rawValue, LocalizedString.issueCountry.rawValue]
-    var flightPreferencesTitle: [String] = [LocalizedString.seatPreference.rawValue, LocalizedString.mealPreference.rawValue]
+    var flightPreferencesTitle: [String] = [LocalizedString.mealPreference.rawValue, LocalizedString.FrequentFlyer.rawValue]
     var passportDetails: [String] = []
     var flightDetails: [String] = []
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
@@ -54,7 +54,7 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView?.currentlyUsingAs = .profileDetails
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            self?.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
+            self?.updateProfileImage()
             self?.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0
             self?.profileImageHeaderView?.layoutIfNeeded()
             self?.view.alpha = 1.0
@@ -75,9 +75,9 @@ class ViewProfileDetailVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
+//        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
            // viewModel.webserviceForGetTravelDetail(isShowLoader: true)
-        }
+//        }
     }
     
     
@@ -89,12 +89,24 @@ class ViewProfileDetailVC: BaseVC {
             self?.topNavView.stopActivityIndicaorLoading()
             self?.topNavView.isToShowIndicatorView = false
         }
-        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
-        
+        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.updateProfileImage()
+    }
+    
     // MARK: - Helper method
+    private func updateProfileImage(){
+        if self.viewModel.currentlyUsingFor != .travellerList {
+            self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
+        } else if self.viewModel.currentlyUsingFor == .travellerList{
+            self.profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: self.viewModel.travelData?.firstName, lastName: self.viewModel.travelData?.lastName, font: AppFonts.Regular.withSize(35.0))
+        }
+    }
+    
     
     func doInitialSetUp() {
         tableView.separatorStyle = .none
@@ -104,32 +116,33 @@ class ViewProfileDetailVC: BaseVC {
         self.headerViewHeightConstraint.constant = headerViewHeight
         
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
         
         let editTitle = "\(LocalizedString.Edit.localized) "
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
         
-        let tintedImage = #imageLiteral(resourceName: "Back").withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        let tintedImage = AppImages.Back.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.topNavView.leftButton.setImage(tintedImage, for: .normal)
-        self.topNavView.leftButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.leftButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.topNavView.leftButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.leftButton.isSelected = false
         
-        self.topNavView.firstRightButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.firstRightButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.firstRightButton.isSelected = false
-        
+        self.topNavView.clipsToBounds = true
         setupParallaxHeader()
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
         tableView.register(UINib(nibName: "ViewProfileDetailFrequentCell",bundle: nil), forCellReuseIdentifier: "ViewProfileDetailFrequentCell")
         tableView.register(UINib(nibName: multipleDetailCellIdentifier, bundle: nil), forCellReuseIdentifier: multipleDetailCellIdentifier)
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: footterHeight))
         tableView.tableFooterView = footerView
-        profileImageHeaderView?.dividerView.isHidden = true
+//        profileImageHeaderView?.dividerView.isHidden = true
         setUpDataFromApi()
+        profileImageHeaderView?.familyButton.isHidden = true
     }
     
     private func setupParallaxHeader() { // Parallax Header
@@ -170,8 +183,8 @@ class ViewProfileDetailVC: BaseVC {
         } else {
             if viewModel.currentlyUsingFor == .travellerList {
                 profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppFonts.Regular.withSize(35.0))
-                profileImageHeaderView?.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack)
-                profileImageHeaderView?.blurEffectView.alpha = 1.0
+                profileImageHeaderView?.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack).blur
+                profileImageHeaderView?.blurEffectView.alpha = 0.0
             } else {
                 profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
                 profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack).blur
@@ -180,13 +193,24 @@ class ViewProfileDetailVC: BaseVC {
         }
         
         email.removeAll()
-        let tempEmail = travel.contact.email.filter { (eml) -> Bool in
+        var tempEmail = travel.contact.email.filter { (eml) -> Bool in
             !eml.value.isEmpty
         }
+        if viewModel.currentlyUsingFor == .viewProfile, let defEmail = UserInfo.loggedInUser?.email, !defEmail.isEmpty, tempEmail.filter({ $0.label == LocalizedString.Default.localized }).isEmpty, tempEmail.filter({ $0.value == defEmail }).isEmpty {
+            let defaultEmail = Email(label: LocalizedString.Default.localized, value: defEmail)
+            tempEmail.insert(defaultEmail, at: 0)
+        }
+        
+//        tempEmail.sort(by: { $0.id < $1.id })
+//        tempEmail.sort(by: { $0.label < $1.label })
         email.append(contentsOf: tempEmail)
         
         let social = travel.contact.social.filter { (scl) -> Bool in
             !scl.value.isEmpty
+        }
+        
+        if !travel.userTag.isEmpty{
+            sections.append("Relation or Nickname")
         }
         
         if email.count > 0 {
@@ -194,9 +218,16 @@ class ViewProfileDetailVC: BaseVC {
         }
         
         mobile.removeAll()
-        let tempMobile = travel.contact.mobile.filter { (mbl) -> Bool in
+        var tempMobile = travel.contact.mobile.filter { (mbl) -> Bool in
             !mbl.value.isEmpty
         }
+        
+        if viewModel.currentlyUsingFor == .viewProfile, let defMobile = UserInfo.loggedInUser?.mobileWithISD, !defMobile.isEmpty, tempMobile.filter({ $0.label == LocalizedString.Default.localized }).isEmpty, tempMobile.filter({ "\($0.isd) \($0.value)" == defMobile }).isEmpty {
+            let defaultMobile = Mobile(label: LocalizedString.Default.localized, value: defMobile)
+            tempMobile.append(defaultMobile)
+        }
+        
+        tempMobile.sort(by: { $0.label < $1.label })
         mobile.append(contentsOf: tempMobile)
         
         if mobile.count > 0 {
@@ -215,12 +246,17 @@ class ViewProfileDetailVC: BaseVC {
         informations.removeAll()
         moreInformation.removeAll()
         if !travel.dob.isEmpty {
-            informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
-            moreInformation.append(LocalizedString.Birthday.localized)
+            if let value = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") {
+                moreInformation.append(LocalizedString.Birthday.localized)
+                informations.append(value)
+            }
         }
         if !travel.doa.isEmpty {
-            informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
-            moreInformation.append(LocalizedString.Anniversary.localized)
+            if let value = AppGlobals.shared.formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") {
+                moreInformation.append(LocalizedString.Anniversary.localized)
+                informations.append(value)
+
+            }
         }
         if !travel.notes.isEmpty {
             informations.append(travel.notes)
@@ -244,22 +280,29 @@ class ViewProfileDetailVC: BaseVC {
         }
         
         flightDetails.removeAll()
-        if !travel.preferences.seat.value.isEmpty {
-            flightDetails.append(travel.preferences.seat.value)
-            flightPreferencesTitle.insert(LocalizedString.seatPreference.rawValue, at: 0)
+//        if !travel.preferences.seat.value.isEmpty {
 //            flightDetails.append(travel.preferences.seat.value)
-            sections.append(LocalizedString.FlightPreferences.localized)
-        }
+//            flightPreferencesTitle.insert(LocalizedString.seatPreference.rawValue, at: 0)
+////            flightDetails.append(travel.preferences.seat.value)
+//            sections.append(LocalizedString.FlightPreferences.localized)
+//        }
         
         if !travel.preferences.meal.value.isEmpty {
-            flightDetails.append(travel.preferences.meal.value)
+            flightDetails.append(travel.preferences.meal.name)
             if !sections.contains(LocalizedString.FlightPreferences.localized) {
                 sections.append(LocalizedString.FlightPreferences.localized)
                 flightPreferencesTitle.insert(LocalizedString.mealPreference.rawValue, at: 0)
+                flightPreferencesTitle.insert(LocalizedString.FrequentFlyer.rawValue, at: 1)
             } else {
                 flightPreferencesTitle.insert(LocalizedString.mealPreference.rawValue, at: 1)
+                flightPreferencesTitle.insert(LocalizedString.FrequentFlyer.rawValue, at: 2)
             }
+        }else{
+            flightPreferencesTitle.insert(LocalizedString.FrequentFlyer.rawValue, at: 0)
         }
+        
+        flightDetails.append("")
+        
         
         let frequentFlyer = travel.frequestFlyer
         if frequentFlyer.count > 0 {
@@ -268,6 +311,8 @@ class ViewProfileDetailVC: BaseVC {
                 sections.append(LocalizedString.FlightPreferences.localized)
             }
         }
+        
+        self.profileImageHeaderView?.dividerView.isHidden = !sections.isEmpty
         tableView.reloadData()
     }
     
@@ -278,26 +323,33 @@ class ViewProfileDetailVC: BaseVC {
     
     func createAddress(_ address : Address) -> String {
         var completeAddress = ""
+        
         if !address.line1.isEmpty {
             completeAddress += address.line1
         }
+        
         if !address.line2.isEmpty && !address.line1.isEmpty{
             completeAddress += "\n" + address.line2
         } else {
             completeAddress += address.line2
         }
+        
         if !address.city.isEmpty  {
             completeAddress += "\n" + address.city
         }
+        
         if !address.postalCode.isEmpty {
             completeAddress += "-" + address.postalCode
         }
+        
         if !address.state.isEmpty {
             completeAddress += "\n" + address.state
         }
+        
         if !address.countryName.isEmpty {
             completeAddress += ", " + address.countryName
         }
+        
         return completeAddress
     }
     
@@ -309,6 +361,7 @@ extension ViewProfileDetailVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.viewModel.logEventsForFirebase(with: .OpenEditTraveller)
         self.topNavView.configureFirstRightButton( normalTitle: "", selectedTitle: "")
         self.topNavView.isToShowIndicatorView = true
         self.topNavView.startActivityIndicaorLoading()
@@ -328,6 +381,8 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
+        case "Relation or Nickname":
+            return 1
         case LocalizedString.EmailAddress.localized:
             return email.count
         case LocalizedString.MoreInformation.localized:
@@ -356,7 +411,12 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ViewProfileDetailTableViewCell else {
             fatalError("ViewProfileDetailTableViewCell not found")
         }
+        cell.headerTitleLabel.textColor = AppColors.themeGray40
         switch sections[indexPath.section] {
+        case "Relation or Nickname":
+            cell.configureCell("Relation or Nickname", self.travelData?.userTag ?? "")
+            cell.separatorView.isHidden = true
+            return cell
         case LocalizedString.EmailAddress.localized:
             cell.configureCell(email[indexPath.row].label, email[indexPath.row].value)
             cell.separatorView.isHidden = (indexPath.row + 1 == email.count) ? true : false
@@ -366,7 +426,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.separatorView.isHidden = (indexPath.row + 1 == informations.count) ? true : false
             return cell
         case LocalizedString.ContactNumber.localized:
-            cell.configureCell(mobile[indexPath.row].label, mobile[indexPath.row].valueWithISD.removeAllWhiteSpacesAndNewLines)
+            cell.configureCell(mobile[indexPath.row].label, mobile[indexPath.row].valueWithISD.removeAllWhiteSpacesAndNewLines, .mobile)
             cell.separatorView.isHidden = (indexPath.row + 1 == mobile.count) ? true : false
             return cell
         case LocalizedString.SocialAccounts.localized:
@@ -402,6 +462,9 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(flightPreferencesTitle[indexPath.row], flightDetails[indexPath.row])
                 cell.sepratorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)-1) ? 16.0 : 0.0
                 cell.separatorView.isHidden = false
+                if indexPath.row == flightDetails.count-1{
+                    cell.separatorView.isHidden = true
+                }
                 return cell
             }
             else {
@@ -438,7 +501,12 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60.0
+        if sections[section] == "Relation or Nickname"{
+            return 35.0
+        }else{
+            return 60.0
+        }
+        
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -446,9 +514,90 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
         headerView.topDividerHeightConstraint.constant = 0.5
-        headerView.headerLabel.text = sections[section].localized
+        if sections[section] != "Relation or Nickname"{
+            headerView.headerLabel.text = sections[section].localized
+        }else{
+            headerView.headerLabel.text = ""
+        }
+       
+        headerView.headerLabel.textColor = AppColors.themeGray60
+        headerView.containerView.backgroundColor = AppColors.profileHeaderBackground
         return headerView
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        let totalSection = self.numberOfSections(in: self.tableView)
+        if sections[section] != LocalizedString.FlightPreferences.localized, section == (totalSection - 1) {
+            return 0.5
+        }
+        return CGFloat.leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let totalSection = self.numberOfSections(in: self.tableView)
+        if sections[section] != LocalizedString.FlightPreferences.localized, section == (totalSection - 1) {
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.width, height: 0.5))
+            footerView.backgroundColor = AppColors.divider.color
+            return footerView
+        }
+        return nil
+        
+    }
+    
+    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+//        switch sections[indexPath.section] {
+//        case LocalizedString.FlightPreferences.localized:
+//            return false
+//        default :
+            return true
+//        }
+    }
+    
+    func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return action == #selector(copy(_:))
+    }
+    
+    func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        if action == #selector(copy(_:)) {
+            var pasteText = ""
+            switch sections[indexPath.section] {
+            case LocalizedString.EmailAddress.localized:
+                pasteText = email[indexPath.row].value
+            case LocalizedString.MoreInformation.localized:
+                pasteText = informations[indexPath.row]
+            case LocalizedString.ContactNumber.localized:
+                 pasteText = mobile[indexPath.row].valueWithISD.removeAllWhiteSpacesAndNewLines
+            case LocalizedString.SocialAccounts.localized:
+                pasteText = social[indexPath.row].value
+            case LocalizedString.Address.localized:
+                pasteText = createAddress(addresses[indexPath.row])
+            case LocalizedString.PassportDetails.localized:
+                if indexPath.row >= 2 {
+                } else {
+                    pasteText = passportDetails[indexPath.row]
+                }
+            case LocalizedString.FlightPreferences.localized:
+                if flightDetails.count > indexPath.row {
+                    pasteText = flightDetails[indexPath.row]
+                }
+                else {
+                    if (flightDetails.count == 1 && indexPath.row == 1) || (flightDetails.count == 2 && indexPath.row == 2) {
+                        pasteText = "\(frequentFlyer[indexPath.row - flightDetails.count].airlineName)\n\(frequentFlyer[indexPath.row - flightDetails.count].number)"
+                    } else {
+                        pasteText = "\(frequentFlyer[indexPath.row - flightDetails.count].airlineName)\n\(frequentFlyer[indexPath.row - flightDetails.count].number)"
+                    }
+                    
+                }
+            default:
+                pasteText = ""
+            }
+            let pasteboard = UIPasteboard.general
+            pasteboard.string = pasteText
+        }
+    }
+    /*
+     https://stackoverflow.com/questions/2487844/simple-way-to-show-the-copy-popup-on-uitableviewcells-like-the-address-book-ap/2488237#2488237
+     */
 }
 
 // MARK: - MXParallaxHeaderDelegate methods
@@ -470,17 +619,19 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                        self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
                            self?.topNavView.firstRightButton.isSelected = false
                            self?.topNavView.leftButton.isSelected = false
-                           self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                           self?.topNavView.leftButton.tintColor = AppColors.unicolorWhite
                            self?.topNavView.navTitleLabel.text = ""
-                           self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                        self?.topNavView.backView.backgroundColor = .clear //AppColors.themeWhite
+                        self?.topNavView.dividerView.isHidden = true
                        }
             } else {
-                self.statusBarStyle = .default
+                self.statusBarStyle = .darkContent
                            self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                                self?.topNavView.firstRightButton.isSelected = true
                                self?.topNavView.leftButton.isSelected = true
                                self?.topNavView.leftButton.tintColor = AppColors.themeGreen
                                self?.topNavView.navTitleLabel.text = self?.getUpdatedTitle()
+                            self?.topNavView.dividerView.isHidden = false
                            }
             }
         } else {
@@ -488,9 +639,10 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
             self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = false
                 self?.topNavView.leftButton.isSelected = false
-                self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                self?.topNavView.leftButton.tintColor = AppColors.unicolorWhite
                 self?.topNavView.navTitleLabel.text = ""
-                self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                self?.topNavView.backView.backgroundColor = .clear //AppColors.themeWhite
+                self?.topNavView.dividerView.isHidden = true
             }
         }
         self.isNavBarHidden =  false

@@ -26,11 +26,16 @@ extension UnicodeScalar {
     var isZeroWidthJoiner: Bool {
         return value == 8205
     }
+    
+    
 }
 
 // MARK: - glyphCount
 
 extension String {
+    
+    
+    
     var encodeUrl: String {
         return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) ?? self
     }
@@ -52,8 +57,8 @@ extension String {
 //            return self
 //        }
         
-        let data = self.data(using: String.Encoding.utf8)
-        let decodedStr = NSString(data: data!, encoding: String.Encoding.nonLossyASCII.rawValue)
+        guard let data = self.data(using: String.Encoding.utf8) else {return self}
+        let decodedStr = NSString(data: data, encoding: String.Encoding.nonLossyASCII.rawValue)
         if let str = decodedStr {
             return str as String
         }
@@ -65,7 +70,7 @@ extension String {
 //        let msgData: Data = uniText.data(using: String.Encoding.nonLossyASCII.rawValue)!
 //        let goodMsg: NSString = NSString(data: msgData, encoding: String.Encoding.utf8.rawValue)!
 //        return goodMsg as String
-        if let encodeStr = NSString(cString: self.cString(using: .nonLossyASCII)!, encoding: String.Encoding.utf8.rawValue) {
+        if let str = self.cString(using: .nonLossyASCII), let encodeStr = NSString(cString: str, encoding: String.Encoding.utf8.rawValue) {
             return encodeStr as String
         }
         return self
@@ -124,6 +129,17 @@ extension String {
     
     var containsEmoji: Bool {
         return !unicodeScalars.filter { $0.isEmoji }.isEmpty
+    }
+    
+    
+    var stringByRemovingEmogies : String {
+        return String(self.unicodeScalars.filter { !$0.isEmoji })
+    }
+    
+
+    var isBackSpace : Bool {
+        guard let char = self.cString(using: String.Encoding.utf8) else {return false}
+        return strcmp(char, "\\b") == -92
     }
     
     var containsOnlyEmoji: Bool {
@@ -208,6 +224,13 @@ extension String {
         return emailTest.evaluate(with: self)
     }
     
+    var isName:Bool{
+        let name = "[A-Z a-z]{1,}"
+        let nameTest = NSPredicate(format: "SELF MATCHES %@", name)
+        return nameTest.evaluate(with: self)
+       
+    }
+    
     var isPhoneNumber: Bool {
         do {
             let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.phoneNumber.rawValue)
@@ -239,7 +262,7 @@ extension String {
     var hasVideoFileExtension: Bool {
         let arr = self.components(separatedBy: ".")
         if arr.count > 1 {
-            switch arr.last! {
+            switch arr.last ?? "" {
             case "mp4", "m4a", "m4v", "mov", "wav", "mp3":
                 return true
             default:
@@ -248,7 +271,11 @@ extension String {
         }
         return false
     }
-    
+    var getOnlyIntiger: String{
+        let newStr = self.lowercased()
+        let okayChars = Set("1234567890")
+        return newStr.filter {okayChars.contains($0) }
+    }
     // EZSE: remove Multiple Spaces And New Lines
     var removeAllWhiteSpacesAndNewLines: String {
         let components = self.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
@@ -399,7 +426,8 @@ extension String {
     var htmlToAttributedString: NSAttributedString {
         guard let data = data(using: .utf8) else { return NSAttributedString() }
         do {
-            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+            let result = try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+            return result
         } catch {
             return NSAttributedString()
         }
@@ -453,7 +481,7 @@ extension String {
         stringTags += "font-family: \(tempFont.fontName) !important;"
         stringTags += "font-size: \(Int(tempFont.pointSize))pt !important;"
         if let color = fontColor {
-            stringTags += "color: #\(color.hexString!) !important;"
+            stringTags += "color: #\(color.hexString ?? "") !important;"
         }
         stringTags += "}"
         stringTags += "</style>"
@@ -482,7 +510,7 @@ extension String {
         }
         
         if let color = fontColor {
-            htmlCSSString += "color: #\(color.hexString!) !important;"
+            htmlCSSString += "color: #\(color.hexString ?? "") !important;"
         }
         
         htmlCSSString += "}</style> \(self)"
@@ -642,6 +670,8 @@ extension String {
     func sizeCount(withFont font: UIFont, bundingSize size: CGSize) -> CGSize {
         let mutableParagraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
         mutableParagraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        mutableParagraphStyle.lineSpacing = 10
+//        mutableParagraphStyle.maximumLineHeight = 18
         let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: mutableParagraphStyle]
         let tempStr = NSString(string: self)
         
@@ -659,6 +689,49 @@ extension String {
         frmtr.timeZone = timeZone
         return frmtr.date(from: self)
     }
+    
+    
+    
+    func heightOfText(_ width: CGFloat, font: UIFont) -> CGFloat {
+         
+         let constraintRect = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+         
+         let boundingBox = self.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+         
+         return boundingBox.height
+     }
+    
+    func widthOfText(_ height: CGFloat, font: UIFont) -> CGFloat {
+        
+        let constraintRect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
+        
+        let boundingBox = self.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        
+        return boundingBox.width
+    }
+    
+    func getTextHeight(width:CGFloat, font:UIFont,  numberOfLines : Int = 0) -> CGFloat{
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+            label.numberOfLines = numberOfLines
+           // label.lineBreakMode = NSLineBreakMode.byWordWrapping
+            label.font = font
+            label.text = self
+            label.sizeToFit()
+            return label.frame.height
+        }
+    
+    func getTextWidth(height:CGFloat, font:UIFont,  numberOfLines : Int = 0) -> CGFloat{
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: height))
+        label.numberOfLines = numberOfLines
+       // label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = self
+        label.sizeToFit()
+        return label.frame.width
+    }
+    
+    
+    
 }
 
 extension String {
@@ -678,6 +751,10 @@ extension String {
         return !self.checkValidity(ValidityExpression)
     }
     
+    var isValidPasswordCharacterCount:Bool{
+        self.count >= 8
+    }
+    
     func stringByAppendingPathComponent(path: String) -> String {
         let nsSt = self as NSString
         return nsSt.appendingPathComponent(path)
@@ -687,11 +764,11 @@ extension String {
         let inDateFormatter: DateFormatter = DateFormatter()
         inDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         inDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let inDate: Date = inDateFormatter.date(from: self)!
+        let inDate: Date = inDateFormatter.date(from: self) ?? Date()
         let outDateFormatter: DateFormatter = DateFormatter()
         outDateFormatter.timeZone = TimeZone.autoupdatingCurrent
         outDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let outDateStr: Date = outDateFormatter.date(from: outDateFormatter.string(from: inDate))!
+        let outDateStr: Date = outDateFormatter.date(from: outDateFormatter.string(from: inDate)) ?? Date()
         
         outDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -717,7 +794,7 @@ extension String {
     }
     
     func containsSpecialCharacters() -> Bool {
-        let capitalLetterRegEx = ".*[!&^%$#@()/]+.*"
+        let capitalLetterRegEx = ".*[!&^%$#@()/*]+.*"
         let texttest = NSPredicate(format: "SELF MATCHES %@", capitalLetterRegEx)
         return texttest.evaluate(with: self)
     }
@@ -749,22 +826,26 @@ enum ValidityExpression: String {
     case Username = "^[a-zA-z]{1,}+[a-zA-z0-9!@#$%&*]{2,15}"
     case Email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
     case MobileNumber = "^[+0-9]{0,16}$"
-    case Password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!&^%$#@()/])[A-Za-z\\dd$@$!%*?&#]{8,}"
+    case Password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!&^%$#@()/*])[A-Za-z\\dd$@$!%*?&#]{8,}"
     case Name = "^[a-zA-Z ]{2,50}"
     case Url = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,25}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
     case Price = "^([0-9]{0,0}((.)[0-9]{0,0}))$"
+    case PanCard = "[A-Z]{3}P[A-Z]{1}[0-9]{4}[A-Z]{1}"
+    case gst = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
+
 }
 
 // Stylish
 
 extension String {
+    
     func asStylizedPrice(using font: UIFont) -> NSMutableAttributedString {
         let stylizedPrice = NSMutableAttributedString(string: self, attributes: [.font: font])
         
         guard var changeRange = self.range(of: ".")?.asNSRange(inString: self) else {
             return stylizedPrice
         }
-        
+        let result = self.components(separatedBy: ".").last?.components(separatedBy: " ").first?.count
         changeRange.length = self.count - changeRange.location
         
         guard let font = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {
@@ -791,12 +872,59 @@ extension String {
         stylizedPrice.addAttribute(.baselineOffset, value: offset, range: NSRange(location: 0, length: 2))
         return stylizedPrice
     }
+    
+    func attributeStringWithColors(subString : String,
+                                   strClr: UIColor,
+                                   substrClr: UIColor,
+                                   strFont: UIFont = AppFonts.Regular.withSize(12),
+                                   subStrFont: UIFont = AppFonts.SemiBold.withSize(12), backgroundColor : UIColor = UIColor.clear) -> NSAttributedString{
+
+        let attributedString = NSMutableAttributedString(string:self)
+
+        let range1 = (self as NSString).range(of: self)
+        // attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 14), range: range1)
+        attributedString.addAttributes([NSAttributedString.Key.foregroundColor : strClr, NSAttributedString.Key.font: strFont], range: range1)
+
+        //if main_string.contains("(should be 18 years or above from current date)"){
+        let range2 = (self as NSString).range(of: subString)
+
+        attributedString.addAttributes([NSAttributedString.Key.font: subStrFont ,NSAttributedString.Key.foregroundColor : substrClr], range: range2)
+        
+        attributedString.addAttributes([NSAttributedString.Key.backgroundColor : backgroundColor], range: range2)
+        
+        return attributedString
+    }
+    
+    func attributeStringWithColors(subString : [String],
+                                     strClr: UIColor,
+                                     substrClr: UIColor,
+                                     strFont: UIFont = AppFonts.Regular.withSize(12),
+                                     subStrFont: UIFont = AppFonts.SemiBold.withSize(12)) -> NSAttributedString{
+
+          let attributedString = NSMutableAttributedString(string:self)
+
+          let range1 = (self as NSString).range(of: self)
+          // attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 14), range: range1)
+          attributedString.addAttributes([NSAttributedString.Key.foregroundColor : strClr, NSAttributedString.Key.font: strFont], range: range1)
+
+        subString.forEach { (str) in
+            let range2 = (self as NSString).range(of: str)
+             attributedString.addAttributes([NSAttributedString.Key.font: subStrFont ,NSAttributedString.Key.foregroundColor : substrClr], range: range2)
+        }
+        
+          return attributedString
+      }
+    
 }
 
 extension String {
     func deletingPrefix(prefix: String) -> String {
         guard self.hasPrefix(prefix) else { return self }
         return String(self.dropFirst(prefix.count))
+    }
+    func deletingSuffix(suffix: String) -> String {
+        guard self.hasSuffix(suffix) else { return self }
+        return String(self.dropLast(suffix.count))
     }
 }
 
@@ -864,4 +992,159 @@ extension String {
     var alphanumeric: String {
         return self.components(separatedBy: CharacterSet.alphanumerics.inverted).joined().lowercased()
     }
+}
+
+// FLIGHTS
+
+extension String {
+    func contains(find: String) -> Bool{
+        return self.range(of: find) != nil
+    }
+    func containsIgnoringCase(find: String) -> Bool{
+        return self.range(of: find, options: .caseInsensitive) != nil
+    }
+}
+
+extension String {
+    
+    func dateUsing(format : String ,isRoundedUP : Bool , interval : Double)  -> Date? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        
+        guard let date = dateFormatter.date(from: self) else {
+            return nil
+        }
+        
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        
+        let startTime = date.timeIntervalSince(startOfDay)
+        
+        let timeInterval : TimeInterval
+        
+        if isRoundedUP {
+            timeInterval = interval * ceil(startTime / interval)
+        }
+        else {
+            timeInterval = interval * floor(startTime / interval)
+        }
+        
+        let formatedDate = startOfDay.addingTimeInterval(timeInterval)
+
+        return formatedDate
+    }
+    
+    func getTimeIntervalFromDateString(df : String) -> Date {
+        let dateFormatter = DateFormatter()
+         dateFormatter.dateFormat = df
+         guard let arrivalDate = dateFormatter.date(from: self) else { return Date() }
+         return arrivalDate
+     }
+    
+}
+
+extension String {
+    
+    var removingLeadingZeros : String {
+        return self.replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
+    }
+    
+    func replacingLastOccurrenceOfString(_ searchString: String,
+            with replacementString: String,
+            caseInsensitive: Bool = true) -> String {
+        let options: String.CompareOptions
+        if caseInsensitive {
+            options = [.backwards, .caseInsensitive]
+        } else {
+            options = [.backwards]
+        }
+
+        if let range = self.range(of: searchString,
+                options: options,
+                range: nil,
+                locale: nil) {
+
+            return self.replacingCharacters(in: range, with: replacementString)
+        }
+        return self
+    }
+    
+    
+    
+}
+
+extension String {
+    var stringIn_ddMMyyyy: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        if let date = dateFormatter.date(from: self) {
+            dateFormatter.dateFormat = "dd-mm-yyyy"
+            return dateFormatter.string(from: date)
+        } else {
+            return self
+        }
+    }
+    
+    var stringIn_yyyyMMdd: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-mm-yyyy"
+        if let date = dateFormatter.date(from: self) {
+            dateFormatter.dateFormat = "yyyy-mm-dd"
+            return dateFormatter.string(from: date)
+        } else {
+            return self
+        }
+    }
+}
+
+// Currency changes function
+
+extension String{
+    
+    
+    func asStylizedPriceWithSymbol(using font: UIFont, symbol:String? =  UserInfo.preferredCurrencyDetails?.currencySymbol) -> NSMutableAttributedString {
+        
+        let newSymbol  = (AppConstants.isCurrencyConversionEnable) ? symbol : "₹"
+        
+        let isNegative = self.contains(find: "-")
+        var newString = self
+        newString = newString.removeAllWhitespaces
+        newString = newString.replacingOccurrences(of: "-", with: "")
+        let stylizedPrice = NSMutableAttributedString(string: newString, attributes: [.font: font])
+        guard var changeRange = newString.range(of: ".")?.asNSRange(inString: newString) else {
+            return stylizedPrice.addCurrencySymbol(using: font, symbol: newSymbol, isNegative: isNegative)
+        }
+        changeRange.length = newString.count - changeRange.location
+        
+        guard let newFont = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {
+            printDebug("font not found")
+            return stylizedPrice.addCurrencySymbol(using: font, symbol: newSymbol, isNegative: isNegative)
+        }
+        let changeFont = newFont
+        let offset = 6.2
+        stylizedPrice.addAttribute(.font, value: changeFont, range: changeRange)
+        stylizedPrice.addAttribute(.baselineOffset, value: offset, range: changeRange)
+        return stylizedPrice.addCurrencySymbol(using: font, symbol: newSymbol, isNegative: isNegative)
+    }
+    
+}
+
+extension NSMutableAttributedString{
+    
+    func addCurrencySymbol(using font: UIFont, symbol: String?,isNegative:Bool)->NSMutableAttributedString{
+        if let currency = symbol{
+            let text = isNegative ? "- \(currency) " : "\(currency) "
+            let  currencyText = NSMutableAttributedString(string: text, attributes: [.font: font])
+                currencyText.append(self)
+                return currencyText
+        }else{
+            let currency = NSMutableAttributedString(string: isNegative ? "- ₹ " : "₹ ", attributes: [.font: font])
+            currency.append(self)
+            return currency
+        }
+        
+    }
+    
+    
 }

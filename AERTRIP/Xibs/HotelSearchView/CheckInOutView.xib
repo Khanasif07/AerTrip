@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,6 +19,7 @@
                 <outlet property="checkOutDateLabel" destination="AYY-yl-qEv" id="uG1-LP-Utu"/>
                 <outlet property="checkOutDay" destination="EMz-CP-Y4f" id="9BA-Oi-vEp"/>
                 <outlet property="checkOutLabel" destination="Rjb-L0-GXv" id="bjk-yK-1vS"/>
+                <outlet property="containerView" destination="iFv-qO-pHW" id="tgM-0b-JF9"/>
                 <outlet property="totalNightsLabel" destination="UKL-PE-OWU" id="p5K-K8-A2k"/>
             </connections>
         </placeholder>
@@ -30,7 +32,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 Nights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKL-PE-OWU">
-                            <rect key="frame" x="20" y="43.5" width="335" height="17"/>
+                            <rect key="frame" x="147" y="38.5" width="81" height="27"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="27" id="BzY-sG-ttn"/>
+                                <constraint firstAttribute="width" constant="81" id="Gyl-QL-FwS"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -47,7 +53,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Aug" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnt-2q-YBA">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Apr" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnt-2q-YBA">
                                             <rect key="frame" x="0.0" y="18.5" width="80" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <nil key="textColor"/>
@@ -70,7 +76,7 @@
                                         <constraint firstItem="QBt-L6-jVN" firstAttribute="leading" secondItem="Vqf-Df-WnD" secondAttribute="leading" id="gq0-5l-MK1"/>
                                     </constraints>
                                 </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E5-XZ-FeR">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E5-XZ-FeR">
                                     <rect key="frame" x="0.0" y="0.0" width="179" height="104"/>
                                     <connections>
                                         <action selector="checkInDateButtonAction:" destination="-1" eventType="touchUpInside" id="W13-Ty-KQ0"/>
@@ -91,7 +97,7 @@
                             <rect key="frame" x="195" y="0.0" width="180" height="104"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Rx-xP-rRh">
-                                    <rect key="frame" x="50.5" y="18.5" width="79" height="67"/>
+                                    <rect key="frame" x="50.5" y="19.5" width="79" height="67"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rjb-L0-GXv">
                                             <rect key="frame" x="0.0" y="0.0" width="79" height="19.5"/>
@@ -99,7 +105,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Sep" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYY-yl-qEv">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 May" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYY-yl-qEv">
                                             <rect key="frame" x="0.0" y="18.5" width="79" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <nil key="textColor"/>
@@ -122,7 +128,7 @@
                                         <constraint firstItem="Rjb-L0-GXv" firstAttribute="leading" secondItem="0Rx-xP-rRh" secondAttribute="leading" id="n4a-fj-87k"/>
                                     </constraints>
                                 </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8X-oV-72R">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8X-oV-72R">
                                     <rect key="frame" x="0.0" y="0.0" width="180" height="104"/>
                                     <connections>
                                         <action selector="checkOutDateButtonAction:" destination="-1" eventType="touchUpInside" id="jke-G3-vEh"/>
@@ -132,7 +138,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="0Rx-xP-rRh" firstAttribute="centerX" secondItem="E9k-H6-qiC" secondAttribute="centerX" id="Lc4-ck-eSX"/>
-                                <constraint firstItem="0Rx-xP-rRh" firstAttribute="centerY" secondItem="E9k-H6-qiC" secondAttribute="centerY" id="PEQ-l3-Dhd"/>
+                                <constraint firstItem="0Rx-xP-rRh" firstAttribute="centerY" secondItem="E9k-H6-qiC" secondAttribute="centerY" constant="1" id="PEQ-l3-Dhd"/>
                                 <constraint firstAttribute="bottom" secondItem="n8X-oV-72R" secondAttribute="bottom" id="Qo1-XN-0Dv"/>
                                 <constraint firstAttribute="trailing" secondItem="n8X-oV-72R" secondAttribute="trailing" id="Sux-g4-VdI"/>
                                 <constraint firstItem="n8X-oV-72R" firstAttribute="top" secondItem="E9k-H6-qiC" secondAttribute="top" id="hOR-Yl-IkL"/>
@@ -140,7 +146,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" name="themeWhiteDashboard"/>
                     <constraints>
                         <constraint firstItem="E9k-H6-qiC" firstAttribute="leading" secondItem="TAo-lS-b4K" secondAttribute="trailing" constant="16" id="7Ly-aV-GgH"/>
                         <constraint firstItem="TAo-lS-b4K" firstAttribute="top" secondItem="iFv-qO-pHW" secondAttribute="top" id="DhI-fe-cgq"/>
@@ -149,14 +155,13 @@
                         <constraint firstItem="TAo-lS-b4K" firstAttribute="width" secondItem="iFv-qO-pHW" secondAttribute="width" multiplier="163.5/343" id="QgA-og-psM"/>
                         <constraint firstItem="E9k-H6-qiC" firstAttribute="top" secondItem="iFv-qO-pHW" secondAttribute="top" id="UxA-KA-pk5"/>
                         <constraint firstItem="UKL-PE-OWU" firstAttribute="centerY" secondItem="iFv-qO-pHW" secondAttribute="centerY" id="Xyf-dN-ZM8"/>
-                        <constraint firstAttribute="trailing" secondItem="UKL-PE-OWU" secondAttribute="trailing" constant="20" id="cFz-0q-L7u"/>
-                        <constraint firstItem="UKL-PE-OWU" firstAttribute="leading" secondItem="iFv-qO-pHW" secondAttribute="leading" constant="20" id="fqX-m7-2DZ"/>
                         <constraint firstAttribute="bottom" secondItem="TAo-lS-b4K" secondAttribute="bottom" id="tyU-wO-18G"/>
                         <constraint firstItem="TAo-lS-b4K" firstAttribute="leading" secondItem="iFv-qO-pHW" secondAttribute="leading" id="u22-fB-cHJ"/>
                         <constraint firstAttribute="trailing" secondItem="E9k-H6-qiC" secondAttribute="trailing" id="x21-WD-7pK"/>
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="iFv-qO-pHW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Oud-SZ-apL"/>
@@ -165,8 +170,12 @@
                 <constraint firstAttribute="bottom" secondItem="iFv-qO-pHW" secondAttribute="bottom" id="chs-hq-EEg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="194.40000000000001" y="321.13943028485761"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>

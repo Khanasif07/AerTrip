@@ -21,6 +21,7 @@ class CheckInOutView: UIView {
     
     //MARK:- IBOutlets
     //MARK:===========
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var totalNightsLabel: UILabel!
     @IBOutlet weak var checkInLabel: UILabel!
     @IBOutlet weak var checkInDateLabel: UILabel!
@@ -52,6 +53,7 @@ class CheckInOutView: UIView {
         let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.backgroundColor = AppColors.themeWhiteDashboard
         self.addSubview(view)
         self.configureUI()
     }
@@ -73,10 +75,18 @@ class CheckInOutView: UIView {
         self.checkOutDateLabel.font = fontSize26
         self.checkOutDateLabel.textColor = AppColors.textFieldTextColor51
         self.totalNightsLabel.font = UIFont(name: AppFonts.SemiBold.rawValue, size: 14.0)
-        self.totalNightsLabel.textColor = AppColors.themeGray40
+        self.totalNightsLabel.textColor = AppColors.themeGray153
         self.checkInLabel.text = LocalizedString.CheckIn.localized
         self.checkOutLabel.text = LocalizedString.CheckOut.localized
-        self.totalNightsLabel.text = "20 \(LocalizedString.Nights.localized)"
+//        self.totalNightsLabel.text = "20 \(LocalizedString.Nights.localized)"
+        self.setTotalNight()
+    }
+    
+    
+    private func setTotalNight(){
+        self.totalNightsLabel.layer.cornerRadius = 13.5
+        self.totalNightsLabel.clipsToBounds = true
+        self.totalNightsLabel.backgroundColor = AppColors.doneViewClearColor
     }
     
     //yyyy-MM-dd
@@ -87,13 +97,16 @@ class CheckInOutView: UIView {
         self.checkOutDateLabel.text = checkOutDate
         
         var totalNights = 0, checkOutDayStr = ""
-        if !searchData.checkOutDate.isEmpty {
+        if !searchData.checkOutDate.isEmpty && !searchData.checkInDate.isEmpty {
             totalNights = searchData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!.daysFrom(searchData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date())
             checkOutDayStr = Date.getDateFromString(stringDate: searchData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE") ?? ""
         }
         self.totalNightsLabel.text = ""
         if totalNights != 0 {
+            setTotalNight()
           self.totalNightsLabel.text = (totalNights == 1) ? "\(totalNights) \(LocalizedString.Night.localized)" : "\(totalNights) \(LocalizedString.Nights.localized)"
+        }else{
+            self.totalNightsLabel.backgroundColor = AppColors.clear
         }
         self.checkInDay.text = Date.getDateFromString(stringDate: searchData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
         

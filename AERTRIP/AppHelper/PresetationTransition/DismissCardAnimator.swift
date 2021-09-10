@@ -127,6 +127,7 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
                 container.addSubview(cardDetailView)
                 cardDetailView.edges(to: container)
             }
+            self.params.fromCell.disApprearPresetedView()
             ctx.completeTransition(success)
         }
         if let cell = screens.cardDetail.hotelTableView.cellForRow(at: [0,0]) as? HotelDetailsImgSlideCell{

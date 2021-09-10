@@ -33,7 +33,12 @@ class SideMenuProfileImageCell: UITableViewCell {
         
         profileImageView.layer.cornerRadius = profileImageView.height / 2.0
         profileImageView.layer.borderWidth = 2.0
-        profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -55,6 +60,8 @@ extension SideMenuProfileImageCell {
         
         profileNameLabel.font = AppFonts.Regular.withSize(20.0)
         profileNameLabel.text = "\(userInfo?.firstName ?? LocalizedString.na.localized ) \(userInfo?.lastName ?? LocalizedString.na.localized )"
+        
+        viewProfileButton.setTitleColor(AppColors.themeGreen, for: .normal)
         
         if let imagePath = userInfo?.profileImage, !imagePath.isEmpty {
             profileImageView.setImageWithUrl(imagePath, placeholder: userInfo?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)

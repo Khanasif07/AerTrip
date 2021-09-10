@@ -22,7 +22,8 @@ class LinkedAccountsVC: BaseVC {
     }
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var backButton: UIButton!
-    
+    @IBOutlet weak var dividerView: UIView!
+
     var atButton: ATButton?
     
 
@@ -51,6 +52,11 @@ class LinkedAccountsVC: BaseVC {
         
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        tableView.reloadData()
+    }
+    
     override func setupFonts() {
         self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
@@ -75,6 +81,9 @@ class LinkedAccountsVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        self.view.backgroundColor = AppColors.themeWhite
+        self.dividerView.backgroundColor = AppColors.dividerColor
+
         topNavigationView.delegate = self
         self.viewModel.fetchLinkedAccounts()
     }
@@ -142,23 +151,32 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
         atButton = sender
         switch forType {
         case .facebook:
-            sender.isLoading = true
+            displayIndicatorOnButtons(sender: sender, show: true, titleLabel: "", color: .white)
             self.viewModel.fbLogin(vc: self) { (_) in
-                sender.isLoading = false
+                self.displayIndicatorOnButtons(sender: sender, show: false, titleLabel: sender.titleLabel?.text ?? "",color: .white)
             }
             
-        case .linkedin:
-            sender.isLoading = true
-            self.viewModel.linkedLogin(vc: self) { (_) in
-                sender.isLoading = false
-            }
+//        case .linkedin:
+//            sender.isLoading = true
+//            self.viewModel.linkedLogin(vc: self) { (_) in
+//                sender.isLoading = false
+//            }
             
         case .google:
-            sender.isLoading = true
+            displayIndicatorOnButtons(sender: sender, show: true, titleLabel: "", color: .gray)
+
             self.viewModel.googleLogin(vc: self) { (_) in
-                sender.isLoading = false
+                self.displayIndicatorOnButtons(sender: sender, show: false, titleLabel: sender.titleLabel?.text ?? "",color: .gray)
+
             }
-            
+          
+         case .apple:
+            displayIndicatorOnButtons(sender: sender, show: true, titleLabel: "", color: .white)
+
+            self.viewModel.appleLogin(vc: self) { (_) in
+                self.displayIndicatorOnButtons(sender: sender, show: false, titleLabel: sender.titleLabel?.text ?? "",color: .white)
+
+            }
         default:
             printDebug("not required")
         }
@@ -166,22 +184,23 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
     
     func disConnect(_ sender: UIButton, forType: LinkedAccount.SocialType) {
         
-        if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, loggedSocial == forType {
+        if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, loggedSocial == forType, (UserInfo.loggedInUser?.hasPassword == false) {
             showAlert(title: "Disconnect?", message: LocalizedString.KindlyDisconnectMessage.localized + forType.socialTitle + ".", buttonTitle: "Ok") {
                 printDebug("")
             }
         } else {
             if let indexPath = self.tableView.indexPath(forItem: sender) {
                 let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Disconnect.localized], colors: [AppColors.themeRed])
-                _ = PKAlertController.default.presentActionSheet(LocalizedString.DeleteTraveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
-                    if index == 0 {
-                        self?.viewModel.disConnect(account: (self?.viewModel.linkedAccounts[indexPath.row])!)
+                _ = PKAlertController.default.presentActionSheet("Do you wish to disconnect linked account", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
+                    if index == 0, let account =  (self?.viewModel.linkedAccounts[indexPath.row]){
+                        self?.viewModel.disConnect(account: account)
                     }
                 })
             }
         }
     
     }
+
 }
 
 // MARK: - Top navigation view Delegate methods
@@ -192,4 +211,44 @@ extension LinkedAccountsVC : TopNavigationViewDelegate {
     }
     
     
+}
+
+
+//MARK:- Display Loading indicator on buttons
+
+extension LinkedAccountsVC
+{
+    func displayIndicatorOnButtons(sender:UIButton,show:Bool,titleLabel:String,color:UIColor){
+        let tag = 808455
+        
+        if show {
+            let indicator = UIActivityIndicatorView()
+            let buttonHeight = sender.bounds.size.height
+            let buttonWidth = sender.bounds.size.width
+            indicator.center = CGPoint(x: buttonWidth/2, y: buttonHeight/2)
+            indicator.color = color
+            indicator.tag = tag
+
+            sender.setTitle(titleLabel, for: .normal)
+            if let imageView = sender.imageView {
+                sender.sendSubviewToBack(imageView)
+            }
+
+            sender.addSubview(indicator)
+            indicator.startAnimating()
+
+        } else {
+            if let indicator = sender.viewWithTag(tag) as? UIActivityIndicatorView
+            {
+                sender.setTitle(titleLabel, for: .normal)
+
+                if let imageView = sender.imageView {
+                    sender.bringSubviewToFront(imageView)
+                }
+
+                indicator.stopAnimating()
+                indicator.removeFromSuperview()
+            }
+        }
+    }
 }

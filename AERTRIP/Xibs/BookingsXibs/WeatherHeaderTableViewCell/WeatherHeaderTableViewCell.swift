@@ -45,12 +45,15 @@ class WeatherHeaderTableViewCell: UITableViewCell {
         self.seeAllBtnOutlet.titleLabel?.font = AppFonts.Regular.withSize(14.0)
         
         // Color
-        self.weatherLabel.textColor = AppColors.themeGray40
+        self.weatherLabel.textColor = AppColors.themeGray153
         self.seeAllBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         
         // Text
         self.weatherLabel.text = LocalizedString.Weather.localized
         self.seeAllBtnOutlet.setTitle(LocalizedString.SeeAll.localized, for: .normal)
+        
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    
     }
     
     // MARK: - IBActions

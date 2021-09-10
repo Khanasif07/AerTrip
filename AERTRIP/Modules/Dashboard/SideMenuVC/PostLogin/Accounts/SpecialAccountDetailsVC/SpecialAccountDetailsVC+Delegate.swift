@@ -132,16 +132,30 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //statement summery
             case 0:
-                return getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row])
+                //return getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row])
+                guard let cell = getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row], isForOther: false, isFirstCell: indexPath.row == 0) as? AccountSummeryCell else {fatalError("AccountSummeryCell cell is not found.")}
+                
+                if indexPath.row == 1 {
+                //    cell.stackViewTop.constant = -4.0
+                }
+//                else if let sym = self.viewModel.statementSummery[indexPath.row].symbol, sym == "=" {
+//                    cell.stackViewTop.constant = 2.0
+//                }
+                                
+                return cell
                 
             //credit summery
             case 1:
-                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row], isForOther: false, isFirstCell: false)
                 
             //deposit cell
             case 2:
                 
-                let amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+//                var amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                var amount = UserInfo.loggedInUser?.accountData?.statements?.amountDue ?? 0.0
+                if amount < 0 {
+                    amount = 0.0
+                }
                 
                 var dateStr = ""
                 if let date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first {
@@ -155,7 +169,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //other action
             case 3:
-                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row], isForOther: true, isFirstCell: false)
                 
             default:
                 return UITableViewCell()
@@ -166,13 +180,13 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //topup summery
             case 0:
-                let cell = getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row]) as! AccountSummeryCell
+                guard let cell = getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row], isForOther: false, isFirstCell: indexPath.row == 0) as? AccountSummeryCell else {fatalError("AccountSummeryCell cell is not found.")}
                 
                 if indexPath.row == 1 {
-                    cell.stackViewTop.constant = -4.0
+              //      cell.stackViewTop.constant = -4.0
                 }
                 else if let sym = self.viewModel.topUpSummery[indexPath.row].symbol, sym == "=" {
-                    cell.stackViewTop.constant = 4.0
+              //      cell.stackViewTop.constant = 4.0
                 }
                 
                 return cell
@@ -180,8 +194,10 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //deposit cell
             case 1:
                 
-                let amount = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.amount ?? 0.0
-                
+                var amount = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.amount ?? 0.0
+                if amount < 0 {
+                    amount = 0.0
+                }
                 var dateStr = ""
                 if let date = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.dates.first {
                     let str = date.toString(dateFormat: "EE, dd MMM YYYY")
@@ -194,7 +210,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
             //other action
             case 2:
-                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row], isForOther: true, isFirstCell: false)
                 
             default:
                 return UITableViewCell()
@@ -205,28 +221,30 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //bilwise summery
             case 0:
-                let cell = getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row]) as! AccountSummeryCell
+                guard let cell = getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row], isForOther: false, isFirstCell: indexPath.row == 0) as? AccountSummeryCell else {fatalError("AccountSummeryCell cell is not found.")}
                 
                 if indexPath.row == 1 {
-                    cell.stackViewTop.constant = -4.0
+               //     cell.stackViewTop.constant = -4.0
                 }
                 
                 return cell
                 
             //credit summery
             case 1:
-                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row], isForOther: false, isFirstCell: false)
                 
             //deposit cell
             case 2:
                 
-                let amount = UserInfo.loggedInUser?.accountData?.billwise?.totalOutstanding ?? 0.0
-                
+                var amount = UserInfo.loggedInUser?.accountData?.billwise?.totalOutstanding ?? 0.0
+                if amount < 0 {
+                    amount = 0.0
+                }
                 return getDepositCell(amount: amount, dateStr: "")
                 
             //other action
             case 3:
-                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row], isForOther: true, isFirstCell: false)
                 
             default:
                 return UITableViewCell()
@@ -237,13 +255,22 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func getSummeryCell(withData: SpecialAccountEvent) -> UITableViewCell {
+    func getSummeryCell(withData: SpecialAccountEvent, isForOther:Bool, isFirstCell: Bool) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountSummeryCell.reusableIdentifier) as? AccountSummeryCell else {
             return UITableViewCell()
         }
         
         cell.event = withData
+        if isForOther{
+            cell.mainStackHeight.constant = 42
+        }else{
+            cell.mainStackHeight.constant = 35
+        }
+
+        cell.topDividerView.isHidden = !isFirstCell
         
+//        cell.displayShimmer(time: time, isForOther: isForOther)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -256,6 +283,9 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         self.depositButton = cell.depositButton
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
+//        cell.displayDepositeShimmer(time: self.time)
+        cell.depositButton.isEnabled = (amount > 0)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -265,12 +295,18 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 3) {
                 switch indexPath.row {
                 case 0:
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .StatementUserAccountsLedgerOptionSelected)
+
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
-                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .StatementUserAccountsOutstandingLedgerOptionSelected)
+
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 case 2:
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .StatementUserAccountsPeriodicStatementOptionSelected)
+
                     AppFlowManager.default.moveToPeriodicStatementVC(periodicEvents: self.viewModel.periodicEvents)
                     
                 default:
@@ -282,10 +318,16 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 2) {
                 switch indexPath.row {
                 case 0:
+
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .TopupUserAccountsLedgerOptionSelected)
+
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
-                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .TopupUserAccountsOutstandingLedgerOptionSelected)
+
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 default:
                     printDebug("no need to implement")
@@ -296,10 +338,15 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 3) {
                 switch indexPath.row {
                 case 0:
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .BillwiseUserAccountsLedgerOptionSelected)
+
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
-                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .BillwiseUserAccountsOutstandingLedgerOptionSelected)
+
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 default:
                     printDebug("no need to implement")
@@ -309,6 +356,10 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         default:
             printDebug("No need to implement")
         }
+    }
+    
+    func types123(type:FirebaseEventLogs.EventsTypeName){
+        
     }
 }
 
@@ -328,8 +379,13 @@ class AccountSummeryCell: UITableViewCell {
     @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewTop: NSLayoutConstraint!
     @IBOutlet weak var amountLabelTraillingConstant: NSLayoutConstraint!
+    @IBOutlet weak var amountStackView: UIStackView!
+    @IBOutlet weak var dipositLabelHeight: NSLayoutConstraint!
+    @IBOutlet weak var mainStackHeight: NSLayoutConstraint!
+    @IBOutlet weak var topDividerView: ATDividerView!
     
-    
+    @IBOutlet weak var shimmerView: UIView!
+
     //MARK:- Life Cycle
     //MARK:-
     override func awakeFromNib() {
@@ -348,9 +404,10 @@ class AccountSummeryCell: UITableViewCell {
     //MARK:- Private
     private func resetAllSubViews() {
         titleLabel.isHidden = true
-        descLabel.isHidden = true
         symbolLabel.isHidden = true
         amountLabel.isHidden = true
+        amountStackView.isHidden = true
+        descLabel.isHidden = true
         dividerView.isHidden = true
         
         titleLabel.text = ""
@@ -363,9 +420,9 @@ class AccountSummeryCell: UITableViewCell {
         dividerViewTrailingConstraint.constant = 16.0
         amountLabelTraillingConstant.constant = 16.0
         
-        if let user = UserInfo.loggedInUser, (user.userCreditType == .topup) {
-            stackViewTop.constant = self.event!.isForTitle ? 4.0 : 0.0
-        }
+//        if let user = UserInfo.loggedInUser, (user.userCreditType == .topup) {
+//            stackViewTop.constant = self.event!.isForTitle ? 4.0 : 0.0
+//        }
     }
     
     //MARK:- Public
@@ -394,9 +451,39 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     //MARK:- Public
+    
+    func displayShimmer(time:Float,isForOther:Bool){
+        if isForOther{
+            shimmerView.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+
+            if time > 0.8{
+                titleLabel.isHidden = false
+                shimmerView.isHidden = true
+                shimmerView.stopShimmer()
+            }else{
+                titleLabel.isHidden = true
+                shimmerView.isHidden = false
+                shimmerView.startShimmer()
+            }
+        }else{
+            if time > 0.8{
+                amountLabel.textColor = .themeBlack
+                amountLabel.backgroundColor = .clear
+                amountLabel.stopShimmer()
+            }else{
+                amountLabel.textColor = .clear
+                amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+                delay(seconds: 0.05) {
+                    self.amountLabel.startShimmer()
+                }
+                
+            }
+        }
+    }
+    
     private func configureHeader(title: String) {
         self.resetAllSubViews()
-        
+        amountStackView.isHidden = false
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.titleLabel.textColor = AppColors.themeGray40
@@ -404,8 +491,9 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     private func configure(detail: String, amount: String, descp: String? = nil, symbol: String? = nil) {
+        guard self.event != nil else {return}
         self.resetAllSubViews()
-        
+        amountStackView.isHidden = false
         self.dividerView.isHidden = !(self.event!.isDevider)
         self.dividerViewTrailingConstraint.constant = 16.0
         
@@ -436,7 +524,7 @@ class AccountSummeryCell: UITableViewCell {
     
     private func configureGrandTotal(title: String, totalAmount: String) {
         self.resetAllSubViews()
-        
+        amountStackView.isHidden = false
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.titleLabel.textColor = AppColors.themeBlack
@@ -450,12 +538,13 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.isHidden = false
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.attributedText = totalAmount.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        self.amountLabel.attributedText = totalAmount.asStylizedPrice(using: AppFonts.SemiBold.withSize(18.0))
     }
     
     private func configureNext(title: String) {
+        guard self.event != nil else {return}
         self.resetAllSubViews()
-        
+        amountStackView.isHidden = false
         self.dividerView.isHidden = false
         self.dividerViewTrailingConstraint.constant = 0.0
         if self.event!.isLastNext {
@@ -470,9 +559,9 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.isHidden = false
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "arrowNextScreen"), endText: "", font: AppFonts.SemiBold.withSize(16.0))
+        self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: AppImages.arrowNextScreen, endText: "", font: AppFonts.SemiBold.withSize(16.0))
         
-        self.stackViewTop.constant = 6.0
+      //  self.stackViewTop.constant = 6.0
         self.amountLabelTraillingConstant.constant = 0.0
     }
 }
@@ -506,7 +595,31 @@ class AccountDepositCell: UITableViewCell {
     
     //MARK:- Public
     
-    
+    func displayDepositeShimmer(time:Float){
+        if time > 0.8{
+            amountLabel.textColor = .themeBlack
+            amountLabel.backgroundColor = .clear
+            amountLabel.stopShimmer()
+            if !(self.dateLabel.text?.isEmpty ?? true){
+                self.dateLabel.textColor = AppColors.themeRed254
+                self.dateLabel.backgroundColor = .clear
+                self.dateLabel.stopShimmer()
+            }
+            
+            self.depositButton.isEnabled = true
+
+        }else{
+            amountLabel.textColor = .clear
+            amountLabel.backgroundColor = AppColors.shimmerEffectLayerColor
+            amountLabel.startShimmer()
+            if !(self.dateLabel.text?.isEmpty ?? true){
+                self.dateLabel.textColor = .clear
+                self.dateLabel.backgroundColor =  AppColors.shimmerEffectLayerColor
+                self.dateLabel.startShimmer()
+            }
+            self.depositButton.isEnabled = false
+        }
+    }
     //MARK:- Methods
     //MARK:- Private
     func configure(amount: Double, dateStr: String) {
@@ -523,11 +636,17 @@ class AccountDepositCell: UITableViewCell {
         self.dateLabel.textColor = AppColors.themeRed
         self.dateLabel.text = dateStr
         
-        self.depositButton.titleLabel?.font = AppFonts.SemiBold.withSize(17.0)
+//        self.depositButton.titleLabel?.font = AppFonts.SemiBold.withSize(17.0)
+        self.depositButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.depositButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+        self.depositButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.depositButton.setTitle("Deposit", for: .normal)
         self.depositButton.setTitle("Deposit", for: .selected)
-        self.depositButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.depositButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.depositButton.shadowColor = AppColors.appShadowColor
+        self.depositButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.depositButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
+        self.depositButton.shadowColor = AppColors.appShadowColor//themeBlack.withAlphaComponent(0.16)
+        self.depositButton.layer.applySketchShadow(color: AppColors.unicolorBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     //MARK:- Public

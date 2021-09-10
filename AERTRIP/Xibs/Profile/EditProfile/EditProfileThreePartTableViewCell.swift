@@ -11,7 +11,7 @@ import PhoneNumberKit
 
 protocol EditProfileThreePartTableViewCellDelegate:class {
     func editProfileThreePartDeleteCellTapped(_ indexPath: IndexPath)
-    func threePartLeftViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer)
+    func threePartLeftViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer, textField: UITextField)
     func middleViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer)
     func editProfileThreePartTableViewCellTextFieldText(_ textField: UITextField, _ indexPath: IndexPath, _ text: String, isValide: Bool)
     
@@ -24,6 +24,9 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     @IBOutlet weak var leftTitleLabel: UILabel!
     @IBOutlet weak var blackDownImageView: UIImageView!
     @IBOutlet weak var leftSeparatorView: ATDividerView!
+    @IBOutlet weak var leftViewTextField: UITextField!
+    
+    @IBOutlet weak var rightView: UIView!
     
     @IBOutlet weak var rightViewTextField: PhoneNumberTextField!
     
@@ -35,6 +38,15 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var countryCodeLabel: UILabel!
     
+    @IBOutlet weak var setMobileNumberLabel: UILabel!
+    
+    @IBOutlet weak var grayShadeView: UIView!
+    @IBOutlet weak var middleViewDropDownImage: UIImageView!
+    
+    @IBOutlet weak var leftSeparatorLeading: NSLayoutConstraint!
+    @IBOutlet weak var middleSeparatorLeading: NSLayoutConstraint!
+    @IBOutlet weak var rightSeparatorLeading: NSLayoutConstraint!
+    
     
     // MARK : - Variables
     weak var delegate : EditProfileThreePartTableViewCellDelegate?
@@ -44,9 +56,23 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         self.setUpFonts()
         leftView.isUserInteractionEnabled = true
         rightViewTextField.placeholder = LocalizedString.Phone.localized
+        self.setMobileNumberLabel.textColor = AppColors.themeGreen
+        self.setMobileNumberLabel.text = "Set Mobile Number"
+        self.setMobileNumberLabel.font = AppFonts.Regular.withSize(18.0)
+    }
+    
+    var isSettingForEdit:Bool = false{
+        didSet{
+            if isSettingForEdit{
+                self.deleteButton.setImage(AppImages.editPencel, for: .normal)
+            }else{
+                self.deleteButton.setImage(AppImages.redMinusButton, for: .normal)
+            }
+        }
     }
     
     // MARK : - Helper methods
@@ -88,7 +114,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     
     @objc  func leftViewTap(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {
-            delegate?.threePartLeftViewTap(idxPath, gesture)
+            delegate?.threePartLeftViewTap(idxPath, gesture, textField: self.leftViewTextField)
         }
         
     }
@@ -102,6 +128,40 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     }
     
     
+    func setupForGrayColor(_ isShowDisable: Bool){
+        if isShowDisable{
+            self.leftTitleLabel.textColor = AppColors.themeGray40
+            self.rightViewTextField.textColor = AppColors.themeGray40
+            self.countryCodeLabel.textColor = AppColors.themeGray40
+            self.middleViewDropDownImage.isHidden = true
+            self.countryCodeLabel.isEnabled = false
+            self.grayShadeView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.3)
+            self.grayShadeView.isHidden = false
+        }else{
+            self.leftTitleLabel.textColor = AppColors.themeBlack
+            self.rightViewTextField.textColor = AppColors.themeBlack
+            self.countryCodeLabel.textColor = AppColors.themeBlack
+            self.middleViewDropDownImage.isHidden = false
+            self.countryCodeLabel.isEnabled = true
+            self.grayShadeView.backgroundColor = AppColors.clear
+            self.grayShadeView.isHidden = true
+        }
+        
+    }
+    
+    func isSettingForSetMobileNumber(isSettingMobile: Bool){
+        if isSettingMobile{
+            self.middleView.isHidden = true
+            self.rightView.isHidden = true
+            self.setMobileNumberLabel.isHidden = false
+        }else{
+            self.middleView.isHidden = false
+            self.rightView.isHidden = false
+            self.setMobileNumberLabel.isHidden = true
+        }
+    }
+    
+    
     // MARK: - IB Actions
     
     @IBAction func deleteCellButtonTapped(_ sender: Any) {
@@ -111,6 +171,36 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         }
     }
     
+    func setSeparator(isNeeded:Bool, isError:Bool, isLast:Bool, mobile : Mobile?){
+        self.leftSeparatorView.isHidden = !isNeeded
+        self.middleSeparatorView.isHidden = !isNeeded
+        self.rightSeparatorView.isHidden = !isNeeded
+        self.leftSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        self.middleSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        self.rightSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        if let mobile = mobile, isError{
+            var isValidMobile = true
+            if mobile.isd == "+91" {
+                if mobile.value.count < mobile.minValidation {
+                    isValidMobile = false
+                }
+            } else {
+                if mobile.minValidation != mobile.maxValidation {
+                    isValidMobile = ((mobile.value.count >= mobile.minValidation) && (mobile.value.count <= mobile.maxValidation))
+                }
+            }
+            if isLast{
+                self.leftSeparatorView.isSettingForErrorState = (!isValidMobile || mobile.isDuplicate)
+                self.middleSeparatorView.isSettingForErrorState = (!isValidMobile || mobile.isDuplicate)
+            }
+            self.rightSeparatorView.isSettingForErrorState = (!isValidMobile || mobile.isDuplicate)
+        }else{
+            self.leftSeparatorView.isSettingForErrorState = false
+            self.rightSeparatorView.isSettingForErrorState = false
+            self.middleSeparatorView.isSettingForErrorState = false
+        }
+        
+    }
     
 }
 
@@ -139,5 +229,11 @@ extension EditProfileThreePartTableViewCell : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.leftSeparatorView.isSettingForErrorState = false
+        self.rightSeparatorView.isSettingForErrorState = false
+        self.middleSeparatorView.isSettingForErrorState = false
     }
 }

@@ -14,10 +14,12 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
     // Mark:-
     @IBOutlet weak var roomNumberLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     private(set) var forIndex: IndexPath?
     private let hotelFormData = HotelsSearchVM.hotelFormData
-    
+    private var lineSpacing: CGFloat = 5
+    var isContinueButtonTapped = false
     // Mark:- LifeCycles
     // Mark:-
     override func awakeFromNib() {
@@ -25,6 +27,11 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
         
         selectionStyle = .none
         configUI()
+        self.setColors()
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
     }
     
     // Mark:- Functions
@@ -41,7 +48,24 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
     func configData(forIndexPath idxPath: IndexPath) {
         forIndex = idxPath
         roomNumberLabel.text = LocalizedString.Room.localized + " \(idxPath.row + 1)"
+        let totalCount = hotelFormData.adultsCount[idxPath.row] + hotelFormData.childrenCounts[idxPath.row]
+        var isEmptyText = true
+        for i in stride(from: 0, to: 3, by: 1) {
+        if GuestDetailsVM.shared.guests.count > idxPath.row, GuestDetailsVM.shared.guests[idxPath.row].count > i {
+            let object = GuestDetailsVM.shared.guests[idxPath.row][i]
+            if (!object.firstName.isEmpty || !object.lastName.isEmpty) {
+               isEmptyText = false
+            }
+        }
+        }
+        lineSpacing = isEmptyText ? 12 : 5
         collectionView.reloadData()
+        self.dividerView.isHidden = idxPath.row != 0
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.collectionView.backgroundColor = AppColors.themeBlack26
     }
     
     // Mark:- IBActions
@@ -76,7 +100,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5.0
+        return lineSpacing
     }
 
     
@@ -84,7 +108,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         guard let forIdx = forIndex, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCDataSelectionRoomDetailsCollectionCell.reusableIdentifier, for: indexPath) as? HCDataSelectionRoomDetailsCollectionCell else {
             return UICollectionViewCell()
         }
-        
+        cell.isContinueButtonTapped = self.isContinueButtonTapped
         if GuestDetailsVM.shared.guests.count > forIdx.row, GuestDetailsVM.shared.guests[forIdx.row].count > indexPath.item {
             cell.contact = GuestDetailsVM.shared.guests[forIdx.row][indexPath.item]
         }
@@ -94,7 +118,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
             if indexPath.item >= hotelFormData.adultsCount[forIdx.row] {
                 let age = hotelFormData.childrenAge[forIdx.row][indexPath.item - hotelFormData.adultsCount[forIdx.row]]
                 
-                contact.passengerType = .child
+                contact.passengerType = .Child
                 contact.numberInRoom = ((indexPath.item - hotelFormData.adultsCount[forIdx.row]) + 1)
                 contact.age = age
             }
@@ -115,6 +139,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         if let forIndex = forIndex {
             if let controller = UIApplication.topViewController() as? HCDataSelectionVC {
                 AppFlowManager.default.moveToGuestDetailScreen(delegate:controller,IndexPath(row: indexPath.item, section: forIndex.row))
+                controller.viewModel.logEvent(with: .openPassengerDetails)
             }
         }
     }
@@ -135,6 +160,11 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
         configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
+    }
+    
     // Mark:- Functions
     // Mark:-
     
@@ -144,8 +174,13 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
         titleLabel.text = LocalizedString.PreferencesSpecialRequests.localized
         
         descriptionLabel.font = AppFonts.Regular.withSize(14.0)
-        descriptionLabel.textColor = AppColors.themeGray40
+        descriptionLabel.textColor = AppColors.themeGray153
         descriptionLabel.text = LocalizedString.Optional.localized
+        self.setColors()
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     // Mark:- IBActions
@@ -157,7 +192,7 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
         } else {
             var prefreence = [String]()
             if !prefrenceNames.isEmpty {
-                prefreence.append(prefrenceNames.joined(separator: ","))
+                prefreence.append(prefrenceNames.joined(separator: ", "))
             }
             if !other.isEmpty {
                 prefreence.append(other)
@@ -166,7 +201,7 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
                 prefreence.append(request)
             }
             
-            descriptionLabel.text = prefreence.joined(separator: ",")
+            descriptionLabel.text = prefreence.joined(separator: ", ")
         }
     }
 }
@@ -184,6 +219,7 @@ class HCDataSelectionTextLabelCell: UITableViewCell {
         
         selectionStyle = .none
         configUI()
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     // Mark:- Functions
@@ -209,7 +245,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var lastNameAgeContainer: UIView!
     @IBOutlet weak var ageLabel: UILabel!
     
-    
+    var isContinueButtonTapped = false
     private(set) var isForAdult: Bool = false
     
     var contact: ATContact? {
@@ -261,37 +297,38 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     private func configData() {
         
         func setupForAdd() {
-            infoImageView.image = #imageLiteral(resourceName: "add_icon")
+            infoImageView.image = (!self.isContinueButtonTapped) ? AppImages.greenFilledAdd : AppImages.ic_info_incomplete
             var finalText = ""
             if let type = self.contact?.passengerType {
-                iconImageView.image = (type == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                iconImageView.image = (type == .Adult) ? AppImages.ic_deselected_hotel_guest_adult : AppImages.ic_deselected_hotel_guest_child
                 
                 finalText = "\((type == .Adult) ? LocalizedString.Adult.localized : LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
             }
-            
+            var ageText = ""
             if let year = self.contact?.age, year > 0 {
-                ageLabel.text = "(\(year)y)"
-                
+                //ageLabel.text = "(\(year)y)"
+                finalText += " (\(year)y)"
+                ageText = "(\(year)y)"
             }
             ageLabel.isHidden = false
             lastNameAgeContainer.isHidden = false
-            firstNameLabel.text = finalText
+            firstNameLabel.attributedText = self.atributedtedString(text: finalText, ageText: ageText)
         }
         
-        self.iconImageView.cornerRadius = self.iconImageView.height / 2.0
+        self.iconImageView.cornerradius = self.iconImageView.height / 2.0
         if let fName = self.contact?.firstName, let lName = self.contact?.lastName, let saltn = self.contact?.salutation {
-            infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
+            infoImageView.image = AppImages.ic_info_incomplete
             infoImageView.isHidden = true
             
-            let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            let placeHolder = self.contact?.flImage ?? AppImages.ic_deselected_hotel_guest_adult
             self.iconImageView.image = placeHolder
 
-            if (fName.isEmpty && lName.isEmpty && saltn.isEmpty) {
+            if (fName.isEmpty && lName.isEmpty) {
                 infoImageView.isHidden = false
                 setupForAdd()
             }
             else {
-                infoImageView.isHidden = !((fName.isEmpty || fName.count < 3) || (lName.isEmpty || lName.count < 3) || saltn.isEmpty)
+                infoImageView.isHidden = !((fName.isEmpty || fName.count < 1) || (lName.isEmpty || lName.count < 1) || saltn.isEmpty)
                 firstNameLabel.text = fName
                 lastNameLabel.text = lName
                 if !lName.isEmpty {
@@ -301,13 +338,13 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
                 
                 if let img = self.contact?.profilePicture, !img.isEmpty {
                     self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
-                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                    self.iconImageView.layer.borderWidth = 1.0
+//                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                    self.iconImageView.layer.borderWidth = 1.0
                 }
                 else {
-                    self.iconImageView.image = self.contact?.flImage
-                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                    self.iconImageView.layer.borderWidth = 1.0
+                    self.iconImageView.image = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.themeGray60, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
+//                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                    self.iconImageView.layer.borderWidth = 1.0
                 }
                 
                 if let year = self.contact?.age, year > 0 {
@@ -325,9 +362,46 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     
     // Mark:- IBActions
     // Mark:-
+    
+    func atributedtedString(text: String, ageText: String)-> NSAttributedString{
+        
+        let attributedString = NSMutableAttributedString(string: text, attributes: [
+            .font: AppFonts.Regular.withSize(14),
+            .foregroundColor: AppColors.themeBlack
+        ])
+        attributedString.addAttribute(.foregroundColor, value: AppColors.themeGray40, range: (text as NSString).range(of: ageText))
+        return attributedString
+    }
 }
-
-
+//Travel Safety Guidelines
+class HCDataSelectionTravelSafetyCell: UITableViewCell {
+    // Mark:- IBOutlets
+    // Mark:-
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    // Mark:- LifeCycles
+    // Mark:-
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        selectionStyle = .none
+        configUI()
+    }
+    
+    // Mark:- Functions
+    // Mark:-
+    
+    private func configUI() {
+        titleLabel.font = AppFonts.SemiBold.withSize(16.0)
+        titleLabel.textColor = AppColors.themeBlack
+        titleLabel.text = LocalizedString.TravelSafetyGuidelines.localized
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        
+        
+    }
+    
+    
+}
 
 
 

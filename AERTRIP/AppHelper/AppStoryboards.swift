@@ -26,6 +26,14 @@ enum AppStoryboard : String {
     case Bookings
     case AertripCalendar
     case Aerin
+    case PassengersSelection
+    case InternationalReturnAndMulticityDetails
+    case FlightDetailsBaseVC
+    case Adons
+    case Rishabh_Dev
+    case FlightPayment
+    case SplashAnimation
+    case OTPAndVarification
 }
 
 extension AppStoryboard {
@@ -70,5 +78,5 @@ extension UIViewController {
         
         return appStoryboard.viewController(self)
     }
-}
+} 
 

@@ -30,6 +30,7 @@ class BookingDocumentsTableViewCell: UITableViewCell {
             self.documentsCollectionView.reloadData()
         }
     }
+    var actionSheetVisible = false
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -52,6 +53,11 @@ class BookingDocumentsTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColors()
+    }
+    
     //MARK:- Functions
     //MARK:===========
     private func configUI() {
@@ -60,6 +66,14 @@ class BookingDocumentsTableViewCell: UITableViewCell {
         self.documentsLabel.text = LocalizedString.Documents.localized
         self.documentsCollectionView.registerCell(nibName: BookingDocumentsCollectionViewCell.reusableIdentifier)
         self.topdividerView.isHidden = true
+        self.setupColors()
+    }
+    
+    private func setupColors(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.documentsCollectionView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        
     }
     
     private func checkCreateAndReturnDocumentFolder() -> String {
@@ -145,21 +159,25 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookingDocumentsCollectionViewCell.reusableIdentifier, for: indexPath) as? BookingDocumentsCollectionViewCell else { return UICollectionViewCell() }
         cell.delegate = self
-        cell.configCell(name: self.documentsData[indexPath.item].fileName , documentsSize: self.documentsData[indexPath.item].size, request: documentsData[indexPath.item])
+        cell.configCell(name: self.documentsData[indexPath.item].fileName , documentsSize: self.documentsData[indexPath.item].size, request: documentsData[indexPath.item], type: self.documentsData[indexPath.item].type)
         switch self.documentsData[indexPath.item].downloadingStatus {
         case .notDownloaded:
-            cell.notDownloadingStatusSetUp(name: self.documentsData[indexPath.item].fileName)
+            cell.notDownloadingStatusSetUp(name: self.documentsData[indexPath.item].fileName, type: self.documentsData[indexPath.item].type)
         case .downloading:
             cell.downloadingStatusSetUp()
         case .downloaded:
-            cell.downloadedStatusSetUp(name: self.documentsData[indexPath.item].fileName)
+            cell.downloadedStatusSetUp(name: self.documentsData[indexPath.item].fileName, type: self.documentsData[indexPath.item].type)
         }
         let currentDocumentFolder = self.checkCreateAndReturnDocumentFolder()
         let url = URL(fileURLWithPath: self.documentsData[indexPath.item].sourceUrl)
         if self.checkIsFileExist(nameOfFile: url.lastPathComponent, path: currentDocumentFolder) || self.documentsData[indexPath.item].downloadingStatus != .notDownloaded {
             cell.downloadingIcon.image = nil
+            cell.containerView.removeGestureRecognizer(cell.longPressGesture!)
+            cell.containerView.addGestureRecognizer(cell.longPressGesture!)
         } else {
-            cell.downloadingIcon.image = #imageLiteral(resourceName: "downloadingImage")
+            cell.downloadingIcon.image = AppImages.downloadingImage
+            cell.containerView.removeGestureRecognizer(cell.longPressGesture!)
+
         }
         return cell
     }
@@ -208,5 +226,39 @@ extension BookingDocumentsTableViewCell: BookingDocumentsCollectionViewCellDeleg
         self.delegate?.cancelDownloadDocument(itemIndexPath: indexPath)
         self.documentsData[indexPath.item].downloadingStatus = .notDownloaded
         self.documentsCollectionView.reloadItems(at: indexPath)
+    }
+    
+    func longPressButtonAction(forIndex indexPath: IndexPath) {
+//        guard !self.actionSheetVisible else {
+//            self.actionSheetVisible = false
+//            return
+//        }
+        self.actionSheetVisible = true
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.contentView, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+            guard let strongSelf = self else {return}
+            strongSelf.actionSheetVisible = false
+            if index == 0 {
+                printDebug("Email")
+                let currentDirecotry = strongSelf.checkCreateAndReturnDocumentFolder()
+                let url = URL(fileURLWithPath: strongSelf.documentsData[indexPath.item].sourceUrl)
+                let path = currentDirecotry + "/\(url.lastPathComponent)"
+                if FileManager.default.fileExists(atPath: path) {
+                    printDebug("File exist at path: \(path)")
+                    do {
+                        try FileManager.default.removeItem(atPath: path)
+                        printDebug("File deleted")
+                        strongSelf.documentsData[indexPath.item].downloadingStatus = .notDownloaded
+                        strongSelf.documentsCollectionView.reloadItems(at: indexPath)
+                    }
+                    catch {
+                        printDebug("Error")
+                    }
+                }
+                
+            }
+            
+        }
     }
 }

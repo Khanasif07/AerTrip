@@ -18,6 +18,7 @@ class TripAdvisorTravelerRatingTableViewCell: UITableViewCell {
     @IBOutlet weak var reviewsLabel: UILabel!
     @IBOutlet weak var hotelNumberLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var reviewsButton: UIButton!
     
     
     override func awakeFromNib() {
@@ -31,7 +32,7 @@ class TripAdvisorTravelerRatingTableViewCell: UITableViewCell {
         self.hotelNumberLabel.font = AppFonts.Regular.withSize(18.0)
         //Color
 //        self.titleLabel.textColor = AppColors.themeBlack
-        self.reviewsLabel.textColor = AppColors.themeGreen
+        self.reviewsLabel.textColor = AppColors.reviewGreen
         self.hotelNumberLabel.textColor = AppColors.themeBlack
     }
     

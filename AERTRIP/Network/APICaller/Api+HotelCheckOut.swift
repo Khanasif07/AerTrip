@@ -11,7 +11,7 @@ import Foundation
 extension APICaller {
     
     func sendDashBoardEmailIDAPI(bookingID: String ,params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String)->Void ) {
-        let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?booking_id=\(bookingID)&type=email"
+        let endPoint = "\(APIEndPoint.baseUrlPath.rawValue)dashboard/booking-action?booking_id=\(bookingID)&type=email"
         AppNetworking.POST(endPointPath: endPoint, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             
@@ -181,6 +181,7 @@ extension APICaller {
     func makePaymentAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ options: JSONDictionary)->Void) {
         AppNetworking.POST(endPoint:APIEndPoint.makePayment, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
+            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
                     completionBlock(true, [], jsonData[APIKeys.data.rawValue].dictionaryObject ?? [:])
@@ -188,7 +189,7 @@ extension APICaller {
                     completionBlock(true, [], [:])
                 }
             }, failure:  { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .payment)
                 completionBlock(false, errors, [:])
             })
         }) { (error) in
@@ -206,7 +207,9 @@ extension APICaller {
     func paymentResponseAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ bookingIds: [String] , _ cid: [String])->Void) {
         AppNetworking.POST(endPoint:APIEndPoint.paymentResponse, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
+            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                printDebug(json)
                 if sucess {
                     
                     completionBlock(true, [], jsonData[APIKeys.data.rawValue][APIKeys.booking_id.rawValue].arrayObject as? [String] ?? [], jsonData[APIKeys.data.rawValue][APIKeys.cid.rawValue].arrayObject as? [String] ?? [])
@@ -214,7 +217,7 @@ extension APICaller {
                     completionBlock(true, [], [], [])
                 }
             }, failure:  { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .payment)
                 completionBlock(false, errors, [], [])
             })
         }) { (error) in
@@ -233,6 +236,7 @@ extension APICaller {
         AppNetworking.GET(endPoint:APIEndPoint.bookingReceipt, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                printDebug(jsonData)
                 if sucess , let data = jsonData[APIKeys.data.rawValue].dictionaryObject , let receiptData = data[APIKeys.receipt.rawValue] as? JSONDictionary {
                     let receiptModel = HotelReceiptModel(json: receiptData)
                     completionBlock(true, [] , receiptModel)

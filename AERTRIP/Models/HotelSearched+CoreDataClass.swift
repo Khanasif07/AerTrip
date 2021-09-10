@@ -63,14 +63,14 @@ public class HotelSearched: NSManagedObject {
             switch distance {
             case 0..<2:
                 hotelSearched?.sectionTitle = "a0 to 2"
-            case 2..<5:
+            case 2..<4:
                 hotelSearched?.sectionTitle = "b2 to 4"
-            case 5..<10:
-                hotelSearched?.sectionTitle = "c5 to 10"
+            case 4..<10:
+                hotelSearched?.sectionTitle = "c4 to 10"
             case 10..<15:
-                hotelSearched?.sectionTitle = "d11 to 15"
-            case 15...20:
-                hotelSearched?.sectionTitle = "e16 to 20"
+                hotelSearched?.sectionTitle = "d10 to 15"
+            case 15..<20:
+                hotelSearched?.sectionTitle = "e15 to 20"
             default:
                 hotelSearched?.sectionTitle = "fBeyond 20"
                 hotelSearched?.isHotelBeyondTwentyKm = true

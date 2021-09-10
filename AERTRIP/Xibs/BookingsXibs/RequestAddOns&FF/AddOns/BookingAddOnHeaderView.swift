@@ -13,6 +13,7 @@ class BookingAddOnHeaderView: UITableViewHeaderFooterView {
     // MARK: - IBOutlet
     @IBOutlet weak var routeLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
     
     
   

@@ -1,0 +1,31 @@
+//
+//  SettingsHeaderView.swift
+//  AERTRIP
+//
+//  Created by Appinventiv on 31/03/20.
+//  Copyright © 2020 Pramod Kumar. All rights reserved.
+//
+
+import UIKit
+
+class SettingsHeaderView: UITableViewHeaderFooterView {
+
+    @IBOutlet weak var topSepratorView: ATDividerView!
+    @IBOutlet weak var bottomSepratorView: ATDividerView!
+    @IBOutlet weak var titleLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.titleLabel.textColor = AppColors.themeGray60
+        titleLabel.numberOfLines = 0
+        titleLabel.font = AppFonts.Regular.withSize(14)
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        topSepratorView.isHidden = false
+        bottomSepratorView.isHidden = false
+    }
+
+}

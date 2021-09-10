@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import IQKeyboardManager
 class AccountDetailsVC: BaseVC {
     
     enum ViewState {
@@ -27,6 +27,7 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var balanceContainerView: UIView!
     @IBOutlet weak var balanceTextLabel: UILabel!
     @IBOutlet weak var balanceAmountLabel: UILabel!
+    @IBOutlet weak var balanceContainerDivider: ATDividerView!
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var blankSpaceView: UIView!
@@ -46,15 +47,20 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var openingBalanceTitleLabel: UILabel!
     @IBOutlet weak var openingBalanceDateLabel: UILabel!
     @IBOutlet weak var openingBalanceAmountLabel: UILabel!
-    
-    
+    @IBOutlet weak var progressView: AppProgressView!
+    @IBOutlet weak var searchBarDivider: ATDividerView!
+
     
     //MARK:- Properties
     //MARK:- Public
     let viewModel = AccountDetailsVM()
     var currentUsingAs = UsingFor.account
-    
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     //MARK:- Private
+    private var time: Float = 0.0
+    private var timer: Timer?
+    fileprivate let refreshControl = UIRefreshControl()
+    
     var currentViewState = ViewState.normal {
         didSet {
             self.manageHeader(animated: true)
@@ -81,10 +87,19 @@ class AccountDetailsVC: BaseVC {
         return newEmptyView
     }()
     
+    
+    
+    
     //MARK:- ViewLifeCycle
     //MARK:-
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .accountDetailFetched, object: nil)
+    }
+    
     override func initialSetup() {
-        
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+        self.progressView?.isHidden = true
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -94,27 +109,33 @@ class AccountDetailsVC: BaseVC {
         
         self.topNavView.delegate = self
         
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_three_dots"), selectedImage: #imageLiteral(resourceName: "ic_three_dots"))
-        self.topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+        self.topNavView.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton)
+        self.topNavView.configureSecondRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIconSelected)
         
         //add search view in tableView header
         self.tableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
+        self.tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
         
         self.tableView.registerCell(nibName: AccountLedgerEventCell.reusableIdentifier)
+        self.tableView.registerCell(nibName: NewAccountLedgerEventCell.reusableIdentifier)
         
         self.searchBar.isMicEnabled = true
-        
-        self.topNavView.firstRightButton.isEnabled = false
-        self.topNavView.secondRightButton.isEnabled = false
+        self.searchBarDivider.defaultBackgroundColor = AppColors.dividerColor2
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
-            self.viewModel.getAccountDetails()
+            self.viewModel.getAccountDetails(showProgres: true)
+            self.balanceContainerDivider.isHidden = false
+        }else{
+            self.balanceContainerDivider.isHidden = true
         }
         
         self.searchDataContainerView.backgroundColor = AppColors.clear
         self.mainSearchBar.showsCancelButton = true
+        if let cancelButton = mainSearchBar.value(forKey: "cancelButton") as? UIButton{
+            cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18)
+        }
         self.searchBar.delegate = self
         self.mainSearchBar.delegate = self
         self.ladgerDummySearchBar.delegate = self
@@ -127,17 +148,52 @@ class AccountDetailsVC: BaseVC {
         self.searchTableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
         
         self.manageHeader(animated: false)
-        
-        delay(seconds: 0.8) { [weak self] in
-            self?.getAccountDetailsSuccess()
+        //Chnage for blur header
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+//        topNavView.backgroundColor = AppColors.clear
+        delay(seconds: 0.2) { [weak self] in
+            self?.setupHeaderFooterText()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(accountDetailFetched(_:)), name: .accountDetailFetched, object: nil)
+
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.tableView.refreshControl = refreshControl
+        self.tableView.showsVerticalScrollIndicator = true
+        
+                
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsLedger, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .accountPaymentRegister, let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
+        if let noti = note.object as? ATNotification, let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             //re-hit the details API
-            self.viewModel.getAccountDetails()
+            switch noti {
+            case .accountPaymentRegister:
+                self.viewModel.getAccountDetails(showProgres: true)
+            default:
+                break
+            }
         }
+    }
+    
+    @objc func accountDetailFetched(_ note: Notification) {
+        if let object = note.object as? AccountDetailPostModel {
+            printDebug("accountDetailFetched")
+            self.viewModel.allVouchers = object.accVouchers
+            self.viewModel.setAccountDetails(details: object.accountLadger)
+            self.applyFilter()
+        }
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
     override func bindViewModel() {
@@ -165,18 +221,73 @@ class AccountDetailsVC: BaseVC {
     
     override func setupColors() {
         self.balanceTextLabel.textColor = AppColors.themeGray40
-        
+        self.view.backgroundColor = AppColors.themeBlack26
         self.tableView.backgroundColor = AppColors.themeWhite
-        
-        self.searchContainerView.backgroundColor = AppColors.themeWhite
-        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+        self.searchTableView.backgroundColor = AppColors.themeWhite
+        self.searchContainerView.backgroundColor = AppColors.themeBlack26
+        self.searchBarContainerView.backgroundColor = AppColors.themeBlack26
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
-        
+        self.subHeaderContainer.backgroundColor = AppColors.themeBlack26
         self.openingBalanceTitleLabel.textColor = AppColors.themeBlack
         self.openingBalanceAmountLabel.textColor = AppColors.themeBlack
         self.openingBalanceDateLabel.textColor = AppColors.themeGray40
+        [searchBar, mainSearchBar, ladgerDummySearchBar].forEach{ searchBar in
+            searchBar?.textFieldColor = AppColors.miniPlaneBack
+        }
+        
     }
     
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer?.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer?.invalidate()
+            delay(seconds: 0.5) {
+                self.timer?.invalidate()
+                self.progressView?.isHidden = true
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+     self.viewModel.getAccountDetails(showProgres: false)
+    }
+    
+    @IBAction func tapSearchContainerView(_ sender: UIButton) {
+        self.currentViewState = .normal
+        self.clearSearchData()
+    }
     //MARK:- Methods
     //MARK:- Private
     private func setupHeaderFooterText() {
@@ -184,8 +295,16 @@ class AccountDetailsVC: BaseVC {
         if let accountData = UserInfo.loggedInUser?.accountData {
             self.openingBalanceAmountLabel.attributedText = accountData.openingBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
             self.openingBalanceDateLabel.text = ""//"Upto Tue, 31 Jul 2018"
+//            if UserInfo.loggedInUser?.userCreditType
             
-            self.balanceAmountLabel.attributedText = accountData.currentBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
+            if (UserInfo.loggedInUser?.userCreditType ?? .statement  == .regular){
+                let amount = (accountData.walletAmount != 0) ? (accountData.walletAmount * -1): accountData.walletAmount
+                self.balanceAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
+            }else{
+                self.balanceAmountLabel.attributedText = accountData.currentBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
+            }
+        } else {
+            self.balanceAmountLabel.attributedText = 0.0.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
         }
     }
     
@@ -238,7 +357,7 @@ class AccountDetailsVC: BaseVC {
                 sSelf.searchTableView.reloadData()
                 if (sSelf.currentViewState == .searching) {
                     sSelf.mainSearchBar.becomeFirstResponder()
-                    sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+                    sSelf.searchDataContainerView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
                 }
                 else {
                     sSelf.searchDataContainerView.backgroundColor = AppColors.clear
@@ -251,13 +370,30 @@ class AccountDetailsVC: BaseVC {
     private func showMoreOptions() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Email.localized, LocalizedString.DownloadAsPdf.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.AccountsLegder.localized, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
+
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsSendEmailOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+                AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
-                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized)
+                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsDownloadPDFOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+
+                self.topNavView.isToShowIndicatorView = true
+                self.topNavView.startActivityIndicaorLoading()
+                self.topNavView.firstRightButton.isHidden = true
+                self.topNavView.secondRightButton.isHidden = true
+                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized, showLoader: false, complition: { [weak self] (status) in
+                    self?.topNavView.isToShowIndicatorView = false
+                    self?.topNavView.stopActivityIndicaorLoading()
+                    self?.topNavView.firstRightButton.isHidden = false
+                    self?.topNavView.secondRightButton.isHidden = false
+                })
                 printDebug("download pdf tapped")
             }
         }
@@ -278,15 +414,24 @@ class AccountDetailsVC: BaseVC {
             self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
         }
         
-        if let usr = UserInfo.loggedInUser, usr.userCreditType != .regular {
-            self.tableView.tableFooterView = isAllDatesEmpty ? nil : self.openingDetailContainerView
-        }
+//        if let usr = UserInfo.loggedInUser, usr.userCreditType != .regular {
+        if (ADEventFilterVM.shared.selectedVoucherType.isEmpty || ADEventFilterVM.shared.selectedVoucherType.count == ADEventFilterVM.shared.voucherTypes.count) && (ADEventFilterVM.shared.fromDate != nil || ADEventFilterVM.shared.toDate != nil){
+                if let events = (self.viewModel.accountDetails[self.viewModel.allDates.last ?? ""] as? [AccountDetailEvent]), let event = events.last{
+                    let balance = event.balance - event.amount
+                    self.openingBalanceAmountLabel.attributedText = balance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16))
+                }
+                self.tableView.tableFooterView = isAllDatesEmpty ? nil : self.openingDetailContainerView
+            }else{
+                self.tableView.tableFooterView = nil
+            }
+            
+//        }
     
         
-        if (self.currentViewState != .filterApplied) {
-            self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
-            self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
-        }
+//        if (self.currentViewState != .filterApplied) {
+//            self.topNavView.firstRightButton.isUserInteractionEnabled = !isAllDatesEmpty
+//            self.topNavView.secondRightButton.isUserInteractionEnabled = !isAllDatesEmpty
+//        }
         
         self.tableView.reloadData()
         self.searchTableView.reloadData()
@@ -300,22 +445,29 @@ class AccountDetailsVC: BaseVC {
 extension AccountDetailsVC: UISearchBarDelegate {
     
     func clearSearchData() {
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsClearSearchBarOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
         self.mainSearchBar.text = ""
         self.searchBar.text = ""
         self.ladgerDummySearchBar.text = ""
-        self.viewModel.searchedAccountDetails.removeAll()
-        self.viewModel.accountDetails = self.viewModel._accountDetails
+        self.viewModel.setSearchedAccountDetails(data: [:])
+        self.viewModel.setAccountDetails(data: self.viewModel._accountDetails)
+        self.applyFilter()
         self.reloadList()
     }
     
     func preserveSearchData() {
         self.searchBar.text = self.mainSearchBar.text
         self.ladgerDummySearchBar.text = self.mainSearchBar.text
-        self.viewModel.accountDetails = self.viewModel.searchedAccountDetails
+        self.viewModel.setAccountDetails(data: self.viewModel.searchedAccountDetails)
         self.reloadList()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsCancelSearchBarOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
         if searchBar === self.mainSearchBar {
             self.currentViewState = .normal
             self.clearSearchData()
@@ -323,40 +475,69 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
         if searchBar === self.mainSearchBar, (searchBar.text ?? "").isEmpty {
-            self.searchBarCancelButtonClicked(searchBar)
+           // self.searchBarCancelButtonClicked(searchBar)
         }
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         if (searchBar === self.searchBar) || (searchBar === self.ladgerDummySearchBar) {
             self.currentViewState = .searching
             return false
         }
+     
         return true
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.preserveSearchData()
-        self.currentViewState = .normal
-        self.view.endEditing(true)
+        if (searchBar.text?.isEmpty ?? false){
+            self.searchBarCancelButtonClicked(searchBar)
+        }else{
+            
+            let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                             "SearchQuery":mainSearchBar.text ?? ""]
+            FirebaseEventLogs.shared.logSearchBarEvents(with: .AccountDetailsSearchOptionSelected, value: jsonDict)
+
+
+            self.preserveSearchData()
+//            self.currentViewState = .filterApplied
+            self.view.endEditing(true)
+        }
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar === self.mainSearchBar, searchText.count >= AppConstants.kSearchTextLimit {
+        if searchBar === self.mainSearchBar {
+            self.currentViewState = .searching
+            //searchText.count >= AppConstants.kSearchTextLimit
+            self.viewModel.searchEvent(forText: searchText)
+            if !searchText.isEmpty {
             self.noResultemptyView.searchTextLabel.isHidden = false
             self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
-            self.viewModel.searchEvent(forText: searchText)
-        }
-        else {
-            //reset tot the old state
-            if (searchBar.text ?? "").isEmpty {
+            } else {
                 self.clearSearchData()
             }
-            else {
-                self.reloadList()
-            }
         }
+//        else {
+//            //reset tot the old state
+//            if (searchBar.text ?? "").isEmpty {
+//                self.clearSearchData()
+//            }
+//            else {
+////                self.reloadList()
+//                self.clearSearchData()
+//
+//            }
+//        }
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsLedgerSpeechToTextSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
     }
 }
 
@@ -365,51 +546,56 @@ extension AccountDetailsVC: UISearchBarDelegate {
 extension AccountDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .navigateBack, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+        ADEventFilterVM.shared.setToDefault()
         AppFlowManager.default.popViewController(animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsMenuOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
         self.showMoreOptions()
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter, minFromDate: self.viewModel.ledgerStartDate)
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsLedgerFilterOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+        ADEventFilterVM.shared.minFromDate = self.viewModel.ledgerStartDate
+        ADEventFilterVM.shared.voucherTypes = self.viewModel.allVouchers
+        ADEventFilterVM.shared.minDate = self.viewModel.minDate
+        ADEventFilterVM.shared.maxDate = self.viewModel.maxDate
+        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self)
     }
 }
 
 //MARK:- Filter VC delegate methods
 //MARK:-
 extension AccountDetailsVC: ADEventFilterVCDelegate {
-    func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
-        
-        if let fltr = filter {
-            if let fromDate = fltr.fromDate, let toDate = fltr.toDate, ((Date().timeIntervalSince1970 != toDate.timeIntervalSince1970) || (self.viewModel.ledgerStartDate.timeIntervalSince1970 != fromDate.timeIntervalSince1970)) {
-                //apply filter
-                if self.currentViewState == .searching {
-                }
-                else {
-                    self.currentViewState = .filterApplied
-                }
-            }
-            else if !fltr.voucherType.isEmpty {
-                //apply filter
-                if self.currentViewState == .searching {
-                }
-                else {
-                    self.currentViewState = .filterApplied
-                }
-            }
-            
-            self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
+    func applyFilter() {
+        if ADEventFilterVM.shared.isFilterAplied  {
+            self.currentViewState = .filterApplied
+        } else {
+            self.currentViewState =  self.currentViewState == .filterApplied ? .normal : self.currentViewState
         }
-        else {
-            //clear all filter
-            self.currentViewState = .normal
-            self.viewModel.applyFilter(filter: nil, searchText: self.mainSearchBar.text ?? "")
-        }
+        self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
     }
+    
+    func clearAllFilter() {
+        //clear all filter
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsLedgerClearFilterOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+        self.currentViewState = .normal
+        self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
+    }
+    
+    
 }
 
 //MARK:- EmptyScreenViewdelegate methods
@@ -420,13 +606,15 @@ extension AccountDetailsVC: EmptyScreenViewDelegate {
     func bottomButtonAction(sender: UIButton) {
         //clear all filter
         self.currentViewState = .normal
-        self.viewModel.applyFilter(filter: nil, searchText: self.mainSearchBar.text ?? "")
+        ADEventFilterVM.shared.setToDefault()
+        self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
     }
 }
 
 //MARK:- View model delegate methods
 //MARK:-
 extension AccountDetailsVC: AccountDetailsVMDelegate {
+    
     func applyFilterSuccess() {
         self.reloadList()
     }
@@ -435,19 +623,84 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
         self.reloadList()
     }
 
-    func willGetAccountDetails() {
+    func willGetAccountDetails(showProgres: Bool) {
+        if showProgres {
+            self.startProgress()
+        }
+        //AppGlobals.shared.startLoading()
+        self.topNavView.firstRightButton.isUserInteractionEnabled = false
+        self.topNavView.secondRightButton.isUserInteractionEnabled = false
     }
     
-    func getAccountDetailsSuccess() {
-        self.topNavView.firstRightButton.isEnabled = true
-        self.topNavView.secondRightButton.isEnabled = true
+    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool) {
+        if showProgres {
+            self.stopProgress()
+        }
+
+        self.refreshControl.endRefreshing()
+        self.topNavView.firstRightButton.isUserInteractionEnabled = true
+        self.topNavView.secondRightButton.isUserInteractionEnabled = true
+        if self.currentViewState == .filterApplied {
+            self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
+        } else if self.currentViewState == .filterApplied {
+            self.viewModel.searchEvent(forText: self.mainSearchBar.text ?? "")
+        }
         self.reloadList()
+        NotificationCenter.default.post(name: .accountDetailFetched, object: model)
+        
+        
+
     }
     
-    func getAccountDetailsFail() {
+    func getAccountDetailsFail(showProgres: Bool) {
+
+        if showProgres {
+            self.stopProgress()
+            self.manageDataForDeeplink()
+            self.viewModel.deepLinkParams = [:]
+        }
+        self.refreshControl.endRefreshing()
     }
     
     func searchEventsSuccess() {
         self.reloadList()
     }
+}
+
+extension AccountDetailsVC: SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+
+        let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                         "SearchQuery":text]
+        FirebaseEventLogs.shared.logSearchBarEvents(with: .AccountsLedgerConvertedSpeechToText, value: jsonDict)
+
+
+        guard !text.isEmpty else {return}
+        searchBar.hideMiceButton(isHidden: false)
+
+        self.currentViewState = .searching
+        self.mainSearchBar.text = text
+        viewModel.searchEvent(forText: text)
+    }
+
+    
+}
+
+///Deeplinking  manage
+extension AccountDetailsVC{
+    
+    func manageDataForDeeplink(){
+        switch  (self.viewModel.deepLinkParams["type"] ?? ""){
+        case "accounts-ledger": self.moveToAccountLadge()
+        default: break;
+        }
+
+    }
+
+    func moveToAccountLadge(){
+        guard let id  = self.viewModel.deepLinkParams["voucher_id"], !id.isEmpty, let event = self.viewModel.getEventFromAccountLadger(with: id) else {return}
+            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .accountLadger)
+
+    }
+    
 }

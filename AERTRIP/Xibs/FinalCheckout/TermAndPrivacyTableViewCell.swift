@@ -15,10 +15,13 @@ class TermAndPrivacyTableViewCell: UITableViewCell {
     enum UsingFrom {
         case hotelCheckout
         case accountCheckout
+        case flightCheckOut
     }
     
+    @IBOutlet weak var deviderView: ATDividerView!
     @IBOutlet weak var termAndPrivacyLabel: ActiveLabel!
-
+    @IBOutlet weak var labelTopConstraint: NSLayoutConstraint!
+    
     var currentUsingFrom = UsingFrom.hotelCheckout {
         didSet {
             self.linkSetupForTermsAndCondition(withLabel: self.termAndPrivacyLabel)
@@ -49,7 +52,15 @@ extension TermAndPrivacyTableViewCell {
         var allTypes: [ActiveType] = []
         var textToDisplay = ""
         if self.currentUsingFrom == .accountCheckout {
-            allTypes = [fareRules, privacyPolicy, termsOfUse]
+            allTypes = [privacyPolicy, termsOfUse]
+            textToDisplay = LocalizedString.CheckOutPrivacyAndPolicyTermsFlight.localized
+        }
+//        else{
+//            allTypes = [privacyPolicy, termsOfUse]
+//            textToDisplay = LocalizedString.CheckOutPrivacyAndPolicyTermsFlight.localized
+//        }
+        else if self.currentUsingFrom == .flightCheckOut{
+            allTypes = [privacyPolicy, termsOfUse]
             textToDisplay = LocalizedString.CheckOutFareRulesPrivacyAndPolicyTerms.localized
         }
         else {
@@ -60,53 +71,36 @@ extension TermAndPrivacyTableViewCell {
       //  withLabel.enabledTypes = [fareDetails, privacyPolicy, termsOfUse]
         
         withLabel.enabledTypes = allTypes
-        withLabel.customize { label in
+        withLabel.customize { [unowned self] label in
             label.font = AppFonts.Regular.withSize(14.0)
             label.text = textToDisplay
-           // label.customColor[fareDetails] = AppColors.themeGreen
-           // label.customSelectedColor[fareDetails] = AppColors.themeGreen
 
             for item in allTypes {
-                label.customColor[item] = AppColors.themeGreen
-                label.customSelectedColor[item] = AppColors.themeGreen
+                label.customColor[item] = AppColors.commonThemeGreen
+                label.customSelectedColor[item] = AppColors.commonThemeGreen
             }
             
             label.highlightFontName = AppFonts.SemiBold.rawValue
             label.highlightFontSize = 14.0
             
-//            label.handleCustomTap(for: fareDetails) { _ in
-//
-//                guard let url = URL(string: AppConstants.termsOfUse) else { return }
-//                let safariVC = SFSafariViewController(url: url)
-//                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
-//                safariVC.delegate = self
-//            }
-            
             label.handleCustomTap(for: fareRules) { _ in
                 
-                guard let url = URL(string: AppConstants.fareRules) else { return }
-                let safariVC = SFSafariViewController(url: url)
-                safariVC.modalPresentationStyle = .overFullScreen
-                AppFlowManager.default.currentNavigation?.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+                guard let url = URL(string: AppKeys.fareRules) else { return }
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Fare Rules")
             }
             
             label.handleCustomTap(for: privacyPolicy) { _ in
                 
-                guard let url = URL(string: AppConstants.privacyPolicy) else { return }
-                let safariVC = SFSafariViewController(url: url)
-                safariVC.modalPresentationStyle = .overFullScreen
-                AppFlowManager.default.currentNavigation?.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+                guard let url = URL(string: AppKeys.privacyPolicy) else { return }
+                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Privacy Policy")
+                FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenPrivacyPolicy)
             }
             
             label.handleCustomTap(for: termsOfUse) { _ in
                 
-                guard let url = URL(string: AppConstants.termsOfUse) else { return }
-                let safariVC = SFSafariViewController(url: url)
-                safariVC.modalPresentationStyle = .overFullScreen
-                AppFlowManager.default.currentNavigation?.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+                guard let url = URL(string: AppKeys.termsOfUse) else { return }
+                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Terms of Use")
+                FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenTermsOfUse)
             }
         }
     }

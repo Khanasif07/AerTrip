@@ -61,6 +61,8 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
         self.subTitleLabel.textColor = subTitleColor
         self.containerViewLeadingConstraint.constant = 0.0
         self.containerViewTrailingConstraint.constant = 0.0
+        self.dividerViewLeadingConstraint.constant = 16.0
+        self.dividerViewTrailingConstraint.constant = 16.0
     }
     
     internal func configHotelBookingDetailsCell(title: String , titleFont: UIFont = AppFonts.Regular.withSize(14.0) , titleColor: UIColor = AppColors.themeBlack , subTitle: String , subTitleFont: UIFont = AppFonts.Regular.withSize(14.0) , subTitleColor: UIColor = AppColors.themeBlack) {
@@ -75,9 +77,12 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
         self.subTitleLabel.text = subTitle
         self.subTitleLabel.font = subTitleFont
         self.subTitleLabel.textColor = subTitleColor
-        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
-        self.containerView.backgroundColor = AppColors.themeWhite
+//        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        let shadow = AppShadowProperties()
+        self.containerView.addShadow(cornerRadius: 0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
         self.backgroundColor = AppColors.themeWhite
+        
     }
     
     //Mark:- IBActions

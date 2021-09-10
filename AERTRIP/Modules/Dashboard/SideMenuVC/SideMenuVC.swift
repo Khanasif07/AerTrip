@@ -47,6 +47,9 @@ class SideMenuVC: BaseVC {
     
     @IBOutlet weak var sideMenuTableView: ATTableView!
     @IBOutlet weak var socialOptionView: UIView!
+    @IBOutlet weak var fbButton: UIButton!
+    @IBOutlet weak var instaButton: UIButton!
+    @IBOutlet weak var twitterButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +59,7 @@ class SideMenuVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getAccountSummary()
     }
     
     
@@ -66,15 +70,18 @@ class SideMenuVC: BaseVC {
         sideMenuTableView.reloadData()
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
     
-   
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if UserInfo.loggedInUserId == nil {
             //add the logo view only if user is not logged in
             if let view = self.logoContainerView {
-//                self.updateLogoView(view: view)
+                //                self.updateLogoView(view: view)
             }
             else {
                 self.logoContainerView = self.getAppLogoView()
@@ -95,13 +102,21 @@ class SideMenuVC: BaseVC {
         
     }
     
-
+    
     
     override func initialSetup() {
-        self.view.backgroundColor = AppColors.screensBackground.color
+        self.view.backgroundColor = AppColors.homeScreenColor
         self.socialOptionView.frame = CGRect(x: 0.0, y: 0.0, width: self.sideMenuTableView.width, height: (77.0))
         self.sideMenuTableView.tableFooterView = self.socialOptionView
         self.registerXibs()
+    }
+    
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if let view = self.profileContainerView {
+            self.updateProfileImage(view: view)
+        }
     }
     
     @objc func profileTapped() {
@@ -120,12 +135,18 @@ class SideMenuVC: BaseVC {
         view.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 179.0)
     }
     
-    
+    func getAccountSummary() {
+        if let _ = UserInfo.loggedInUserId {
+            DispatchQueue.backgroundAsync() { [weak self] in
+                self?.viewModel.webserviceForGetAccountSummary()
+            }
+        }
+    }
     
     func getProfileView() -> SlideMenuProfileImageHeaderView {
         //add the profile view only if user is logged in
         let view = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
-      //  view.profileImageViewBottomConstraint.constant = 10
+        //  view.profileImageViewBottomConstraint.constant = 10
         view.currentlyUsingAs = .sideMenu
         view.backgroundColor = AppColors.clear
         self.updateProfileView(view: view)
@@ -137,17 +158,7 @@ class SideMenuVC: BaseVC {
         view.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
         view.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         view.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
-        
-        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-            //view.profileImageView.kf.setImage(with: URL(string: imagePath))
-            view.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
-            //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
-            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont) ?? UIImage(), showIndicator: false)
-        }
-        else {
-            view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
-            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
-        }
+        self.updateProfileImage(view: view)
         view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
         view.emailIdLabel.isHidden = true
         view.mobileNumberLabel.isHidden = true
@@ -164,11 +175,25 @@ class SideMenuVC: BaseVC {
         view.gradientView.alpha = 0.0
         view.dividerView.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = true
-//        view.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+        //        view.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+    }
+    
+    
+    private func updateProfileImage(view: SlideMenuProfileImageHeaderView){
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            //view.profileImageView.kf.setImage(with: URL(string: imagePath))
+            view.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+            //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont) ?? UIImage(), showIndicator: false)
+        }
+        else {
+            view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
+        }
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
-        return .default
+        return .darkContent
     }
     
     
@@ -177,16 +202,21 @@ class SideMenuVC: BaseVC {
     
     // MARK: -
     
-    @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-        //       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
+    @IBAction func facebookBtnAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenFacebook)
+        AppSocialNetwork.Facebook.openPage()
     }
     
-    @IBAction func googleLoginButtonAction(_ sender: UIButton) {
-        //        self.socialViewModel.googleLogin()
+    @IBAction func instagramBtnAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenInstagram)
+
+        AppSocialNetwork.Instagram.openPage()
     }
     
-    @IBAction func linkedLoginButtonAction(_ sender: UIButton) {
-        //        self.socialViewModel.linkedLogin()
+    @IBAction func twitterBtnAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenTwitter)
+
+        AppSocialNetwork.Twitter.openPage()
     }
 }
 
@@ -220,6 +250,9 @@ private extension SideMenuVC {
 extension SideMenuVC {
     
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
+        
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .ClickedonLoginRegister)
+
         delay(seconds: 0.15) { [weak self] in
             self?.delegate?.loginRegisterAction(sender)
         }
@@ -278,13 +311,18 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.populateData()
+                if (UserInfo.loggedInUser?.userCreditType ?? .statement  == .topup) || (UserInfo.loggedInUser?.userCreditType ?? .statement  == .statement) ||  (UserInfo.loggedInUser?.userCreditType ?? .statement  == .billwise){
+                    cell.totalDueAmountLabel.text = "Amount Due"
+                } else {
+                    cell.totalDueAmountLabel.text = "Wallet Balance"
+                }
                 return cell
                 
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
                     return UITableViewCell()
                 }
-                
+                cell.selectionStyle = .gray
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
                 return cell
             }
@@ -294,18 +332,37 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
                 return UITableViewCell()
             }
-            
+            cell.selectionStyle = .gray
             if let _ = UserInfo.loggedInUserId {
                 let title = self.viewModel.cellForLoginUser[indexPath.row - 2]
-                if indexPath.row == 6 || indexPath.row == 5 || indexPath.row == 4 {
-                    cell.displayTextLabelTopConstraint.constant = -4.0
-                } else {
-                    cell.displayTextLabelTopConstraint.constant = 0.0
-                }
+                //                switch indexPath.row{
+                //                case 2:
+                //                    cell.displayTextLabelTopConstraint.constant = 18.0
+                //                case 3:
+                //                    cell.displayTextLabelTopConstraint.constant = 13.0
+                //                case 4:
+                //                    cell.displayTextLabelTopConstraint.constant = 11.0
+                //                case 6:
+                //                    cell.displayTextLabelTopConstraint.constant = -6.0
+                //                default:
+                //                    cell.displayTextLabelTopConstraint.constant = 0.0
+                //                }
                 cell.populateData(text: title)
                 cell.sepratorView.isHidden = !title.isEmpty
                 
             } else {
+                
+                //                switch indexPath.row{
+                //                case 2:
+                //                    cell.displayTextLabelTopConstraint.constant = 2.0
+                //                case 4:
+                //                    cell.displayTextLabelTopConstraint.constant = -2.0
+                //                case 5:
+                //                    cell.displayTextLabelTopConstraint.constant = -4.0
+                //                default:
+                //                    cell.displayTextLabelTopConstraint.constant = 0.0
+                //                }
+                
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
             }
             
@@ -313,13 +370,13 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 75.0 //+ AppFlowManager.default.safeAreaInsets.bottom
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        return self.socialOptionView
-//    }
+    //    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    //        return 75.0 //+ AppFlowManager.default.safeAreaInsets.bottom
+    //    }
+    //
+    //    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    //        return self.socialOptionView
+    //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _ = UserInfo.loggedInUserId {
@@ -327,25 +384,57 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             switch indexPath.row {
             case 0:
                 //profile
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenProfile)
+
                 self.viewProfileButtonAction(ATButton())
                 
             case 1:
                 //view account
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .ViewAccounts)
+
                 AppFlowManager.default.moveToAccountDetailsScreen()
                 
             case 2:
                 //my booking
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenBookings)
+
                 AppFlowManager.default.moveToMyBookingsVC()
-                //my Notifications
+                
+            case 3:
+                // Offers
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenOffers)
+
+                if let url = URL(string: AppKeys.offers) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.cellForLoginUser[indexPath.row - 2], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+                }
             case 4:
+                //my Notifications
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenNotifications)
+
                 AppFlowManager.default.moveToNotificationVC()
                 
             case 6:
                 //settings
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenSettings)
+
                 AppFlowManager.default.moveToSettingsVC()
                 
+            case 7:
+                //Support
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenSupport)
+
+                if let url = URL(string: AppKeys.contact) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.cellForLoginUser[indexPath.row - 2], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+                }
+                
+            case 8:
+                //RateUs
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenRateUs)
+
+                self.openUrl(AppKeys.kAppStoreLink)
+                
             default:
-                AppGlobals.shared.showUnderDevelopment()
+                AppToast.default.showToastMessage(message: "This feature is coming soon")
             }
         }
         else {
@@ -354,15 +443,46 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 0:
                 break
-                
+            case 1:
+                //why Aertrip
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenWhyAertrip)
+
+                if let url = URL(string: AppKeys.whyAertrip) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+                }
+            case 2:
+                //Smart Sort
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenSmartSort)
+
+                if let url = URL(string: AppKeys.smartSort) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+                }
+            case 3:
+                //offers
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenOffers)
+
+                if let url = URL(string: AppKeys.offers) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+                }
+            case 4:
+                //contact us
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenContactUs)
+
+                if let url = URL(string: AppKeys.contact) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+                }
             case 5:
                 //settings
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenSettings)
+
                 AppFlowManager.default.moveToSettingsVC()
                 
             default:
-                print("DO Nothing")
+                printDebug("DO Nothing")
+                AppToast.default.showToastMessage(message: "This feature is coming soon")
             }
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -376,17 +496,44 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 return (UserInfo.loggedInUserId == nil) ? 267.0 : UITableView.automaticDimension
                 
             case 1:
-                return (UserInfo.loggedInUserId == nil) ? 60.0 : 70
+                return (UserInfo.loggedInUserId == nil) ? 61.5 : 82
                 
             default:
-                return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 64.0
+                if let _ = UserInfo.loggedInUserId {
+                    return 61.0
+                } else {
+                    return 62.0
+                }
+                //                return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 61.0
             }
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == sideMenuTableView {
-            print(scrollView.contentOffset)
+            printDebug(scrollView.contentOffset)
         }
     }
 }
+
+// MARK: - Extension SideMenuVM Delegate
+
+extension SideMenuVC: SideMenuVMDelegate {
+    
+    func willGetAccountSummary() {
+    }
+    
+    func getAccountSummarySuccess() {
+        DispatchQueue.mainAsync {
+            self.sideMenuTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+        }
+    }
+    
+    func getAccountSummaryFail(errors: ErrorCodes) {
+        
+    }
+    
+    
+}
+
+

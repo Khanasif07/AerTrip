@@ -14,13 +14,18 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-    if AppConstants.isReleasingToClient {
-        if UIDevice.isSimulator {
-            print(obj)
-        }
-    } else {
+    //    if AppConstants.isReleasingToClient {
+    //        if UIDevice.isSimulator {
+//                print(obj)
+    //        }
+    //    } else {
+    //        print(obj)
+    //    }
+//    #if DEBUG
+    if !AppConstants.isReleasingForCustomers{
         print(obj)
     }
+//    #endif
 }
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
@@ -49,15 +54,18 @@ func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
     return ((lhs.longitude == rhs.longitude) && (lhs.latitude == rhs.latitude))
 }
 
+
+
 class AppGlobals {
     static let shared = AppGlobals()
     private init() {}
     
+    let appdelegate = UIApplication.shared.delegate as? AppDelegate //?? AppDelegate()
     
     //vcs used in mybooking filter screen
-    var travelDateVC: TravelDateVC?
-    var eventTypeVC: EventTypeVC?
-    var bookingDateVC: TravelDateVC?
+  //  var travelDateVC: TravelDateVC?
+   // var eventTypeVC: EventTypeVC?
+   // var bookingDateVC: TravelDateVC?
     
     static func lines(label: UILabel) -> Int {
         let textSize = CGSize(width: label.frame.size.width, height: CGFloat(Float.infinity))
@@ -68,7 +76,7 @@ class AppGlobals {
     }
     
     func json(from object: Any) -> String? {
-        guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
+        guard let data = try? JSONSerialization.data(withJSONObject: object, options: .sortedKeys) else {
             return nil
         }
         return String(data: data, encoding: String.Encoding.utf8)
@@ -94,9 +102,9 @@ class AppGlobals {
         IQKeyboardManager.shared().toolbarDoneBarButtonItemText = isEnabled ? LocalizedString.Done.localized : ""
     }
     
-    func getImageFor(firstName: String?, lastName: String?, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = AppColors.themeWhite) -> UIImage {
-        var fName = firstName ?? ""
-        var lName = lastName ?? ""
+    func getImageFor(firstName: String?, lastName: String?, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = AppColors.themeWhiteDashboard) -> UIImage {
+        var fName = firstName?.removeLeadingTrailingWhitespaces ?? ""
+        var lName = lastName?.removeLeadingTrailingWhitespaces ?? ""
         
         if fName.isEmpty, lName.isEmpty {
             fName = "F"
@@ -107,21 +115,32 @@ class AppGlobals {
             fName = ""
         }
         
-        let string = "\(fName.firstCharacter)\(lName.firstCharacter)".uppercased()
+        let string = "\(fName.firstCharacter)\(lName.firstCharacter)".uppercased().removeLeadingTrailingWhitespaces
         return self.getImageFromText(string, font: font, textColor: textColor, offSet: offSet, backGroundColor: backGroundColor)
     }
     
-    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = AppColors.themeWhite) -> UIImage {
+    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = AppColors.themeWhiteDashboard) -> UIImage {
         let size = 70.0
         return UIImage(text: fromText, font: font, color: textColor, backgroundColor: backGroundColor, size: CGSize(width: size, height: size), offset: offSet)!
     }
     
     func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
-        let (_, message, _) = ATErrorManager.default.error(forCodes: errors, module: module)
+        let (_, message, hint) = ATErrorManager.default.error(forCodes: errors, module: module)
+        var msgStr:String = ""
         if !message.isEmpty {
-                AppToast.default.showToastMessage(message: message)
-          
+            msgStr = message
+        }else if !hint.isEmpty {
+            msgStr = hint
+        }else{
+            msgStr = LocalizedString.SomethingWentWrong.localized
         }
+        let txt = msgStr.removeAllWhitespaces.lowercased()
+        if txt == "\"somethingwentwrong"{
+            msgStr = "Something went wrong"
+        }else if txt == "pleasetryagain.\""{
+            msgStr = "please try again."
+        }
+        AppToast.default.showToastMessage(message: msgStr)
     }
     
     // convert Date from one format to another
@@ -133,7 +152,6 @@ class AppGlobals {
         if let date = inputFormatter.date(from: dateString) {
             let outputFormatter = DateFormatter()
             outputFormatter.dateFormat = outputFormat
-            
             return outputFormatter.string(from: date)
         }
         
@@ -199,14 +217,19 @@ class AppGlobals {
     }
     
     // Use  it for creating an image with text .It will return NSMutableattributed string.
-    func getTextWithImage(startText: String, image: UIImage, endText: String, font: UIFont, isEndTextBold: Bool = false) -> NSMutableAttributedString {
+    func getTextWithImage(startText: String, image: UIImage, endText: String, font: UIFont, isEndTextBold: Bool = false, imageSize: CGFloat? = nil) -> NSMutableAttributedString {
         // create an NSMutableAttributedString that we'll append everything to
         let fullString = NSMutableAttributedString(string: startText)
         // create our NSTextAttachment
         let image1Attachment = NSTextAttachment()
         
         //        image1Attachment.bounds.origin = CGPoint(x: 0.0, y: 5.0)
-        image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+        if let size = imageSize {
+            image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - size).rounded() / 2, width: size, height: size)
+            
+        } else {
+            image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+        }
         image1Attachment.image = image
         
         // wrap the attachment in its own attributed string so we can append it
@@ -227,6 +250,28 @@ class AppGlobals {
         return fullString
     }
     
+    
+    // Use  it for creating an image with text .It will return NSMutableattributed string.
+    func getTextWithImageAttributedTxt(image: UIImage, attributedText: NSAttributedString, font: UIFont = AppFonts.SemiBold.withSize(18)) -> NSMutableAttributedString {
+        // create an NSMutableAttributedString that we'll append everything to
+        let fullString = NSMutableAttributedString(string: "")
+        let attributedMutableCopy = attributedText.mutableCopy() as? NSMutableAttributedString ?? NSMutableAttributedString(string: "")
+        
+        let range:NSRange = NSRange(location: 0, length: attributedMutableCopy.length)
+        
+        attributedMutableCopy.addAttributes([.font:font], range: range)
+        // create our NSTextAttachment
+        let image1Attachment = NSTextAttachment()
+        let font = AppFonts.SemiBold.withSize(18)
+        image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+        image1Attachment.image = image
+        let image1String = NSAttributedString(attachment: image1Attachment)
+        fullString.append(image1String)
+        fullString.append(NSAttributedString(string: "  "))
+        fullString.append(attributedMutableCopy)
+        return fullString
+    }
+    
     // Use  it for creating an image with text(attributed string )  .It will return NSMutableattributed string.
     func getTextWithImage(startText: String, image: UIImage, endText: NSMutableAttributedString, font: UIFont) -> NSMutableAttributedString {
         // create an NSMutableAttributedString that we'll append everything to
@@ -239,7 +284,7 @@ class AppGlobals {
         image1Attachment.image = image
         
         // wrap the attachment in its own attributed string so we can append it
-        
+
         let image1String = NSAttributedString(attachment: image1Attachment)
         
         // add the NSTextAttachment wrapper to our full string, then add some more text.
@@ -283,16 +328,16 @@ class AppGlobals {
     func shareWithActivityViewController(VC: UIViewController, shareData: Any) {
         var sharingData = [Any]()
         sharingData.append(shareData)
-//        let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
-//        activityViewController.popoverPresentationController?.sourceView = VC.view
-//        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
-//        VC.present(activityViewController, animated: true, completion: nil)
+        //        let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
+        //        activityViewController.popoverPresentationController?.sourceView = VC.view
+        //        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
+        //        VC.present(activityViewController, animated: true, completion: nil)
         
         let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
         
         let fakeViewController = UIViewController()
         fakeViewController.modalPresentationStyle = .overFullScreen
-
+        
         activityViewController.completionWithItemsHandler = { [weak fakeViewController] _, _, _, _ in
             if let presentingViewController = fakeViewController?.presentingViewController {
                 presentingViewController.dismiss(animated: false, completion: nil)
@@ -303,8 +348,6 @@ class AppGlobals {
         VC.present(fakeViewController, animated: true) { [weak fakeViewController] in
             fakeViewController?.present(activityViewController, animated: true, completion: nil)
         }
-        
-    
     }
     
     ///GET TEXT SIZE
@@ -330,15 +373,15 @@ class AppGlobals {
         return blurEffectView
     }
     
-    func createParagraphAttribute(paragraphSpacingBefore: CGFloat = -2.5,isForNotes: Bool,lineSpacing : CGFloat =  0.0) -> NSParagraphStyle {
+    func createParagraphAttribute(paragraphSpacingBefore: CGFloat = -2.5,isForNotes: Bool,lineSpacing : CGFloat =  0.0, headIndent: CGFloat = 11) -> NSParagraphStyle {
         var paragraphStyle: NSMutableParagraphStyle
         paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15, options: NSDictionary() as! [NSTextTab.OptionKey: Any])]
+        paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15, options: NSDictionary() as? [NSTextTab.OptionKey: Any] ?? [:])]
         paragraphStyle.minimumLineHeight = 0
         paragraphStyle.maximumLineHeight = 0
         paragraphStyle.defaultTabInterval = 5
         paragraphStyle.firstLineHeadIndent = 0
-        paragraphStyle.headIndent = isForNotes ? 15 : 0
+        paragraphStyle.headIndent = isForNotes ? headIndent : 0
         paragraphStyle.alignment = .left
         paragraphStyle.lineSpacing = lineSpacing
         paragraphStyle.paragraphSpacingBefore = paragraphSpacingBefore
@@ -347,18 +390,28 @@ class AppGlobals {
     }
     
     func openGoogleMaps(originLat: String, originLong: String, destLat: String, destLong: String) {
-        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
-            //to show the route between source and destination uncomment the next line
-            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
-            
-            //            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
-            
+        
+        if let url = URL(string: "comgooglemaps://"), UIApplication.shared.canOpenURL(url) {
+            let urlStr = "comgooglemaps://?q=\(destLat),\(destLong)&zoom=12"
             if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         } else {
-            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
+            AppToast.default.showToastMessage(message: LocalizedString.googleMapNotInstalled.localized)
         }
+        
+        //        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
+        //            //to show the route between source and destination uncomment the next line
+        //            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
+        //
+        //            //            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
+        //
+        //            if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
+        //                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        //            }
+        //        } else {
+        //            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
+        //        }
     }
     
     func openAppleMap(originLat: String, originLong: String, destLat: String, destLong: String) {
@@ -366,11 +419,11 @@ class AppGlobals {
         //to show the route between source and destination uncomment the next line
         
         var directionURL = ""
-        if originLat.isEmpty && originLong.isEmpty {
-            directionURL = "http://maps.apple.com/?daddr=\(destLat),\(destLong)"
-        } else {
-            directionURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
-        }
+        //        if originLat.isEmpty && originLong.isEmpty {
+        directionURL = "http://maps.apple.com/?q=\(destLat),\(destLong)"
+        //        } else {
+        //            directionURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
+        //        }
         
         
         
@@ -396,21 +449,23 @@ class AppGlobals {
         //        mapItem.openInMaps(launchOptions: options)
     }
     
-    func redirectToMap(sourceView: UIView, originLat: String, originLong: String, destLat: String, destLong: String) {
+    func redirectToMap(sourceView: UIView, originLat: String, originLong: String, destLat: String, destLong: String, openMap:((_ index:Int)->())? = nil, cancelTapped: (()->())? = nil) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized, LocalizedString.GMap.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
-        //        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
-        //        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
-        _ = PKAlertController.default.presentActionSheet(LocalizedString.Choose_App.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: sourceView, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
+
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.Choose_App.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: sourceView, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: {[weak self]  _, index in
+            openMap?(index)
             if index == 0 {
                 self?.openAppleMap(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
             } else if index == 1 {
                 self?.openGoogleMaps(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
             }
+        },tappedCancelButton: {
+            cancelTapped?()
         })
     }
     
     
-    func addEventToCalender(title: String, startDate: Date, endDate: Date, notes: String = "", uniqueId: String = "") {
+    func addEventToCalender(title: String, startDate: Date, endDate: Date, location: String = "", notes: String = "", uniqueId: String = "") {
         
         let eventStore = EKEventStore()
         func addToCalendar() {
@@ -418,20 +473,21 @@ class AppGlobals {
                 
                 if granted, (error == nil) {
                     DispatchQueue.mainAsync {
-                    let eventStore = EKEventStore()
-                    let event = EKEvent(eventStore: eventStore)
-                    
-                    event.title = title
-                    event.startDate = startDate
-                    event.endDate = endDate
-                    event.notes = notes
-                    event.calendar = eventStore.defaultCalendarForNewEvents
+                        let eventStore = EKEventStore()
+                        let event = EKEvent(eventStore: eventStore)
+                        
+                        event.title = title
+                        event.startDate = startDate
+                        event.endDate = endDate
+                        event.location = location                        
+                        event.notes = notes
+                        event.calendar = eventStore.defaultCalendarForNewEvents
                         do {
                             try eventStore.save(event, span: .thisEvent)
                             AppToast.default.showToastMessage(message: LocalizedString.EventAddedToCalander.localized)
                         } catch let error as NSError {
                             AppToast.default.showToastMessage(message: LocalizedString.UnableToAddEventToCalander.localized)
-                            print("json error: \(error.localizedDescription)")
+                            printDebug("json error: \(error.localizedDescription)")
                         }
                     }
                 }
@@ -466,12 +522,12 @@ class AppGlobals {
             }
         }
         else {
-            let alertController = UIAlertController(title: "", message: "You have been restricted from using the calendar on this device without calendar access this feature wont work.", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.restrictedCalendarUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
             }
             alertController.addAction(alertActionSettings)
             alertController.addAction(alertActionCancel)
@@ -508,6 +564,21 @@ class AppGlobals {
         }
         return updatedTitle
     }
+    
+    
+    func getStringFromImage(with image : UIImage) -> NSAttributedString {
+        
+        let imageAttachment = NSTextAttachment()
+        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0) ?? UIFont.systemFont(ofSize: 18.0)
+        let iconImage = image//UIImage(named: name ) ?? UIImage()
+        imageAttachment.image = iconImage.withTintColor(AppColors.themeBlack)
+        
+        let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
+        imageAttachment.bounds = CGRect(x: CGFloat(0.0), y: CGFloat(yCordinate) , width: iconImage.size.width, height: iconImage.size.height )
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        return imageString
+    }
+    
 }
 
 //MARK: - Project Used Extensions
@@ -515,9 +586,9 @@ class AppGlobals {
 extension Double {
     var amountInDelimeterWithSymbol: String {
         if self < 0 {
-            return "- \(abs(self.roundTo(places: 0)).delimiterWithSymbolTill2Places)"
+            return "- \(abs(self.roundTo(places: 2)).delimiterWithSymbolTill2Places)".replacingOccurrences(of: ".00", with: "")
         } else {
-            return "\(self.roundTo(places: 0).delimiterWithSymbolTill2Places)"
+            return "\(self.roundTo(places: 2).delimiterWithSymbolTill2Places)".replacingOccurrences(of: ".00", with: "")
         }
     }
     
@@ -536,6 +607,75 @@ extension Double {
             return "\(Int(self))"
         }
     }
+    
+    
+    var amountInDelimeterWithoutSymbol: String {
+        if self < 0 {
+            return "- \(abs(self.roundTo(places: 2)).delimiterWithoutSymbol)".replacingOccurrences(of: ".00", with: "")
+        } else {
+            return "\(self.roundTo(places: 2).delimiterWithoutSymbol)".replacingOccurrences(of: ".00", with: "")
+        }
+    }
+    
+    func  getConvertedAmount(using font: UIFont)->NSMutableAttributedString{
+        
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * (CurrencyControler.shared.selectedCurrency.rate )).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }
+        
+        
+    }
+    
+    func  getConvertedCancellationAmount(using font: UIFont)->NSMutableAttributedString{
+        
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * (CurrencyControler.shared.selectedCurrency.cancellation_rate)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }
+
+    }
+    
+    var getPriceStringWithCurrency:String{
+        getConvertedAmount(using: AppFonts.Regular.withSize(16)).string
+    }
+    
+    var getCancellationPriceStringWithCurrency:String{
+        getConvertedCancellationAmount(using: AppFonts.Regular.withSize(16)).string
+    }
+    
+    
+    ///For Post Bookings And Account section
+    func convertAmount(with rate:CurrencyConversionRate, using font: UIFont)->NSMutableAttributedString{
+        let symbol = Currencies.getCurrencySymbol(currencyCode: rate.currencyCode)
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * rate.rate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }
+        
+    }
+    
+    ///For Post Bookings cancellation
+    func convertCancellationAmount(with rate:CurrencyConversionRate, using font: UIFont)->NSMutableAttributedString{
+        let symbol = Currencies.getCurrencySymbol(currencyCode: rate.currencyCode)
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * rate.cancellationRate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }
+        
+    }
+    
+    ///For Post Bookings And Account section
+    func getTextWithChangedCurrency(with currencyCode: String, using font: UIFont)->NSMutableAttributedString{
+        let symbol = Currencies.getCurrencySymbol(currencyCode: currencyCode)
+        return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+    }
+    
+    
 }
 
 extension AppGlobals {
@@ -588,33 +728,90 @@ extension AppGlobals {
         }
     }
     
-    func viewPdf(urlPath: String, screenTitle: String) {
+    func viewPdf(urlPath: String, screenTitle: String, showLoader: Bool = true, complition: ((Bool) -> Void)? = nil) {
         //open pdf for booking id
         
         guard AppNetworking.isConnectedToNetwork else {
             AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+            complition?(true)
             return
         }
         
         guard let url = urlPath.toUrl else {
             printDebug("Please pass valid url")
+            complition?(true)
             return
         }
-        
-        AppGlobals.shared.startLoading()
+        if showLoader {
+            AppGlobals.shared.startLoading()
+        }
         self.downloadPdf(fileURL: url, screenTitle: screenTitle) { localPdf in
             if let url = localPdf {
-                
                 DispatchQueue.mainSync {
-                    AppGlobals.shared.stopLoading()
+                    
                     AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
+                    if showLoader {
+                        //                        delay(seconds: 2) {
+                        AppGlobals.shared.stopLoading()
+                        //                        }
+                    }
+                    delay(seconds: 1.5) {
+                        complition?(true)
+                    }
                 }
             }
         }
     }
     
+    func downloadWallet(fileURL: URL, showLoader: Bool = true, complition: @escaping ((URL?) -> Void)) {
+        // Create destination URL
+        if let documentsUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            if showLoader {
+                AppGlobals.shared.startLoading()
+            }
+            let destinationFileUrl = documentsUrl.appendingPathComponent("\("bording").pkpass")
+            
+            if FileManager.default.fileExists(atPath: destinationFileUrl.path) {
+                try? FileManager.default.removeItem(at: destinationFileUrl)
+            }
+            
+            let sessionConfig = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfig)
+            
+            let request = URLRequest(url: fileURL)
+            
+            let task = session.downloadTask(with: request) { tempLocalUrl, response, error in
+                if showLoader {
+                    delay(seconds: 5) {
+                        AppGlobals.shared.stopLoading()
+                    }
+                }
+                if let tempLocalUrl = tempLocalUrl, error == nil {
+                    // Success
+                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                        printDebug("Successfully downloaded. Status code: \(statusCode)")
+                    }
+                    
+                    do {
+                        try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                        complition(destinationFileUrl)
+                    } catch let writeError {
+                        printDebug("Error creating a file \(destinationFileUrl) : \(writeError)")
+                    }
+                    
+                } else {
+                    printDebug("Error took place while downloading a file. Error description: \(error?.localizedDescription ?? "N/A")")
+                }
+            }
+            task.resume()
+        } else {
+            complition(nil)
+        }
+    }
+    
     func getAirlineCodeImageUrl(code: String) -> String {
-        return "https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
+        return "\(AppKeys.airlineMasterBaseUrl)\(code.uppercased()).png"
+        //"https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
     }
     
     func getBlurView(forView: UIView, isDark: Bool) -> UIVisualEffectView {
@@ -634,11 +831,47 @@ extension AppGlobals {
         }
     }
     
-     func getAttributedBoldText(text: String, boldText: String,color: UIColor = AppColors.themeBlack) -> NSMutableAttributedString {
+    func getAttributedBoldText(text: String, boldText: String,color: UIColor = AppColors.themeBlack) -> NSMutableAttributedString {
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), .foregroundColor: color])
         
         attString.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (text as NSString).range(of: boldText))
         return attString
+    }
+    
+    func AttributedBackgroundColorForText(text : String, textColor : UIColor) -> NSMutableAttributedString {
+        let main_string = text as NSString
+        let range = main_string.range(of: text)
+        var  attribute = NSMutableAttributedString.init(string: main_string as String)
+        
+        attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: textColor , range: range)
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        return attribute
+    }
+    
+    func AttributedFontAndColorForText(text: String, atributedText : String, textFont : UIFont, textColor : UIColor) -> NSAttributedString {
+        
+        let labelString = text
+        
+        let main_string = labelString as NSString
+        //let range = main_string.range(of: atributedText)
+        
+        let  attribute = NSMutableAttributedString.init(string: main_string as String)
+        
+        
+        
+        if let regularExpression = try? NSRegularExpression(pattern: atributedText, options: .caseInsensitive) {
+            let matchedResults = regularExpression.matches(in: labelString, options: [], range: NSRange(location: 0, length: labelString.count))
+            for matched in matchedResults {
+                attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor , range: matched.range)
+                
+                attribute.addAttribute(NSAttributedString.Key.font, value: textFont , range: matched.range)
+                
+            }
+        }
+        
+        
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        return attribute
     }
 }
 
@@ -726,7 +959,7 @@ extension AppGlobals {
 
 extension AppGlobals {
     func getEmojiIcon(dob: String,salutation: String,dateFormatter: String) -> UIImage {
-        var emoji = UIImage(named: "person")
+        var emoji:UIImage? = AppImages.person
         var age = -1
         var day = -1
         var year = false
@@ -741,84 +974,84 @@ extension AppGlobals {
         switch (salutation) {
         case "Mr","Mr.", "Mast","Mast.":
             if (age == -1) {
-                emoji = UIImage(named: "man")
+                emoji = AppImages.man
             } else {
                 if (year) {
                     if (age > 12) {
-                        emoji = UIImage(named: "man")
+                        emoji = AppImages.man
                     } else if (age > 2) {
-                        emoji = UIImage(named: "boy")
+                        emoji = AppImages.boy
                     }else {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     }
                 } else {
                     if (day > 0) {
-                      emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     } else {
-                        emoji = UIImage(named: "man")
+                        emoji = AppImages.man
                     }
                     
                 }
             }
         case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
             if (age == -1) {
-                emoji = UIImage(named: "woman")
+                emoji = AppImages.woman
             } else {
                 if (year) {
                     if (age > 12) {
-                        emoji = UIImage(named: "woman")
+                        emoji = AppImages.woman
                     } else if (age > 2) {
-                        emoji = UIImage(named: "girl")
+                        emoji = AppImages.girl
                     }else {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     }
                 } else {
                     if (day > 0) {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     } else {
-                        emoji = UIImage(named: "woman")
+                        emoji = AppImages.woman
                     }
                 }
             }
         default:
-            emoji = UIImage(named: "person")
+            emoji = AppImages.person
         }
-        return emoji!
+        return emoji ?? UIImage()
     }
     
     func getEmojiIconFromAge(ageString: String,salutation: String) -> UIImage {
-        var emoji = UIImage(named: "person")
+        var emoji:UIImage? = AppImages.person
         
         let age = Int(ageString) ?? 0
         switch (salutation) {
         case "Mr","Mr.", "Mast","Mast.":
             if (age <= 0) {
-                emoji = UIImage(named: "man")
+                emoji = AppImages.man
             } else {
-                    if (age > 12) {
-                        emoji = UIImage(named: "man")
-                    } else if (age > 2) {
-                        emoji = UIImage(named: "boy")
-                    }else {
-                        emoji = UIImage(named: "infant")
-                    }
+                if (age > 12) {
+                    emoji = AppImages.man
+                } else if (age > 2) {
+                    emoji = AppImages.boy
+                }else {
+                    emoji = AppImages.infant
+                }
             }
         case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
             if (age <= 0) {
-                emoji = UIImage(named: "woman")
+                emoji = AppImages.woman
             } else {
-                    if (age > 12) {
-                        emoji = UIImage(named: "woman")
-                    } else if (age > 2) {
-                        emoji = UIImage(named: "girl")
-                    }else {
-                        emoji = UIImage(named: "infant")
-                    }
+                if (age > 12) {
+                    emoji = AppImages.woman
+                } else if (age > 2) {
+                    emoji = AppImages.girl
+                }else {
+                    emoji = AppImages.infant
+                }
             }
         default:
-            emoji = UIImage(named: "person")
+            emoji = AppImages.person
         }
-        return emoji!
+        return emoji ?? UIImage()
     }
     
     //get Age Last String Based on DOB
@@ -884,4 +1117,7 @@ extension AppGlobals {
 }
 
 
+var statusBarHeight : CGFloat {
+    return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+}
 

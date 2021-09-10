@@ -28,7 +28,9 @@ struct TravelDetailModel {
     var imageSource: String = ""
     var notes: String = ""
     var passportCountryName: String = ""
+    var userTag:String = ""
     var frequestFlyer : [FrequentFlyer]
+    var has_password: Bool = false
     
     init() {
         let json = JSON()
@@ -56,6 +58,8 @@ struct TravelDetailModel {
         let cntryName = json["passport_country_name"].stringValue.removeNull
         self.passportCountryName = cntryName.isEmpty ? self.passportCountry : cntryName
         self.frequestFlyer = FrequentFlyer.retunsFrequentFlyerArray(jsonArr: json["ff"].arrayValue)
+        self.has_password = json["has_password"].boolValue
+        self.userTag = json[APIKeys.userTag.rawValue].stringValue
     }
 }
 
@@ -70,6 +74,7 @@ struct Address {
     var country: String = ""
     var postalCode: String = ""
     var countryName:String = ""
+    var isDuplicate = false
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -225,6 +230,7 @@ struct Email {
     var type: String = ""
     var label: String = ""
     var value: String = ""
+    var isDuplicate = false
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -236,6 +242,11 @@ struct Email {
     init() {
         let json = JSON()
         self.init(json: json)
+    }
+    
+    init(label: String, value: String) {
+        self.label = label
+        self.value = value
     }
     
     init(json: JSON) {
@@ -263,8 +274,11 @@ struct Mobile {
     var label: String = ""
     var value: String = ""
     var isd: String = ""
+    var minValidation: Int = 10
+    var maxValidation: Int = 10
     var isValide: Bool = false
     var mobileFormatted: String = ""
+    var isDuplicate:Bool = false
     var valueWithISD: String {
         if !self.value.isEmpty {
             return "\(self.isd) \(self.value)"
@@ -288,6 +302,11 @@ struct Mobile {
         self.init(json: json)
     }
     
+    init(label: String, value: String) {
+        self.label = label
+        self.value = value
+    }
+    
     init(json: JSON) {
         self.id = json["id"].intValue
         self.type = json["type"].stringValue.removeNull
@@ -300,6 +319,9 @@ struct Mobile {
             self.isd = LocalizedString.IndiaIsdCode.localized
         }
         self.mobileFormatted = json["mobile_formatted"].stringValue.removeNull
+        let maxVal = json["maxValidation"].intValue
+        self.minValidation = maxVal == 0 ? 10 : json["minValidation"].intValue
+        self.maxValidation = maxVal == 0 ? 10 : maxVal
     }
     
     static func retunsMobileArray(jsonArr:[JSON]) -> [Mobile] {
@@ -318,6 +340,7 @@ struct Social {
     var type : String = ""
     var label : String = ""
     var value : String = ""
+    var isDuplicate = false
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -414,7 +437,8 @@ struct FrequentFlyer {
     var airlineCode : String = ""
     var airlineName : String = ""
     var logoUrl : String = ""
-    
+    var program: String = ""
+    var isDuplicate = false
     
     var jsonDict: [String:Any] {
         return ["id":self.id,

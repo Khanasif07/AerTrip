@@ -15,7 +15,7 @@ protocol HCSelectGuestsVMDelegate: class {
     
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
-    
+    func update(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
     // func reloadTable(for usingFor: HCGuestListVC.UsingFor)
 }
 
@@ -83,6 +83,9 @@ class HCSelectGuestsVM: NSObject {
             }
         }
     }
+    //Added to check total count in case of flight and hotel
+    var totalGuestCount:Int = 0
+    var productType:ProductType = .hotel
     
     var isPhoneContactsAllowed: Bool = false
     var isFacebookContactsAllowed: Bool = false
@@ -115,15 +118,29 @@ class HCSelectGuestsVM: NSObject {
         self.phoneContacts = self._phoneContacts
         self.facebookContacts = self._facebookContacts
         self.googleContacts = self._googleContacts
+        
+       // self.totalGuestCount = 0
+    }
+    
+    func clearAllSelectedData() {
         self.selectedTravellerContacts.removeAll()
         self.selectedPhoneContacts.removeAll()
         self.selectedFacebookContacts.removeAll()
         self.selectedGoogleContacts.removeAll()
+        self.totalGuestCount = 0
     }
     
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
         self.delegateList?.add(atIndex: index, for: usingFor)
         self.delegateCollection?.add(atIndex: index, for: usingFor)
+        if let obj = self.delegateCollection as? BaseVC {
+            obj.sendDataChangedNotification(data: Notification.selectionChanged)
+        }
+    }
+    
+    func update(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
+        self.delegateList?.update(atIndex: index, for: usingFor)
+        self.delegateCollection?.update(atIndex: index, for: usingFor)
         if let obj = self.delegateCollection as? BaseVC {
             obj.sendDataChangedNotification(data: Notification.selectionChanged)
         }
@@ -207,7 +224,7 @@ class HCSelectGuestsVM: NSObject {
     func fetchFacebookContacts(forVC: UIViewController,sender: ATButton? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
-        FacebookController.shared.facebookLogout()
+//        FacebookController.shared.facebookLogout()
         FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
                 if let obj = self?.delegateCollection as? BaseVC {

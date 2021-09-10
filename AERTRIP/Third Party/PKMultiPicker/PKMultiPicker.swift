@@ -10,19 +10,41 @@ import UIKit
 class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     internal typealias PickerDone = (_ firstValue: String, _ secondValue: String) -> Void
-    private var doneBlock : PickerDone!
+    
+    internal typealias PickerDoneWithIndex = (_ firstValue: Int?, _ secondValue: Int?) -> Void
+
+    
+    private var doneBlock : PickerDone?
+    
+    private var doneBlockWithIndex : PickerDoneWithIndex?
+
     
     private var firstValueArray : [String]?
     private var secondValueArray = [String]()
     static var noOfComponent = 2
     
+    deinit {
+        printDebug("deinit PKMultiPicker")
+        doneBlock = nil
+        self.removeFromSuperview()
+    }
     
-    class func openMultiPickerIn(_ textField: UITextField? , firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, titles: [String]?, toolBarTint: UIColor = UIColor.black, doneBlock: @escaping PickerDone) {
+    class func openMultiPickerIn(_ textField: UITextField?,
+                                 firstComponentArray: [String],
+                                 secondComponentArray: [String],
+                                 firstComponent: String?,
+                                 secondComponent: String?,
+                                 titles: [String]?,
+                                 toolBarTint: UIColor = UIColor.black,
+                                 barTintColor: UIColor = AppColors.secondarySystemFillColor,
+                                 backgroundColor: UIColor = AppColors.quaternarySystemFillColor,
+                                 doneBlock: @escaping PickerDone,
+                                 doneWithIndex : PickerDoneWithIndex? = nil) {
         
         let picker = PKMultiPicker()
         picker.doneBlock = doneBlock
-        
-        picker.openPickerInTextField(textField, firstComponentArray: firstComponentArray, secondComponentArray: secondComponentArray, firstComponent: firstComponent, secondComponent: secondComponent, toolBarTint: toolBarTint)
+        picker.doneBlockWithIndex = doneWithIndex
+        picker.openPickerInTextField(textField, firstComponentArray: firstComponentArray, secondComponentArray: secondComponentArray, firstComponent: firstComponent, secondComponent: secondComponent, toolBarTint: toolBarTint, barTintColor: barTintColor, backgroundColor: backgroundColor)
         
         if titles != nil {
             let label = UILabel(frame: CGRect(x: UIScreen.main.bounds.size.width/4 - 10, y: 0, width: 100, height: 30))
@@ -42,7 +64,14 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         }
     }
     
-    private func openPickerInTextField(_ textField: UITextField?, firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, toolBarTint: UIColor = UIColor.black) {
+    private func openPickerInTextField(_ textField: UITextField?,
+                                       firstComponentArray: [String],
+                                       secondComponentArray: [String],
+                                       firstComponent: String?,
+                                       secondComponent: String?,
+                                       toolBarTint: UIColor = UIColor.black,
+                                       barTintColor: UIColor = AppColors.secondarySystemFillColor,
+                                       backgroundColor: UIColor = AppColors.quaternarySystemFillColor) {
         
         firstValueArray  = firstComponentArray
         secondValueArray = secondComponentArray
@@ -51,8 +80,8 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         self.dataSource = self
         
      
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(pickerCancelButtonTapped))
-        cancelButton.tintColor = toolBarTint
+//        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(pickerCancelButtonTapped))
+//        cancelButton.tintColor = toolBarTint
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(pickerDoneButtonTapped))
         doneButton.tintColor = toolBarTint
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action:nil)
@@ -63,14 +92,14 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         toolbar.setItems(array, animated: true)
         
         toolbar.backgroundColor = .clear
-        toolbar.barTintColor = AppColors.secondarySystemFillColor
+        toolbar.barTintColor = barTintColor
         
         let genericPickerView: UIView = UIView()
         let pickerSize: CGSize = UIPickerView.pickerSize
         self.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
         genericPickerView.addSubview(self)
         genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
-        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
+        genericPickerView.backgroundColor = backgroundColor
         //genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         
         
@@ -113,7 +142,9 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
             index2 = self.selectedRow(inComponent: 1)
             secondValue = secondValueArray[index2]
         }
-        self.doneBlock((firstValue ?? ""), (secondValue ?? ""))
+        
+        self.doneBlockWithIndex?(index1,index2)
+        self.doneBlock?((firstValue ?? ""), (secondValue ?? ""))
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -147,6 +178,10 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
     }
 }
 
+enum DatePickerError{
+    case maxExceed
+    case minExceed
+}
 
 class PKDatePicker: UIDatePicker {
     
@@ -156,7 +191,7 @@ class PKDatePicker: UIDatePicker {
     }
     
     internal typealias PickerDone = (_ selection: String) -> Void
-    private var doneBlock: PickerDone!
+    private var doneBlock: PickerDone?
     private var datePickerFormat: String = ""
     private var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
@@ -167,6 +202,19 @@ class PKDatePicker: UIDatePicker {
         return dateFormatter
     }
     
+    //Picker with error in case of flight passenger details.
+    internal typealias PickerDoneWithError = (_ selection: String, _ isError:Bool, _ errorType:DatePickerError?) -> Void
+    private var doneBlockWithError: PickerDoneWithError?
+    private var minDate:Date?
+    private var maxDate:Date?
+    private var isErroType:Bool = false
+    
+    
+    deinit {
+        printDebug("deinit PKDatePicker")
+        doneBlock = nil
+        self.removeFromSuperview()
+    }
     
     class func openDatePickerIn(_ textField: UITextField?, outPutFormate: String, mode: UIDatePicker.Mode, minimumDate: Date? = nil, maximumDate: Date? = nil, minuteInterval: Int = 1, selectedDate: Date?, appearance: Appearance = .light, toolBarTint: UIColor? = nil, doneBlock: @escaping PickerDone) {
         
@@ -175,7 +223,12 @@ class PKDatePicker: UIDatePicker {
         picker.datePickerFormat = outPutFormate
         picker.datePickerMode = mode
         picker.dateFormatter.dateFormat = outPutFormate
-        
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
+
         if let sDate = selectedDate {
             picker.setDate(sDate, animated: false)
         }
@@ -199,6 +252,45 @@ class PKDatePicker: UIDatePicker {
         picker.openDatePickerInTextField(textField, appearance: appearance, toolBarTint: toolBarTint)
     }
     
+    class func openDatePickerWithError(_ textField: UITextField?, outPutFormate: String, mode: UIDatePicker.Mode, minimumDate: Date? = nil, maximumDate: Date? = nil, minuteInterval: Int = 1, selectedDate: Date?, appearance: Appearance = .light, toolBarTint: UIColor? = nil, doneBlock: @escaping PickerDoneWithError) {
+        
+        let picker = PKDatePicker()
+        picker.doneBlockWithError = doneBlock
+        picker.datePickerFormat = outPutFormate
+        picker.datePickerMode = mode
+        picker.isErroType = true
+        picker.dateFormatter.dateFormat = outPutFormate
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
+
+        if let sDate = selectedDate {
+            picker.setDate(sDate, animated: false)
+        }
+        picker.minuteInterval = minuteInterval
+        
+        if let minDate = minimumDate, mode == .time {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMM yyyy"
+            let today = dateFormatter.string(from: Date())
+            let minDay = dateFormatter.string(from: minDate)
+            picker.minDate = today.lowercased() == minDay.lowercased() ? Date() : minDate
+//            picker.minimumDate = today.lowercased() == minDay.lowercased() ? Date() : minDate
+        }
+        else {
+            picker.minDate = minimumDate
+//            picker.minimumDate = minimumDate
+        }
+        
+//        picker.maximumDate = maximumDate
+        picker.maxDate = maximumDate
+        
+        picker.openDatePickerInTextField(textField, appearance: appearance, toolBarTint: toolBarTint)
+    }
+    
     private func openDatePickerInTextField(_ textField: UITextField?, appearance: Appearance = .light, toolBarTint: UIColor? = nil) {
 
         if let text = textField?.text, !text.isEmpty, let selDate = self.dateFormatter.date(from: text) {
@@ -217,25 +309,25 @@ class PKDatePicker: UIDatePicker {
         toolbar.sizeToFit()
         
 //        if appearance == .dark {
-//            self.backgroundColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-//            self.setValue(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
-//            toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-//            cancelButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-//            doneButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//            self.backgroundColor = UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+//            self.setValue(UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
+//            toolbar.barTintColor = UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+//            cancelButton.tintColor = toolBarTint ?? UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//            doneButton.tintColor = toolBarTint ?? UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
 //        }
 //        else {
-//            self.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-            self.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
-//            toolbar.barTintColor = #colorLiteral(red: 0.9215686275, green: 0.9215686275, blue: 0.9215686275, alpha: 1)
-//            cancelButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-//            doneButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+//            self.backgroundColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+            self.setValue(AppColors.datePickerText, forKey: "textColor")
+//            toolbar.barTintColor = UIColor(displayP3Red: 0.9215686275, green: 0.9215686275, blue: 0.9215686275, alpha: 1)
+//            cancelButton.tintColor = toolBarTint ?? UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+//            doneButton.tintColor = toolBarTint ?? UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
 //        }
         
         let array = [spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
         
         toolbar.backgroundColor = .clear
-        toolbar.barTintColor = AppColors.secondarySystemFillColor
+        toolbar.barTintColor = AppColors.datePickerToolbarColor
         
         let genericPickerView: UIView = UIView()
         let pickerSize: CGSize = UIPickerView.pickerSize
@@ -251,9 +343,26 @@ class PKDatePicker: UIDatePicker {
     }
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
-        let selected = self.dateFormatter.string(from: sender.date)
-
-        self.doneBlock(selected)
+        var selected = self.dateFormatter.string(from: sender.date)
+        if self.isErroType{
+            var isError:Bool = false
+            var errorType:DatePickerError? = nil
+            if let mxDate = self.maxDate,  (sender.date > mxDate){
+                isError = true
+                errorType = .maxExceed
+                sender.setDate(mxDate, animated: true)
+                selected = self.dateFormatter.string(from: mxDate)
+            }else if let mnDate = self.minDate, (mnDate > sender.date){
+                isError = true
+                errorType = .minExceed
+                sender.setDate(mnDate, animated: true)
+                selected = self.dateFormatter.string(from: mnDate)
+            }
+            
+            self.doneBlockWithError?(selected,isError, errorType)
+            return
+        }
+        self.doneBlock?(selected)
     }
     
     @IBAction private func pickerCancelButtonTapped(){
@@ -264,7 +373,23 @@ class PKDatePicker: UIDatePicker {
         UIApplication.shared.keyWindow?.endEditing(true)
         
         let selected = self.dateFormatter.string(from: self.date)
+        if self.isErroType{
+            var isError:Bool = false
+            var errorType:DatePickerError? = nil
+            if let mxDate = self.maxDate,  (self.date > mxDate){
+                isError = true
+                errorType = .maxExceed
+                self.setDate(mxDate, animated: true)
+            }else if let mnDate = self.minDate, (mnDate > self.date){
+                isError = true
+                errorType = .minExceed
+                self.setDate(mnDate, animated: true)
+            }
+            
+            self.doneBlockWithError?(selected,isError, errorType)
+            return
+        }
         
-        self.doneBlock(selected)
+        self.doneBlock?(selected)
     }
 }

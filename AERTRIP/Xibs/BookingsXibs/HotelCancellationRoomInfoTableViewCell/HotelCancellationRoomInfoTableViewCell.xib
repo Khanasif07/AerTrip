@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,7 +34,7 @@
                                             <constraint firstAttribute="height" constant="44" id="Fwe-k1-9QJ"/>
                                             <constraint firstAttribute="width" constant="56" id="qlb-VQ-Mi2"/>
                                         </constraints>
-                                        <state key="normal" image="untick"/>
+                                        <state key="normal" image="UncheckedGreenRadioButton"/>
                                         <connections>
                                             <action selector="selectRoomButtonAction:" destination="OEp-Xj-yi4" eventType="touchUpInside" id="NA8-gc-RtD"/>
                                         </connections>
@@ -66,7 +66,7 @@
                                             <constraint firstAttribute="bottom" secondItem="NnA-m8-WrQ" secondAttribute="bottom" id="syJ-V0-0bh"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXq-fk-blA">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXq-fk-blA">
                                         <rect key="frame" x="56" y="7" width="319" height="46"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal">
@@ -77,7 +77,7 @@
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="YEa-Pk-3WJ">
-                                        <rect key="frame" x="335" y="0.0" width="40" height="40"/>
+                                        <rect key="frame" x="335" y="10" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="L9C-j3-zJY"/>
                                             <constraint firstAttribute="width" secondItem="YEa-Pk-3WJ" secondAttribute="height" multiplier="1:1" id="hmq-hh-GQv"/>
@@ -93,12 +93,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="YEa-Pk-3WJ" firstAttribute="top" secondItem="VUX-8z-fX7" secondAttribute="top" id="2l6-U1-Zd5"/>
                                     <constraint firstItem="YDu-fg-DcC" firstAttribute="top" secondItem="VUX-8z-fX7" secondAttribute="top" constant="8" id="4Mx-xv-ITW"/>
                                     <constraint firstItem="85e-tG-Lf9" firstAttribute="top" secondItem="VUX-8z-fX7" secondAttribute="top" constant="7" id="AKm-zq-nuU"/>
                                     <constraint firstItem="gXq-fk-blA" firstAttribute="top" secondItem="85e-tG-Lf9" secondAttribute="top" id="EQv-7Q-kvZ"/>
                                     <constraint firstAttribute="trailing" secondItem="Gmr-ct-IxM" secondAttribute="trailing" id="HDo-CF-ikD"/>
                                     <constraint firstItem="Gmr-ct-IxM" firstAttribute="top" secondItem="85e-tG-Lf9" secondAttribute="bottom" constant="7" id="Pvw-bk-e5F"/>
+                                    <constraint firstItem="YEa-Pk-3WJ" firstAttribute="centerY" secondItem="85e-tG-Lf9" secondAttribute="centerY" id="QZ3-8O-J61"/>
                                     <constraint firstItem="Gmr-ct-IxM" firstAttribute="leading" secondItem="VUX-8z-fX7" secondAttribute="leading" constant="63" id="Reb-kM-6Nv"/>
                                     <constraint firstItem="gXq-fk-blA" firstAttribute="bottom" secondItem="85e-tG-Lf9" secondAttribute="bottom" id="Wj9-Rp-cld"/>
                                     <constraint firstItem="gXq-fk-blA" firstAttribute="trailing" secondItem="YEa-Pk-3WJ" secondAttribute="trailing" id="Y6a-t6-f6i"/>
@@ -146,7 +146,7 @@ Mr. Clifford Hudson</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQB-BK-1ma" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="63" y="368.5" width="312" height="0.5"/>
+                                <rect key="frame" x="56" y="368.5" width="319" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="cHV-sI-e1F"/>
@@ -162,9 +162,9 @@ Mr. Clifford Hudson</string>
                             <constraint firstAttribute="trailing" secondItem="ynp-Js-4Gm" secondAttribute="trailing" id="I7n-wS-jwJ"/>
                             <constraint firstAttribute="trailing" secondItem="mQB-BK-1ma" secondAttribute="trailing" id="K7W-hj-IjW"/>
                             <constraint firstItem="ynp-Js-4Gm" firstAttribute="leading" secondItem="ctC-jY-hPI" secondAttribute="leading" constant="56" id="Mol-b9-Oqp"/>
-                            <constraint firstItem="mQB-BK-1ma" firstAttribute="top" secondItem="ynp-Js-4Gm" secondAttribute="bottom" id="RXu-CR-Drz"/>
                             <constraint firstItem="VUX-8z-fX7" firstAttribute="top" secondItem="ctC-jY-hPI" secondAttribute="top" id="cnW-ph-OgN"/>
-                            <constraint firstItem="mQB-BK-1ma" firstAttribute="leading" secondItem="ctC-jY-hPI" secondAttribute="leading" constant="63" id="vaj-5n-Fcz"/>
+                            <constraint firstAttribute="bottom" secondItem="ynp-Js-4Gm" secondAttribute="bottom" constant="0.5" id="eob-gW-VfB"/>
+                            <constraint firstItem="mQB-BK-1ma" firstAttribute="leading" secondItem="ctC-jY-hPI" secondAttribute="leading" constant="56" id="vaj-5n-Fcz"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -183,10 +183,13 @@ Mr. Clifford Hudson</string>
                 <outlet property="chargesCollectionView" destination="vQp-g8-NVK" id="BMu-6l-r3o"/>
                 <outlet property="containerView" destination="ctC-jY-hPI" id="H4j-r0-Iwk"/>
                 <outlet property="guestNamesLabel" destination="sw9-Bp-Gev" id="MWu-NE-6vE"/>
+                <outlet property="headerView" destination="VUX-8z-fX7" id="hjh-9a-Hzm"/>
+                <outlet property="nameAndChargesView" destination="ynp-Js-4Gm" id="k3H-1r-iVl"/>
                 <outlet property="rightArrowImageView" destination="YEa-Pk-3WJ" id="k03-Eq-qq7"/>
                 <outlet property="roomNameLabel" destination="NnA-m8-WrQ" id="6Cz-Ff-R0y"/>
                 <outlet property="roomNumberLabel" destination="zvs-3B-t8I" id="gfD-fr-Kkv"/>
                 <outlet property="selectRoomButtonOutlet" destination="YDu-fg-DcC" id="ybU-Ku-i1h"/>
+                <outlet property="titleView" destination="85e-tG-Lf9" id="s4u-Jw-352"/>
                 <outlet property="topDividerView" destination="Gmr-ct-IxM" id="KER-u2-BXQ"/>
                 <outlet property="topDividerViewLeadingConstraint" destination="Reb-kM-6Nv" id="Pbx-BZ-b4h"/>
             </connections>
@@ -194,7 +197,7 @@ Mr. Clifford Hudson</string>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="UncheckedGreenRadioButton" width="22" height="22"/>
         <image name="rightArrow" width="40" height="44"/>
-        <image name="untick" width="22" height="22"/>
     </resources>
 </document>

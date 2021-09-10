@@ -35,18 +35,18 @@ extension Array where Element : Equatable {
     }
     
     ///Returns a sub array within the range
-    subscript(range: Range<Int>) -> Array {
-        
-        var array = Array<Element>()
-
-        let min = range.lowerBound
-        let max = range.upperBound
-        
-        for i in min..<max {
-            array = array+[self[i]]
-        }
-        return array
-    }
+//    subscript(range: Range<Int>) -> Array {
+//
+//        var array = Array<Element>()
+//
+//        let min = range.lowerBound
+//        let max = range.upperBound
+//
+//        for i in min..<max {
+//            array = array+[self[i]]
+//        }
+//        return array
+//    }
 }
 extension Array where Element: Copying {
     func clone() -> Array {
@@ -82,11 +82,11 @@ extension Array where Element: Equatable {
 
 }
 
-extension Array {
-    subscript (safe index: Int) -> Element? {
-        return indices ~= index ? self[index] : nil
-    }
-}
+//extension Array {
+//    subscript (safe index: Int) -> Element? {
+//        return indices ~= index ? self[index] : nil
+//    }
+//}
 
 extension Array {
     func toJson() -> String? {
@@ -131,4 +131,36 @@ extension Array {
     public func joined(separator: String = "") -> String {
         return self.reduce("") { $0 + ("\($0)".isEmpty ? "\($1)" : "\(separator)\($1)") }
     }
+}
+
+extension Array where Element:Equatable {
+    func removeDuplicates() -> [Element] {
+        var result = [Element]()
+
+        for value in self {
+            if result.contains(value) == false {
+                result.append(value)
+            }
+        }
+
+        return result
+    }
+}
+
+
+extension Array {
+    
+    subscript(safe index: Index) -> Element? {
+        let isValidIndex = index >= 0 && index < count
+        return isValidIndex ? self[index] : nil
+    }
+    
+}
+
+extension Collection {
+    
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+    
 }

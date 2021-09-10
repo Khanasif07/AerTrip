@@ -28,7 +28,9 @@ class AppStoreAnimationCollectionCell: UICollectionViewCell,TransitionCellTypeDe
         animate(isHighlighted: false)
     }
     
-    
+    func disApprearPresetedView(){
+        
+    }
     func animate(isHighlighted: Bool, completion: ((Bool) -> Void)?=nil) {
         if disabledHighlightedAnimation { return }
         let animationOptions: UIView.AnimationOptions =  []

@@ -37,10 +37,10 @@ public class BookingData: NSManagedObject {
         
         // Function set product Type
         func setProductType(productType: String) -> Int {
-            if productType == "flight" {
+            if productType.lowercased() == "flight" {
                 booking?.eventType = 1
                 return 1
-            } else if productType == "hotel" {
+            } else if productType.lowercased() == "hotel" {
                 booking?.eventType = 2
                 return 2
             } else  {
@@ -64,8 +64,9 @@ public class BookingData: NSManagedObject {
             booking?.bookingStatus = "\(obj)".removeNull
         }
         
-        
+        /*
         //for seting the steps array anf pending status
+        
         func setStepsArrayAndPendingStatus(forData: JSONDictionary) {
             
             var steps: [String] = []
@@ -109,21 +110,26 @@ public class BookingData: NSManagedObject {
                 }
             }
             
-            booking?.stepsArray = steps
-            booking?.stepsArrayStr = (booking?.stepsArray ?? [String]()).joined(separator: ",")
+           // booking?.stepsArray = steps
+           // booking?.stepsArrayStr = (booking?.stepsArray ?? [String]()).joined(separator: ",")
         }
+    
         
         if let obj = dataDict[APIKeys.requests.rawValue] as? JSONDictionary {
             booking?.requests = obj
-            setStepsArrayAndPendingStatus(forData: obj)
+            //setStepsArrayAndPendingStatus(forData: obj)
         }
+        */
         
         if let obj = dataDict[APIKeys.description.rawValue] as? [String] {
             booking?.descriptions = obj
+            booking?.stepsArray = obj
+            booking?.stepsArrayStr = (booking?.stepsArray ?? [String]()).joined(separator: ",")
         }
         
         if let obj = dataDict[APIKeys.action_required.rawValue] as? Int {
             booking?.actionRequired = Int16(obj)
+            booking?.isContainsPending = Int16(obj)
         }
         
         // function to get Set Booking Type
@@ -175,6 +181,12 @@ public class BookingData: NSManagedObject {
             if let date = obj["event_start_date"] as? String, let endDate = obj["event_end_date"] as? String ,let status = booking?.bookingStatus {
                 booking?.bookingTabType = bookingType(forDate: date, date: endDate, bstatus: status)
             }
+            //Searched By Flight number
+//            booking?.flightNumbers = (obj["flight_number"] as? [String])?.joined(separator: ",")
+            if let airlines = obj["airlines"] as? [String:String] {
+                booking?.airlines = airlines.map({"\($0.0) \($0.1)"}).joined(separator: ",")
+                booking?.flightNumbers = self.createFlightNumber(with: (obj["flight_number"] as? [String] ?? []), airlines: airlines)
+            }
         }
         
         //manage the header date
@@ -195,6 +207,9 @@ public class BookingData: NSManagedObject {
         }
         //manage the header date
         
+        if let obj = dataDict[APIKeys.cases.rawValue] as? [String] {
+            booking?.cases = obj
+        }
         
         CoreDataManager.shared.saveContext()
         
@@ -231,5 +246,32 @@ public class BookingData: NSManagedObject {
             return nil
         }
         return nil
+    }
+    
+    class func createFlightNumber(with flightNumber: [String], airlines : [String:String])-> String{
+        var flightsNumbers = [String]()
+        for code in flightNumber{
+            let codes = code.components(separatedBy: " ")
+            let numbers = "\(Int(codes.last ?? "0") ?? 0)"
+            let airLineCode = codes.first ?? ""
+            let airline = airlines[airLineCode] ?? ""
+            var fisibleNumbers = [String]()
+            if numbers.count >= 4{
+                fisibleNumbers = [numbers]
+            }else{
+                fisibleNumbers = [numbers]
+                for i in 0..<(4 - numbers.count){
+                    let str = String(repeating: "0", count: i+1)
+                    fisibleNumbers.append(str + numbers)
+                }
+            }
+            for number in fisibleNumbers{
+                flightsNumbers.append((airLineCode + number).lowercased().replacingOccurrences(of: " ", with: ""))
+                flightsNumbers.append((airline + number).lowercased().replacingOccurrences(of: " ", with: ""))
+                flightsNumbers.append("\(airline)\(airLineCode + number)".lowercased().replacingOccurrences(of: " ", with: ""))
+                
+            }
+        }
+        return flightsNumbers.joined(separator: ",")
     }
 }

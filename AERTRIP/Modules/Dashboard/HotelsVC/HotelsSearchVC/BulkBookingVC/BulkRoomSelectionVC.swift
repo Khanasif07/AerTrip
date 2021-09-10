@@ -13,13 +13,13 @@ protocol BulkRoomSelectionVCDelegate: class {
 }
 
 class BulkRoomSelectionVC: BaseVC {
-
+    
     //Mark:- Variables
     //================
     weak var delegate: BulkRoomSelectionVCDelegate?
     private(set) var viewModel = BulkRoomSelectionVM()
     var initialTouchPoint: CGPoint = CGPoint.zero
-
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var backgroundView: UIView!
@@ -32,9 +32,9 @@ class BulkRoomSelectionVC: BaseVC {
     @IBOutlet weak var adultAgeLabel: UILabel!
     @IBOutlet weak var childLabel: UILabel!
     @IBOutlet weak var childAgeLabel: UILabel!
-  
+    
     @IBOutlet weak var firstLineView: ATDividerView!
-  
+    
     @IBOutlet weak var secondLineView: ATDividerView!
     @IBOutlet weak var roomsPicker: UIPickerView! {
         didSet {
@@ -67,6 +67,11 @@ class BulkRoomSelectionVC: BaseVC {
         self.initialSetUp()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.show(animated: true)
+    }
+    
     override func setupFonts() {
         let regularFont17 = AppFonts.Regular.withSize(17.0)
         let regularFont14 = AppFonts.Regular.withSize(14.0)
@@ -96,8 +101,11 @@ class BulkRoomSelectionVC: BaseVC {
         self.adultAgeLabel.textColor = AppColors.themeGray40
         self.childLabel.textColor = AppColors.themeBlack
         self.childAgeLabel.textColor = AppColors.themeGray40
-//        self.firstLineView.backgroundColor = AppColors.themeGray10
-//        self.secondLineView.backgroundColor = AppColors.themeGray10
+        self.doneButton.backgroundColor = AppColors.doneViewClearColor
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.safeAreaBackView.backgroundColor = AppColors.doneViewClearColor
+        //        self.firstLineView.backgroundColor = AppColors.themeGray10
+        //        self.secondLineView.backgroundColor = AppColors.themeGray10
     }
     
     //Mark:- Methods
@@ -108,47 +116,57 @@ class BulkRoomSelectionVC: BaseVC {
         
         
         //AddGesture:-
-        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        mainContainerView.isUserInteractionEnabled = true
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        self.view.isUserInteractionEnabled = true
+        swipeGesture.direction = .down
         swipeGesture.delegate = self
-        self.mainContainerView.addGestureRecognizer(swipeGesture)
+        self.view.addGestureRecognizer(swipeGesture)
         
         self.backgroundView.alpha = 1.0
-        self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
-//        self.headerView.layer.masksToBounds = true
+        //        self.headerView.layer.masksToBounds = true
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
         self.hide(animated: false)
-        delay(seconds: 0.05) { [weak self] in
-            self?.show(animated: true)
+//        delay(seconds: 0.05) { [weak self] in
+//            self?.show(animated: true)
+//        }
+        
+        if #available(iOS 14.0, *) {
+            self.firstLineView.isHidden = true
+            self.secondLineView.isHidden = true
         }
     }
-    
+     
     private func show(animated: Bool) {
         self.safeAreaBackView.isHidden = false
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            guard let self = self else { return }
             self.safeAreaBackView.alpha = 1.0
             self.headerView.isHidden = self.mainContainerView.size.height > 200.0
             self.mainContainerView.transform = .identity
+            self.view.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.3)
+
         }, completion: { (isDone) in
         })
     }
-
+    
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         self.headerView.isHidden = true
         self.safeAreaBackView.alpha = 0.0
         let heightToChange = self.mainContainerView.height + 100
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseIn, animations: { [weak self] in
             guard let _self = self else { return }
             _self.safeAreaBackView.alpha = 0.0
             _self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: heightToChange)
+            _self.view.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.001)
+
             }, completion: { [weak self] _ in
                 guard let _self = self else { return }
                 _self.safeAreaBackView.isHidden = true
                 if shouldRemove {
-                    _self.removeFromParentVC
+                    _self.dismiss(animated: false, completion: nil)
                 }
         })
     }
@@ -181,11 +199,11 @@ extension BulkRoomSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         })
         switch pickerView {
         case self.roomsPicker:
-            return 96
+            return 97
         case self.adultsPicker:
-            return 191
+            return 192
         default:
-            return 201
+            return 202
         }
     }
     
@@ -199,11 +217,16 @@ extension BulkRoomSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         }
         switch pickerView {
         case self.roomsPicker:
-            pickerLabel?.text = "\(row + 5)"
+            let rowCount = row + 5
+            let rowText = rowCount > 100 ? "100+" : "\(rowCount)"
+            pickerLabel?.text = rowText
         case self.adultsPicker:
-            pickerLabel?.text = "\(row + 10)"
+            let rowCount = row + 10
+            let rowText = rowCount > 200 ? "200+" : "\(rowCount)"
+            pickerLabel?.text = rowText
         default:
-            pickerLabel?.text = "\(row + 0)"
+            let rowText = row > 200 ? "200+" : "\(row)"
+            pickerLabel?.text = rowText
         }
         pickerLabel?.textColor = AppColors.themeBlack
         return pickerLabel!
@@ -228,64 +251,7 @@ extension BulkRoomSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
 extension BulkRoomSelectionVC {
     //Handle Swipe Gesture
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: self.mainContainerView?.window)
-        let velocity = sender.velocity(in: self.mainContainerView)
-        print(velocity)
-        switch sender.state {
-        case .possible:
-            print(sender.state)
-        case .began:
-            self.initialTouchPoint = touchPoint
-        case .changed:
-            let touchPointDiffY = initialTouchPoint.y - touchPoint.y
-            print(touchPointDiffY)
-            if  touchPoint.y > 0.0 {
-                if touchPointDiffY > 0 {
-                    self.mainContainerBottomConstraint.constant = -( UIScreen.main.bounds.height) + touchPointDiffY
-                }
-                else {
-                    self.mainContainerBottomConstraint.constant = touchPointDiffY
-                }
-            }
-        case .cancelled:
-            print(sender.state)
-        case .ended:
-            print(sender.state)
-            panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
-        case .failed:
-            print(sender.state)
-            
-        }
-    }
-    
-    
-    ///Call to use Pan Gesture Final Animation
-    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
-        //Down Direction
-        if velocity.y < 0 {
-            if velocity.y < -300 {
-                self.openBottomSheet()
-            } else {
-                if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
-                    self.openBottomSheet()
-                } else {
-                    self.closeBottomSheet()
-                }
-            }
-        }
-            //Up Direction
-        else {
-            if velocity.y > 300 {
-                self.closeBottomSheet()
-            } else {
-                if touchPoint.y >= (UIScreen.main.bounds.height + (-self.mainContainerView.frame.size.height/2)){
-                    self.closeBottomSheet()
-                } else {
-                    self.openBottomSheet()
-                }
-            }
-        }
-        print(velocity.y)
+        closeBottomSheet()
     }
     
     func openBottomSheet() {

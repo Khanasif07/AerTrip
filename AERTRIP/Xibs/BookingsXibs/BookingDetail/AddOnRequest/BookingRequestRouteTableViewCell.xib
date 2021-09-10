@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,20 +15,27 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="73.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xgr-nq-HxK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="73.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                         <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIz-Jo-hib" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="uBl-xQ-ceO"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label  sagdu ghjksag cjsgh dFJGH sjdfg jsgDFKHJGS dkf js" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJH-y7-krY">
-                                <rect key="frame" x="16" y="10" width="294" height="28.5"/>
+                                <rect key="frame" x="16" y="16" width="294" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l5T-MF-Hv9">
-                                <rect key="frame" x="16" y="40.5" width="294" height="21"/>
+                                <rect key="frame" x="16" y="37" width="294" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="JQd-pR-VOS"/>
                                 </constraints>
@@ -38,15 +44,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="jIz-Jo-hib" firstAttribute="top" secondItem="Xgr-nq-HxK" secondAttribute="top" id="D84-yy-hSk"/>
                             <constraint firstItem="eJH-y7-krY" firstAttribute="leading" secondItem="Xgr-nq-HxK" secondAttribute="leading" constant="16" id="E0q-9K-pem"/>
                             <constraint firstItem="l5T-MF-Hv9" firstAttribute="leading" secondItem="eJH-y7-krY" secondAttribute="leading" id="IUs-Az-0Oo"/>
-                            <constraint firstAttribute="bottom" secondItem="l5T-MF-Hv9" secondAttribute="bottom" constant="12" id="fwe-M6-ObH"/>
+                            <constraint firstItem="jIz-Jo-hib" firstAttribute="leading" secondItem="Xgr-nq-HxK" secondAttribute="leading" id="Yvd-ca-aPC"/>
+                            <constraint firstAttribute="bottom" secondItem="l5T-MF-Hv9" secondAttribute="bottom" constant="16" id="fwe-M6-ObH"/>
                             <constraint firstAttribute="trailing" secondItem="eJH-y7-krY" secondAttribute="trailing" constant="10" id="g9c-N5-XAf"/>
                             <constraint firstAttribute="trailing" secondItem="l5T-MF-Hv9" secondAttribute="trailing" constant="10" id="hQc-Ya-hx4"/>
-                            <constraint firstItem="eJH-y7-krY" firstAttribute="top" secondItem="Xgr-nq-HxK" secondAttribute="top" constant="10" id="ttG-bI-twZ"/>
-                            <constraint firstItem="l5T-MF-Hv9" firstAttribute="top" secondItem="eJH-y7-krY" secondAttribute="bottom" constant="2" id="u7x-pG-Qba"/>
+                            <constraint firstAttribute="trailing" secondItem="jIz-Jo-hib" secondAttribute="trailing" id="rdE-2s-Tx5"/>
+                            <constraint firstItem="eJH-y7-krY" firstAttribute="top" secondItem="Xgr-nq-HxK" secondAttribute="top" constant="16" id="ttG-bI-twZ"/>
+                            <constraint firstItem="l5T-MF-Hv9" firstAttribute="top" secondItem="eJH-y7-krY" secondAttribute="bottom" constant="-1" id="u7x-pG-Qba"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -59,10 +68,16 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="dividerView" destination="jIz-Jo-hib" id="2tf-bY-ynU"/>
                 <outlet property="routeIdLabel" destination="l5T-MF-Hv9" id="Z7G-Y0-jaE"/>
                 <outlet property="routeLabel" destination="eJH-y7-krY" id="Tqk-3c-4nB"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="106.47321428571428"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

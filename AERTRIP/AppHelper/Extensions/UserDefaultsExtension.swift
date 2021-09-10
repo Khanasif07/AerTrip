@@ -30,8 +30,9 @@ extension UserDefaults {
         case recentGroupSearchesForLlName
         case recentGroupSearchesForLocation
         case currentUserCookies
-        
+        case preferredCurrency
         case xAuthToken
+        case preferredCurrencyCode
     }
 }
 extension UserDefaults {
@@ -73,7 +74,7 @@ extension UserDefaults {
     }
     class func clear() {
         
-        let appDomain = Bundle.main.bundleIdentifier!
+        let appDomain = Bundle.main.bundleIdentifier ?? ""
         UserDefaults.standard.removePersistentDomain(forName: appDomain)
         UserDefaults.standard.synchronize()
     }

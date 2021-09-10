@@ -15,7 +15,7 @@ class FlightInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var flightNameLabel: UILabel!
     @IBOutlet weak var flightDetailsLabel: UILabel!
     
-    var flightDetail: FlightDetail? {
+    var flightDetail: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }
@@ -30,6 +30,11 @@ class FlightInfoTableViewCell: UITableViewCell {
         self.setUpTextColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setUpTextColor()
+    }
+    
     // MARK: - Helper methods
     
     private func setUpFont() {
@@ -40,6 +45,8 @@ class FlightInfoTableViewCell: UITableViewCell {
     private func setUpTextColor() {
         self.flightNameLabel.textColor = AppColors.themeBlack
         self.flightDetailsLabel.textColor = AppColors.themeGray40
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.flightImageView.roundTopCorners(cornerRadius: 3.0)
     }
     
     private func configureCell() {
@@ -47,7 +54,10 @@ class FlightInfoTableViewCell: UITableViewCell {
         
         var finalDetails = ""
         if let obj = self.flightDetail?.operatedBy, !obj.isEmpty {
-            finalDetails = "\(LocalizedString.OperatedBy.localized) \(obj)"
+            let carrierCode = self.flightDetail?.carrierCode ?? ""
+            if carrierCode != obj{
+                finalDetails = "\(LocalizedString.OperatedBy.localized) \(obj)"
+            }
         }
         
         let detail = "\(self.flightDetail?.carrierCode ?? LocalizedString.na.localized)-\(self.flightDetail?.flightNumber ?? LocalizedString.na.localized)・\(self.flightDetail?.cabinClass ?? LocalizedString.na.localized) \((self.flightDetail?.bookingClass.isEmpty ?? false) ? "" : ("(\(self.flightDetail?.bookingClass ?? ""))"))"
@@ -55,7 +65,7 @@ class FlightInfoTableViewCell: UITableViewCell {
         finalDetails += finalDetails.isEmpty ? detail : "\n\(detail)"
         
         self.flightDetailsLabel.text = finalDetails
-        
+        printDebug("cabinClass: \(self.flightDetail?.cabinClass)")
         if let code = self.flightDetail?.carrierCode, !code.isEmpty {
             let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: code)
             self.flightImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)

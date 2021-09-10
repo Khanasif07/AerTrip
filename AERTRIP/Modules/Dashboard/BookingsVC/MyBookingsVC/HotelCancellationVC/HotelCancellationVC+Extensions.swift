@@ -22,15 +22,20 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
         
         //manage continue button
         if self.viewModel.selectedRooms.isEmpty {
-            self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+            self.cancellationButtonOutlet.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(0.5), for: .normal)
             self.cancellationButtonOutlet.isUserInteractionEnabled = false
             self.totalNetRefundContainerView.isHidden = true
         }
         else {
-            self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+            self.cancellationButtonOutlet.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(1.0), for: .normal)
             self.cancellationButtonOutlet.isUserInteractionEnabled = true
             self.totalNetRefundContainerView.isHidden = false
-            self.totalNetRefundLabelAmountLabel.text = self.viewModel.netRefundAmount.delimiterWithSymbol
+            if let currency = self.viewModel.bookingDetail?.bookingCurrencyRate{
+                self.totalNetRefundLabelAmountLabel.attributedText = self.viewModel.netRefundAmount.convertAmount(with: currency, using: AppFonts.Regular.withSize(18))//.delimiterWithSymbol
+            }else{
+                self.totalNetRefundLabelAmountLabel.text = self.viewModel.netRefundAmount.delimiterWithSymbol
+            }
+            
         }
     }
     
@@ -42,10 +47,11 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails, let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BookingReschedulingHeaderView") as? BookingReschedulingHeaderView else { return nil }
         headerView.delegate = self
-        let image = (rooms.count == self.viewModel.selectedRooms.count) ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick")
+        let image = (rooms.count == self.viewModel.selectedRooms.count) ? AppImages.CheckedGreenRadioButton : AppImages.UncheckedGreenRadioButton
         headerView.selectedButton.setImage(image, for: .normal)
         headerView.routeLabel.text = self.viewModel.hotelName
         headerView.infoLabel.text = self.viewModel.bookingDateAndRefundableStatus
+        headerView.topBackgroundView.backgroundColor = AppColors.themeBlack26
         return headerView
     }
     
@@ -59,10 +65,10 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
         let isRoomSelected = self.viewModel.selectedRooms.contains(where: { $0.rid == roomD.rid })
         let isExpanded = self.expandedIndexPaths.contains(indexPath)
         
-        cell.configureCell(roomNumber: "\(LocalizedString.Room.localized) \(indexPath.row+1)", roomDetails: roomD, isRoomSelected: isRoomSelected, isExpanded: isExpanded)
+        cell.configureCell(roomNumber: "\(LocalizedString.Room.localized) \(indexPath.row+1)", roomDetails: roomD, isRoomSelected: isRoomSelected, isExpanded: isExpanded, currencyRate: self.viewModel.bookingDetail?.bookingCurrencyRate)
         
-        cell.topDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 63.0
-        cell.bottomDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 63.0
+        cell.topDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 56.0
+        cell.bottomDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 56.0
         cell.clipsToBounds = true
         return cell
     }
@@ -72,7 +78,7 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return 0.0
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -80,7 +86,7 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.0
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -89,7 +95,14 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
             let roomD = rooms[indexPath.row]
             return roomD.guest.map { $0.fullName }.joined(separator: ", ").sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: UIDevice.screenWidth - 68.0, height: 10000.0)).height + 173.0
         }
-        return 61.0
+        
+        guard let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails else {return 60.5}
+        if (indexPath.row == (rooms.count - 1)){
+            return (rooms.count == 1) ? 59.8 : 59.5
+        }else{
+            return 60.5
+        }
+        //60.5
     }
 }
 
@@ -101,6 +114,10 @@ extension HotelCancellationVC: BookingTopNavBarWithSubtitleDelegate {
 
 extension HotelCancellationVC: BookingReschedulingHeaderViewDelegate {
     func selectAllButtonAction(_ sender: UIButton) {
+        self.updateSelectAll()
+    }
+    
+    func updateSelectAll(){
         guard let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails else { return}
         
         if rooms.count == self.viewModel.selectedRooms.count {
@@ -113,6 +130,7 @@ extension HotelCancellationVC: BookingReschedulingHeaderViewDelegate {
         }
         self.hotelCancellationTableView.reloadData()
     }
+    
 }
 
 extension HotelCancellationVC: HotelCancellationRoomInfoTableViewCellDelegate {

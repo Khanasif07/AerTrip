@@ -79,7 +79,7 @@ open class PKCountryPicker: UIView {
         let allCountries = self.countries//self.getAllCountries()self.getAllCountries()
         
         return allCountries.filter { (country) -> Bool in
-            country.ISOCode == forISOCode
+            country.ISOCode.lowercased() == forISOCode.lowercased() || country.countryEnglishName.lowercased() == forISOCode.lowercased()
             }.first
     }
     
@@ -87,9 +87,9 @@ open class PKCountryPicker: UIView {
     private func initialSetup() {
         self.pickerView.delegate = self
         self.pickerView.dataSource = self
-        self.frame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
+        self.frame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: UIPickerView.pickerSize.width, height: UIPickerView.pickerSize.height)
         
-        self.pickerView.frame = CGRect(x: 0.0, y: PKCountryPickerSettings.toolbarHeight, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.pickerSize.height)
+        self.pickerView.frame = CGRect(x: 0.0, y: 0, width: UIPickerView.pickerSize.width, height: UIPickerView.pickerSize.height)
         self.addSubview(self.pickerView)
         self.countries = self.getAllCountries()
         self.setupToolBar()
@@ -99,7 +99,7 @@ open class PKCountryPicker: UIView {
     
     private func setupToolBar() {
         let toolbar = UIToolbar()
-        toolbar.frame = CGRect(x: 0.0, y: 0.0, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.toolbarHeight)
+        toolbar.frame = CGRect(x: 0.0, y: -10, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.toolbarHeight)
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(pickerCancelButtonTapped))
         
@@ -113,26 +113,26 @@ open class PKCountryPicker: UIView {
 //        toolbar.layer.addSublayer(topBorder)
 //
         
-        if PKCountryPickerSettings.appearance == .dark {
-            //toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            toolbar.backgroundColor = .clear
-            toolbar.barTintColor = AppColors.secondarySystemFillColor
-            cancelButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-            doneButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-        }
-        else {
+//        if PKCountryPickerSettings.appearance == .dark {
+            //toolbar.barTintColor = UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+//            toolbar.backgroundColor = .clear
+//            toolbar.barTintColor = AppColors.secondarySystemFillColor
+//            cancelButton.tintColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//            doneButton.tintColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//        }
+//        else {
 //            toolbar.backgroundColor = AppColors.themeGray40
-//            toolbar.barTintColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+//            toolbar.barTintColor = UIColor(displayP3Red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
             toolbar.backgroundColor = .clear
             toolbar.barTintColor = AppColors.secondarySystemFillColor
             cancelButton.tintColor = AppColors.themeGreen
             doneButton.tintColor = AppColors.themeGreen
-        }
+//        }
         
         // nitin removed the cancel button
         let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
-        self.backgroundColor = AppColors.quaternarySystemFillColor
+        self.backgroundColor = AppColors.countryPickerBackground
         // nitin change
         //self.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         toolbar.clipsToBounds = true
@@ -142,16 +142,16 @@ open class PKCountryPicker: UIView {
     private func setupAppearance() {
         // nitin change
         //        if PKCountryPickerSettings.appearance == .dark {
-        //            self.pickerView.backgroundColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-        //            self.pickerView.setValue(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
+        //            self.pickerView.backgroundColor = UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+        //            self.pickerView.setValue(UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
         //        }
         //        else {
-        //self.pickerView.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
-        self.pickerView.setValue(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), forKey: "textColor")
+        //self.pickerView.backgroundColor = UIColor(displayP3Red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+        self.pickerView.setValue(AppColors.themeBlack, forKey: "textColor")
         //        }
     }
     
-    private func getAllCountries() -> [PKCountryModel] {
+     func getAllCountries() -> [PKCountryModel] {
         var countries = [PKCountryModel]()
         let frameworkBundle = Bundle(for: PKCountryPicker.self)
         guard let jsonPath = frameworkBundle.path(forResource: "countryData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
@@ -163,9 +163,12 @@ open class PKCountryPicker: UIView {
                 countries = PKCountryModel.getModels(jsonArr: jsonObjects)
             }
         }
+            
         catch {
             return countries
         }
+//        let sortedCountries = countries.sort(by: {$0.countryEnglishName < $1.countryEnglishName})
+        countries.sort(by: {$0.countryEnglishName < $1.countryEnglishName})
         return countries
     }
     
@@ -175,14 +178,19 @@ open class PKCountryPicker: UIView {
         parent.view.endEditing(true)
         parent.view.addSubview(self)
         
-        let visibleFrame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: (UIScreen.main.bounds.size.height-(PKCountryPickerSettings.pickerSize.height+PKCountryPickerSettings.toolbarHeight)), width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
+        let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - UIPickerView.pickerSize.height, width: UIPickerView.pickerSize.width, height: UIPickerView.pickerSize.height)
+        
+        if let pre = self.preSelectedCountry, let index = self.countries.firstIndex(where: {$0.ISOCode.lowercased() == pre.ISOCode.lowercased()}){
+            self.currentSelectedIndex = index
+            self.pickerView.selectRow(index, inComponent: 0, animated: false)
+        }
         
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.frame = visibleFrame
         }) { (isCompleted) in
-            if let pre = self.preSelectedCountry {
-                self.pickerView.selectRow(pre.sortIndex-1, inComponent: 0, animated: false)
-            }
+//            if let pre = self.preSelectedCountry {
+//                self.pickerView.selectRow(pre.sortIndex-1, inComponent: 0, animated: false)
+//            }
         }
     }
     

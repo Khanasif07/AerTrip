@@ -16,7 +16,7 @@ class LocationManager: NSObject {
     
     static let shared = LocationManager()
     let manager = CLLocationManager()
-    var lastUpdatedCoordinate = CLLocationCoordinate2D()
+    var lastUpdatedCoordinate: CLLocationCoordinate2D?
     var recentCoordinates = [CLLocationCoordinate2D]()
     var lastUpdatedTime = 0
     
@@ -25,7 +25,7 @@ class LocationManager: NSObject {
     }
     
     // MARK:- Response Closures
-    var locationUpdate: ((_ location: CLLocation) -> ())?
+    var locationUpdate: ((_ location: CLLocationCoordinate2D, _ error: String?) -> ())?
     
     private override init() {
         super.init()
@@ -45,7 +45,7 @@ extension LocationManager {
         manager.activityType = .automotiveNavigation
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         manager.distanceFilter = 20
-        manager.allowDeferredLocationUpdates(untilTraveled: 20, timeout: 1)
+        //manager.allowDeferredLocationUpdates(untilTraveled: 20, timeout: 1)
     }
 }
 
@@ -85,6 +85,15 @@ extension LocationManager {
         }
     }
     
+    /// Start location updates with complition handler
+    func startUpdatingLocationWithCompletionHandler(_ completionHandler:((_ location: CLLocationCoordinate2D, _ error: String?) -> ())? = nil){
+        
+        self.locationUpdate = completionHandler
+        
+        requestForLocationWhenInUse()
+        startLocationUpdates()
+    }
+    
     /// Stop location updates
     func stopLocationUpdates() {
         manager.stopUpdatingLocation()
@@ -113,7 +122,7 @@ extension LocationManager {
             if let placeMarks = placemarks, let firstElement = placeMarks.first {
                 place(firstElement)
             } else {
-                placeError(error?.localizedDescription ?? "Place Not Found")
+                placeError(error?.localizedDescription ?? LocalizedString.placeNotFound.localized)//"Place Not Found")
             }
         })
     }
@@ -129,7 +138,7 @@ extension LocationManager {
             if let placeMarks = placemarks, let firstElement = placeMarks.first {
                 place(firstElement)
             } else {
-                placeError(error?.localizedDescription ?? "Place Not Found")
+                placeError(error?.localizedDescription ?? LocalizedString.placeNotFound.localized)//"Place Not Found")
             }
         }
     }

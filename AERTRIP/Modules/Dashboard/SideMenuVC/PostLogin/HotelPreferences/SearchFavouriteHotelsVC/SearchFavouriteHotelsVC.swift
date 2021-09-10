@@ -36,7 +36,7 @@ class SearchFavouriteHotelsVC: BaseVC {
     }()
     
     var isFirstTime:Bool = true
-
+    lazy var parentVC = (self.presentingViewController as? UINavigationController)?.viewControllers.last
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -56,25 +56,45 @@ class SearchFavouriteHotelsVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        adjustEmptyView()
+    }
     
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
     
     override func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             printDebug("notification: Keyboard will show")
-            emptyView.mainImageViewTopConstraint.constant = -keyboardSize.height
-        }
+//            let height = (collectionView.height - emptyView.containerView.height - 60)/2
+//            emptyView.containerViewCenterYConstraint.constant = -(height)//-keyboardSize.height
+        adjustEmptyView()
+//        }
+        
+    }
+    private func adjustEmptyView() {
+        let height = (collectionView.height - emptyView.containerView.height - 60)/2
+        emptyView.containerViewCenterYConstraint.constant = -(height)//-keyboardSize.height
     }
     
     override func keyboardWillHide(notification: Notification) {
         if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
             printDebug("notificatin:Keyboard will hide")
-            emptyView.mainImageViewTopConstraint.constant =  UIScreen.main.bounds.origin.y
+            emptyView.containerViewCenterYConstraint.constant =  0//UIScreen.main.bounds.origin.y
             
         }
     }
+    
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.collectionView.backgroundColor = AppColors.themeWhite
+        searchBar.textFieldColor = AppColors.miniPlaneBack
+    }
+  
+    
     
     //MARK:- Methods
     //MARK:- Private
@@ -95,6 +115,7 @@ class SearchFavouriteHotelsVC: BaseVC {
         //setup indicator view
         indicatorView.color = AppColors.themeGreen
         self.stopLoading()
+        self.view.layoutIfNeeded()
     }
     
     private func startLoading() {
@@ -146,6 +167,10 @@ extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewD
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        saveButtonAction(UIButton(), forHotel: self.viewModel.hotels[indexPath.item])
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = (indexPath.item == 0) ? 208.0 : 203.0
         return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
@@ -163,6 +188,9 @@ extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewD
              self.collectionView.backgroundView = self.noResultemptyView
         }
          self.collectionView.reloadData()
+        if let parentVC = self.parentVC as? FavouriteHotelsVC{
+            parentVC.viewModel.logFirebaseEvent(with: .FindNoResults, value: forText)
+        }
     }
 }
 
@@ -176,21 +204,26 @@ extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
     }
     
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
+        if let parentVC = self.parentVC as? FavouriteHotelsVC, !forHotel.isFavourite{
+            parentVC.viewModel.logFirebaseEvent(with: .AddHotel)
+        }
         self.viewModel.updateFavourite(forHotel: forHotel)
     }
 }
 
 extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
-    func willUpdateFavourite() {
+    func willUpdateFavourite(hIndex: Int) {
         self.startLoading()
-        self.collectionView.reloadData()
+        collectionView.reloadItems(at: IndexPath(item: hIndex, section: 0))
+//        self.collectionView.reloadData()
 //        self.sendDataChangedNotification(data: self)
     }
     
-    func updateFavouriteSuccess(withMessage: String) {
+    func updateFavouriteSuccess(withMessage: String, hIndex: Int) {
         self.stopLoading()
      //   AppToast.default.showToastMessage(message: withMessage, vc: self)
-        self.collectionView.reloadData()
+//        self.collectionView.reloadData()
+//        collectionView.reloadItems(at: IndexPath(item: hIndex, section: 0))
         self.sendDataChangedNotification(data: self)
     }
     

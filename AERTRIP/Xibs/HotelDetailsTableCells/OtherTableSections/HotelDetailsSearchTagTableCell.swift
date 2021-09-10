@@ -20,12 +20,21 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
                    availableTagsForFilterartion.remove(object: value)
                 }
                 self.availableTagsForFilterartion.insert(contentsOf: initialTagsForFiltration, at: 0)
+            } else {
+                for value in initialTagsForFiltration.reversed() {
+                    if availableTagsForFilterartion.contains(value) {
+                        availableTagsForFilterartion.remove(object: value)
+                        self.availableTagsForFilterartion.insert(value, at: 0)
+                    }
+                }
             }
         }
     }
     var allTagsForFilteration: [String] = []
 //    var initialTagsForFiltration: [String] = ["Breakfast","Refundable"]
     var initialTagsForFiltration: [String] = ["Breakfast","Free Cancellation"]
+    
+    var statusBarStyle: UIStatusBarStyle = .darkContent
     
     //Mark:- IBOutlets
     //================
@@ -36,8 +45,8 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         didSet {
             self.tagCollectionView.delegate = self
             self.tagCollectionView.dataSource = self
-            self.tagCollectionView.backgroundColor = AppColors.screensBackground.color
-            self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 8.0, bottom: 16.0, right: 16.0)
+            self.tagCollectionView.backgroundColor = AppColors.clear
+            self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 4.0, right: 16.0)
         }
     }
     
@@ -53,15 +62,18 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     ///ConfigureUI
     private func configureUI() {
         //Color
-        self.containerView.backgroundColor = AppColors.screensBackground.color
-        self.searchBarSetUp()
+        self.containerView.backgroundColor = AppColors.clear
+        self.backgroundColor = AppColors.clear
+        
+        //self.searchBarSetUp()
+        searchBar.placeholder = LocalizedString.hotelFilterSearchBar.localized
         self.registerXibs()
     }
     
     ///Search Bar SetUp
     private func searchBarSetUp() {
         //UI
-        self.searchBar.micButton.frame = CGRect(x: UIScreen.main.bounds.width - 36.0 - 15.0 , y: 0.0, width: 36.0, height: 36.0)
+       // self.searchBar.micButton.frame = CGRect(x: UIScreen.main.bounds.width - 36.0 - 15.0 , y: 0.0, width: 36.0, height: 36.0)
         self.searchBar.layer.cornerRadius = 10.0
         self.searchBar.layer.masksToBounds = true
         self.searchBar.backgroundColor = AppColors.themeGray10
@@ -102,6 +114,9 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     }
     
     private func getTypeOfFIlteration(parentVC: HotelDetailsVC, currentTag: String, isAvailableInSource: Bool) {
+        
+        self.logFirebaeEvent(with: parentVC, tag: currentTag, isAdded: !isAvailableInSource)
+        
         if !isAvailableInSource {
             if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) {
                 parentVC.viewModel.roomMealDataCopy.append(currentTag)
@@ -126,12 +141,31 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         }
     }
     
+    func logFirebaeEvent(with parent:HotelDetailsVC, tag:String, isAdded:Bool){
+        if tag.lowercased() == "breakfast"{
+            if isAdded{
+                parent.viewModel.logEvents(with: .BreakfastFilterPresetsOn)
+            }else{
+                parent.viewModel.logEvents(with: .BreakfastFilterPresetsOff)
+            }
+        }else if tag.lowercased() == "free cancellation"{
+            if isAdded{
+                parent.viewModel.logEvents(with: .FreeCancellationFilterPresetOn)
+            }else{
+                parent.viewModel.logEvents(with: .FreeCancellationFilterPresetOff)
+            }
+        }
+        
+        
+    }
+    
     @IBAction func searchBarBtnAction(_ sender: Any) {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             printDebug(parentVC.className)
             // Commented because we have to use the roomTags key that is coming empty
             //AppFlowManager.default.presentSearchHotelTagVC(tagButtons: self.allTagsForFilteration, superView: self)
-            AppFlowManager.default.presentSearchHotelTagVC(tagButtons: AppConstants.staticRoomTags, superView: self)
+            parentVC.viewModel.logEvents(with: .OpenRoomSearch)
+            AppFlowManager.default.presentSearchHotelTagVC(tagButtons: AppConstants.staticRoomTags, superView: self, presentingStatusBarStyle: statusBarStyle, dismissingStatusBarStyle: statusBarStyle)
 
         }
     }
@@ -154,10 +188,14 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
         cell.delegate = self
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             if parentVC.viewModel.selectedTags.contains(self.availableTagsForFilterartion[indexPath.item]) {
-                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen, isCancelButtonAvailable: false)
+                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.domesticReturnSelection, isCancelButtonAvailable: false)
+                cell.containerView.layer.borderColor = AppColors.searchTagSelectedBorderColor.cgColor
             } else {
-                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGray40, tagBtnColor: AppColors.themeGray04, isCancelButtonAvailable: false)
+                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.flightFormReturnEnableColor, tagBtnColor: AppColors.singleJourneyGroupCellColor, isCancelButtonAvailable: false)
+                
+                cell.containerView.layer.borderColor = AppColors.themeGray153Clear.cgColor
             }
+            
         }
         return cell
     }
@@ -200,7 +238,7 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             var cancelButtonWidth: CGFloat = parentVC.viewModel.permanentTagsForFilteration.contains(self.availableTagsForFilterartion[indexPath.item]) ? 20.0 : 20.0
-            if indexPath.item >= 2 { cancelButtonWidth = 46.0}
+            if indexPath.item >= 2 { cancelButtonWidth = 36.0}
             let size = availableTagsForFilterartion[indexPath.item].sizeCount(withFont: AppFonts.SemiBold.withSize(16.0), bundingSize: CGSize(width: 10000.0, height: 28.0))
             return CGSize(width: size.width + cancelButtonWidth, height: 28.0)
         }

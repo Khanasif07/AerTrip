@@ -289,9 +289,9 @@ extension Double{
     private static var currencyFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
-        numberFormatter.maximumFractionDigits = 0
-        numberFormatter.minimumFractionDigits = 0
-        numberFormatter.locale = UserInfo.loggedInUser?.currentLocale ?? Locale(identifier: "en_IN")
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.locale = Locale(identifier: "en_IN")//UserInfo.loggedInUser?.currentLocale ??
         
         return numberFormatter
     }()
@@ -299,7 +299,7 @@ extension Double{
     private static var numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        numberFormatter.locale = UserInfo.loggedInUser?.currentLocale ?? Locale(identifier: "en_IN")
+        numberFormatter.locale = Locale(identifier: "en_IN")//UserInfo.loggedInUser?.currentLocale ?? 
         
         return numberFormatter
     }()
@@ -313,8 +313,17 @@ extension Double{
     }
     
     var delimiterWithoutSymbol: String {
-        return Double.numberFormatter.string(from: NSNumber(value: Int(self))) ?? ""
+        return self.amountInDelimeterWithSymbol.replacingOccurrences(of: self.getCurrencySymbol, with: "") //Double.numberFormatter.string(from: NSNumber(value: Int(self))) ?? ""
     }
+    
+    var getCurrencySymbol: String {
+        return Double.currencyFormatter.currencySymbol
+    }
+    
+    var getPreferredCurrency:String{
+        return UserInfo.preferredCurrencyDetails?.currencySymbol ?? Double.currencyFormatter.currencySymbol
+    }
+    
 }
 
 extension CGFloat{

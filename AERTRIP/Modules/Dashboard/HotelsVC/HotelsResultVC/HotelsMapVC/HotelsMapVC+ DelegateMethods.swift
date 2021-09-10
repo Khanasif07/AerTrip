@@ -8,24 +8,27 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManager
 
 // MARK: - Search bar delegate methods
 
 extension HotelsMapVC: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         return true //!((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         animateHeaderToMapView()
-        //self.predicateStr = searchBar.text ?? ""
         self.viewModel.fetchRequestType = .Searching
-        //        self.searchForText(searchBar.text ?? "")
-        //        self.loadSaveData()
         self.hotelSearchTableView.backgroundView = nil
         self.showSearchAnimation()
         self.reloadHotelList()
+        FirebaseEventLogs.shared.logHotelListEvents(with: .HotelSearchTapped)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -38,7 +41,10 @@ extension HotelsMapVC: UISearchBarDelegate {
             self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
             self.reloadHotelList()
             noResultemptyView.searchTextLabel.text = ""
-        } else if searchText.count >= AppConstants.kSearchTextLimit {
+            resetAllMarker()
+            
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .ClearHotelSearch)
+        } else { //if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
             self.viewModel.searchTextStr = searchBar.text ?? ""
@@ -49,17 +55,45 @@ extension HotelsMapVC: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     }
     
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.resignFirstResponder()
+        animateHeaderToMapView()
+        self.viewModel.fetchRequestType = .Searching
+        self.hotelSearchTableView.backgroundView = nil
+        self.showSearchAnimation()
+        self.reloadHotelList()
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
+        FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelMicSearchTapped)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
-//        if viewModel.searchedHotels.count > 0 {
-//            self.viewModel.fetchRequestType = .normal
-//            self.animateHeaderToMapView()
-//            self.hideSearchAnimation()
-//            self.view.endEditing(true)
-//            self.reloadHotelList()
-//        } else {
-//            return
-//        }
+        //        if viewModel.searchedHotels.count > 0 {
+        //            self.viewModel.fetchRequestType = .normal
+        //            self.animateHeaderToMapView()
+        //            self.hideSearchAnimation()
+        //            self.view.endEditing(true)
+        //            self.reloadHotelList()
+        //        } else {
+        //            return
+        //        }
+        
+        //self.hideSearchAnimation()
+        self.reloadHotelList()
+    }
+}
+
+extension HotelsMapVC : SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        guard !text.isEmpty else {return}
+        searchBar.hideMiceButton(isHidden: false)
+
+        self.viewModel.fetchRequestType = .Searching
+        self.searchBar.text = text
+        noResultemptyView.searchTextLabel.isHidden = false
+        noResultemptyView.searchTextLabel.text = "for \(text)"
+        self.viewModel.searchTextStr = text
+        self.searchForText(text)
     }
 }
 
@@ -67,35 +101,39 @@ extension HotelsMapVC: UISearchBarDelegate {
 
 extension HotelsMapVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
-        self.viewModel.isFavouriteOn = value
-        self.viewModel.loadSaveData()
         if value {
-                self.floatingButtonOnMapView.isHidden = false
+            self.floatingButtonOnMapView.isHidden = false
             self.animateButton()
-            // nitin self.getFavouriteHotels(shouldReloadData: false)
-            //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
         else {
             self.hideFavsButtons()
         }
-        //self.updateMarkers()
+        delay(seconds: 0.2) { [weak self] in
+            self?.viewModel.isFavouriteOn = value
+            self?.viewModel.loadSaveData()
+            //self.updateMarkers()
             //if user in map view then update map focus as fav switch changed.
-            delay(seconds: 0.4) { [weak self] in
-                guard let strongSelf = self else {return}
-                //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
-                //                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-                strongSelf.animateMapToFirstHotelInMapMode()
-                
-            }
+            self?.resetAllMarker()
+        }
+    }
+    
+    func resetAllMarker(isNeedToShowAll: Bool = false) {
+        self.appleMap.removeAnnotations(self.appleMap.annotations)
+        self.detailsShownMarkers = []
+        self.addAllMarker(isNeedToShowAll: isNeedToShowAll)
+//        delay(seconds: 0.4) { [weak self] in
+//            guard let strongSelf = self else {return}
+//            //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+//            //                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+//            strongSelf.animateMapToFirstHotelInMapMode()
+//
+//        }
     }
 }
 
 extension HotelsMapVC: PKBottomSheetDelegate {
     func updateNavWhileInMapMode(isHidden: Bool) {
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-//            self?.headerContatinerViewHeightConstraint.constant = isHidden ? 0.0 : 50.0
-//            self?.tableViewTopConstraint.constant = isHidden ? 0.0 : 50.0
-//            self?.mapContainerTopConstraint.constant = isHidden ? 0.0 : 50.0
             self?.progressView.isHidden = true
             self?.view.layoutIfNeeded()
         }
@@ -170,8 +208,9 @@ extension HotelsMapVC: HotelResultDelegate {
         self.hotelsMapCV.delegate = self
         self.hotelsMapCV.dataSource = self
         self.filterButton.isEnabled = true
-        self.addMapView()
+        //        self.addMapView()
         self.reloadHotelList()
+        resetAllMarker(isNeedToShowAll: true)
         delay(seconds: 0.4) { [weak self] in
             self?.adjustMapPadding()
         }
@@ -188,15 +227,15 @@ extension HotelsMapVC: HotelResultDelegate {
     
     
     func willGetPinnedTemplate() {
-        AppGlobals.shared.startLoading()
+        // AppGlobals.shared.startLoading()
     }
     
     func getPinnedTemplateSuccess() {
-        AppGlobals.shared.stopLoading()
+        // AppGlobals.shared.stopLoading()
     }
     
     func getPinnedTemplateFail() {
-        AppGlobals.shared.stopLoading()
+        // AppGlobals.shared.stopLoading()
     }
     
     func willUpdateFavourite() {
@@ -205,14 +244,14 @@ extension HotelsMapVC: HotelResultDelegate {
     }
     
     func updateFavouriteSuccess(isHotelFavourite: Bool) {
-        if self.switchView.on, !isHotelFavourite  {
+        if self.switchView.isOn, !isHotelFavourite  {
             //self.loadSaveData()
             if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
                 let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
                 self.hotelsMapCV.reloadData()
                 if let loc = self.getLocationObject(fromLocation: locStr) {
-                    self.deleteMarker(atLocation: loc)
+                    //                    self.deleteMarker(atLocation: loc)
                     if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
                         self.displayingHotelLocation = nil
                     }
@@ -221,30 +260,31 @@ extension HotelsMapVC: HotelResultDelegate {
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
         } else {
             self.viewModel.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
-        }
-        if self.viewModel.isUnpinHotelTapped {
-            self.reloadHotelList()
-            self.viewModel.isUnpinHotelTapped = false
-        } else {
             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
-        self.showHotelOnMap(duration: 0.4)
-        
+        if(self.isRemovingAllFav){
+            if self.viewModel.favouriteHotels.isEmpty {
+                delay(seconds: 0.2) {
+                    self.updateSeletedUnfavouriteAll()
+                    self.isRemovingAllFav = false
+                }
+            } else {
+                self.updateSeletedUnfavouriteAll()
+                self.isRemovingAllFav = false
+            }
+        }else{
+            self.updateFavouriteAnnotationDetail(duration: 0.4)
+        }
+        self.switchView.isOn = self.viewModel.isFavouriteOn
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
-        if self.switchView.on, !isHotelFavourite  {
+        if self.switchView.isOn, !isHotelFavourite  {
             //self.loadSaveData()
             if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
-                let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
+                //                let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
                 self.hotelsMapCV.reloadData()
-                if let loc = self.getLocationObject(fromLocation: locStr) {
-                    self.deleteMarker(atLocation: loc)
-                    if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
-                        self.displayingHotelLocation = nil
-                    }
-                }
             }
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
         }else {
@@ -262,7 +302,21 @@ extension HotelsMapVC: HotelResultDelegate {
             }
         }
         
-        self.showHotelOnMap(duration: 0.4)
+        if(self.isRemovingAllFav){
+            if self.viewModel.favouriteHotels.isEmpty {
+                delay(seconds: 0.2) {
+                    self.updateSeletedUnfavouriteAll()
+                    self.isRemovingAllFav = false
+                }
+            } else {
+                self.updateSeletedUnfavouriteAll()
+                self.isRemovingAllFav = false
+            }
+        }else{
+            self.updateFavouriteAnnotationDetail(duration: 0.4)
+        }
+        self.switchView.isOn = self.viewModel.isFavouriteOn
+        //        self.showHotelOnMap(duration: 0.4)
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
@@ -298,10 +352,20 @@ extension HotelsMapVC: HotelCardCollectionViewCellDelegate {
             // self.updateFavOnList(forIndexPath: indexPath)
         }
         
+        if sender.isSelected {
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelUnbookmarked)
+        } else {
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelBookmarked)
+        }
     }
     
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         //
+        if sender.isSelected {
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelUnbookmarked)
+        } else {
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelBookmarked)
+        }
     }
     
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView) {
@@ -334,15 +398,33 @@ extension HotelsMapVC: SectionFooterDelegate {
 // MARK: - Hotel filter Delegate methods
 
 extension HotelsMapVC: HotelFilteVCDelegate {
+    
+    func collectionViewContentOffset(offsetX: CGFloat) {
+        
+    }
+    
     func clearAllButtonTapped() {
         self.viewModel.fetchRequestType = .normal
         self.filterButton.isSelected = false
         self.viewModel.isFilterApplied = false
         HotelFilterVM.shared.isSortingApplied = false
+        let isFilterAppliedForDestinetionFlow = HotelFilterVM.shared.isFilterAppliedForDestinetionFlow
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()
+        self.viewModel.filterApplied = UserInfo.HotelFilter()
+        if isFilterAppliedForDestinetionFlow {
+            self.viewModel.fetchRequestType = .FilterApplied
+            self.viewModel.isFilterApplied = true
+            self.viewModel.filterApplied.sortUsing = .DistanceNearestFirst(ascending: true)
+            HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
+            HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
+            HotelFilterVM.shared.saveDataToUserDefaults()
+            //self.getSavedFilter()
+        }
         self.viewModel.loadSaveData()
+        resetAllMarker()
         
+        viewModel.updateRecentSearch()
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
     }
@@ -371,6 +453,9 @@ extension HotelsMapVC: HotelFilteVCDelegate {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
         }
         self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
+        resetAllMarker()
+        
+        viewModel.updateRecentSearch()
     }
 }
 
@@ -391,6 +476,12 @@ extension HotelsMapVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         //work of this method has been handeled in data changed also, we can remove HotelDetailsVCDelegate after confirming with team.
     }
+    
+    func imageUpdated() {
+        if let indexPath = self.selectedIndexPath {
+            self.hotelsMapCV.reloadItems(at: [indexPath])
+        }
+    }
 }
 
 
@@ -399,5 +490,14 @@ extension HotelsMapVC: HotelDetailsVCDelegate {
 extension HotelsMapVC: HotelsGroupExpendedVCDelegate {
     func saveButtonActionFromLocalStorage(forHotel: HotelSearched) {
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
+    }
+}
+// MARK: - EmptyScreenViewDelegate methods
+extension HotelsMapVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: ATButton) {
+    }
+    
+    func bottomButtonAction(sender: UIButton) {
+        self.clearAllButtonTapped()
     }
 }

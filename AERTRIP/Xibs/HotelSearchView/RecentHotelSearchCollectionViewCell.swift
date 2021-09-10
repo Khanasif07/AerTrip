@@ -9,7 +9,7 @@
 import UIKit
 
 class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
-
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView! {
@@ -19,13 +19,8 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         }
     }
     @IBOutlet weak var cityImageView: UIImageView!
-    @IBOutlet weak var searchTypeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var cityNameLabel: UILabel!
-    @IBOutlet weak var stateNameLabel: UILabel!
-    @IBOutlet weak var totalNightsLabel: UILabel!
-    @IBOutlet weak var totalAdultsLabel: UILabel!
-    
     @IBOutlet weak var blurVibranyEffectView: UIVisualEffectView!
     
     
@@ -34,6 +29,14 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.initialSetUp()
+        self.blurVibranyEffectView.backgroundColor = AppColors.recentSearchColletionCellColor
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cityNameLabel.text = ""
+        cityNameLabel.attributedText = nil
+        self.blurVibranyEffectView.backgroundColor = AppColors.recentSearchColletionCellColor
     }
     
     //Mark:- Functions
@@ -41,61 +44,68 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     ///InitialSetUp
     private func initialSetUp() {
         
-        self.cityImageView.image = #imageLiteral(resourceName: "hotelsBlack").withRenderingMode(.alwaysTemplate)
+        self.cityImageView.image = AppImages.hotelsBlack.withRenderingMode(.alwaysTemplate)
         self.cityImageView.tintColor = AppColors.recentSeachesSearchTypeBlue
         ///Font
         let regularFont14 = AppFonts.Regular.withSize(14.0)
-        self.searchTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
         self.timeLabel.font = regularFont14
-        self.cityNameLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.stateNameLabel.font = regularFont14
-        self.totalNightsLabel.font = regularFont14
-        self.totalAdultsLabel.font = regularFont14
+        self.cityNameLabel.font = AppFonts.SemiBold.withSize(14.0)
         
         ///Colors
-        let grayColor = AppColors.themeGray60
-        let blackColor = AppColors.themeBlack
-        let greenColor = AppColors.recentSeachesSearchTypeBlue
-        self.searchTypeLabel.textColor = greenColor
-        self.timeLabel.textColor = greenColor
-        self.cityNameLabel.textColor = blackColor
-        self.stateNameLabel.textColor = blackColor
-        self.totalNightsLabel.textColor = grayColor
-        self.totalAdultsLabel.textColor = grayColor
+        self.timeLabel.textColor = AppColors.themeGray60
+        self.cityNameLabel.textColor = AppColors.themeGray60
         
         //Text
-        self.searchTypeLabel.text = ""
         self.timeLabel.text = ""
         self.cityNameLabel.text = ""
-        self.stateNameLabel.text = ""
-        self.totalNightsLabel.text = ""
-        self.totalAdultsLabel.text = ""
+        
         
         // add vibrancy blur effect you
         
         //AppGlobals.shared.removeBlur(fromView: self.blurVibranyEffectView)
-       // self.blurVibranyEffectView.contentView.addSubview(AppGlobals.shared.getBlurView(forView: self.blurVibranyEffectView, isDark: false))
-    //self.blurVibranyEffectView.insertSubview(AppGlobals.shared.getBlurView(forView: self.blurVibranyEffectView, isDark: false), at: 0)
+        // self.blurVibranyEffectView.contentView.addSubview(AppGlobals.shared.getBlurView(forView: self.blurVibranyEffectView, isDark: false))
+        //self.blurVibranyEffectView.insertSubview(AppGlobals.shared.getBlurView(forView: self.blurVibranyEffectView, isDark: false), at: 0)
     }
-
+    
     ///ConfigureCell
     internal func configureCell(recentSearchesData: RecentSearchesModel) {
-        self.timeLabel.text = recentSearchesData.time_ago
-        if recentSearchesData.dest_type != "popular_destination" {
-              self.searchTypeLabel.text = recentSearchesData.dest_type
-        } else {
-             self.searchTypeLabel.text = LocalizedString.PopularDestinations.localized
-        }
-      
-        let cityName = recentSearchesData.dest_name.split(separator: ",").first ?? ""
-        self.cityNameLabel.text = "\(cityName)"
-        let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
-        self.stateNameLabel.text = recentSearchesData.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
-        let totalNights = (recentSearchesData.totalNights == 1 ? " (\(recentSearchesData.totalNights) Night)" : " (\(recentSearchesData.totalNights) Nights)")
+        //        self.timeLabel.text = recentSearchesData.time_ago
+        
+//        if recentSearchesData.search_nearby {
+//            let nearMeText = LocalizedString.NearMe.localized
+//            self.cityNameLabel.text = nearMeText
+//            self.cityNameLabel.AttributedFontAndColorForText(atributedText: nearMeText, textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack)
+//        } else {
+            printDebug(recentSearchesData.dest_name)
+            let cityName = recentSearchesData.dest_name.split(separator: ",").first ?? ""
+//            let countryCode = recentSearchesData.dest_name.split(separator: ",").last ?? ""
+            //        self.cityNameLabel.text = "\(cityName)"
+            let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
+//            let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
+            
+        let stateText = recentSearchesData.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
+            //stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
+            
+//            self.cityNameLabel.text = "\(cityName) " + stateText
+//            self.cityNameLabel.AttributedFontAndColorForText(atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack)
+//        }
+        self.cityNameLabel.attributedText = self.createAttributedText(attTxt: "\(cityName) ", normalText: stateText)
+        //        let totalNights = (recentSearchesData.totalNights == 1 ? " (\(recentSearchesData.totalNights) Night)" : " (\(recentSearchesData.totalNights) Nights)")
         if let checkInDate = self.getDateFromString(stringDate: recentSearchesData.checkInDate), let checkOutDate = self.getDateFromString(stringDate: recentSearchesData.checkOutDate) {
-            self.totalNightsLabel.text = checkInDate + " - " + checkOutDate + "\(totalNights)"
+            self.timeLabel.text = checkInDate + " - " + checkOutDate
         }
-        self.adultAndRoomText(recentSearchesData: recentSearchesData)
+        //       / self.adultAndRoomText(recentSearchesData: recentSearchesData)
+    }
+    
+    
+    
+    func createAttributedText(attTxt: String, normalText: String)-> NSAttributedString{
+        let attStr = NSMutableAttributedString(string: attTxt, attributes: [.font: AppFonts.SemiBold.withSize(18.0), .foregroundColor: AppColors.themeBlack])
+        
+        let sufix = NSAttributedString(string: normalText, attributes: [.font: AppFonts.SemiBold.withSize(14.0), .foregroundColor: AppColors.themeGray60])
+        attStr.append(sufix)
+        return attStr
+        
     }
     
     ///GetDateFromString
@@ -103,27 +113,32 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         //String to Date Convert
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, dd MMM yy"
-        let date = dateFormatter.date(from: stringDate)
+        guard let date = dateFormatter.date(from: stringDate) else {return nil}
         //CONVERT FROM Date to String
         dateFormatter.dateFormat = "dd MMM"
-        return dateFormatter.string(from: date!)
+        return dateFormatter.string(from: date)
     }
     
     ///AdultAndRoomText
     private func adultAndRoomText(recentSearchesData: RecentSearchesModel) {
         var roomCount: Int = 0
         var adultCounts: Int = 0
+        var childCounts: Int = 0
         if let roomData = recentSearchesData.room {
             for roomData in roomData {
                 if roomData.isPresent{
                     roomCount += 1
                     adultCounts += Int(roomData.adultCounts) ?? 0
+                    childCounts += Int(roomData.child.count)
                 }
             }
         }
         let roomText = (roomCount == 1) ? "\(roomCount) Room" : "\(roomCount) Rooms"
         let adultText = adultCounts == 1 ? "\(adultCounts) Adult" : "\(adultCounts) Adults"
-        self.totalAdultsLabel.text = roomText + " (\(adultText))"
+        let childText = adultCounts == 1 ? "\(childCounts) Children" : "\(childCounts) Childrens"
+        
+        let message = childCounts == 0 ? " (\(adultText))" : " (\(adultText), \(childText))"
+        //        self.totalAdultsLabel.text = roomText + message
         
     }
 }

@@ -33,7 +33,7 @@ protocol HotelResultDelegate: class {
     func deleteRow(index: IndexPath)
     func updateFavOnList()
     func updateFavouriteAndFilterView()
-
+    
 }
 
 class HotelsResultVM: NSObject {
@@ -57,7 +57,7 @@ class HotelsResultVM: NSObject {
         return nil
     }
     
-    
+    var isResetAnnotation = false
     var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
     
     // fetch result controller
@@ -86,7 +86,18 @@ class HotelsResultVM: NSObject {
     var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
     var isFilterApplied: Bool = false
     var isFavouriteOn: Bool = false
-
+    var tempHotelFilter: UserInfo.HotelFilter? = nil
+    
+    var recentSearchModel: RecentSearchesModel?
+    
+    
+    var showBeyondTwenty = false
+    
+    func getConvertedRecentSearchFilter() -> UserInfo.HotelFilter? {
+        guard let recentSearchFilter = recentSearchModel?.filter else { return nil }
+        let recentFilter = UserInfo.HotelFilter(recentSearchFilter: recentSearchFilter)
+        return recentFilter
+    }
     
     func searchHotel(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -109,6 +120,22 @@ class HotelsResultVM: NSObject {
                 for hotel in hotels {
                     _ = HotelSearched.insert(dataDict: hotel.jsonDict)
                 }
+                let result = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: NSPredicate(format: "filterStar CONTAINS[c] '\(0)'")) ?? []
+                printDebug("hotels count with zero rating \(result.count)")
+                HotelFilterVM.shared.showIncludeUnrated = !result.isEmpty
+                
+                let tAUnrated = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(0)'")) ?? []
+                HotelFilterVM.shared.showIncludeTAUnrated = !tAUnrated.isEmpty
+                
+                HotelFilterVM.shared.availableAmenities.removeAll()
+                for amentity in 1...10 {
+                    let result = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: NSPredicate(format: "amenities CONTAINS[c] ',\(amentity),'")) ?? []
+                    printDebug("amentity \("\(amentity)") count with  \(result.count)")
+                    if !result.isEmpty {
+                        HotelFilterVM.shared.availableAmenities.append("\(amentity)")
+                    }
+                }
+                printDebug("HotelFilterVM.shared.availableAmenities : \(HotelFilterVM.shared.availableAmenities)")
                 sSelf.hotelResultDelegate?.getAllHotelsListResultSuccess(isDone)
                 sSelf.hotelMapDelegate?.getAllHotelsListResultSuccess(isDone)
             } else {
@@ -134,6 +161,7 @@ class HotelsResultVM: NSObject {
                     if var allHotles = self.collectionViewList["\(lat),\(long)"] as? [HotelSearched] {
                         allHotles.append(hs)
                         self.collectionViewList["\(lat),\(long)"] = allHotles
+                        UIImageView.downloadImage(url: hs.thumbnail?.first ?? "")
                     } else {
                         self.collectionViewLocArr.append("\(lat),\(long)")
                         self.collectionViewList["\(lat),\(long)"] = [hs]
@@ -263,6 +291,7 @@ class HotelsResultVM: NSObject {
         }
     }
     
+    /*
     func getPinnedTemplate(hotels: [HotelSearched],completionBlock: @escaping(_ success: Bool)->Void ) {
         var param = JSONDictionary()
         for (idx, hotel) in hotels.enumerated() {
@@ -286,7 +315,7 @@ class HotelsResultVM: NSObject {
             }
         }
     }
-    
+    */
     func hotelListOnResultFallback() {
         let params: JSONDictionary = [APIKeys.vcodes.rawValue: self.hotelSearchRequest?.vcodes.first ?? "", APIKeys.sid.rawValue: self.hotelSearchRequest?.sid ?? ""]
         printDebug(params)
@@ -317,11 +346,14 @@ class HotelsResultVM: NSObject {
         if self.searchedFormData.ratingCount.isEmpty || self.searchedFormData.ratingCount.count == 5 {
             self.searchedFormData.ratingCount = [1,2,3,4,5]
         }
-        for (idx, _) in  self.searchedFormData.ratingCount.enumerated() {
-            params["filter[star][\(idx+1)star]"] = true
+//        for (idx, _) in  self.searchedFormData.ratingCount.enumerated() {
+//            params["filter[star][\(idx+1)star]"] = true
+//        }
+        let filter = getFilterParams()
+        if !filter.keys.isEmpty {
+            params["filter"] = AppGlobals.shared.json(from: filter)
         }
         let _adultsCount = self.searchedFormData.adultsCount
-        let _chidrenAge = self.searchedFormData.childrenAge
         params["p"] = "hotels"
         params["dest_id"] = self.hotelSearchRequest?.requestParameters.destinationId
         params["check_in"] = self.hotelSearchRequest?.requestParameters.checkIn
@@ -329,8 +361,9 @@ class HotelsResultVM: NSObject {
         params["dest_type"] = self.hotelSearchRequest?.requestParameters.destType
         params["dest_name"]  = self.hotelSearchRequest?.requestParameters.destName
         params["lat"] = self.hotelSearchRequest?.requestParameters.latitude
-        params["long"] = self.hotelSearchRequest?.requestParameters.longitude
-        params["checkout"] = self.hotelSearchRequest?.requestParameters.checkOut
+        params["lng"] = self.hotelSearchRequest?.requestParameters.longitude
+//        params["checkout"] = self.hotelSearchRequest?.requestParameters.checkOut
+            
         
         // get number of adult count
         
@@ -339,13 +372,22 @@ class HotelsResultVM: NSObject {
         }
         
         // get number of children
-        for (idx , dataX) in _chidrenAge.enumerated() {
-            for (idy , dataY) in dataX.enumerated() {
-                if dataY != 0 {
-                    params["r[\(idx)][c][\(idy)]"] = dataY
-                }
+        for (room, children) in searchedFormData.childrenCounts.enumerated() {
+            if children < 1 { continue }
+            let roomChildrenAges = searchedFormData.childrenAge[room]
+            for index in 0..<children {
+                params["r[\(room)][c][\(index)]"] = roomChildrenAges[index]
             }
         }
+        
+        // Replaced previously written logic with the one above
+//        for (idx , dataX) in _chidrenAge.enumerated() {
+//            for (idy , dataY) in dataX.enumerated() {
+//                if dataY != 0 {
+//                    params["r[\(idx)][c][\(idy)]"] = dataY
+//                }
+//            }
+//        }
         
         // Get share text Api
         
@@ -383,9 +425,11 @@ extension HotelsResultVM {
         params[APIKeys.dest_name.rawValue] = self.searchedFormData.destName
         params[APIKeys.isPageRefereshed.rawValue] = true
         
-        params[APIKeys.lat.rawValue] = self.searchedFormData.lat
-        params[APIKeys.lng.rawValue] = self.searchedFormData.lng
+        params[APIKeys.latitude.rawValue] = self.searchedFormData.lat
+        params[APIKeys.longitude.rawValue] = self.searchedFormData.lng
+        params[APIKeys.search_nearby.rawValue] = self.searchedFormData.isHotelNearMeSelected
 
+        
         for (_ , data ) in _starRating.enumerated() {
             //            params["filter[star][\(idx)star]"] = true
             params["filter[star][\(data)star]"] = true

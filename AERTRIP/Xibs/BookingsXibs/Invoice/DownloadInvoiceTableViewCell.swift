@@ -10,9 +10,24 @@ import UIKit
 
 class DownloadInvoiceTableViewCell: ATTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var topDividerView: UIView!
-    @IBOutlet weak var bottomDividerView: UIView!
+    @IBOutlet weak var topDividerView: ATDividerView!
+    @IBOutlet weak var bottomDividerView: ATDividerView!
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     
+    var showLoader: Bool = false {
+        didSet {
+            if showLoader {
+                loader.startAnimating()
+            } else {
+                loader.stopAnimating()
+            }
+        }
+    }
+    override func doInitialSetup()  {
+        loader.color = AppColors.themeGreen
+        loader.hidesWhenStopped = true
+        loader.stopAnimating()
+    }
     override func setupFonts() {
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
     }
@@ -23,5 +38,7 @@ class DownloadInvoiceTableViewCell: ATTableViewCell {
     
     override func setupColors() {
         self.titleLabel.textColor = AppColors.themeGreen
+        self.bottomDividerView.defaultBackgroundColor = AppColors.dividerColor2
+        self.topDividerView.defaultBackgroundColor = AppColors.dividerColor2
     }
 }

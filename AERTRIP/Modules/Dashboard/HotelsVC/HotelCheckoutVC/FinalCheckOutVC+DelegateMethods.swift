@@ -12,20 +12,22 @@ extension FinalCheckOutVC : WalletTableViewCellDelegate {
     func valueForSwitch(isOn: Bool) {
         self.isWallet = (getWalletAmount() <= 0) ? false : isOn
         self.setConvenienceFeeToBeApplied()
-        
+        self.updatePayButtonText()
+        self.viewModel.logEvent(with: self.isWallet ? .EnableWalletAmount : .DisableWalletAmount)
     }
 }
 
 
 extension FinalCheckOutVC : ApplyCouponTableViewCellDelegate {
     func removeCouponTapped() {
+         self.manageCouponLoader(isApplying: true)// Golu Chnages
         printDebug("Remove coupon tapped")
         self.viewModel.removeCouponCode()
     }
 }
 
-extension FinalCheckOutVC : HotelFareSectionHeaderDelegate {
-    func headerViewTapped(_ view: UITableViewHeaderFooterView) {
+extension FinalCheckOutVC : HotelFareTableViewCellDelegate {
+    func headerViewTapped(_ view: HotelFareTableViewCell) {
         printDebug("Header View Tapped")
         if self.isCouponApplied {
             if self.isCouponSectionExpanded {
@@ -33,7 +35,7 @@ extension FinalCheckOutVC : HotelFareSectionHeaderDelegate {
             } else {
                 self.isCouponSectionExpanded = true
             }
-          self.checkOutTableView.reloadData()
+            self.checkOutTableView.reloadRow(at: IndexPath(row: 0, section: 1), with: .none)
         }
     }
 }

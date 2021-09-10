@@ -14,6 +14,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
     private(set) var viewModel = HotelDetailsAmenitiesVM()
     private let maxHeaderHeight: CGFloat = 58.0
     var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
+    var viewTranslation = CGPoint(x: 0, y: 0)
     
     // Mark:- IBOutlets
     //================
@@ -29,13 +30,13 @@ class HotelDetailsAmenitiesVC: BaseVC {
     @IBOutlet weak var amenitiesLabelTopConstraints: NSLayoutConstraint!
     @IBOutlet weak var amenitiesTblView: UITableView! {
         didSet {
-            self.amenitiesTblView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.amenitiesTblView.delegate = self
             self.amenitiesTblView.dataSource = self
             self.amenitiesTblView.estimatedRowHeight = UITableView.automaticDimension
             self.amenitiesTblView.rowHeight = UITableView.automaticDimension
             self.amenitiesTblView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.amenitiesTblView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.amenitiesTblView.backgroundColor = AppColors.themeBlack26
         }
     }
     
@@ -43,12 +44,17 @@ class HotelDetailsAmenitiesVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setValue() 
+        //self.setValue()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.setValue()
     }
     
     override func setupColors() {
         self.amenitiesLabel.textColor = AppColors.themeBlack
-        self.stickyTitleLabel.alpha = 0.0
+        //self.stickyTitleLabel.alpha = 0.0
         self.stickyTitleLabel.textColor = AppColors.themeBlack
     }
     
@@ -63,17 +69,32 @@ class HotelDetailsAmenitiesVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.amenitiesTblView.contentInset = UIEdgeInsets(top: headerContainerView.height + 8.0, left: 0.0, bottom: 0.0, right: 0.0)
+
+        headerContainerView.backgroundColor = .clear
+               mainContainerView.backgroundColor = AppColors.themeBlack26.withAlphaComponent(0.85)
+               self.view.backgroundColor = .clear
         
+        if #available(iOS 13.0, *) {} else {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         mainContainerView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
+            self.view.backgroundColor = .white
+        }
         
-        self.dividerView.isHidden = true
+        //self.dividerView.isHidden = true
         self.registerNibs()
         self.viewModel.getAmenitiesSections()
+                
+        self.amenitiesLabel.alpha = 0.0
+        self.stickyTitleLabel.alpha = 1.0
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.clear
+    }
     // Mark:- Functions
     //================
     private func registerNibs() {
@@ -83,18 +104,18 @@ class HotelDetailsAmenitiesVC: BaseVC {
     }
     
     private func heightForHeader(_ tableView: UITableView, section: Int) -> CGFloat {
-        if section == 0 {
+//        if section == 0 {
             return CGFloat.leastNonzeroMagnitude
-        } else {
-            return 49.0
-        }
+//        } else {
+//            return 49.0
+//        }
     }
     
     private func imageByAmenitiesName(imageName: String) -> UIImage {
         if let confirmedImage = UIImage(named: imageName) {
             return confirmedImage
         } else {
-            return #imageLiteral(resourceName: "buildingImage")
+            return AppImages.buildingImage
         }
     }
     
@@ -119,7 +140,7 @@ extension HotelDetailsAmenitiesVC: UITableViewDelegate, UITableViewDataSource {
         case 0:
             return 1
         default:
-            return self.viewModel.sections.isEmpty ? 0 : self.viewModel.rowsData[section - 1].count
+            return self.viewModel.sections.isEmpty ? 0 : 1
         }
     }
     
@@ -161,6 +182,7 @@ extension HotelDetailsAmenitiesVC {
         if let safeAmenitiesData = self.viewModel.amenities {
             cell.amenitiesDetails = safeAmenitiesData
         }
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         cell.amenitiesCollectionView.reloadData()
         return cell
     }
@@ -169,13 +191,21 @@ extension HotelDetailsAmenitiesVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AmenitiesNameTableViewCell.reusableIdentifier, for: indexPath) as? AmenitiesNameTableViewCell else {
             return UITableViewCell()
         }
-        cell.facilitiesNameLabel.text = amenitiesName[indexPath.row]
+        let title = self.viewModel.sections[indexPath.section - 1]
+        let newAmenitiesName = [title] + amenitiesName
+        cell.facilitiesNameLabel.text = newAmenitiesName.joined(separator: "\n")
+        let image = self.imageByAmenitiesName(imageName: self.viewModel.sections[indexPath.section - 1])
+        cell.facilitiesIconView.image = image
+        cell.facilitiesNameLabel.AttributedFontForText(text: title, textFont: AppFonts.SemiBold.withSize(16))
+        cell.facilitiesNameLabel.AttributedParagraphLineSpacing(lineSpacing: 10)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
 }
 
 extension HotelDetailsAmenitiesVC {
     func manageHeaderView(_ scrollView: UIScrollView) {
+        guard mainContainerView.height < scrollView.contentSize.height else {return}
         let yOffset = (scrollView.contentOffset.y > self.headerContainerView.height) ? self.headerContainerView.height : scrollView.contentOffset.y
         printDebug(yOffset)
         
@@ -195,10 +225,10 @@ extension HotelDetailsAmenitiesVC {
         self.amenitiesLabelTopConstraints.constant = 23.0 - (yOffset * (23.0 / self.headerContainerView.height))
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.manageHeaderView(scrollView)
-        printDebug("scrollViewDidScroll")
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.manageHeaderView(scrollView)
+//        printDebug("scrollViewDidScroll")
+//    }
     
     //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     //        self.manageHeaderView(scrollView)
@@ -219,41 +249,57 @@ extension HotelDetailsAmenitiesVC {
 extension HotelDetailsAmenitiesVC {
     
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: view?.window)
-        var initialTouchPoint = CGPoint.zero
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = .identity
+            })
+        }
+        
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down, self.amenitiesTblView.contentOffset.y <= 0
+            else {
+            reset()
+            return
+        }
         
         switch sender.state {
-        case .began:
-            initialTouchPoint = touchPoint
         case .changed:
-            if touchPoint.y > initialTouchPoint.y {
-                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
-            }
-        case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 300 {
-                dismiss(animated: true, completion: nil)
+            viewTranslation = sender.translation(in: self.view)
+            moveView()
+        case .ended:
+            if viewTranslation.y < 200 {
+                reset()
             } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame = CGRect(x: 0,
-                                             y: 0,
-                                             width: self.view.frame.size.width,
-                                             height: self.view.frame.size.height)
-                })
+                dismiss(animated: true, completion: nil)
             }
-        case .failed, .possible:
+        case .cancelled:
+            reset()
+        default:
             break
         }
     }
     
     
     func setValue() {
-        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
-        let finalValue =  (self.view.height - toDeduct)
+        
+        let toDeduct = AppFlowManager.default.safeAreaInsets.top
+        var finalValue =  (self.view.height - toDeduct)
+        if #available(iOS 13.0, *) {
+           finalValue = self.view.height
+        }
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerHeightConst.constant = finalValue
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
         self.view.layoutIfNeeded()
         
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

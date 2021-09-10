@@ -30,8 +30,30 @@ extension UIButton {
     @objc private func buttonTappedReleased(_ sender: UIButton) {
         self.transform = CGAffineTransform.identity
     }
+    
+    func displayLoadingIndicator(_ show: Bool)
+    {
+        let tag = 808404
+        
+        if show {
+            self.isEnabled = false
+            let indicator = UIActivityIndicatorView()
+            let buttonHeight = self.bounds.size.height
+            let buttonWidth = self.bounds.size.width
+            indicator.center = CGPoint(x: buttonWidth/2, y: buttonHeight/2)
+            indicator.color = .AertripColor
+            indicator.tag = tag
+            self.addSubview(indicator)
+            indicator.startAnimating()
+        } else {
+            self.isEnabled = true
+            if let indicator = self.viewWithTag(tag) as? UIActivityIndicatorView {
+                indicator.stopAnimating()
+                indicator.removeFromSuperview()
+            }
+        }
+    }
 }
-
 
 public extension UIBarButtonItem {
     
@@ -85,6 +107,24 @@ extension UIButton {
         self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount*factor, bottom: 0, right: insetAmount*factor)
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount*factor, bottom: 0, right: -insetAmount*factor)
         self.contentEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: insetAmount)
+    }
+    
+    
+    func AttributedFontColorForText(text : String, textColor : UIColor, state: UIControl.State) {
+        
+        //self.textColor = UIColor.black
+        guard let labelString = self.title(for: state) else { return }
+        
+        let main_string = labelString as NSString
+        let range = main_string.range(of: text)
+        
+        var  attribute = NSMutableAttributedString.init(string: main_string as String)
+        if let labelAttributedString = self.attributedTitle(for: state) {
+            attribute = NSMutableAttributedString.init(attributedString: labelAttributedString)
+        }
+        attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor , range: range)
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        self.setAttributedTitle(attribute, for: state)
     }
 }
 

@@ -66,7 +66,7 @@ class HotelSearchTableViewCell: AppStoreAnimationTableViewCell {
         }
         self.favouriteStatusImageView.isHidden = hotel.fav == "0"
         self.hotelNameLabel.attributedText = getAttributeBoldTextForHotelName(text: hotel.hotelName ?? "", boldText: searchText)
-        self.hotelPriceLabel.text = hotel.price.amountInDelimeterWithSymbol
+        self.hotelPriceLabel.attributedText = hotel.price.getConvertedAmount(using: AppFonts.SemiBold.withSize(18.0))
         self.starRatingView.isHidden = true
         self.starContainerView.isHidden = true
         if hotel.star > 0.0 {
@@ -99,7 +99,7 @@ class HotelSearchTableViewCell: AppStoreAnimationTableViewCell {
     
 
     private func getAttributeBoldTextForHotelName(text: String, boldText: String) -> NSMutableAttributedString {
-        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0), .foregroundColor: UIColor.black])
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0), .foregroundColor: AppColors.themeBlack])
         
         attString.addAttributes([
             .font: AppFonts.SemiBold.withSize(18.0),
@@ -109,7 +109,7 @@ class HotelSearchTableViewCell: AppStoreAnimationTableViewCell {
     }
     
     private func getAttributeBoldTextForAddress(text: String, boldText: String) -> NSMutableAttributedString {
-        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), .foregroundColor: UIColor.black])
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), .foregroundColor: AppColors.themeGray60])
         
         attString.addAttributes([
             .font: AppFonts.Regular.withSize(14.0),

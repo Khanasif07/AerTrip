@@ -49,11 +49,11 @@ extension SideMenuViewAccountCell {
         self.amountLabel.textColor       = AppColors.themeBlack
         
         self.viewAccountButton.titleLabel?.font = AppFonts.Regular.withSize(14)
-        self.viewAccountButton.titleLabel?.textColor = AppColors.themeGreen
         self.viewAccountButton.setTitle(LocalizedString.ViewAccounts.localized, for: .normal)
+        viewAccountButton.setTitleColor(AppColors.themeGreen, for: .normal)
         
         self.dateLabel.font = AppFonts.Regular.withSize(12)
-        self.dateLabel.textColor = AppColors.themeRed
+        self.dateLabel.textColor = AppColors.themeRed254
         
     }
     
@@ -77,11 +77,16 @@ extension SideMenuViewAccountCell {
                 date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first
                 
             default:
-                amount = UserInfo.loggedInUser?.accountData?.currentBalance ?? 0.0
+                amount = UserInfo.loggedInUser?.accountData?.walletAmount ?? 0.0
+                if amount != 0{
+                    amount *= -1
+                }
             }
         }
         
-        self.amountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
+        let textSize: CGFloat = isSEDevice ? 17 : 22
+        
+        self.amountLabel.attributedText = amount.getConvertedAmount(using: AppFonts.Regular.withSize(textSize))
         
         self.dateLabel.text = ""
         self.dateLabel.isHidden = true

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import IQKeyboardManager
 protocol AddTagButtonDelegate: class {
     func addTagButtons(tagName: String)
 }
@@ -18,6 +18,10 @@ class SearchHotelTagVC: BaseVC {
     internal var tagButtons: [String] = []
     internal var copyOfTagButtons: [String] = []
     internal weak var delegate: AddTagButtonDelegate?
+    internal var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
+    
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
+    var dismissingStatusBarStyle: UIStatusBarStyle = .darkContent
     
     //Mark:- IBOutlets
     //================
@@ -33,9 +37,10 @@ class SearchHotelTagVC: BaseVC {
     @IBOutlet weak var cancelBtnOutlet: UIButton!
     @IBOutlet weak var dividerView: ATDividerView! {
         didSet {
-//            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+            //            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
         }
     }
+    @IBOutlet weak var headerContainer: UIView!
     
     //Mark:- LifeCycle
     //================
@@ -45,6 +50,25 @@ class SearchHotelTagVC: BaseVC {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        IQKeyboardManager.shared().isEnabled = false
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
+        searchBar.returnKeyType = UIReturnKeyType.done
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.searchBar.becomeFirstResponder()
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarStyle = dismissingStatusBarStyle
     }
     
     override func setupTexts() {
@@ -57,15 +81,19 @@ class SearchHotelTagVC: BaseVC {
     
     override func setupColors() {
         self.cancelBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.tagTableView.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func initialSetup() {
+        self.tagTableView.contentInset = UIEdgeInsets(top: headerContainer.height, left: 0.0, bottom: 0.0, right: 0.0)
         self.copyOfTagButtons = self.tagButtons
-        
+        if #available(iOS 13.0, *) {} else {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
-        
+        searchBar.placeholder = LocalizedString.hotelFilterSearchBar.localized
+        }
     }
     
     override func bindViewModel() {
@@ -87,6 +115,8 @@ class SearchHotelTagVC: BaseVC {
     //Mark:- IBActions
     //================
     @IBAction func cancelBtnAction(_ sender: UIButton) {
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -103,11 +133,14 @@ extension SearchHotelTagVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTagTableCell", for: indexPath) as? SearchTagTableCell else { return UITableViewCell() }
         cell.hotelTagName.text = self.copyOfTagButtons[indexPath.row]
-        if indexPath.row == self.copyOfTagButtons.count - 1 {
-            cell.dividerViewLeadingConstraints.constant = 0.0
-        } else {
+//        if indexPath.row == self.copyOfTagButtons.count - 1 {
+//            cell.dividerViewLeadingConstraints.constant = 0.0
+//            cell.dividerViewTrailingConstraints.constant = 0.0
+//        } else {
             cell.dividerViewLeadingConstraints.constant = 16.0
-        }
+             cell.dividerViewTrailingConstraints.constant = 0.0
+//        }
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -116,6 +149,8 @@ extension SearchHotelTagVC: UITableViewDelegate, UITableViewDataSource {
         if let safeDelegate = self.delegate {
             safeDelegate.addTagButtons(tagName: self.copyOfTagButtons[indexPath.row])
         }
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -126,19 +161,40 @@ extension SearchHotelTagVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         printDebug(searchText)
-        if searchText.isEmpty {
+        if searchText.trimmingCharacters(in: .whitespaces).isEmpty {
             self.copyOfTagButtons = self.tagButtons
+            searchBar.text = ""
         } else {
             self.updateDataSource(searchedTag: searchText)
         }
         self.tagTableView.reloadData()
     }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !(searchBar.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? false){
+            if let safeDelegate = self.delegate {
+                safeDelegate.addTagButtons(tagName: searchBar.text ?? "")
+            }
+            IQKeyboardManager.shared().isEnabled = true
+            IQKeyboardManager.shared().isEnableAutoToolbar = true
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            searchBar.text = ""
+        }
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
+    }
 }
 
 extension SearchHotelTagVC {
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        guard let direction = sender.direction, direction.isVertical, self.tagTableView.contentOffset.y <= 0
+            else {
+                initialTouchPoint = CGPoint.zero
+                return
+        }
         let touchPoint = sender.location(in: view?.window)
-        var initialTouchPoint = CGPoint.zero
         
         switch sender.state {
         case .began:
@@ -159,8 +215,38 @@ extension SearchHotelTagVC {
                 })
             }
         case .failed, .possible:
+            initialTouchPoint = CGPoint.zero
+            break
+        @unknown default:
             break
         }
     }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+
+extension SearchHotelTagVC: SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        guard !text.isEmpty else {return}
+        searchBar.hideMiceButton(isHidden: false)
+        self.searchBar.text = text
+        self.updateDataSource(searchedTag: text)
+        self.tagTableView.reloadData()
+        if let safeDelegate = self.delegate {
+            safeDelegate.addTagButtons(tagName: searchBar.text ?? "")
+        }
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+        if let vc = (self.presentingViewController as? UINavigationController)?.viewControllers.first as? HotelDetailsVC{
+            vc.viewModel.logEvents(with: .OpenRoomSearchViaMic)
+        }
+        delay(seconds: 0.8) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+    }
+
     
 }

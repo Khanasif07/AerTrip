@@ -28,9 +28,9 @@ class HCSpecialRequestsVC: BaseVC {
         didSet {
             self.specialReqTableView.delegate = self
             self.specialReqTableView.dataSource = self
-            self.specialReqTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0.0)
             self.specialReqTableView.estimatedRowHeight = UITableView.automaticDimension
             self.specialReqTableView.rowHeight = UITableView.automaticDimension
+            self.specialReqTableView.backgroundColor = AppColors.themeBlack26
         }
     }
     
@@ -41,6 +41,8 @@ class HCSpecialRequestsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.specialReqTableView.contentInset = UIEdgeInsets(top: headerView.height + 10.0, left: 0.0, bottom: 10.0, right: 0.0)
+
         self.headerViewSetUp()
         self.footerViewSetUp()
         self.registerNibs()
@@ -52,6 +54,7 @@ class HCSpecialRequestsVC: BaseVC {
     
     override func setupColors() {
         self.headerView.navTitleLabel.textColor = AppColors.themeBlack
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func setupTexts() {
@@ -62,6 +65,7 @@ class HCSpecialRequestsVC: BaseVC {
     //================
     private func footerViewSetUp() {
         self.footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 35.0))
+        self.footerView?.backgroundColor = AppColors.themeBlack26
         self.specialReqTableView.tableFooterView = self.footerView
     }
     
@@ -90,6 +94,17 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
 //        return self.viewModel.itineraryData.special_requests.count + 2
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row < self.viewModel.specialRequests.count {
+            return 44
+        }else if indexPath.row == self.viewModel.specialRequests.count {
+            return 60 + 17
+
+        }else {
+            return 60
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row < self.viewModel.specialRequests.count {
             let cell = self.getRoomTableViewCell(tableView, cellForRowAt: indexPath)
@@ -102,13 +117,33 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _ = tableView.cellForRow(at: indexPath) as? RoomTableViewCell {
-            if !self.viewModel.selectedRequestsId.contains(self.viewModel.specialRequests[indexPath.row].id) {
-                self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
-                self.viewModel.selectedRequestsName.append(self.viewModel.specialRequests[indexPath.row].name)
-            }
-            else {
-                self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
-                self.viewModel.selectedRequestsName.remove(object: self.viewModel.specialRequests[indexPath.row].name)
+        
+            if !self.viewModel.selectedRequests.contains(where: { (req) -> Bool in
+                req.id == self.viewModel.specialRequests[indexPath.row].id
+            }) {
+
+                if self.viewModel.specialRequests[indexPath.row].groupId != "0" {
+                
+                let contradictingReq = self.viewModel.selectedRequests.filter { $0.groupId != self.viewModel.specialRequests[indexPath.row].groupId }
+                self.viewModel.selectedRequests = contradictingReq
+                    
+                }
+                
+//                self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
+                self.viewModel.selectedRequests.append(self.viewModel.specialRequests[indexPath.row])
+          
+            } else {
+//                self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
+                
+                
+                if let ind = self.viewModel.selectedRequests.firstIndex(where: { (req) -> Bool in
+                    req.id == self.viewModel.specialRequests[indexPath.row].id
+                }) {
+                self.viewModel.selectedRequests.remove(at: ind)
+               }
+                
+                
+//                self.viewModel.selectedRequests.remove(object: self.viewModel.specialRequests[indexPath.row])
             }
         }
         self.specialReqTableView.reloadData()
@@ -121,12 +156,16 @@ extension HCSpecialRequestsVC {
     
     internal func getRoomTableViewCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoomTableViewCell.reusableIdentifier, for: indexPath) as? RoomTableViewCell else { return UITableViewCell() }
-        if self.viewModel.selectedRequestsId.contains(self.viewModel.specialRequests[indexPath.row].id) {
-           cell.statusButton.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+        
+        if self.viewModel.selectedRequests.contains(where: { (req) -> Bool in
+            req.id == self.viewModel.specialRequests[indexPath.row].id
+        }) {
+            cell.statusButton.setImage(AppImages.CheckedGreenRadioButton, for: .normal)
         } else {
-            cell.statusButton.setImage(#imageLiteral(resourceName: "untick"), for: .normal)
+            cell.statusButton.setImage(AppImages.specialReqUncheck, for: .normal)
         }
         cell.configCell(title: self.viewModel.specialRequests[indexPath.row].name)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -134,16 +173,20 @@ extension HCSpecialRequestsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCSpecialRequestTextfieldCell.reusableIdentifier, for: indexPath) as? HCSpecialRequestTextfieldCell else { return UITableViewCell() }
         cell.delegate = self
         if indexPath.row == self.viewModel.specialRequests.count {
-            cell.topDividerViewTopConstraints.constant = 0.0//17.0
-            cell.configCell(placeHolderText: textFieldPlaceHolder[0])
+            //cell.topDividerViewTopConstraints.constant = 0.0//17.0
+            cell.configCell(placeHolderText: textFieldPlaceHolder[0], placeholderColor: AppColors.hotelSpecialReqColor)
             cell.topDividerView.isHidden = false
             cell.infoTextField.text =  self.viewModel.other
+            cell.topDividerTopConstraint.constant = 17.5
         } else {
-            cell.topDividerViewTopConstraints.constant = 0.0
+           // cell.topDividerViewTopConstraints.constant = 0.0
             cell.topDividerView.isHidden = true
-            cell.configCell(placeHolderText: textFieldPlaceHolder[1])
+            cell.configCell(placeHolderText: textFieldPlaceHolder[1], placeholderColor: AppColors.hotelSpecialReqColor)
             cell.infoTextField.text =  self.viewModel.specialRequest
+            cell.topDividerTopConstraint.constant = 0
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         return cell
     }
 }
@@ -159,7 +202,10 @@ extension HCSpecialRequestsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         if let safeDelegate = self.delegate {
-            safeDelegate.didPassSelectedRequestsId(ids: self.viewModel.selectedRequestsId, names: self.viewModel.selectedRequestsName, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest)
+            
+            let names = self.viewModel.specialRequests.map { $0.name }
+            
+            safeDelegate.didPassSelectedRequestsId(ids: self.viewModel.selectedRequests.map { $0.id }, names: names, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -168,7 +214,8 @@ extension HCSpecialRequestsVC: TopNavigationViewDelegate {
 //Mark:- HCSpecialRequestTextfieldCell Delegate
 //=============================================
 extension HCSpecialRequestsVC: HCSpecialRequestTextfieldCellDelegate {
-    func didPassSpecialRequestAndAirLineText(infoText: String,indexPath: IndexPath) {
+    func didPassSpecialRequestAndAirLineText(infoText: String,textField: UITextField) {
+        guard let cell = textField.tableViewCell, let indexPath = self.specialReqTableView.indexPath(for: cell) else {return}
         if indexPath.row == self.viewModel.specialRequests.count {
             self.viewModel.other = infoText
         } else {

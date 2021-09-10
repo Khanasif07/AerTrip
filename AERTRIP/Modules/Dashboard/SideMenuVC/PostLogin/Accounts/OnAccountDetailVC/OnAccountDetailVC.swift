@@ -36,6 +36,8 @@ class OnAccountDetailVC: BaseVC {
 
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
         
+        viewModel.sortByDate()
+        
         self.setScreenTitle()
         self.topNavView.delegate = self
 
@@ -45,6 +47,10 @@ class OnAccountDetailVC: BaseVC {
         self.tableView.backgroundView = self.noAccountTransectionView
         
         self.tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
+        
+        //for header blur
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,6 +68,10 @@ class OnAccountDetailVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     //MARK:- Methods

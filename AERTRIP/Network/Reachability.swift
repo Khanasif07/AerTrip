@@ -51,6 +51,9 @@ class Reachability: NSObject {
         }
     }
     
+    deinit {
+        printDebug("deinit Reachability")
+    }
     
     static func networkReachabilityForInternetConnection() -> Reachability? {
         var zeroAddress = sockaddr_in()

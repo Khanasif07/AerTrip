@@ -12,9 +12,9 @@ class HCSpecialRequestsVM {
     
     var other: String = ""
     var specialRequest: String = ""
-    var selectedRequestsId: [Int] = []
+//    var selectedRequestsId: [Int] = []
     var specialRequests: [SpecialRequest] = []
-    var selectedRequestsName: [String] = []
+    var selectedRequests: [SpecialRequest] = []
 
     
 }

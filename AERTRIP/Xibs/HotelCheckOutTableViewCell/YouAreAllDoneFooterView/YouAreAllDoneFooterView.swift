@@ -44,7 +44,7 @@ class YouAreAllDoneFooterView: UIView {
     private func configureUI() {
         //UI
         self.returnHomeButton.backgroundColor = AppColors.themeGreen
-        self.returnHomeButton.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+        self.returnHomeButton.addGredient(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors)
         //Text
         self.returnHomeButton.setTitle(LocalizedString.ReturnHome.localized, for: .normal)
         //Font

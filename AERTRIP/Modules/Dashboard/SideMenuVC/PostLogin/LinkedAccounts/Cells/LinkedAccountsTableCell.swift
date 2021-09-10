@@ -26,7 +26,8 @@ class LinkedAccountsTableCell: UITableViewCell {
     @IBOutlet weak var disConnectedContainerView: UIView!
     @IBOutlet weak var connectButton: ATButton!
     @IBOutlet weak var buttonBackgroundView: UIView!
-    
+    @IBOutlet weak var dividerView: UIView!
+
     //MARK:- Properties
     //MARK:- Public
     weak var delegate: LinkedAccountsCellDelegate?
@@ -44,6 +45,11 @@ class LinkedAccountsTableCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.initialSetup()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -66,7 +72,8 @@ class LinkedAccountsTableCell: UITableViewCell {
     
     private func initialSetup() {
         self.selectionStyle = .none
-        
+        self.contentView.backgroundColor = AppColors.themeWhite
+        self.dividerView.backgroundColor = AppColors.dividerColor
         self.socialTypeLabel.font = AppFonts.Regular.withSize(20.0)
         self.socialTypeLabel.textColor = AppColors.themeBlack
         self.connectButton.isSocial = true
@@ -98,8 +105,12 @@ class LinkedAccountsTableCell: UITableViewCell {
             self.emailLabel.text = self.linkedAccount?.email ?? LocalizedString.na.localized
             self.socialTypeLabel.text = self.linkedAccount?.socialType.socialTitle
             self.iconImageView.image = self.linkedAccount?.socialType.socialIconImage
+            if self.linkedAccount?.socialType.socialTitle == LocalizedString.Apple.localized{
+                self.iconImageView.image = AppImage.appleLogoImage.withRenderingMode(.alwaysTemplate)
+                self.iconImageView.tintColor = AppColors.themeBlack
+            }
             if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, let currentSocial = self.linkedAccount?.socialType {
-                self.disconnectButton.setTitleColor( loggedSocial != currentSocial ?  AppColors.themeRed : AppColors.themeGray20, for: .normal)
+                self.disconnectButton.setTitleColor( (loggedSocial != currentSocial && (UserInfo.loggedInUser?.hasPassword == true)) ?  AppColors.themeRed : AppColors.themeGray20, for: .normal)
             }
         }
         else {
@@ -115,9 +126,11 @@ class LinkedAccountsTableCell: UITableViewCell {
                 case .google:
                     self.setupForGoogle()
                     
-                case .linkedin:
-                    self.setupForLinkedIn()
+//                case .linkedin:
+//                    self.setupForLinkedIn()
                     
+                case .apple:
+                    self.setupForApple()
                 default:
                     self.connectButton.isHidden = true
                 }
@@ -131,11 +144,11 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
         self.connectButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .normal)
         self.connectButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .selected)
-        self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
-        self.connectButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
-        self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.connectButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.connectButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
+        self.connectButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
+        self.connectButton.setImage(AppImages.facebookLogoImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.connectButton.setImage(AppImages.facebookLogoImage.withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
 //        self.connectButton.shadowColor = AppColors.clear
         self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
@@ -145,14 +158,14 @@ class LinkedAccountsTableCell: UITableViewCell {
     private func setupForGoogle() {
         self.connectButton.isHidden = false
 //        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.themeWhite, offset: CGSize(width: -1.0, height: 1.0))
-        self.connectButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
+        self.connectButton.gradientColors = [AppColors.unicolorWhite, AppColors.unicolorWhite]
         self.connectButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .normal)
         self.connectButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .selected)
-        self.connectButton.setTitleColor(AppColors.themeBlack, for: .normal)
-        self.connectButton.setTitleColor(AppColors.themeBlack, for: .selected)
-        self.connectButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
-        self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.connectButton.setTitleColor(AppColors.unicolorBlack, for: .normal)
+        self.connectButton.setTitleColor(AppColors.unicolorBlack, for: .selected)
+        self.connectButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
+        self.connectButton.setImage(AppImages.googleLogoImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.connectButton.setImage(AppImages.googleLogoImage.withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
        // self.connectButton.shadowColor = AppColors.clear
         self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
@@ -167,13 +180,31 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setTitle(LocalizedString.ConnectWithLinkedIn.localized, for: .selected)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
-        self.connectButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
-        self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.connectButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
+        self.connectButton.setImage(AppImages.linkedInLogoImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.connectButton.setImage(AppImages.linkedInLogoImage.withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
         //self.connectButton.shadowColor = AppColors.clear
         
         self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true
     }
+    
+    private func setupForApple() {
+            self.connectButton.isHidden = false
+    //        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.linkedinButtonBackgroundColor, offset: CGSize(width: -1.0, height: 1.0))
+            self.connectButton.gradientColors = [AppColors.appleButtonBackgroundColor, AppColors.appleButtonBackgroundColor]
+            self.connectButton.setTitle(LocalizedString.Continue_with_Apple.localized, for: .normal)
+            self.connectButton.setTitle(LocalizedString.Continue_with_Apple.localized, for: .selected)
+            self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
+            self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
+            self.connectButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
+            self.connectButton.setImage(AppImages.appleLogoImage, for: .normal)
+            self.connectButton.setImage(AppImages.appleLogoImage, for: .selected)
+            self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
+            //self.connectButton.shadowColor = AppColors.clear
+            
+            self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+            self.connectButton.isSocial = true
+        }
 }

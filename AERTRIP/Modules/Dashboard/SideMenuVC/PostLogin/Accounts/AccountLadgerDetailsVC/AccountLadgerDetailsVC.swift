@@ -14,14 +14,17 @@ class AccountLadgerDetailsVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var blurView: BlurView!
     @IBOutlet weak var tableView: ATTableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.backgroundColor = AppColors.themeGray04
         }
     }
-    
-    
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var navBarHeight: NSLayoutConstraint!
+    @IBOutlet weak var whiteContainerView: UIView!
     //MARK:- Properties
     //MARK:- Public
     let viewModel = AccountLadgerDetailsVM()
@@ -34,13 +37,23 @@ class AccountLadgerDetailsVC: BaseVC {
     private let headerHeightHotelSale: CGFloat = 215.0
     private let parallexHeaderMinHeight: CGFloat = 0.0
     private var parallexHeaderMaxHeight: CGFloat {
-        if let event = self.viewModel.ladgerEvent, event.voucher == .sales {
-            if event.productType == .flight {
-                self.headerView.titleHeightConstraint.constant = 21.0
+        if let event = self.viewModel.ladgerEvent, (event.voucher == .sales || event.voucher == .journal) {
+            if event.productType == .flight, !(event.bookingId.isEmpty) {
+                if event.voucher == .journal{
+                    self.headerView.titleHeightConstraint.constant = 46.0
+                    self.headerView.titleLabelBottom.constant = 0.0
+                }else{
+                    self.headerView.titleHeightConstraint.constant = 21.0
+                }
+                
                 return self.headerHeightFlightSale
             }
-            else {
+            else if !(event.bookingId.isEmpty){
                 return self.headerHeightHotelSale
+            }else{
+                self.headerView.bottomContainerBottomConstraint.constant = 0.0
+                self.headerView.bottomDetailContainerHeightConstraint.constant = 0.0
+                return self.headerHeightForCredit
             }
         }
         else {
@@ -49,27 +62,51 @@ class AccountLadgerDetailsVC: BaseVC {
             return self.headerHeightForCredit
         }
     }
+    // Make navigation bar height as 88.0 on iphone X .
+    private var headerViewHeight: CGFloat {
+        return UIDevice.isIPhoneX ? 88.0 : 64.0
+    }
+    private var setupHeader = false
+    var maxValue: CGFloat = 1.0
+    var minValue: CGFloat = 0.0
+    var finalMaxValue: Int = 0
+    var currentProgress: CGFloat = 0
+    var currentProgressIntValue: Int = 0
+    var isScrollingFirstTime: Bool = true
+    var isNavBarHidden:Bool = true
+    let headerHeightToAnimate: CGFloat = 30.0
+    var isHeaderAnimating: Bool = false
+    var isBackBtnTapped = false
+    fileprivate let refreshControl = UIRefreshControl()
     
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
-        self.viewModel.fetchLadgerDetails()
+        self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
+        self.tableView.registerCell(nibName: DownloadInvoiceTableViewCell.reusableIdentifier)
+        DispatchQueue.main.async {
+            self.topNavView.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .blurAnimatedView(isDark: false))
+            self.topNavView.dividerView.isHidden = true
+            self.topNavView.delegate = self
+            self.topNavView.backgroundColor = AppColors.clear
+            self.navBarHeight.constant = self.headerViewHeight
+            self.topNavView.navTitleLabel.numberOfLines = 1
+            self.blurView.isHidden = true
+            self.viewModel.fetchLadgerDetails()
+            self.setupParallexHeaderView()
+            
+            /*
+            self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+            self.refreshControl.tintColor = AppColors.themeGreen
+            self.tableView.refreshControl = self.refreshControl
+ */
+        }
+        
+        self.containerView.backgroundColor = AppColors.themeBlack26
+        
 
-        self.setupParallexHeaderView()
-        
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
-        
-        self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
-        self.topNavView.delegate = self
-        self.topNavView.backgroundColor = AppColors.clear
-        self.topNavView.containerView.backgroundColor = AppColors.clear
-        
-        if let event = self.viewModel.ladgerEvent, let img = event.iconImage {
-            self.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
-        }
-        else {
-            self.topNavView.navTitleLabel.text = self.viewModel.ladgerEvent?.title ?? ""
-        }
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsLedgerDetails, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
     }
     
     override func bindViewModel() {
@@ -79,80 +116,130 @@ class AccountLadgerDetailsVC: BaseVC {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //after loading the data check if table view scrollable or not
-//        delay(seconds: 0.4) { [weak self] in
-//            guard let sSelf = self else {return}
-//            sSelf.tableView.isScrollEnabled = (sSelf.tableView.contentSize.height > sSelf.tableView.height)
-//        }
+        //        delay(seconds: 0.4) { [weak self] in
+        //            guard let sSelf = self else {return}
+        //            sSelf.tableView.isScrollEnabled = (sSelf.tableView.contentSize.height > sSelf.tableView.height)
+        //        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.viewModel.isDownloadingRecipt = false
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !self.setupHeader{
+            self.setupHeader = true
+            self.setupParallexHeaderView()
+        }
+        if let view = self.headerView {
+            view.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: self.parallexHeaderMaxHeight)
+            view.layoutIfNeeded()
+        }
+    }
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     //MARK:- Methods
     //MARK:- Private
     private func setupParallexHeaderView() {
         self.headerView = AccountLadgerDetailHeader.instanceFromNib()
-        self.headerView.ladgerEvent = self.viewModel.ladgerEvent
-
-        self.headerView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 0)
         
+        if let event = self.viewModel.ladgerEvent{
+            switch event.productType {
+            case .flight, .hotel:  headerView.bookingIdButton.isHidden = false
+            default:  headerView.bookingIdButton.isHidden = true
+            }
+        }
+        headerView.delegate = self
+        if !self.viewModel.isForOnAccount{
+            self.headerView.ladgerEvent = self.viewModel.ladgerEvent
+        }else{
+            headerView.bookingIdButton.isHidden = true
+            self.headerView.onAccountEvent = self.viewModel.onAccountEvent
+        }
+        self.headerView.backgroundColor = AppColors.themeBlack26
+        self.headerView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: self.parallexHeaderMaxHeight)
+        self.headerView?.translatesAutoresizingMaskIntoConstraints = false
+        self.headerView?.widthAnchor.constraint(equalToConstant: tableView?.width ?? 0.0).isActive = true
         self.tableView.parallaxHeader.view = self.headerView
         self.tableView.parallaxHeader.minimumHeight = self.parallexHeaderMinHeight
-        
         self.tableView.parallaxHeader.height = self.parallexHeaderMaxHeight
-
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
-        
         self.view.bringSubviewToFront(self.topNavView)
+        self.tableView.layoutIfNeeded()
         
-        self.manageHeader(isHidden: true, animated: false)
+        //self.manageHeader(isHidden: true, animated: false)
     }
     
     var isHeaderHidden: Bool {
         return self.topNavView.navTitleLabel.alpha == 0.0
     }
     
-    private func manageHeader(isHidden: Bool, animated: Bool) {
-        
-        //stop to re-animate in current state
-        if isHidden, self.isHeaderHidden {
-            return
-        }
-        else if !isHidden, !self.isHeaderHidden {
-            return
-        }
-        
-        if isHidden {
-            self.topNavView.navTitleLabel.alpha = 1.0
-            self.topNavView.navTitleLabel.transform = .identity
-            
-            self.topNavView.dividerView.alpha = 1.0
-            self.topNavView.dividerView.transform = .identity
-        }
-        
-        let transformForHide = CGAffineTransform(translationX: 0.0, y: -50.0)
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {[weak self] in
-            guard let sSelf = self else {return}
-            
-            sSelf.topNavView.navTitleLabel.alpha = isHidden ? 0.0 : 1.0
-            sSelf.topNavView.navTitleLabel.transform = isHidden ? transformForHide : CGAffineTransform.identity
-            
-            sSelf.topNavView.dividerView.alpha = isHidden ? 0.0 : 1.0
-            sSelf.topNavView.dividerView.transform = isHidden ? transformForHide : CGAffineTransform.identity
-            
-            sSelf.topNavView.containerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(isHidden ? 0.001 : 1.0)
-            
-            }, completion: { (isDone) in
-        })
-    }
+    //    private func manageHeader(isHidden: Bool, animated: Bool) {
+    //
+    //        //stop to re-animate in current state
+    //        if isHidden, self.isHeaderHidden {
+    //            return
+    //        }
+    //        else if !isHidden, !self.isHeaderHidden {
+    //            return
+    //        }
+    //
+    //        if isHidden {
+    //            self.topNavView.navTitleLabel.alpha = 1.0
+    //            self.topNavView.navTitleLabel.transform = .identity
+    //
+    //            self.topNavView.dividerView.alpha = 1.0
+    //            self.topNavView.dividerView.transform = .identity
+    //        }
+    //
+    //        let transformForHide = CGAffineTransform(translationX: 0.0, y: -50.0)
+    //        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {[weak self] in
+    //            guard let sSelf = self else {return}
+    //
+    //            sSelf.topNavView.navTitleLabel.alpha = isHidden ? 0.0 : 1.0
+    //            sSelf.topNavView.navTitleLabel.transform = isHidden ? transformForHide : CGAffineTransform.identity
+    //
+    //            sSelf.topNavView.dividerView.alpha = isHidden ? 0.0 : 1.0
+    //            sSelf.topNavView.dividerView.transform = isHidden ? transformForHide : CGAffineTransform.identity
+    //
+    //            sSelf.topNavView.containerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(isHidden ? 0.001 : 1.0)
+    //
+    //            }, completion: { (isDone) in
+    //        })
+    //    }
     
     //MARK:- Public
     
     
     //MARK:- Action
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.fetchAccountDetails()
+    }
 }
 
 //MARK:- ViewModel delegate methods
 //MARK:-
 extension AccountLadgerDetailsVC: AccountLadgerDetailsVMDelegate {
+    func willFetchAccountDetail() {
+        
+    }
+    
+    func fetchAccountDetailSuccess(model: AccountDetailPostModel) {
+        NotificationCenter.default.post(name: .accountDetailFetched, object: model)
+        self.refreshControl.endRefreshing()
+    }
+    
+    func fetchAccountDetailFail() {
+        self.refreshControl.endRefreshing()
+    }
+    
     func willFetchLadgerDetails() {
     }
     
@@ -169,7 +256,12 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailsVMDelegate {
 extension AccountLadgerDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button
-        AppFlowManager.default.popViewController(animated: true)
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .navigateBack, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+        DispatchQueue.main.async {
+            AppFlowManager.default.popViewController(animated: true)
+        }
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -182,22 +274,184 @@ extension AccountLadgerDetailsVC: TopNavigationViewDelegate {
 //MARK:- MXParallaxHeaderDelegate methods
 //MARK:-
 extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
-    func updateForParallexProgress() {
-        
-        let prallexProgress = self.tableView.parallaxHeader.progress
-        printDebug("progress %f \(prallexProgress)")
-        self.manageHeader(isHidden: (prallexProgress > 0.48), animated: true)
-    }
+    //    func updateForParallexProgress() {
+    //
+    //        let prallexProgress = self.tableView.parallaxHeader.progress
+    //        printDebug("progress %f \(prallexProgress)")
+    //        self.manageHeader(isHidden: (prallexProgress > 0.48), animated: true)
+    //    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
+//        if (scrollView.contentOffset.y + 40) < -(self.parallexHeaderMaxHeight){
+//            self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+//        } else {
+//            self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+//        }
+//        printDebug("self.parallexHeaderMaxHeight : \(self.parallexHeaderMaxHeight)")
+//        printDebug("scrollView.contentOffset.y : \(scrollView.contentOffset.y)")
+//        printDebug("scrollView.contentOffset.y : \((scrollView.contentOffset.y + 40))")
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.updateForParallexProgress()
+    
+    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    //        self.updateForParallexProgress()
+    //    }
+    //
+    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    //        self.updateForParallexProgress()
+    //    }
+    
+    @objc func updateForParallexProgress() {
+        
+        let prallexProgress = self.tableView.parallaxHeader.progress
+      //  printDebug("intial progress value \(prallexProgress)")
+        
+      //  printDebug("progress value \(prallexProgress)")
+
+        
+        if isScrollingFirstTime && prallexProgress > 1.0 {
+            maxValue = prallexProgress
+            minValue = abs(1 - prallexProgress)
+            finalMaxValue = Int(maxValue * 100)
+            isScrollingFirstTime = false
+           // printDebug("minvalue \(minValue) and maxValue \(maxValue)")
+        }
+        //
+        //
+        if minValue...maxValue ~= prallexProgress {
+           // printDebug("progress value \(prallexProgress)")
+            let intValue =  finalMaxValue - Int(prallexProgress * 100)
+            
+            //printDebug(" int value \(intValue)")
+            let newProgress: Float = (Float(1) - (Float(1.3)  * (Float(intValue) / 100)))
+            
+           // printDebug("new progress value \(newProgress)")
+            
+            
+           // printDebug("CGFloat progress  Value is \(newProgress.toCGFloat.roundTo(places: 3))")
+            
+            self.currentProgressIntValue = intValue
+            self.currentProgress = newProgress.toCGFloat
+            
+            self.whiteContainerView.isHidden = (newProgress <= 0.8)
+        }
+        
+        //
+        if prallexProgress  <= 0.7 {
+            
+            
+            if isNavBarHidden {
+                
+                self.topNavView.animateBackView(isHidden: true) { [weak self] _ in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavView.leftButton.isSelected = false
+                    sSelf.topNavView.leftButton.tintColor = AppColors.themeWhite
+                    sSelf.topNavView.navTitleLabel.text = ""
+                    sSelf.headerView?.titleLabel.alpha = 1
+                    sSelf.headerView?.bookingIdKeyLabel.alpha = 1
+                    sSelf.headerView?.bookingIdValueLabel.alpha = 1
+                    sSelf.topNavView.dividerView.isHidden = true
+                    sSelf.blurView.isHidden = true
+                    //sSelf.whiteContainerView.isHidden = false
+                }
+                
+            } else {
+                
+                self.topNavView.animateBackView(isHidden: false) { [weak self] _ in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavView.leftButton.isSelected = true
+                    sSelf.topNavView.leftButton.tintColor = AppColors.themeGreen
+                    if !(sSelf.viewModel.isForOnAccount){
+                        if let event = sSelf.viewModel.ladgerEvent, let img = event.iconImage {
+                            if let abtTxt = event.attributedString{
+                                
+                                let attrText = AppGlobals.shared.getTextWithImageAttributedTxt(image: img, attributedText: abtTxt)
+                                
+                                let mutableText = NSMutableAttributedString(attributedString: attrText)
+
+                                mutableText.mutableString.replaceOccurrences(of: "\n", with: " ", options: [], range: NSMakeRange(0, mutableText.length))
+
+                                sSelf.topNavView.navTitleLabel.attributedText = mutableText
+
+//                                sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: AppImages.BookingDetailFlightNavIcon, attributedText: abtTxt)
+                            }else{
+                                sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
+                            }
+                            
+                        }
+                        else {
+                            if let abtTxt = sSelf.viewModel.ladgerEvent?.attributedString{
+                                sSelf.topNavView.navTitleLabel.attributedText = abtTxt
+                            }else{
+                                sSelf.topNavView.navTitleLabel.text = sSelf.viewModel.ladgerEvent?.title ?? ""
+                            }
+                            
+                        }
+                    }else{
+                        let img = AppImages.ic_acc_receipt
+                        let atbtrTxt = sSelf.viewModel.onAccountEvent?.voucherName ?? ""
+                        sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(atbtrTxt)", font: AppFonts.SemiBold.withSize(18.0))
+                        
+                    }
+                    sSelf.blurView.isHidden = false
+                    sSelf.headerView?.titleLabel.alpha = 0
+                    sSelf.headerView?.bookingIdKeyLabel.alpha = 0
+                    sSelf.headerView?.bookingIdValueLabel.alpha = 0
+                    sSelf.topNavView.dividerView.isHidden = false
+                    //sSelf.whiteContainerView.isHidden = true
+                }
+            }
+        } else {
+            
+            self.topNavView.animateBackView(isHidden: true) { [weak self] _ in
+                guard let sSelf = self else { return }
+                sSelf.topNavView.leftButton.isSelected = false
+                sSelf.topNavView.leftButton.tintColor = AppColors.themeWhite
+                sSelf.topNavView.navTitleLabel.text = ""
+                sSelf.headerView?.titleLabel.alpha = 1
+                sSelf.headerView?.bookingIdKeyLabel.alpha = 1
+                sSelf.headerView?.bookingIdValueLabel.alpha = 1
+                sSelf.topNavView.dividerView.isHidden = true
+                sSelf.blurView.isHidden = true
+                //sSelf.whiteContainerView.isHidden = false
+            }
+            
+        }
+        self.isNavBarHidden = false
+        
+    }
+}
+
+extension AccountLadgerDetailsVC: AccountLadgerDetailHeaderDelegate{
+    
+    func tapBookingButton(){
+        if let event = self.viewModel.ladgerEvent, (event.voucher == .sales || event.voucher == .journal) {
+            switch event.productType {
+            case .flight:
+                
+                let title = NSMutableAttributedString(string: (event.voucher == .sales) ? event.title : event.sector)
+                
+                
+                let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                                 "DetailsType":viewModel.detailType,
+                                                 "Title":title]
+                FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerFlightDetails, value: jsonDict)
+
+                AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: event.bookingId,tripCitiesStr: title)
+                
+            case .hotel:
+
+                let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                                 "DetailsType":viewModel.detailType]
+                FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerHotelDetails, value: jsonDict)
+
+                AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: event.bookingId)
+            default: break
+            }
+            
+            
+        }
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.updateForParallexProgress()
-    }
 }

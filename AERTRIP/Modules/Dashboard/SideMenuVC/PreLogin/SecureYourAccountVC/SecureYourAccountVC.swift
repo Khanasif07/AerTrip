@@ -111,6 +111,21 @@ class SecureYourAccountVC: BaseVC {
         self.specialLabel.tintColor = AppColors.themeGray60
         self.eightPlusLabel.tintColor = AppColors.themeGray60
         self.charactersLabel.tintColor = AppColors.themeGray60
+        self.passwordTextField.lineErrorColor = AppColors.themeRed
+//        self.setTextColors()
+    }
+    
+    private func setTextColors(){
+        self.numberLabel.textColor = AppColors.themeGray60
+        self.oneLabel.textColor = AppColors.themeGray60
+        self.smallALabel.textColor = AppColors.themeGray60
+        self.lowerCaseLabel.textColor = AppColors.themeGray60
+        self.capsALabel.textColor = AppColors.themeGray60
+        self.upperCaseLabel.textColor = AppColors.themeGray60
+        self.atLabel.textColor = AppColors.themeGray60
+        self.specialLabel.textColor = AppColors.themeGray60
+        self.eightPlusLabel.textColor = AppColors.themeGray60
+        self.charactersLabel.textColor = AppColors.themeGray60
     }
     
     override func bindViewModel() {
@@ -122,12 +137,14 @@ class SecureYourAccountVC: BaseVC {
     
     @IBAction func showPasswordButtonAction(_ sender: UIButton) {
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
-            if self.passwordTextField.isSecureTextEntry {
+            if !self.passwordTextField.isSecureTextEntry {
+                self.viewModel.logEvent(with: .ViewPassword)
                 self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 1.5)
-                sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
+                sender.setImage(AppImages.showPassword, for: .normal)
             } else {
+                self.viewModel.logEvent(with: .hidePassword)
                 self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 1.5)
-                sender.setImage(#imageLiteral(resourceName: "hidePassword"), for: .normal)
+                sender.setImage(AppImages.hidePassword, for: .normal)
             }
     }
         
@@ -143,6 +160,13 @@ class SecureYourAccountVC: BaseVC {
             } else {
                 self.viewModel.webserviceForUpdatePassword()
             }
+        } else {
+            self.viewModel.logEvent(with: .EnterIncorrectFormateAndContinue)
+            let isValidPassword = !self.viewModel.password.isEmpty
+            self.passwordTextField.isError = !isValidPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            
+            let passwordPlaceHolder = self.passwordTextField.placeholder ?? ""
+            self.passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidPassword ? AppColors.themeGray40 :  AppColors.themeRed])
         }
     }
 }
@@ -158,7 +182,7 @@ private extension SecureYourAccountVC {
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
         self.passwordTextField.delegate = self
-        self.nextButton.isEnabled = false
+        //self.nextButton.isEnabled = false
 //        self.passwordTextField.titleYPadding = -5.0
 //        self.passwordTextField.lineViewBottomSpace = 10.0
         self.passwordTextField.titleYPadding = 12.0
@@ -168,16 +192,22 @@ private extension SecureYourAccountVC {
         
         self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
 
         var placeholder = LocalizedString.Password.localized
         if  self.viewModel.isPasswordType == .resetPasswod {
             placeholder = LocalizedString.New_Password.localized
         }
-        self.passwordTextField.setupTextField(placehoder: placeholder, keyboardType: .default, returnType: .done, isSecureText: true)
+        self.passwordTextField.setupTextField(placehoder: placeholder,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .done, isSecureText: true)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         
         self.passwordTextField.rightView = UIView(frame: self.showPasswordButton.bounds)
         self.passwordTextField.rightViewMode = .always
+        
+        passwordTextField.isSecureTextEntry = false
+        showPasswordButtonAction(self.showPasswordButton)
+        
+        self.nextButton.isEnabledShadow = true
     }
 }
 
@@ -195,6 +225,7 @@ extension SecureYourAccountVC {
         
         self.viewModel.password = textField.text ?? ""
         self.setupValidation()
+        self.nextButton.isEnabledShadow = self.viewModel.password.checkInvalidity(.Password)
     }
     
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -204,7 +235,13 @@ extension SecureYourAccountVC {
         return true
     }
     
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //for verify the data
+            let isValidPassword = !self.viewModel.password.checkInvalidity(.Password)
+            self.passwordTextField.isError = !isValidPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            let passwordPlaceHolder = self.passwordTextField.placeholder ?? ""
+            self.passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidPassword ? AppColors.themeGray40 :  AppColors.themeRed])
+    }
     
     func setupValidation() {
         
@@ -317,11 +354,11 @@ extension SecureYourAccountVC {
             
         }
         
-        if self.viewModel.password.checkValidity(.Password) {
-            self.nextButton.isEnabled = true
-        } else {
-            self.nextButton.isEnabled = false
-        }
+//        if self.viewModel.password.checkValidity(.Password) {
+//            self.nextButton.isEnabled = true
+//        } else {
+//            self.nextButton.isEnabled = false
+//        }
     }
 }
 

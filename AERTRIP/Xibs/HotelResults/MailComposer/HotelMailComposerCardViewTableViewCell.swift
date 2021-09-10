@@ -20,6 +20,7 @@ class HotelMailComposerCardViewTableViewCell: UITableViewCell {
     @IBOutlet weak var tripAdvisorImageView: UIImageView!
     @IBOutlet weak var cellBackgroundView: UIView!
     @IBOutlet weak var starContainerView: UIStackView!
+    @IBOutlet weak var backgroundBorderView: UIView!
     
     @IBOutlet weak var taImageLeadingConstraint: NSLayoutConstraint!
     var favHotel: HotelSearched? {
@@ -42,9 +43,11 @@ class HotelMailComposerCardViewTableViewCell: UITableViewCell {
         self.hotelPriceLabel.font = AppFonts.SemiBold.withSize(22.0)
         self.addressLabel.font = AppFonts.Regular.withSize(18.0)
         self.cellBackgroundView.layer.cornerRadius = 5.0
-        self.cellBackgroundView.layer.borderWidth = 0.5
         self.cellBackgroundView.clipsToBounds = true
-        self.cellBackgroundView.layer.borderColor = AppColors.themeGray40.cgColor
+        self.backgroundBorderView.layer.borderWidth = 0.5
+        self.backgroundBorderView.layer.borderColor = AppColors.emailDisableColor.cgColor
+        backgroundBorderView.roundBottomCorners(cornerRadius: 5)
+        hotelCardImageView.contentMode = .scaleAspectFill
     }
     
     private func setUpColors() {
@@ -58,9 +61,9 @@ class HotelMailComposerCardViewTableViewCell: UITableViewCell {
             printDebug("hotel not found ")
             return 
         }
-        if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelCardImageView.setImageWithUrl(self.favHotel?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
-        }
+        let image = AppImages.hotelCardPlaceHolder
+        self.hotelCardImageView.setImageWithUrl(self.favHotel?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
+        
         self.hotelNameLabel.text = self.favHotel?.hotelName
         self.hotelPriceLabel.text = favHotel.price.amountInDelimeterWithSymbol
         self.starRatingView.rating = favHotel.star

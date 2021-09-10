@@ -15,11 +15,18 @@ class RatingVC: BaseVC {
     @IBOutlet weak var starLabel: UILabel!
     @IBOutlet weak var includeRatedTitleLabel: UILabel!
     @IBOutlet weak var includeRatedStatusButton: UIButton!
+    @IBOutlet weak var includeTARatedTitleLbl: UILabel!
+    @IBOutlet weak var includeTARatedStatusButton: UIButton!
     
     @IBOutlet weak var tripAdvisorTitleLabel: UILabel!
     @IBOutlet weak var tripAdvisorStarLabel: UILabel!
     @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet var tripAdvisorRatingButtons: [UIButton]!
+    @IBOutlet weak var includeUnrateViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var includeUnratedViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var includeTARatedView: UIView!
+    @IBOutlet weak var includeTARatedViewHeight: NSLayoutConstraint!
+    
     
     // MARK: - Variables
     
@@ -28,7 +35,20 @@ class RatingVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.getSavedFilter()
+        if HotelFilterVM.shared.showIncludeUnrated {
+            self.includeUnrateViewHeightConstraint.constant = 44
+            self.includeUnratedViewBottomConstraint.constant = 16
+        } else {
+            self.includeUnrateViewHeightConstraint.constant = 0
+            self.includeUnratedViewBottomConstraint.constant = 0
+        }
+        includeTARatedViewHeight.constant = HotelFilterVM.shared.showIncludeTAUnrated ? 44 : 0
+        self.setFilterValues()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setFilterValues()
     }
     
     override func setupTexts() {
@@ -36,20 +56,26 @@ class RatingVC: BaseVC {
     }
     
     override func setupColors() {
-        self.starRatingTitleLabel.textColor = AppColors.themeGray40
-        self.starLabel.textColor = AppColors.themeGray40
+        view.backgroundColor = AppColors.themeWhiteDashboard
+        self.starRatingTitleLabel.textColor = AppColors.themeGray153
+        self.starLabel.textColor = AppColors.themeGray153
+        self.tripAdvisorTitleLabel.textColor = AppColors.themeGray153
+        self.tripAdvisorStarLabel.textColor = AppColors.themeGray153
     }
     
     override func setupFonts() {
         self.starRatingTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.starLabel.font = AppFonts.Regular.withSize(14.0)
+        self.tripAdvisorTitleLabel.font = AppFonts.Regular.withSize(16.0)
+        self.tripAdvisorStarLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
-    func getSavedFilter() {
+    func setFilterValues() {
         guard let filter = UserInfo.hotelFilter else {
+            self.filterApplied = UserInfo.HotelFilter()
             printDebug("filter not found")
             HotelFilterVM.shared.resetToDefault()
-            HotelFilterVM.shared.ratingCount.removeAll()
+            //HotelFilterVM.shared.ratingCount.removeAll()
             self.doInitialSetup()
             return
         }
@@ -60,16 +86,25 @@ class RatingVC: BaseVC {
     }
     
     private func doInitialSetup() {
-        
+        //guard let _ = self.view.window else { return }
         //setting stars
         
         HotelFilterVM.shared.ratingCount.removeAll()
+        HotelFilterVM.shared.tripAdvisorRatingCount.removeAll()
         
         //reset all the buttons first
-        for btn in self.starButtonsOutlet {
-            btn.adjustsImageWhenHighlighted = false
+        for btn in self.starButtonsOutlet ?? [] {
+            //btn.adjustsImageWhenHighlighted = false
             btn.isSelected = false
-            btn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+            btn.setImage(AppImages.starRatingFilled, for: .normal)
+            btn.setImage(nil, for: .selected)
+            btn.setImage(nil, for: .highlighted)
+        }
+        
+        for btn in self.tripAdvisorRatingButtons ?? [] {
+            //btn.adjustsImageWhenHighlighted = false
+            btn.isSelected = false
+            btn.setImage(AppImages.selectedAdvisorRating, for: .normal)
             btn.setImage(nil, for: .selected)
             btn.setImage(nil, for: .highlighted)
         }
@@ -77,43 +112,110 @@ class RatingVC: BaseVC {
         for star in self.filterApplied.ratingCount {
             self.updateStarButtonState(forStar: star)
         }
-        self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
         
-        for rating in HotelFilterVM.shared.tripAdvisorRatingCount {
-            self.tripAdvisorRatingButtons[rating - 1].isSelected = true
+        for rating in self.filterApplied.tripAdvisorRatingCount {
+            self.updateTAStarButtonState(forStar: rating)
+            //self.tripAdvisorRatingButtons?[rating - 1].isSelected = true
         }
         
-        self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
-        self.tripAdvisorStarLabel.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
-        self.includeRatedStatusButton.isSelected = self.filterApplied.isIncludeUnrated
+        self.starLabel?.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
+        self.tripAdvisorStarLabel?.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
+        self.includeRatedStatusButton?.isSelected = self.filterApplied.isIncludeUnrated
+        self.includeTARatedStatusButton?.isSelected = self.filterApplied.isIncludeTAUnrated
     }
     
     @IBAction func starButtonsAction(_ sender: UIButton) {
+        printDebug("sender.isSelected: \(sender.isSelected)")
         if HotelFilterVM.shared.ratingCount.count == 5 {
             HotelFilterVM.shared.ratingCount.removeAll()
         }
         self.updateStarButtonState(forStar: sender.tag)
         self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        
+        logStarRatings()
+    }
+    
+    private func logStarRatings() {
+        var valueStr = ""
+        var ratings = HotelFilterVM.shared.ratingCount
+        if ratings.isEmpty {
+            ratings = [0, 1, 2, 3, 4, 5]
+        }
+        if includeRatedStatusButton.isSelected {
+            ratings.append(0)
+        }
+        ratings = Array(Set(ratings))
+        ratings.sort()
+        
+        for rating in ratings {
+            valueStr += "\(rating), "
+        }
+        if valueStr.suffix(2) == ", " {
+            valueStr.removeLast(2)
+        }
+        
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Ratings.rawValue, AnalyticsKeys.type.rawValue: AnalyticsEvents.StarRating.rawValue, AnalyticsKeys.values.rawValue: valueStr]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
     
     @IBAction func tripAdvisorRatingButtonsAction(_ sender: UIButton) {
-        delay(seconds: 0.1) { [weak self] in
-            self?.updateTripAdvisorRatingButtonState(forStar: sender.tag)
-            self?.tripAdvisorStarLabel.text = self?.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
-            sender.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
-            sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
+        printDebug("sender.isSelected: \(sender.isSelected)")
+        if HotelFilterVM.shared.tripAdvisorRatingCount.count == 5 {
+            HotelFilterVM.shared.tripAdvisorRatingCount.removeAll()
         }
-       
+        self.updateTAStarButtonState(forStar: sender.tag)
+        self.tripAdvisorStarLabel.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        printDebug("size: \(sender.size)")
+        
+        logTARatings()
+    }
+    
+    private func logTARatings() {
+        var valueStr = ""
+        var ratings = HotelFilterVM.shared.tripAdvisorRatingCount
+        if ratings.isEmpty {
+            ratings = [0, 1, 2, 3, 4, 5]
+        }
+        if includeTARatedStatusButton.isSelected {
+            ratings.append(0)
+        }
+        ratings = Array(Set(ratings))
+        ratings.sort()
+        
+        for rating in ratings {
+            valueStr += "\(rating), "
+        }
+        if valueStr.suffix(2) == ", " {
+            valueStr.removeLast(2)
+        }
+        
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Ratings.rawValue, AnalyticsKeys.type.rawValue: AnalyticsEvents.TARating.rawValue, AnalyticsKeys.values.rawValue: valueStr]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
     
     @IBAction func includeUnratedAction(_ sender: UIButton) {
         self.includeRatedStatusButton.isSelected = !sender.isSelected
         HotelFilterVM.shared.isIncludeUnrated = sender.isSelected
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        logStarRatings()
     }
+    
+    @IBAction func includeTAUnratedAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        HotelFilterVM.shared.isIncludeTAUnrated = sender.isSelected
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        logTARatings()
+    }
+    
     
     ///Star Button State
     private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
         guard 1...5 ~= forStar else {return}
+        printDebug("ratingCount: \(HotelFilterVM.shared.ratingCount)")
+        
+        
         
         //updating the selection array
         if let idx = HotelFilterVM.shared.ratingCount.firstIndex(of: forStar) {
@@ -125,34 +227,89 @@ class RatingVC: BaseVC {
         
         if HotelFilterVM.shared.ratingCount.isEmpty || HotelFilterVM.shared.ratingCount.count == 5 {
             HotelFilterVM.shared.ratingCount.removeAll()
-           // HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
-            for starBtn in self.starButtonsOutlet {
+            // HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
+            for starBtn in self.starButtonsOutlet ?? [] {
                 starBtn.isSelected = false
-                starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+                // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+                starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
+                //                starBtn.setImage(AppImages.starRatingFilled, for: .normal)
             }
         }
         else {
             
-            for starBtn in self.starButtonsOutlet {
+            for starBtn in self.starButtonsOutlet ?? [] {
                 
                 if starBtn.tag == forStar {
                     starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
-                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
+                    let img = starBtn.isSelected ? AppImages.starRatingFilled : AppImages.starRatingUnfill
                     starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
                 }
-                else if HotelFilterVM.shared.ratingCount.contains(starBtn.tag) {
-                    starBtn.isSelected = true
-                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
-                }
-                else {
-                    starBtn.isSelected = false
-                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+                else
+                    if HotelFilterVM.shared.ratingCount.contains(starBtn.tag) {
+                        starBtn.isSelected = true
+                        starBtn.setImage(AppImages.starRatingFilled, for: .selected)
+                    }
+                    else {
+                        starBtn.isSelected = false
+                        starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
                 }
             }
         }
+        //        printDebug("starButtonsOutlet")
+        //        printDebug("ratingCount: \(HotelFilterVM.shared.ratingCount)")
+        //        for starBtn in self.starButtonsOutlet ?? [] {
+        //            printDebug("btn Tag: \(starBtn.tag) btn isSelected: \(starBtn.isSelected)")
+        //        }
     }
     
-    
+    private func updateTAStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
+        guard 1...5 ~= forStar else {return}
+        printDebug("tripAdvisorRatingCount: \(HotelFilterVM.shared.tripAdvisorRatingCount)")
+        
+        //updating the selection array
+        if let idx = HotelFilterVM.shared.tripAdvisorRatingCount.firstIndex(of: forStar) {
+            HotelFilterVM.shared.tripAdvisorRatingCount.remove(at: idx)
+        }
+        else {
+            HotelFilterVM.shared.tripAdvisorRatingCount.append(forStar)
+        }
+        
+        if HotelFilterVM.shared.tripAdvisorRatingCount.isEmpty || HotelFilterVM.shared.tripAdvisorRatingCount.count == 5 {
+            HotelFilterVM.shared.tripAdvisorRatingCount.removeAll()
+            // HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
+            for starBtn in self.tripAdvisorRatingButtons ?? [] {
+                starBtn.isSelected = false
+                // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+                starBtn.setImage(AppImages.selectedAdvisorRating, for: .normal)
+            }
+        }
+        else {
+            
+            for starBtn in self.tripAdvisorRatingButtons ?? [] {
+                
+                if starBtn.tag == forStar {
+                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
+                    let img = starBtn.isSelected ? AppImages.selectedAdvisorRating : AppImages.deselectedAdvisorRating
+                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
+                }
+                else
+                    if HotelFilterVM.shared.tripAdvisorRatingCount.contains(starBtn.tag) {
+                        starBtn.isSelected = true
+                        starBtn.setImage(AppImages.selectedAdvisorRating, for: .selected)
+                    }
+                    else {
+                        starBtn.isSelected = false
+                        starBtn.setImage(AppImages.deselectedAdvisorRating, for: .normal)
+                }
+            }
+        }
+        
+        //        printDebug("tripAdvisorRatingButtons")
+        //        printDebug("tripAdvisorRatingCount: \(HotelFilterVM.shared.tripAdvisorRatingCount)")
+        //        for starBtn in self.tripAdvisorRatingButtons ?? [] {
+        //            printDebug("btn Tag: \(starBtn.tag) btn isSelected: \(starBtn.isSelected)")
+        //        }
+    }
     
     
     ///Get Star Rating
@@ -162,14 +319,14 @@ class RatingVC: BaseVC {
         var end: Int?
         var prev: Int?
         
-        if arr.isEmpty {
-            final = "0 \(LocalizedString.Ratings.localized)"
-            return final
-        }
-        else if arr.count == maxCount {
+        if arr.isEmpty  || arr.count == maxCount {
             final = "All \(LocalizedString.Ratings.localized)"
             return final
         }
+            //        else if arr.count == maxCount {
+            //            final = "All \(LocalizedString.Ratings.localized)"
+            //            return final
+            //        }
         else if arr.count == 1 {
             final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.Rating.localized)" : "\(LocalizedString.Ratings.localized)")"
             return final
@@ -296,23 +453,25 @@ class RatingVC: BaseVC {
     }
     
     /// Star Button State
-    private func updateTripAdvisorRatingButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
-        guard 1...5 ~= forStar else { return }
-        if let currentButton = self.tripAdvisorRatingButtons.filter({ (button) -> Bool in
-            button.tag == forStar
-        }).first {
-            if isSettingFirstTime {
-                currentButton.isSelected = true
-            }
-            else {
-                currentButton.isSelected = !currentButton.isSelected
-            }
-            if HotelFilterVM.shared.tripAdvisorRatingCount.contains(forStar) {
-                HotelFilterVM.shared.tripAdvisorRatingCount.remove(at: HotelFilterVM.shared.tripAdvisorRatingCount.firstIndex(of: forStar)!)
-            }
-            else {
-                HotelFilterVM.shared.tripAdvisorRatingCount.append(forStar)
-            }
-        }
-    }
+    /*
+     private func updateTripAdvisorRatingButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
+     guard 1...5 ~= forStar else { return }
+     if let currentButton = self.tripAdvisorRatingButtons.filter({ (button) -> Bool in
+     button.tag == forStar
+     }).first {
+     if isSettingFirstTime {
+     currentButton.isSelected = true
+     }
+     else {
+     currentButton.isSelected = !currentButton.isSelected
+     }
+     if HotelFilterVM.shared.tripAdvisorRatingCount.contains(forStar) {
+     HotelFilterVM.shared.tripAdvisorRatingCount.remove(at: HotelFilterVM.shared.tripAdvisorRatingCount.firstIndex(of: forStar)!)
+     }
+     else {
+     HotelFilterVM.shared.tripAdvisorRatingCount.append(forStar)
+     }
+     }
+     }
+     */
 }

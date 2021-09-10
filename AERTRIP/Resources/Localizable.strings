@@ -24,13 +24,17 @@
 "For" = "For";
 "Already" = "Already";
 "UnderDevelopment" = "Under Development";
+"ALL" = "All";
 
 // MARK:- TextField validation
 //MARK:-
-"Enter_email_address"     = "Enter email address";
-"Enter_valid_email_address" = "Enter valid email address";
-"Enter_password"        = "Enter password";
-"Enter_valid_Password"    = "Enter valid Password";
+"Enter_email_address"     = "Enter a valid email ID";
+"Enter_valid_email_address" = "Enter a valid email ID";
+"Enter_password"        = "Enter a valid password";
+"Enter_valid_Password"    = "Enter a valid password";
+"Email_ID_already_exists" = "Email ID already exists";
+"Phone_number_already_exists" = "Mobile Number already exists";
+"frequentFlyerAlreadyExists" = "Frequent Flyer Number already exists";
 
 // MARK:- SocialLoginVC
 //MARK:-
@@ -43,6 +47,7 @@
 "Continue_with_Linkedin"  = "Continue with Linkedin";
 "AllowEmailInFacebook" = "Please allow the access for email in Facebook";
 "AllowEmailInLinkedIn" = "Please allow the access for email in LinkedIn";
+"Continue_with_Apple"  = "Continue with Apple";
 
 // MARK:- LoginVC
 //MARK:-
@@ -85,7 +90,7 @@
 // MARK:- SecureYourAccountVC
 //MARK:-
 "Secure_your_account"  = "Secure your \n account";
-"Set_password" = "Set password";
+"Set_password" = "Set Password";
 "Password_Conditions" = "Password Conditions:";
 "one" = "1";
 "a"   = "a";
@@ -102,6 +107,10 @@
 "Please_enter_new_Password" = "Please enter new Password";
 "New_Password" = "New Password";
 "Program" = "Program";
+"Please_enter_Current_Password" = "Please enter current Password";
+"Please_enter_Valid_Password" = "Please enter a valid Password";
+"Password_must_qualify_conditions" = "Password must qualify all conditions";
+"pleaseEnterAPassword" = "Please enter a Password";
 
 // MARK:- CreateProfileVC
 //MARK:-
@@ -112,12 +121,12 @@
 "Last_Name"        = "Last Name";
 "Country"          = "Country";
 "Mobile_Number"      = "Mobile Number";
-"Lets_Get_Started"    = "Lets Get Started!";
+"Lets_Get_Started"    = "Let's Get Started!";
 "Done"            = "Done";
 "selectedCountryCode"    = "+91";
 "selectedCountry"        = "India";
 "SelectedCountySymbol" = "IN";
-"PleaseLoginByEmailId" = "We didn't got email. Please login by using email id.";
+"PleaseLoginByEmailId" = "Your account does not have an email ID. Login using an account with email.";
 
 // MARK:- ForgotPasswordVC
 //MARK:-
@@ -138,7 +147,7 @@
 "trips" = "Trips";
 "hiImAerin" = "Hi, I’m Aerin";
 "yourPersonalTravelAssistant" = "Your personal travel assistant";
-"tryAskingForFlightsFromMumbai" = "\"Try asking for \n Flights from Mumbai to Delhi on Christmas\"";
+"tryAskingForFlightsFromMumbai" = "\"Tap and try asking for \n Flights from Mumbai to Delhi on Christmas\"";
 "EnjoyAMorePersonalisedTravelExperience" = "Enjoy a more personalised \n travel experience";
 "LoginOrRegister" = "Login or Register";
 "WhyAertrip"    = "Why Aertrip";
@@ -151,17 +160,24 @@
 "Notification"    = "Notification";
 "ReferAndEarn"    = "Refer & Earn";
 "ViewAccounts"    = "View Accounts";
+"Support"    = "Support";
+"RateUs"    = "Rate Us";
+"Appearance" = "Appearance";
+"lightMode" = "Light Mode";
+"darkMode" = "Dark Mode";
+"system" = "System";
 
 //MARK:- CreateProfileVCDelegate
 //MARK:-
 "Mr"  = "Mr";
 "Mis" = "Mis";
-"PleaseSelectSalutation" = "Kindly provide a valid salutation";
+"PleaseSelectSalutation" = "Please select gender";
 "PleaseEnterFirstName"   = "Please enter first name";
 "PleaseEnterLastName"    = "Please enter last name";
 "PleaseSelectCountry"    = "Please select country";
 "PleaseEnterMobileNumber" = "Please enter mobile number";
 "ViewProfile"         = "View Profile";
+"PleaseEnterValidMobileNumber" = "Please enter a valid mobile number";
 
 //MARK:- ViewProfileVC
 //MARK:-
@@ -171,6 +187,10 @@
 "Gender" = "Gender";
 "Male" = "Male";
 "Female" = "Female";
+"ChangePassword" = "Change Password";
+"Current_Password" = "Current Password";
+"changeMobileNumber" = "Change Mobile Number";
+"setMobileNumner" = "Set Mobile Number";
 
 //MARK:- Hotel Search
 //MARK:-
@@ -178,8 +198,9 @@
 "FavouriteHotels" = "Favourite Hotels";
 "stars" = "Stars";
 "star" = "Star";
-"searchForHotelsToAdd" = "Search for hotels to add";
+"searchForHotelsToAdd" = "Search for hotels";
 "searchHotelName" = "Search";
+"NearMe" = "Near Me";
 
 
 //MARK:- Import Contacts
@@ -188,6 +209,7 @@
 "Facebook" = "Facebook";
 "Google" = "Google";
 "LinkedIn" = "LinkedIn";
+"Apple" = "Apple";
 "ImportContactMessage" = "We will show you a list of your contacts to \n add them as travellers";
 "ImportFacebookMessage" = "Connect with Facebook to import your \n friends to the travellers list.";
 "ImportGoogleMessage" = "Connect with Google to import your contacts \n to the travellers list";
@@ -198,6 +220,7 @@
 "ConnectWithFB" = " Connect with Facebook";
 "ConnectWithLinkedIn" = " Connect with LinkedIn";
 "ContactsSelected" = "Contacts Selected";
+"ContactSelected" = "Contact Selected";
 "SelectContactsToImport" = "Select Contacts to import";
 
 
@@ -209,6 +232,7 @@
 "HotelPreferences" = "Favourite Hotels";
 "QuickPay" = "QuickPay";
 "LinkedAccounts" = "Linked Accounts";
+"AccountDetails" = "Account Details";
 "NewsLetters" = "Newsletters";
 "Notifications"  = "Notifications";
 "LogOut" = "Log Out";
@@ -269,7 +293,7 @@
 "Mobile" = "Mobile";
 "Default" = "Default";
 "Email" = "Email";
-"EnterValidMobileNumber" = "Please enter valid mobile number";
+"EnterValidMobileNumber" = "Please enter a valid mobile number";
 "AllMobileNumberShouldUnique" = "All mobile number should be unique";
 "EnterAllValidMobileNumber" = "Please enter all valid mobile numbers.";
 "EnterAirlineNumberForAllFrequentFlyer" = "Please enter the airline number for all frequent flyer.";
@@ -287,8 +311,8 @@
 //Mark:- Hotels Search
 //Mark:-
 "WhereButton" = "Where";
-"CheckIn" = "Check-in";
-"CheckOut" = "Check-out";
+"CheckIn" = "Check-In";
+"CheckOut" = "Check-Out";
 "Nights" = "Nights";
 "Night" = "Night";
 "AddRoom" = "Add Room";
@@ -312,12 +336,14 @@
 "ChildAges" = "Ages 0 - 12";
 "MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 pax in a room";
 "ageInYrs" = "Age in yrs";
+"MaxGuestSelectionMessage" = "Max 6 guests can be selected per room";
 
 //MARK:- Destination Selection
 "CityAreaOrHotels" = "City, Area or Hotels";
 "HotelsNearMe" = "Hotels near me";
 "RecentlySearchedDestinations" = "Recently Searched Destinations";
 "PopularDestinations" = "Popular Destinations";
+"didYouMean" = "Did you mean";
 
 
 //MARK:- Bulk Booking
@@ -332,7 +358,7 @@
 "MyDatesAre" = "My dates Are";
 "Fixed" = "Fixed";
 "Flexible" = "Flexible";
-
+"SpecialRequestNonCaps" = "Special Request";
 //MARK:- FF Search
 "SearchAirlines" = "Search Airlines";
 
@@ -352,12 +378,16 @@
 "StarRating" = "Star Rating";
 "Distance" = "Distance";
 "Recommended" = "Recommended";
-"LowToHigh" = "Low to high";
+"LowToHigh" = "Low to High";
 "FiveToOne" = "5 to 1";
 "NearestFirst" = "Nearest first";
+"HighToLow" = "High to Low";
+"OneToFive" = "1 to 5";
+"FurthestFirst" = "Furthest first";
+"Meal" = "Meal";
 
 // MARK:- Range VC
-"SearchResultsRange" = "Search Results Range";
+"SearchResultsRange" = "Show hotels within";
 
 // MARK: - Price VC
 "PricePerNight" = "Price per night";
@@ -381,6 +411,7 @@
 // MARK: - RoomVC
 
 // Meal
+"RoomOnly" = "Room Only";
 "NoMeal" = "No Meal";
 "Breakfast" = "Breakfast";
 "HalfBoard" = "Half Board";
@@ -395,7 +426,7 @@
 "NonRefundable" = "Non-refundable";
 "NonRefundableExplanation" = "This booking is non-refundable. If this booking is cancelled, or modified, or in the case of no-show, the total price of the reservation will be charged.";
 "FullPaymentExplanation" = "You wil be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
-"FreeCancellation" = "Free cancellation";
+"FreeCancellation" = "Free Cancellation";
 "FullPaymentNow" = "Full Payment Now";
 "Book" = "Book";
 "Whoops" = "Whoops!";
@@ -403,6 +434,8 @@
 "ResetFilter" = "Reset Filter";
 "NoRoomsAvailable" = "No Rooms Available";
 "Reviews" = "Reviews";
+"ConvenienceFeeNonRefundables" = "Convenience Fee\n(Non Refundable)";
+"non_Refundable" = "(Non Refundable)";
 
 // Others
 "FreeWifi" = "Free Wifi";
@@ -419,7 +452,7 @@
 "CheckTripAdvisor" = "Check TripAdvisor Traveler Rating";
 //"Breakfast" = "Breakfast";
 //"Refundable" = "Refundable";
-"hotelFilterSearchBar" = "i.e. Sea view, deluxe, suite…";
+"hotelFilterSearchBar" = "Search Sea view, deluxe, suite…";
 "Undo" = "Undo";
 "Deleted" = "Deleted";
 "InformationUnavailable" = "Information unavailable";
@@ -439,6 +472,8 @@
 "ApplyPreviousFilter" = "Apply previous filters \n ";
 "Within" = "within";
 "Kms" = "kms";
+"Result unavailable" = "Result unavailable";
+"policy" = "Policy";
 
 // Hotel Results
 "ShowHotelsBeyond" = "Show hotels beyond 20km";
@@ -448,30 +483,41 @@
 "RemoveFromFavourites" = "Remove from Favourites";
 "Share" = "Share";
 "FloatingButtonsTitle" = "What do you want to do with your \n favourite hotels?";
+"UnfavouritesAllTitle" = "Do you want to unfavourites all \n favourites hotels?";
 "EmailFavoriteHotelsInfo" = "Email Favorite Hotels Info";
 "Send" = "Send";
 "To" = "To";
 "Message" = "Message";
 "SeeRates" = "See Rates";
-"SharedMessage" = "shared his  favorite  hotels with you…";
+"SharedMessage" = "has shared his favorite hotels with you…";
 "CheckOutMessage" = "Checkout my favorite hotels on Aertrip!";
 "HotelResultFor" = "Hotel results for…";
-"NoHotelFound" = "No Hotel Found\nChoose another date for this location and try again.";
+"NoHotelFound" = "No Hotel Found";
 "NoHotelFoundMessage" = "Choose another date for this location and try again.";
 "NoHotelFoundMessageOnFilter" = "Choose another filters try again.";
-"NoHotelFoundFilter" = "No Hotel Found\nChoose another filters try again.";
+"NoHotelFoundFilter" = "We couldn’t find hotels to match your filters. Try changing the filters, or reset them.";
+"NoHotelMatchedYourFilters" = "No hotel match your filters";
 "rupeesText" = "₹";
+"callingNotAvailable" = "Your device doesn't supports calling function!";
+"UnfavouriteAll" = "Unfavourite all";
+"UnfavouriteAllMessage" = "This action will unfavourite all the favorite hotels and cannot be undone.";
+"Unfavourite" = "Unfavourite";
+"ShowingResultsFor" = "Showing results for";
+"Clear" = "Clear";
+"pricesArePerNight" = "Prices are per night for";
+"pricesAreFor" = "Prices are for";
+"allIncl" = "all incl.";
+"allInclusive" = "all inclusive";
 
-
-"ContactUsAertrip" = "Have a question? Contact us : support@aertrip.com";
-"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";
+"ContactUsAertrip" = "Have a question? Contact us: support@aertrip.com";
+//"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";
 "TripRating" = "Trip Rating";
 
 //Select Trip Screen
 "SelectTrip" = "Select Trip";
 "CreateNewTrip" = "Create New Trip";
 "NameYourTrip" = "Name Your Trip";
-"CopyrightAertrip" = "  2012 Aertrip. All Rights Reserved.";
+"CopyrightAertrip" = "Aertrip. All Rights Reserved.";
 "WriteYourOwnReview" = "Write your own Review";
 "ReadAll" = "Read all";
 "Excellent"  =  "Excellent";
@@ -482,6 +528,10 @@
 "TravellerRating" = "Traveller Rating";
 "RatingSummary" = "Rating Summary";
 "PleaseSelectTrip" = "Please select trip";
+
+// Hotel Detail screen
+"HotelHasAlreadyBeenSavedToTrip" = "Hotel has already been saved to trip";
+"flightHasAlreadyBeenSavedToTrip" = "Journey has already been saved to trip";
 
 //Hotel Checkout Deatail Selection screen
 "Guests" = "Guests";
@@ -494,7 +544,7 @@
 "FirstName" = "First Name";
 "LastName" = "Last Name";
 "Details" = "Details";
-"PreferencesSpecialRequests" = "PreferencesSpecialRequests";
+"Preferences, Special Requests" = "Preferences, Special Requests";
 "Optional" = "Optional";
 "EmailMobileCommunicationMessageForBooking" = "This mobile number and email address will be used for all communication related to this booking.";
 "FareIncreasedBy" = "Fare increased by";
@@ -505,6 +555,11 @@
 "FareBreakup" = "Fare Breakup";
 "TotalPayableNow" = "Total payable now";
 "Confirm" = "Confirm";
+"PanCard" = "PAN Number";
+"EnterPanCardMessage" = "Please enter a valid PAN Number";
+"FirstLastNameCharacterLimitMessage" = "First & Last name must have at least 3 characters";
+"FirstLastNameCharacterLimitMessage" = "First & Last name must have at least 3 characters";
+"TravelSafetyGuidelines" = "Travel Safety Guidelines";
 
 //Hotel Checkout Coupons VC
 "Coupons" = "Coupons";
@@ -527,18 +582,34 @@
 "Pay" = "Pay";
 "FareRules" = "Fare Rules";
 "CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
-"CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
+"CheckOutPrivacyAndPolicyTermsFlight" = "By proceeding, you agree to the Privacy Policy and Terms of Use of Aertrip.";
+"CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip.";
+//"CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
+
 "PayableWalletMessage" = " will be credited to Aertrip wallet within 24 hours of successful payment / travel date";
-"NetEffectiveFare" = "Net Effective Fare:";
+"NetEffectiveFare" = "Net Effective Fare: ";
 "GrossFare" = "Gross Fare";
 "Discounts"  = "Discounts";
 "CouponDiscount" = "Coupon-Discount";
 "AertripWallet" = "Aertrip Wallet";
 "CurrencyOptions" = "Currency options";
 "CheckOutCurrencyOptionInfoMessage" = "Your card provider / bank may charge you foreign transaction fee.";
+"PerAdult" = "Per Adult";
+"PerChild" = "Per Child";
+"PerInfant" = "Per Infant";
+"viewMorePhoto" = "More photos on TripAdvisor";
+"WeHaveNotedYourBookingRequirement" = "We have noted your booking requirement.";
+"WeHaveNotedYourBookingRequirementMessage" = " As per guideline, payments of more than ₹11,00,000 are not allowed online.
+
+Not to worry! Your booking is our highest priority. Our customer support team shall contact you at earliest. Thank you.";
+
+"paymentFails" = "The transaction was unsucessful. Kindly retry.";
 
 //Select Guest
 "SelectGuests" = "Select Guests";
+
+//Select Passengers
+"SelectPassengers" = "Select Passengers";
 
 "EmailItineraries" = "Email Itineraries";
 "SendToAll" = "Send to all";
@@ -546,6 +617,9 @@
 
 // Mail Composer VC
 "CheckoutMyFavouriteHotels" = "Checkout my favorite hotels on Aertrip!";
+"EnterEmail" = "Enter email";
+"FavoriteHotelsInfoSentMessage" = "Email Sent";
+
 //Booking Incomplete Screen
 "BookingIncomplete" = "Booking Incomplete";
 "YourWalletMoneyOf" = "Your wallet money of";
@@ -566,9 +640,10 @@
 "ThisWillCancelThisBookingAndAmountRefundToPayment" = "This will cancel this booking and the amount will be refunded to your";
 
 "Change" = "Change";
-"YourBookingIDIs" = "Your booking ID is";
+"YourBookingIDIs" = "Your booking ID is";//Congratulations, your booking is successful.\nYour booking ID is
 "YourCaseIDIs" = "Your case ID is";
-"AndAllDetailsWillBeSentToYourEmail" = "and all details will be sent to your email.";
+"YourBookingID" = "Your booking ID is";
+"AndAllDetailsWillBeSentToYourEmail" = "and all details have been sent to your email.";
 "YouAreAllDoneLabel" = "You’re all done!";
 "AddToAppleWallet" = "Add to Apple Wallet";
 "BookingDetails" = "BOOKING DETAILS";
@@ -590,14 +665,16 @@
 "convenienceFee2" = "is applicable on this transaction.";
 "InvalidCouponCodeText" = "Sorry, this coupon code is invalid";
 "PleaseEnterCouponCode" = "Please enter a coupon code";
+"BookingConfirmed" = "Booking Confirmed";
+"BookingIsInProcess" = "Booking is in\nprocess…";
 
 "EnterIsdMessage" = "Please enter Isd";
 "GuestDetailsMessage" = "Please fill all guest details";
-"EnterMobileNumberMessage" = "Please enter valid mobile number";
-"EnterEmailAddressMessage" = "Not a valid email address";
+"EnterMobileNumberMessage" = "Please enter a valid mobile number";
+"EnterEmailAddressMessage" = "Please enter a valid email id";
 "UnableToGetMail" = "Unable to get email of selected person";
 "ImportantNote" = "Important Note:";
-"YourBookingIdStmt" = " Your booking details will be delivered to your inbox within few hours. If you do not receive an email please check your junk/spam folder or email us on ";
+"YourBookingIdStmt" = " Your booking details will be delivered to your inbox within few hours. If you do not receive an email please check your junk/spam folder or email us on";
 "AertripEmailId" = "support@aertrip.com";
 "ThankYouStmtForBookingId" = "Thank you for booking with Aertrip. Use the above booking id for all future communication with Aertrip.";
 "ThankYouStmtForCId" = "Thank you for booking with Aertrip. Use the above case id for all future communication with Aertrip.";
@@ -614,6 +691,9 @@
 "Pending" = "Pending";
 "DateSpan" = "Date Span";
 "VoucherType" = "Voucher Type";
+"CancellationFor" = "Cancellation for:";
+"ReschedulingFor" = "Rescheduling for:";
+
 
 //MARK: - BookingVC
 "MyBookings" = "My Bookings";
@@ -665,6 +745,7 @@
 "VoucherNo"  = "Voucher No.";
 "DownloadInvoice" = "Download Invoice";
 "DownloadReceipt" = "Download Receipt";
+"DownloadVoucher" = "Download Voucher";
 "Directions" = "Directions";
 "RequestAddOnsAndFF" = "Request Add-ons & FF";
 "AddOns" = "Add-ons";
@@ -675,6 +756,7 @@
 "Rescheduling" = "Rescheduling";
 "AddOnRequestSent" = "Add-on Request has been sent";
 "AddOnRequestMesage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
+"requestInProcess" = "Another request already in process";
 "PNRNo" = "PNR No.";
 "SaleAmount" = "Sale Amount";
 "ConfirmationNo" = "Confirmation No.";
@@ -688,6 +770,18 @@
 "AddToTrips" = "Add to Trips";
 "BookSameFlight" = "Book same flight";
 "Traveller" = "Traveller";
+"FlightInfo" = "Flight Info";
+"Baggage" = "Baggage";
+"NoBaggage" = "No Baggage";
+"NoInfo" = "No Info";
+"BaggageDetailsMessage" = "Baggage details are indicative and subject to change without prior notice.";
+"CharactersRemaining" = "characters remaining";
+"BookAnotherRoom" = "Book another room";
+"AddOnRequestPayment" = "Payment Successful";
+"AddOnRequestPaymentMessage" = "Thank you for your payment. We will book your add-ons and send you a confirmation shortly.";
+"BookingPayment" = "Payment Successful";
+"BookingPaymentMessage" = "Thank you for your payment.";
+
 
 
 // Booking Action sheet option
@@ -719,6 +813,8 @@
 "HelpMessage" = "How can I help you?";
 
 "ShowPendingActionsOnly" = "Show pending actions only";
+"hereAreYourResults" = "Here are your results...";
+"seeResultsAgain" = "See results again";
 
 //MARK: - Import Contact Screen
 "NoContactFoundInDevice" = "No contacts found in this phone.";
@@ -738,7 +834,7 @@
 "Class" = "Class";
 "TapToEdit" = "Tap to Edit";
 "ThingsYouCanAskMe" = "Things you can ask me…";
-"Listening" = "Listening...";
+"Listening" = "Listening";
 "FilterApplied" = "Filters have been applied";
 "WeatherFooterInfo" = "Weather info is displayed within 16 days of travel";
 
@@ -759,6 +855,10 @@
 "ClearFilters" = "Clear Filters";
 "BookingID" = "Booking ID";
 "OpeningBalance" = "Opening Balance";
+"NoBookingsMatchYourFilters" = "No bookings match your filters";
+"NoBookingAvailableMessage" = "We couldn’t find bookings matching your filters. Try changing the filters, or reset them";
+"NoTransactionsMatchYourFilters" = "No transactions match your filters";
+"TryDifferentFiltersOrClearAll" = "Try different filters, or clear all.";
 
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";
@@ -771,13 +871,14 @@
 "CreditShort" = "Cr.";
 "SelectBookingsPay" = "Select bookings & pay";
 "MakePayment" = "Make Payment";
+"SelectSameCurrencyOnly" = "Please select transactions mode with same currency";
 
 //MARK:- On Account Screen
 "ason" = "as on";
 "PeriodicStatement" = "Periodic Statement";
 "NoStatementGenerated" = "No statement generated";
 "PayOnline" = "Pay Online";
-"PayOfflineNRegister" = "Pay offline and register";
+"PayOfflineNRegister" = "Pay Offline and Register";
 "ChequeDemandDraft" = "Cheque / Demand Draft";
 "FundTransfer" = "Fund Transfer";
 
@@ -798,11 +899,15 @@
 "AertripBankName" = "Aertrip Bank Name";
 "SeeBankDetails" = "See Bank Details";
 "UploadDepositConfirmationSlip" = "Upload deposit confirmation slip (Stamped by bank)";
-"OffileDepositTerms" = "I understand and agree to the rules and restrictions of this Terms of use of Aertrip.";
+"OffileDepositTerms" = "I understand and agree to Aertrip's Terms of use.";//"I understand and agree to the rules and restrictions of this Terms of use of Aertrip.";
 "StepsForOfflinePayment" = "5 steps for Offline Payment";
 "DepositDate" = "Deposit Date";
 "TransferType" = "Transfer Type";
 "EnterUTRSwiftCode" = "Enter UTR/Swift Code";
+"DepositAmountErrorMessage" = "Deposit amount must be grater then 0";
+"ModeOfPayment" = "Mode of payment";
+"requestNoted" = "We have noted your booking requirement.";
+"maximumOnlineLimit" = " As per guideline, payments of more than ₹11,00,000 are not allowed online.\n\nNot to worry! Your booking is our highest priority. Our customer support team shall contact you at earliest. Thank you.";
 
 "Camera" = "Camera";
 "PhotoLibrary" = "Photo Library";
@@ -833,7 +938,6 @@
 
 "BillingName" = "Billing Name";
 "BillingAddress" = "Billing Address";
-"GSTIN" = "GSTIN";
 "CancellationHasBeenProcessed" = "Cancellation has been processed";
 "SpecialRequestHasBeenSent" = "Special Request has been sent";
 "WriteAboutYourSpecialRequest" = "Write about your special request...";
@@ -891,7 +995,8 @@
  "No" = "No";
 
 "SendingEmail" = "Sending...";
-"LedgerSentToYourEmail" = "Ledger has been sent to your registered email-id.";
+"LedgerSentToYourEmail" = "Ledger has been emailed";//"Ledger has been sent to your registered email-id.";
+"OutstandingSentToYourEmail" = "Outstanding Ledger has been emailed";
 
 // MARK: - Common
 "Other" = "Other";
@@ -901,3 +1006,252 @@
 "EnjoyPersonalisedTravelExperience" = "Enjoy a more personalised travel experience";
 "ContactDetails" = "Contact Details";
 "KindlyDisconnectMessage" = "Kindly set a password for your Aertrip account or login via another social account before disconnecting ";
+
+// MARK: - Import Contacts
+"ImportingContacts" = "Importing contacts";
+"ThisMightTakeSomeTime" = "This might take some time";
+
+//MARK: - Passengers Selections
+"firstName3Char" = "Passenger first name should have atleast 3 character";
+"fistNameNumeric"  = "Passenger first name should not have any numeric or special character";
+"lastName3Char" = "Passenger first last should have atleast 3 character";
+"lastNameNumeric" = "Passenger last name should not have any numeric or special character";
+"fillContactDetails" = "Please fill the passenger contact details";
+"adultAgeError" = "Adult's age must be over 12 years";
+"childAgeError" = "Child's age must be between 2 and 12 years";
+"infantAgeError" = "Infant's age must be less than 2 years";
+"fillAllPassengerDetails" = "Please fill all the passenger details";
+"enterISD" = "Please enter ISD code";
+"enterGSTName" = "Please enter GSTIN company name";
+"enterGSTBillName" = "Please enter GSTIN billing name";
+"notValidGST" = "Kindly enter a valid GSTIN";
+
+
+//MARK:- Settings
+"disableOTP" = "Disable OTP";
+"Currency" = "Currency";
+"EnableDisableAllNotifications" = "To enable or disable notifications go to Settings → Notifications → Aertrip → All Notifications";
+"GetNotifiedAboutYourBookings" = "Get notified about your bookings";
+"GetNotifiedAboutYourTripEvents" = "Get notified about your trip events";
+"GetNotifiedAboutNewOffersAndDeals" = "Get notified about new offers and deals";
+"Ok" = "Ok";
+"AllEventSyncedToCalendarApp" = "All events will sync to the Calendar app.";
+"ThisFunctionalityWillBeAvailableSoon" = "This feature is coming soon.";
+
+//Air in
+"TryDelhiToGoaTomorrow" = "Try \"Delhi to Goa tomorrow\"";
+
+"Copyright2018AllRightsReserved" = "Copyright © 2018. All rights reserved.";
+
+"ThingsYouCanAsk" = "Things you can ask me…";
+"FlightFromMumbaiToDelhi" = "Flight from Mumbai to Delhi";
+"FindMeFlightFromBombayToKolkataTomorrowUnder" = "Find me flight from Bombay to Kolkata tomorrow under ₹ 8,000";
+"BangloreToGoaFlightOnTheWeekendAndReturnFollowingMonday" = "Banglore to Goa flight on the weekend and return following Monday";
+"FlightOnDiwaliFromNewYorkToJaipur" = "Flight on Diwali from New York to Jaipur";
+"BOMDELOn26Feb" = "BOM DEL on 26 Feb";
+"FlightToDubaiOn30thJun" = "Flight to Dubai on 30th Jun";
+"CommingSoon" = "Comming Soon";
+"Flight" = "Flight";
+"Hotel" = "Hotel";
+
+
+//payment and checkout
+"Meals" = "Meals";
+"Seat" = "Seat";
+"Baggage" = "Baggage";
+"Others" = "Others";
+"Skip" = "Skip";
+
+// Seat Map
+"seatMap" = "Seat Map";
+"mainDeck" = "Main Deck";
+"upperDeck" = "Upper Deck";
+"seatTotal" = "Seat Total";
+"noSeatMapDataDesc" = "Seat map for this flight is unavailable at the moment";
+"seatAvailablePostBooking" = "This seat will be available for purchase post-booking";
+
+"noMealsDataDesc" = "Meals for this flight is unavailable at the moment";
+
+"noBaggageDataDesc" = "Baggage for this flight is unavailable at the moment";
+
+"noOtherseDataDesc" = "There are no other addons for this flight at the moment";
+
+"DomesticCheckIn" = "Domestic Check-in";
+"InternationalCheckIn" = "International Check-in";
+"MealTotal" = "Meal Total";
+
+"Select_Passengers_To_Assign_This_Meal" = "Select passengers to assign this meal";
+"Select_Passengers_To_Assign_This_Baggage" = "Select passengers to assign this baggage";
+
+"Select_Passengers" = "Select Passengers";
+
+"Choose_Meal" = "Choose a meal from the menu.";
+"Choose_Baggage" = "Choose the extra baggage service and take everything you need.";
+"Reserve_Seat" = "Reserve a seat of your choice.";
+"PreBook_Services" = "Pre-book more services for a convenient journey";
+
+"Complementary_Meal_Added" = "Complementary meal added";
+
+"Complementary_Meal_Available" = "Complementary meal available";
+
+"Free_Seats_Available" = "Free Seats Available";
+
+
+"Passenger_Cannot_Be_Deselected_For_Meal" = " One or more meals are available freely for this particular flight so passengers can not be deselected if you want to select some other meal then tap on it and proceed further.";
+
+"Will_Be_Available_Soon" = "Will be available soon.";
+
+
+"Important" = "Important";
+"Baggage_Terms_Desc" = "You have selected International Pre-Purchased Excess Baggage for below passengers. Kindly understand and accept the following instructions:";
+"Baggage_Terms_Point1" = "You have selected International Pre-Purchased Excess Baggage. International Pre-Purchased Excess Baggage rates can be booked by customers flying from / to international destinations within 24 hours.";
+"Baggage_Terms_Point2" = "Customers need to display their original Boarding pass and other relevant international travel documents at the time of check in.";
+"Baggage_Terms_Point3" = "In case the customer fails to produce the necessary documents as mentioned, excess baggage rates as per airport will be applicable.";
+"Baggage_Terms_Point4" = "Other baggage terms and conditions apply to this booking as listed on goair.in";
+
+"emergencySeatDesc" = "You have selected the emergency exit row seat. Kindly understand and accept the following instructions:";
+
+"emergencySeatTerms1" = "You are able bodied, above the age of 16 and have no medical concerns.";
+"emergencySeatTerms2" = "You are not travelling with infant or children below the age of 16 years or with anyone who requires special assistance in case of a emergency evacuation.";
+"emergencySeatTerms3" = "You understand that the exit weighs 15 kgs and are willing to open the exit in an emergency when advised by crew.";
+"emergencySeatTerms4" = "You understand communication in English and Hindi.";
+"emergencySeatTerms5" = "You do not require an extension seat belt.";
+"emergencySeatTerms6" = "You do not have any permanent or temporary impairment like sensory impairment, strength or mobility limitation, intellectual impairment, or travelling with service dogs.";
+"emergencySeatTerms7" = "You do not require to use Portable Oxygen Concentrators on board the aircraft.";
+"emergencySeatTerms8" = "You are not pregnant or travelling with someone who is pregnant.";
+"emergencySeatTerms9" = "You confirm and agree to all the above and also understand that the airline reserves all rights to change your seat(s) keeping in mind the overall safety or if you refuse to accept opening the exit during the crew briefing or if you do not adhere to the requirements of the seating row criteria as specified by the crew. (No Refund for change of seat on the aircraft.)";
+"Book_Now_And_Get_Off" = "Book Now &\nget up to  20% off ";
+"Special_Request" = "Special Request";
+"Special_Request_If_Any" = "Special request if any...";
+
+
+"Heads_Up_Desc" = "Heads up! Your request will be personally handled by one of our agents and may be subject to additional costs.";
+
+
+
+// FLight Filters
+"Stops" = "Stops";
+"Times" = "Times";
+"Duration" = "Duration";
+"Quality" = "Quality";
+"Onwards" = "Onwards";
+"noLayovers" = "No Layovers";
+
+// TripsVC
+"tripsComingSoon" = "Coming soon…
+Planning your trip will be easier than ever.\nStay tuned for the next update 👍🏻";
+"tripsNote" = "Note: you can still plan, manage and create new trips from Aertrip website
+www.aertrip.com/trip";
+"tripsLink" = "www.aertrip.com/trip";
+
+"reloadDetail" = "Reload Detail";
+//International return and multicity
+"selectedFlightsGap" = "Selected flights have less than 2 hrs of gap.";
+
+
+//Location Manager
+"placeNotFound" = "Place Not Found";
+
+//View Controller Extension
+"chooseFromOption" = "Choose from options";
+"cameraNotAvailable" = "Camera not available";
+"restrictedCameraUse" = "You have been restricted from using the camera on this device Without camera access this feature wont work";
+"changeSettingForCameraUse" = "Please change your privacy setting from the Settings app and allow access to camera";
+"changeSettingForLibraryUse" = "Please change your privacy setting from the Settings app and allow access to library";
+"restrictedLibraryUse" = "You have been restricted from using the library on this device Without camera access this feature wont work";
+"changeSettingForContactsUse"="Please change your privacy setting from the Settings app and allow access to Contacts";
+"restrictedContactsUse" = "You have been restricted from accessing the contacts on this device without contacts access this feature wont work";
+
+
+//UIView Extension
+"noDataFound" = "No Data Found";
+
+
+//AppFlowManager
+"accessDenied" = "Access Denied!";
+"microphoneAccessRequired" = "Microphone access required to start speech recognition!";
+"allowMicAccess" = "Allow Mic Access";
+
+//AppEnum
+"notLoggedIn" = "Not Logged In";
+"emailRequired" = "Email ID is required";
+"invalidEmail" = "Kindly provide a valid email ID";
+"passwordRequired" = "password is required";
+"multipleAccountWithEmail" = "Multiple user accounts with this email id";
+"incorrectEmailPassword" = "The email ID and / or password you have entered is incorrect.";
+"linkExpired" = "Link has been expired";
+"linkUsedToCreateUser" = "Link already used to create a user";
+"userNotFound" = "User not found";
+"invalidUserData" = "Invalid user data";
+"provideValidHashKey" = "Please provide valid hash key";
+"userAlreadyRegistered" = "User already registered with this email address";
+"userAlreadyLoggedIn" = "user already logged in";
+"capchaLimitOver" = "capcha attempts limit over";
+"guestLoginNotPermitted" = "guest login is not permitted for this user";
+"somethingWentWrongTryAgain" = "something went wrong. please try again";
+"mobileAppOnly" = "For Mobile App only";
+"failedToRegisterEmailChangeRequest" = "Failed to register Email Change Request";
+"tokenExpired" = "Token has been expired";
+"userAlreadyCreatedLink" = "User already created using this link";
+"failedToCreateUser" = "Failed to create user";
+"weakPassword" = "Password is weak. Please set a stronger password";
+"provideNewPassword" = "Please provide a valid new password";
+"unableToSetNewPassword" = "Unable to set new password";
+"provideValidToken" = "Please provide valid token";
+"passwordAlreadyReset" = "Password has already been reset using this link";
+"failedToResetPassword" = "Failed to reset password";
+"modeRequired" = "mode is required";
+"enquiryRejectedByCSR" = "The previous enquiry for this email id was REJECTED BY CSR";
+"failedtoUpdateStatusOfCorpEnquiry" = "Failed to update status of Corp Enquiry";
+"somethingWentWrongTryAfterSomeTime" = "Something went wrong. Please try again after some time";
+"failedToSendEmail" = "Failed to send registration email";
+"exceededMaximumAttemptsToResetPassword" = "You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow            ";
+"incorrectEmailId" = "The email ID provided is incorrect";
+"passwordCharacterCount" = "Password should have at least 8 character";
+
+
+//App Globals
+"googleMapNotInstalled" = "Google Maps is not installed on your device";
+"restrictedCalendarUse" = "You have been restricted from using the calendar on this device without calendar access this feature wont work";
+
+//OTP Varification
+"oneTimePassword" = "One Time Password";
+"toProceedWalletBalance" = "To Proceed with 'Wallet Balance'\n";
+"waitAminToOtp" = "Wait a minute to get the OTP";
+"didntGetOtp" = "Didn't get OTP yet? Resend OTP";
+"enterOtp" = "Enter OTP";
+"veryItsYou" = "Verify its you";
+"tochangeMobileNumber" = "To change mobile number,\n";
+"kindlyEnterOtp" = "kindly enter the OTP received on";
+"proceed" = "Proceed";
+"verifyYourCredential" = "Verify your credentials";
+"disableOtpVerificationMsg" = "To disable the OTP verification flow on wallet payment,\nplease enter your password and OTPs sent to your registered email and mobile";
+"enableOtpVerificationMsg" = "To enable the OTP verification flow on wallet payment,\nplease enter your password ";
+"enterAccountPasswordMsg" = "Please enter your account password";
+"enterMobileOtpMsg" = "Please enter a valid mobile OTP";
+"enterEmailOtpMsg" = "Please enter a valid email OTP";
+"enterMobileOtp" = "Enter Mobile OTP";
+"enterEmailOtp" = "Enter Email OTP";
+"newMobileNumber" = "New Mobile Number";
+"validOtpMsg" = "Please enter a valid OTP";
+
+
+"Update_Aertrip" = "Update Aertrip";
+"Soft_Update_Msg" = "Aertrip recommends that you update the app to the latest version to enjoy the best experience.";
+"Force_Update_Msg" = "Looks like you are using an old version of the Aertrip app. Kindly update the app to the latest version to enjoy the best experience";
+"Update_Now" = "Update Now";
+"Update_Later" = "Update Later";
+"toChangeMobileNumber" = "To change mobile number,\nkindly enter your existing password";
+
+
+"Account_Details" = "Account Details";
+
+"PAN" = "PAN";
+"Aadhaar" = "Aadhaar";
+"GSTIN" = "GSTIN";
+"Default_Refund_Mode" = "Default Refund Mode";
+"Billing_Name" = "Billing Name";
+"Billng_Address" = "Billng Address";
+"Wallet" = "Wallet";
+"Chosen_Mode_Of_Payment" = "As per chosen mode of payment";
+"Email_successfully_Sent" = "Email successfully sent";

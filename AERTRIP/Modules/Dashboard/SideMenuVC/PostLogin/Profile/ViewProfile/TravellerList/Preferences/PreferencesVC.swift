@@ -20,6 +20,7 @@ class PreferencesVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var blurContainerView: BlurView!
     
     // MARK: - Variables
     
@@ -50,6 +51,15 @@ class PreferencesVC: BaseVC {
         labelsCountDict = CoreDataManager.shared.fetchData(fromEntity: "TravellerData", forAttribute: "label", usingFunction: "count")
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        self.tableView.backgroundColor = AppColors.themeGray04
+    }
+    
+    deinit {
+        printDebug("deinit")
+    }
+    
     // MARK: - IB Actions
     
     // MARK: - Helper methods
@@ -61,16 +71,18 @@ class PreferencesVC: BaseVC {
         topNavView.configureNavBar(title: LocalizedString.Preferences.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false)
         topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.rawValue, selectedTitle: LocalizedString.Done.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
-        topNavView.dividerView.isHidden = true
+        topNavView.dividerView.isHidden = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
-        tableView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+//        tableView.backgroundColor = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
         indicatorView.color = AppColors.themeGreen
         self.tableFooterView()
         stopLoading()
-       // self.view.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+       // self.view.backgroundColor = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+        self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+        topNavView.backgroundColor = .clear
     }
     
     func registerXib() {
@@ -92,26 +104,28 @@ class PreferencesVC: BaseVC {
         let alertController = UIAlertController(title: LocalizedString.EnterAGroupName.localized, message: "", preferredStyle: .alert)
         alertController.view.tintColor = AppColors.themeGreen
         
-        alertController.addTextField { textField in
+        alertController.addTextField { (textField) in
             textField.placeholder = LocalizedString.EnterGroupName.localized
             textField.textAlignment = .left
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {   _ in
             printDebug("Canelled")
         }
         
-        let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
-            let groupName = alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespaces) ?? "None"
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            guard let self = self else {return}
+            let groupName = (alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespaces) ?? "None").capitalized
             printDebug("Current group name: \(groupName)")
             
             if groupName.isEmpty{
                 AppToast.default.showToastMessage(message: LocalizedString.GroupNameCanNotEmpty.localized)
                 return
             } else if !self.viewModel.groups.contains(where: { $0.compare(groupName, options: .caseInsensitive) == .orderedSame }) {
-                if (groupName.lowercased() == LocalizedString.Other.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Others.localized.lowercased()) {
+                if (groupName.lowercased() == LocalizedString.Other.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Others.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Me.localized.lowercased()) {
                    AppToast.default.showToastMessage(message: LocalizedString.CantCreateGroupWithThisName.localized)
                 } else {
+                    self.viewModel.logFirebaseEvent(for: .AddNewGroup)
                     self.viewModel.groups.append(groupName)
                     self.viewModel.modifiedGroups.append((originalGroupName: groupName, modifiedGroupName: groupName))
                  }
@@ -131,6 +145,11 @@ class PreferencesVC: BaseVC {
     @objc func setCategorisedByGroupFlag(_ sender: UISwitch) {
         printDebug("\(sender.isOn)")
         viewModel.isCategorizeByGroup = sender.isOn
+        if sender.isOn{
+            self.viewModel.logFirebaseEvent(for: .SwitchCategoriseByGroupOn)
+        }else{
+            self.viewModel.logFirebaseEvent(for: .SwitchCategoriseByGroupOff)
+        }
     }
     
     override func bindViewModel() {
@@ -256,6 +275,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 orderCell.checkIconImageView.isHidden = false
             }
             orderCell.separatorView.isHidden = indexPath.row == (order.count - 1)
+            orderCell.contentView.backgroundColor = AppColors.themeBlack26
             return orderCell
         case LocalizedString.DisplayOrder:
             if indexPath.row < 2 {
@@ -270,6 +290,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                     orderCell.checkIconImageView.isHidden = false
                 }
                 orderCell.separatorView.isHidden = indexPath.row == (order.count - 1)
+                orderCell.contentView.backgroundColor = AppColors.themeBlack26
                 return orderCell
             } else if indexPath.row == 2 {
                 guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: emptyCellIdentifier, for: indexPath) as? EmptyTableViewCell else {
@@ -283,7 +304,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 
                 categoryGroupCell.groupSwitch.addTarget(self, action: #selector(setCategorisedByGroupFlag(_:)), for: .valueChanged)
                 categoryGroupCell.groupSwitch.isOn = viewModel.isCategorizeByGroup
-                
+                categoryGroupCell.contentView.backgroundColor = AppColors.themeBlack26
                 return categoryGroupCell
             }
         case LocalizedString.Groups:
@@ -293,17 +314,20 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 cell.configureFotAddNewGroup()
                 return cell
+                
+                
             }
             
             guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier) as? GroupTableViewCell else {
                 fatalError("GroupTableViewCell not found")
             }
-            groupCell.dividerView.isHidden = false//indexPath.row == viewModel.groups.count - 1
+            groupCell.dividerView.isHidden = indexPath.row == viewModel.groups.count - 1
             groupCell.delegate = self
             
             let (orgnlName, mdfdName) = self.viewModel.modifiedGroups[indexPath.row]
             let totalCount = getCount(forLabel: orgnlName)
             groupCell.configureCell(mdfdName, totalCount)
+            groupCell.contentView.backgroundColor = AppColors.themeBlack26
             return groupCell
             
         default:
@@ -328,22 +352,35 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
         headerView.headerLabel.text = sections[section].rawValue
+        headerView.topSeparatorView.isHidden = section == 0
+        headerView.backgroundColor = .clear
+        headerView.containerView.backgroundColor = .clear
+        headerView.contentView.backgroundColor = .clear
+        headerView.headerLabel.textColor = AppColors.themeGray60
         return headerView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case LocalizedString.SortOrder:
+            let previouse = viewModel.sortOrder
             if indexPath.row == 0 {
                 viewModel.sortOrder = "FL"
             } else {
                 viewModel.sortOrder = "LF"
             }
+            if previouse != viewModel.sortOrder{
+                self.viewModel.logFirebaseEvent(for: .ChangeSortOrder)
+            }
         case LocalizedString.DisplayOrder:
+            let previouse = viewModel.sortOrder
             if indexPath.row == 0 {
                 viewModel.displayOrder = "FL"
             } else {
                 viewModel.displayOrder = "LF"
+            }
+            if previouse != viewModel.sortOrder{
+                self.viewModel.logFirebaseEvent(for: .ChangeDisplayOrder)
             }
         case LocalizedString.Groups:
             if indexPath.row == viewModel.groups.count {
@@ -390,15 +427,15 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         let rows = tableView.numberOfRows(inSection: sourceIndexPath.section)
-        if let lastCell = self.tableView.cellForRow(at: IndexPath(row: rows-1, section: sourceIndexPath.section)) as? GroupTableViewCell {
+        if let lastCell = self.tableView.cellForRow(at: IndexPath(row: rows-2, section: sourceIndexPath.section)) as? GroupTableViewCell {
             lastCell.dividerView.isHidden = true
             
-            if destinationIndexPath.row == (rows - 1) {
+            if destinationIndexPath.row == (rows - 2) {
                 lastCell.dividerView.isHidden = false
                 sourceCell.dividerView.isHidden = true
             }
-            else if sourceIndexPath.row == (rows - 1) {
-                if (rows - 2) >= 0, let secondlastCell = self.tableView.cellForRow(at: IndexPath(row: rows-2, section: sourceIndexPath.section)) as? GroupTableViewCell {
+            else if sourceIndexPath.row == (rows - 2) {
+                if (rows - 3) >= 0, let secondlastCell = self.tableView.cellForRow(at: IndexPath(row: rows-3, section: sourceIndexPath.section)) as? GroupTableViewCell {
                     secondlastCell.dividerView.isHidden = true
                 }
                 sourceCell.dividerView.isHidden = false
@@ -408,8 +445,10 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
 
         
         // Insert element at Particular index
+        self.viewModel.logFirebaseEvent(for: .SortGroup)
         viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
         viewModel.modifiedGroups.insert(movedModifiedObject, at: destinationIndexPath.row)
+        
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -460,7 +499,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         switch sections[section] {
         case LocalizedString.Groups:
             let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.width, height: 35))
-            footerView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+            footerView.backgroundColor = .clear
             return footerView
         default:
             return nil
@@ -483,12 +522,31 @@ extension PreferencesVC: GroupTableViewCellDelegate {
     
     func deleteCellTapped(_ indexPath: IndexPath) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
-        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+            guard let self = self else {return}
             if index == 0 {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:
+                   
+                    let count = self.getCount(forLabel: self.viewModel.groups[indexPath.row])
+                    let otherCount = self.getCount(forLabel: "others")
+                    var othersFound = false
+                    for (index, dict) in self.labelsCountDict.enumerated() {
+                        if let obj = dict["label"], "\(obj)".lowercased() == "others" {
+                            var newDict = dict
+                            newDict["count"] = count + otherCount
+                            self.labelsCountDict[index] = newDict
+                            othersFound = true
+                            break
+                        }
+                    }
+                    if !othersFound {
+                        let dict = ["label": "others", "count": count] as [String : Any]
+                        self.labelsCountDict.append(dict)
+                    }
                     self.viewModel.removedGroups.append(self.viewModel.groups.remove(at: indexPath.row))
                     self.viewModel.modifiedGroups.remove(at: indexPath.row)
+                    self.viewModel.logFirebaseEvent(for: .DeleteGroup)
                     self.tableView.reloadData()
                 default:
                     break
@@ -506,6 +564,7 @@ extension PreferencesVC: PreferencesVMDelegate {
     }
     
     func savePreferencesSuccess() {
+        AppToast.default.showToastMessage(message: "Preferences saved successfully")
         self.sendDataChangedNotification(data: ATNotification.preferenceUpdated)
         stopLoading()
         dismiss(animated: true, completion: nil)

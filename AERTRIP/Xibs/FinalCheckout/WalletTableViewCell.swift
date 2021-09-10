@@ -25,16 +25,17 @@ class WalletTableViewCell: UITableViewCell {
     // MARK: - Properties
     weak var delegate : WalletTableViewCellDelegate?
     
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
-       
         self.setUpFonts()
         self.setUpColors()
         self.setUpText()
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        amountLabel.attributedText = nil
+    }
    
     // Mark: - Helper methods
     
@@ -42,42 +43,39 @@ class WalletTableViewCell: UITableViewCell {
         self.walletTitleLabel.font = AppFonts.Regular.withSize(18.0)
         self.balanceLabel.font = AppFonts.Regular.withSize(16.0)
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
-        
-        
     }
     
     private func setUpColors() {
         self.walletTitleLabel.textColor = AppColors.textFieldTextColor51
         self.balanceLabel.textColor = AppColors.themeGray40
         self.amountLabel.textColor = AppColors.textFieldTextColor51
-
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.walletSwitch.onTintColor = AppColors.commonThemeGreen
     }
     
     private func setUpText() {
         self.walletTitleLabel.text = LocalizedString.PayByAertripWallet.localized
         self.balanceLabel.text = "\(LocalizedString.Balance.localized):"
-        
     }
     
     
     @IBAction func infoButtonTaped(_ sender: Any) {
-        guard let url = URL(string: AppConstants.walletAmountUrl) else { return }
-        let safariVC = SFSafariViewController(url: url)
-        AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
-        safariVC.delegate = self
+        guard let url = URL(string: AppKeys.walletAmountUrl) else { return }
+        AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.AertripWallet.localized)
     }
-    
-    
     
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         sender.isOn ? delegate?.valueForSwitch(isOn: true) : delegate?.valueForSwitch(isOn: false)
     }
+    
 }
 
 extension WalletTableViewCell: SFSafariViewControllerDelegate {
+    
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
     }
+    
 }
 

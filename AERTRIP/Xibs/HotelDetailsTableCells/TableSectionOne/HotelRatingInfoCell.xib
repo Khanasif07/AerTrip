@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,31 +26,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-KP-Jl8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="127.5"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Vf-MQ-qaM">
-                                <rect key="frame" x="336" y="16" width="27" height="27"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="27" id="EAg-gR-q9z"/>
-                                    <constraint firstAttribute="width" secondItem="6Vf-MQ-qaM" secondAttribute="height" multiplier="1:1" id="oVP-Fr-1Qd"/>
-                                </constraints>
-                                <state key="normal" image="share_file_icon"/>
-                                <state key="selected" image="saveHotelsSelected"/>
-                                <connections>
-                                    <action selector="shareButtonAction:" destination="Rpy-CL-tHE" eventType="touchUpInside" id="ggW-vp-veN"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="oEU-GA-wMF">
-                                <rect key="frame" x="16" y="20" width="312" height="84.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="oEU-GA-wMF">
+                                <rect key="frame" x="16" y="22" width="343" height="89"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="fEe-NI-Hmf">
-                                        <rect key="frame" x="0.0" y="0.0" width="138" height="16"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="fEe-NI-Hmf">
+                                        <rect key="frame" x="0.0" y="0.0" width="137" height="16"/>
                                         <subviews>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enS-dd-Vcq" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="85" height="16"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="95" height="16"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="85" id="60u-fU-PZQ"/>
+                                                    <constraint firstAttribute="width" constant="95" id="60u-fU-PZQ"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
@@ -66,17 +54,21 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Bxe-JZ-FUA">
-                                                <rect key="frame" x="106" y="0.0" width="32" height="16"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Bxe-JZ-FUA">
+                                                <rect key="frame" x="113" y="0.0" width="24" height="16"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="L5d-uI-h3Y">
-                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="16"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="24" id="BWn-Zi-fr4"/>
+                                                        </constraints>
                                                     </imageView>
                                                     <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NU8-BG-3DG" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="32" y="0.0" width="84" height="16"/>
+                                                        <rect key="frame" x="-54" y="0.0" width="78" height="16"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="84" id="BN9-Q0-HnO"/>
+                                                            <constraint firstAttribute="width" constant="78" id="BN9-Q0-HnO"/>
+                                                            <constraint firstAttribute="height" constant="16" id="ptY-EJ-rh9"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
@@ -88,38 +80,45 @@
                                                                 <integer key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
-                                                                <size key="value" width="17" height="17"/>
+                                                                <size key="value" width="8" height="8"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="NU8-BG-3DG" secondAttribute="trailing" id="BKN-H4-k2i"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="PUP-CH-gsz"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eTp-rb-uxv">
-                                        <rect key="frame" x="0.0" y="31" width="52" height="53.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="eTp-rb-uxv">
+                                        <rect key="frame" x="0.0" y="28" width="52" height="61"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tt-Nr-iFo">
-                                                <rect key="frame" x="0.0" y="0.0" width="52" height="25.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tt-Nr-iFo">
+                                                <rect key="frame" x="0.0" y="0.0" width="52" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="wq4-Wt-ey5"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ke7-ZZ-l7g">
-                                                <rect key="frame" x="0.0" y="30.5" width="52" height="23"/>
+                                                <rect key="frame" x="0.0" y="35" width="52" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="26" id="ytS-aN-Wv7"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="53.5" id="p3A-KN-3Nh"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="fEe-NI-Hmf" firstAttribute="top" secondItem="oEU-GA-wMF" secondAttribute="top" id="F2g-RN-ay8"/>
                                     <constraint firstItem="eTp-rb-uxv" firstAttribute="leading" secondItem="oEU-GA-wMF" secondAttribute="leading" id="L6o-Xc-Xny"/>
@@ -127,28 +126,46 @@
                                     <constraint firstAttribute="bottom" secondItem="eTp-rb-uxv" secondAttribute="bottom" id="aQ7-2K-fCc"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Vf-MQ-qaM">
+                                <rect key="frame" x="336" y="16" width="27" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="EAg-gR-q9z"/>
+                                    <constraint firstAttribute="width" secondItem="6Vf-MQ-qaM" secondAttribute="height" multiplier="1:1" id="oVP-Fr-1Qd"/>
+                                </constraints>
+                                <state key="normal" image="share_file_icon"/>
+                                <state key="selected" image="saveHotelsSelected"/>
+                                <connections>
+                                    <action selector="shareButtonAction:" destination="Rpy-CL-tHE" eventType="touchUpInside" id="ggW-vp-veN"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSk-NW-CWC" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="125.5" width="343" height="0.5"/>
+                                <rect key="frame" x="16" y="127" width="343" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="GVx-kp-6lu"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="8I9-IO-beC">
+                                <rect key="frame" x="339.5" y="19.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="8I9-IO-beC" firstAttribute="centerY" secondItem="6Vf-MQ-qaM" secondAttribute="centerY" id="00h-6f-UoV"/>
                             <constraint firstItem="gSk-NW-CWC" firstAttribute="leading" secondItem="pv8-KP-Jl8" secondAttribute="leading" constant="16" id="5Ca-M9-2PF"/>
-                            <constraint firstItem="oEU-GA-wMF" firstAttribute="top" secondItem="pv8-KP-Jl8" secondAttribute="top" constant="20" id="6uW-HX-mxV"/>
+                            <constraint firstItem="oEU-GA-wMF" firstAttribute="top" secondItem="pv8-KP-Jl8" secondAttribute="top" constant="22" id="6uW-HX-mxV"/>
+                            <constraint firstItem="8I9-IO-beC" firstAttribute="centerX" secondItem="6Vf-MQ-qaM" secondAttribute="centerX" id="G5f-zi-Sgt"/>
                             <constraint firstItem="6Vf-MQ-qaM" firstAttribute="top" secondItem="pv8-KP-Jl8" secondAttribute="top" constant="16" id="TE0-sn-u5v"/>
                             <constraint firstItem="oEU-GA-wMF" firstAttribute="leading" secondItem="pv8-KP-Jl8" secondAttribute="leading" constant="16" id="W0y-t5-0gO"/>
+                            <constraint firstAttribute="trailing" secondItem="oEU-GA-wMF" secondAttribute="trailing" constant="16" id="Wnl-lL-Q3H"/>
                             <constraint firstAttribute="bottom" secondItem="gSk-NW-CWC" secondAttribute="bottom" id="mYR-gq-EOz"/>
-                            <constraint firstItem="6Vf-MQ-qaM" firstAttribute="leading" secondItem="oEU-GA-wMF" secondAttribute="trailing" constant="8" id="oeD-2o-1Jh"/>
-                            <constraint firstItem="gSk-NW-CWC" firstAttribute="top" secondItem="oEU-GA-wMF" secondAttribute="bottom" constant="21" id="pwQ-68-cwb"/>
+                            <constraint firstItem="gSk-NW-CWC" firstAttribute="top" secondItem="oEU-GA-wMF" secondAttribute="bottom" constant="16" id="pwQ-68-cwb"/>
                             <constraint firstAttribute="trailing" secondItem="6Vf-MQ-qaM" secondAttribute="trailing" constant="12" id="u85-ID-F43"/>
                             <constraint firstAttribute="trailing" secondItem="gSk-NW-CWC" secondAttribute="trailing" constant="16" id="zyR-0U-YyT"/>
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="pv8-KP-Jl8" firstAttribute="leading" secondItem="IEe-0y-zab" secondAttribute="leading" id="94U-PG-AdG"/>
                     <constraint firstAttribute="trailing" secondItem="pv8-KP-Jl8" secondAttribute="trailing" id="F0K-Fj-AqH"/>
@@ -166,19 +183,20 @@
                 <outlet property="hotelNameAndDistanceStackView" destination="eTp-rb-uxv" id="v1b-4t-ZrR"/>
                 <outlet property="hotelNameLabel" destination="8tt-Nr-iFo" id="B8w-Zy-a7x"/>
                 <outlet property="hotelRatingView" destination="enS-dd-Vcq" id="GH6-I1-4A9"/>
+                <outlet property="indicator" destination="8I9-IO-beC" id="gSi-90-CM3"/>
                 <outlet property="ratingStackView" destination="fEe-NI-Hmf" id="K9D-Ke-mwg"/>
                 <outlet property="shareButtonOutlet" destination="6Vf-MQ-qaM" id="4H8-t3-VCC"/>
                 <outlet property="tripadviserImageView" destination="L5d-uI-h3Y" id="tuN-uA-enJ"/>
             </connections>
-            <point key="canvasLocation" x="244" y="518"/>
+            <point key="canvasLocation" x="244" y="517.24137931034488"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="combinedShapeFill" width="14" height="14"/>
+        <image name="combinedShapeFill" width="15" height="14"/>
         <image name="combinedShapeUnfilled" width="14" height="14"/>
-        <image name="saveHotelsSelected" width="27" height="27"/>
+        <image name="saveHotelsSelected" width="27" height="30"/>
         <image name="share_file_icon" width="27" height="27"/>
-        <image name="starRatingFilled" width="30" height="30"/>
+        <image name="starRatingFilled" width="31" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
         <image name="tripAdviserBig" width="32" height="18"/>
     </resources>

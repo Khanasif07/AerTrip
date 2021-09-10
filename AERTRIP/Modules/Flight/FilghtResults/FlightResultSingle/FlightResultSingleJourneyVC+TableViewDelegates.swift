@@ -1,0 +1,212 @@
+//
+//  FlightResultSingleJourneyVC+TableViewDelegates.swift
+//  AERTRIP
+//
+//  Created by Appinventiv on 30/07/20.
+//  Copyright © 2020 Pramod Kumar. All rights reserved.
+//
+
+import Foundation
+
+//MARK:- Tableview DataSource , Delegate Methods
+extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        switch viewModel.resultTableState {
+         case .showPinnedFlights, .showTemplateResults , .showNoResults, .showRegularResults:
+             return 1
+         case .showExpensiveFlights :
+                 return 1
+         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if viewModel.resultTableState == .showTemplateResults {
+            return 6
+        }
+        
+        if viewModel.resultTableState == .showPinnedFlights {
+            return viewModel.results.pinnedFlights.count
+        }
+        
+         if viewModel.resultTableState == .showExpensiveFlights {
+            
+            return viewModel.results.allJourneys.count
+            
+        }else{
+            return viewModel.results.suggestedJourneyArray.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if viewModel.resultTableState == .showTemplateResults {
+           
+            return getTemplateCell(isFirstCell: indexPath.row == 0)
+        
+        } else if viewModel.resultTableState == .showPinnedFlights {
+          
+            let journey = viewModel.results.pinnedFlights[indexPath.row]
+            return getSingleJourneyCell(indexPath: indexPath ,journey: journey )
+        
+        } else {
+            
+            var arrayForDisplay = viewModel.results.suggestedJourneyArray
+            
+            if viewModel.resultTableState == .showExpensiveFlights {
+            
+                arrayForDisplay = viewModel.results.allJourneys }
+           
+            else {
+            
+                arrayForDisplay = viewModel.results.suggestedJourneyArray
+                
+            }
+            
+            if arrayForDisplay[safe:indexPath.row]?.cellType == .singleJourneyCell {
+            
+                return getSingleJourneyCell(indexPath: indexPath ,journey:  arrayForDisplay[indexPath.row].journeyArray.first)
+            
+            } else {
+            
+                return getGroupedFlightCell(indexPath: indexPath, journey: arrayForDisplay[indexPath.row])
+         
+            }
+        }
+    }
+    
+    //MARK:- Methods to get different types of cells
+    func getTemplateCell (isFirstCell: Bool) -> UITableViewCell {
+        
+        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyTemplateCell") as? SingleJourneyResultTemplateCell {
+            cell.selectionStyle = .none
+            cell.isFirstCell = isFirstCell
+            return cell
+        }
+        
+        return UITableViewCell()
+    }
+    
+    func getSingleJourneyCell (indexPath : IndexPath , journey : Journey?  ) -> UITableViewCell {
+        
+        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{
+            
+            if #available(iOS 13, *) {
+                if cell.baseView.interactions.isEmpty{
+                    let interaction = UIContextMenuInteraction(delegate: self)
+                    cell.baseView.addInteraction(interaction)
+                }
+            }
+            
+            cell.selectionStyle = .none
+            cell.setTitlesFrom( journey : journey)
+            
+            if let logoArray = journey?.airlineLogoArray {
+
+                switch logoArray.count {
+                    
+                case 1 :
+                    
+                    cell.logoOne.isHidden = false
+                    cell.logoTwo.isHidden = true
+                    cell.logoThree.isHidden = true
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+
+                case 2 :
+                    
+                    cell.logoOne.isHidden = false
+                    cell.logoTwo.isHidden = false
+                    cell.logoThree.isHidden = true
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+
+                
+                case 3 :
+                    
+                    cell.logoOne.isHidden = false
+                    cell.logoTwo.isHidden = false
+                    cell.logoThree.isHidden = false
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+                    cell.logoThree.setImageWithUrl(logoArray[2], placeholder: UIImage(), showIndicator: false)
+
+                    
+                default:
+                    break
+                }
+            }
+            
+//            cell.logoOne.isHidden = false
+//            cell.logoTwo.isHidden = false
+//            cell.logoThree.isHighlighted = false
+//
+//            cell.logoOne.backgroundColor = .blue
+//            cell.logoTwo.backgroundColor = .red
+//            cell.logoThree.backgroundColor = .yellow
+            
+            return cell
+        }
+        assertionFailure("Failed to create SingleJourneyResultTableViewCell cell ")
+        
+        return UITableViewCell()
+    }
+    
+    
+    func getGroupedFlightCell( indexPath : IndexPath , journey : JourneyOnewayDisplay  ) -> UITableViewCell {
+        
+        if #available(iOS 13.0, *) {
+            if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "GroupedFlightCell") as? GroupedFlightCell {
+                cell.selectionStyle = .none
+                cell.delegate = self
+                cell.setVaulesFrom(journey: journey, sortOrder: self.viewModel.sortOrder, isConditionReverced : self.viewModel.isConditionReverced)
+                
+                cell.buttonTapped = {shouldScroll in
+                    if shouldScroll {
+                        delay(seconds: 0.3) {
+                            self.resultsTableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.middle, animated: false)
+                        }
+                    }
+                    
+                    self.reloadTableCell(indexPath)
+                    
+                    journey.isCollapsed ?
+                        
+                        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.CollapseclubbedJourneys, value: self.viewModel.flightSearchParameters, groupId: "\(journey.journeyArray.first?.groupID ?? 0)") :
+                        
+                        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.ExpandClubbedJourneys, value: self.viewModel.flightSearchParameters, groupId: "\(journey.journeyArray.first?.groupID ?? 0)")
+
+                    
+                }
+                return cell
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        assertionFailure("Failed to create GroupedFlightCell ")
+        
+        return UITableViewCell()
+    }
+    
+    func reloadTableCell(_ indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            self.resultsTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if viewModel.resultTableState == .showTemplateResults {
+            return
+        }
+        
+        guard let journeyCell = tableView.cellForRow(at: indexPath) as? SingleJourneyResultTableViewCell, let currentJourney = journeyCell.currentJourney  else {
+            return
+        }
+        
+        printDebug(currentJourney.id)
+        
+        navigateToFlightDetailFor(journey: currentJourney, selectedIndex: indexPath)
+    }
+    
+}

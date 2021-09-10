@@ -36,8 +36,8 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
     private var gradientLayer: CAGradientLayer!
-//    var scrollSize: CGFloat = 0.0
-//    let numberOfPage: Int = 100
+    //    var scrollSize: CGFloat = 0.0
+    //    let numberOfPage: Int = 100
     
     var hotelData: HotelsModel? {
         didSet {
@@ -56,6 +56,11 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             updateBottomConstraint()
         }
     }
+    var isFirstCellInSection: Bool = false {
+        didSet {
+            updateTopConstraint()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,9 +70,9 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         //-------------------------- End ---------------------
         self.gradientLayer = CAGradientLayer()
         self.gradientLayer.frame = self.gradientView.bounds
-        let gradientColor = AppColors.themeBlack
+        let gradientColor = AppColors.unicolorBlack
         self.gradientLayer.colors =
-                [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.20).cgColor, gradientColor.withAlphaComponent(0.40).cgColor]
+            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.20).cgColor, gradientColor.withAlphaComponent(0.40).cgColor]
         self.gradientLayer.locations = [0.0, 0.5, 1.0]
         self.gradientView.layer.addSublayer(self.gradientLayer)
         self.gradientView.backgroundColor = AppColors.clear
@@ -76,10 +81,22 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpOutside)
         self.setupPageControl()
         
-        self.bgView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.1), offset: CGSize.zero, opacity: 0.4, shadowRadius: 4.0)
-        self.collectionView.cornerRadius = 10.0
-        self.gradientView.cornerRadius = 10.0
+//        self.bgView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        let shadow = AppShadowProperties()
+        self.bgView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+        self.collectionView.cornerradius = 10.0
+        self.gradientView.cornerradius = 10.0
         self.collectionView.registerCell(nibName: ATGalleryCell.reusableIdentifier)
+        
+        self.discountedPriceLabel.font = AppFonts.SemiBold.withSize(22)
+        self.actualPriceLabel.font = AppFonts.Regular.withSize(16)
+
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.discountedPriceLabel.attributedText = nil
+        self.actualPriceLabel.attributedText = nil
     }
     
     override func layoutSubviews() {
@@ -97,26 +114,26 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.isPagingEnabled = true
-//        self.scrollView.isUserInteractionEnabled = (thumbnail.count > 1)
-//        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(thumbnail.count), height: self.hotelImageView.frame.size.height)
+        //        self.scrollView.isUserInteractionEnabled = (thumbnail.count > 1)
+        //        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(thumbnail.count), height: self.hotelImageView.frame.size.height)
         
         printDebug("thumbnail count is \(thumbnail.count)")
         self.pageControl.isHidden = (thumbnail.count <= 1)
         self.collectionView.isScrollEnabled = (thumbnail.count > 1)
         self.collectionView.reloadData()
-//        for index in 0..<thumbnail.count {
-//            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
-//            view.contentMode = .scaleAspectFill
-//            view.clipsToBounds = true
-//            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
-//            scrollView.addSubview(view)
-//        }
+        //        for index in 0..<thumbnail.count {
+        //            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
+        //            view.contentMode = .scaleAspectFill
+        //            view.clipsToBounds = true
+        //            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
+        //            scrollView.addSubview(view)
+        //        }
     }
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-//        self.bgView.cornerRadius = 10.0
+        //        self.bgView.cornerRadius = 10.0
     }
     
     private func populateData() {
@@ -125,9 +142,9 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.greenCircleRatingView.rating = self.hotelData?.taRating ?? 0
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
-//        if let image = UIImage(named: "hotelCardPlaceHolder") {
-//            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
-//        }
+        //        if let image = UIImage(named: "hotelCardPlaceHolder") {
+        //            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
+        //        }
     }
     
     
@@ -154,13 +171,29 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             self.tripLogoImage.isHidden = false
             self.greenCircleRatingView.rating = hotel.rating
         }
-
-        self.actualPriceLabel.text = hotel.listPrice == 0 ? "" : "\(String(describing: hotel.listPrice))"
-        var price : Double = hotel.price
-        if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight  {
-            price = hotel.perNightPrice
+        
+        var listPrice = hotel.perNightListPrice
+        var price : Double = hotel.perNightPrice
+        
+        
+        if  let filter = UserInfo.hotelFilter, filter.priceType == .Total  {
+            price = hotel.listPrice == 0 ? hotel.price : hotel.listPrice
+            listPrice = hotel.price
         }
-        self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
+
+        if listPrice == 0{
+            self.actualPriceLabel.text = ""
+            self.actualPriceLabel.attributedText = nil
+        }else{
+            let attributeString: NSMutableAttributedString =  listPrice.getConvertedAmount(using: AppFonts.Regular.withSize(16))
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
+            self.actualPriceLabel.attributedText = attributeString
+            self.actualPriceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.Regular.withSize(12))
+            actualPriceLabel.isHidden = price == listPrice
+        }
+        self.discountedPriceLabel.attributedText = price.getConvertedAmount(using: AppFonts.SemiBold.withSize(22))
+        self.discountedPriceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.SemiBold.withSize(16))
+        
         self.saveButton.isSelected = hotel.fav == "0" ? false : true
         //        if let image = UIImage(named: "hotelCardPlaceHolder") {
         //            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
@@ -169,11 +202,22 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
     
     private func setupPageControl() {
         self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
-        self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
+        self.pageControl.currentPageIndicatorTintColor = AppColors.unicolorWhite
     }
     
     private func updateBottomConstraint() {
-        self.containerBottomConstraint.constant = isLastCellInSection ? 0 : 16
+        let valueToSet: CGFloat = isLastCellInSection ? 16 : 8
+        if valueToSet != self.containerBottomConstraint.constant {
+            self.containerBottomConstraint.constant = valueToSet
+            self.contentView.layoutIfNeeded()
+        }
+    }
+    private func updateTopConstraint() {
+        let valueToSet: CGFloat = isFirstCellInSection ? 16 : 8
+        if valueToSet != self.containerTopConstraint.constant {
+            self.containerTopConstraint.constant = valueToSet
+            self.contentView.layoutIfNeeded()
+        }
     }
     
     @objc func saveButtonTapped(_ sender: UIButton) {
@@ -203,17 +247,27 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ATGalleryCell.reusableIdentifier, for: indexPath) as? ATGalleryCell else {
             return UICollectionViewCell()
         }
-        
+        cell.backgroundColor = UIColor.clear
+        cell.imageView.backgroundColor = UIColor.clear
         cell.imageHeightConstraint.constant = collectionView.height
         cell.indicator.isHidden = true
+        cell.imageView.contentMode = .scaleAspectFill
         if let images = hotelListData?.thumbnail, images.count > indexPath.item {
             //set image from url
-//            cell.imageView.image = #imageLiteral(resourceName: "hotelCardPlaceHolder")
-            cell.imageView.setImageWithUrl(images[indexPath.item], placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false)
+            //            cell.imageView.image = AppImages.hotelCardPlaceHolder
+//            cell.imageView.setImageWithUrl(images[indexPath.item], placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false)
+            cell.imageView.cancelImageDownloading()
+            cell.imageView.setImageWithUrl(imageUrl: images[indexPath.item], placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [unowned self] (image, error) in
+                if let downloadedImage = image {
+                    cell.imageView.image = downloadedImage
+                } else {
+                    cell.imageView.image = AppImages.hotelCardNoImagePlaceHolder
+                }
+            }
         }
         else {
             //set thumbnail
-            cell.imageView.image = #imageLiteral(resourceName: "hotelCardPlaceHolder")
+            cell.imageView.image = AppImages.hotelCardNoImagePlaceHolder
         }
         
         return cell

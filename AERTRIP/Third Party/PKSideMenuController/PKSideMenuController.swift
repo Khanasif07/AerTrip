@@ -20,7 +20,7 @@ public enum PKSideMenuAnimation {
 public struct PKSideMenuOptions {
     public static var mainViewCornerRadiusInOpenMode: CGFloat = 18.0
     public static var sideDistanceForOpenMenu: CGFloat = 0.59 * UIScreen.main.bounds.width
-    public static var opacityViewBackgroundColor: UIColor = UIColor.green
+//    public static var opacityViewBackgroundColor: UIColor = UIColor.green
     public static var mainViewShadowColor: UIColor = UIColor.black
     public static var mainViewShadowWidth: Double = 5.0
     public static var dropOffShadowColor: UIColor = UIColor.black
@@ -38,6 +38,17 @@ public protocol PKSideMenuControllerDelegate: class {
 open class PKSideMenuController: UIViewController {
     
     //MARK:- Properties
+    
+//    var statusBarStyle: UIStatusBarStyle = .darkContent {
+//        didSet{
+//            /*HINT:
+//             Open your info.plist and insert a new key named "View controller-based status bar appearance" to NO
+//            */
+//            UIApplication.shared.statusBarStyle = statusBarStyle
+//            setNeedsStatusBarAppearanceUpdate()
+//        }
+//    }
+    
     //MARK:- Public
     public var isOpen: Bool {
         
@@ -92,16 +103,21 @@ open class PKSideMenuController: UIViewController {
         }
         
         if self.mainViewController != nil {
-            return .default
+            return .darkContent
         }
        
-         return .default
+         return .darkContent
      }
+    
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateShadowsOnTraitChange()
+    }
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetup(){
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = AppColors.themeWhite
         self.menuContainer = UIView()
         
         var newFrame = self.view.bounds
@@ -124,10 +140,20 @@ open class PKSideMenuController: UIViewController {
         self.addClosePanGesture()
     }
     
+    private func updateShadowsOnTraitChange() {
+        if shadowLayer != nil {
+            shadowLayer.shadowColor = PKSideMenuOptions.mainViewShadowColor.resolvedColor(with: traitCollection).cgColor
+        }
+        if let con = mainContainer {
+            let layerTemp = con.layer
+            layerTemp.shadowColor = PKSideMenuOptions.dropOffShadowColor.resolvedColor(with: traitCollection).cgColor
+        }
+    }
+    
     private func addDropOffShadow() {
         let layerTemp = self.mainContainer!.layer
         layerTemp.masksToBounds = false
-        layerTemp.shadowColor = PKSideMenuOptions.dropOffShadowColor.cgColor
+        layerTemp.shadowColor = PKSideMenuOptions.dropOffShadowColor.resolvedColor(with: traitCollection).cgColor
         layerTemp.shadowOpacity = 0.0
         layerTemp.shadowOffset = CGSize(width: 20, height: 10)
         layerTemp.shadowRadius = 50
@@ -202,7 +228,7 @@ open class PKSideMenuController: UIViewController {
         shadowLayer.path = UIBezierPath(roundedRect: self.mainContainer?.bounds ?? .zero, cornerRadius: withCornerRadius).cgPath
         shadowLayer.fillColor = UIColor.clear.cgColor
         
-        shadowLayer.shadowColor = PKSideMenuOptions.mainViewShadowColor.cgColor
+        shadowLayer.shadowColor = PKSideMenuOptions.mainViewShadowColor.resolvedColor(with: traitCollection).cgColor
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: shadowWidthTo, height: 0.0)
         shadowLayer.shadowOpacity = 0.0
@@ -212,6 +238,7 @@ open class PKSideMenuController: UIViewController {
     private func addEdgeSwipeGesture() {
         edgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(panGestureRecognized(_:)))
         edgePanGestureRecognizer?.edges = (PKSideMenuOptions.currentOpeningSide == .left) ? .right : .left
+        
         self.mainContainer?.addGestureRecognizer(edgePanGestureRecognizer!)
     }
     
@@ -293,7 +320,7 @@ open class PKSideMenuController: UIViewController {
     }
     
     func openMenu(){
-       
+                
         addTapGestures()
         var fMain : CGRect = self.mainContainer!.frame
         fMain.origin.x = self.distanceOpenMenu
@@ -315,6 +342,8 @@ open class PKSideMenuController: UIViewController {
         case .curveLinear:
             self.openWithCurveLinear(mainFrame: fMain)
         }
+        updateStatusBarColor()
+        
     }
     
     func closeMenu(){
@@ -336,6 +365,16 @@ open class PKSideMenuController: UIViewController {
         case .curveLinear:
             self.closeWithCurveLinear(mainFrame: fMain)
         }
+        
+        updateStatusBarColor()
+    }
+    
+    private func updateStatusBarColor() {
+//        if isOpen {
+//            statusBarStyle = .lightContent
+//        } else {
+//            statusBarStyle = .darkContent
+//        }
     }
     
     func addTapGestures(){
@@ -355,6 +394,8 @@ open class PKSideMenuController: UIViewController {
     }
     
     @objc func tapMainAction(){
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .CloseDoorbyClickingonTheDoor)
+
         closeMenu()
         removeGesture()
     }
@@ -435,6 +476,7 @@ extension PKSideMenuController {
             actionForEdgePanGesture(gestRecog)
         } else {
             guard let gestRecog = recognizer as? UIPanGestureRecognizer else { return }
+            FirebaseEventLogs.shared.logSideMenuEvents(with: .CloseDoorbySwipingTheDoor)
             actionForPanGesture(gestRecog)
         }
     }

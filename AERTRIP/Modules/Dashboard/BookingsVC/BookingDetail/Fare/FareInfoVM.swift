@@ -10,7 +10,7 @@ import Foundation
 
 class FareInfoVM {
     
-    var legDetails: Leg?
+    var legDetails: BookingLeg?
     var bookingFee: BookingFeeDetail?
 
   

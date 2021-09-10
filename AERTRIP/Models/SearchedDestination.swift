@@ -20,6 +20,7 @@ struct SearchedDestination: Codable {
     var country: String = ""
     var label: String = ""
     var value: String = ""
+    var isHotelNearMeSelected = false
     
     init() {
         self.init(json: [:])
@@ -71,24 +72,50 @@ struct SearchedDestination: Codable {
         }
     }
     
+    init(wirh recentSerarchData: RecentSearchesModel) {
+        self.dest_id = recentSerarchData.dest_id
+        self.dest_type = recentSerarchData.dest_type
+//        self.category = ""
+        self.dest_name = recentSerarchData.dest_name
+        self.latitude = recentSerarchData.lat
+        self.longitude = recentSerarchData.lng
+//        self.city = recentSerarchDat
+//        self.country = recentSerarchData.dest_id
+        self.label = recentSerarchData.dest_name
+        self.value = recentSerarchData.dest_name
+    }
+    
     static func modelsDict(jsonArr: [JSONDictionary]) -> JSONDictionary {
         
         var temp: JSONDictionary = JSONDictionary()
+        var showDidYouMean = false
         
         for json in jsonArr {
             let obj = SearchedDestination(json: json)
-            
             if obj.category.lowercased() == SelectDestinationVM.DestinationType.didYouMean.rawValue {
-                
-                if var arr = temp[obj.category.lowercased()] as? [SearchedDestination], !arr.isEmpty {
-                    arr.append(obj)
-                    temp[obj.category.lowercased()] = arr
-                }
-                else {
-                    temp[obj.category.lowercased()] = [obj]
-                }
+                showDidYouMean = true
             }
-            else {
+            // Commented code as section were needed to be shown based on destination type and not category - as reported by Akshay
+//            if obj.category.lowercased() == SelectDestinationVM.DestinationType.didYouMean.rawValue {
+//
+//                if var arr = temp[obj.category.lowercased()] as? [SearchedDestination], !arr.isEmpty {
+//                    arr.append(obj)
+//                    temp[obj.category.lowercased()] = arr
+//                }
+//                else {
+//                    temp[obj.category.lowercased()] = [obj]
+//                }
+//            }else if !obj.category.isEmpty{
+//                //Added for asana issue https://app.asana.com/0/1199093003059613/1199676600669600
+//                if var arr = temp[obj.category.lowercased()] as? [SearchedDestination], !arr.isEmpty {
+//                    arr.append(obj)
+//                    temp[obj.category.lowercased()] = arr
+//                }
+//                else {
+//                    temp[obj.category.lowercased()] = [obj]
+//                }
+//
+//            }else {
                 if var arr = temp[obj.dest_type.lowercased()] as? [SearchedDestination], !arr.isEmpty {
                     arr.append(obj)
                     temp[obj.dest_type.lowercased()] = arr
@@ -96,7 +123,10 @@ struct SearchedDestination: Codable {
                 else {
                     temp[obj.dest_type.lowercased()] = [obj]
                 }
-            }
+//            }
+        }
+        if showDidYouMean {
+            temp["showDidYouMean"] = true
         }
         return temp
     }

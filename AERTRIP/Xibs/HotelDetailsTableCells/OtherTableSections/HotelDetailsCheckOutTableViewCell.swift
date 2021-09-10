@@ -17,6 +17,7 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     @IBOutlet weak var bookLabel: UILabel!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var shadowViewBottomConstraints: NSLayoutConstraint!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     
     //Mark:- LifeCycle
@@ -25,21 +26,49 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.configureUI()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors)
+    }
 
     //Mark:- PrivateFunctions
     //=======================
     
+    private func manageLoader() {
+        self.indicator.style = .medium//.gray
+        self.indicator.tintColor = AppColors.unicolorWhite
+        self.indicator.color = AppColors.unicolorWhite
+        self.indicator.startAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.indicator.stopAnimating()
+            }else{
+                self.indicator.startAnimating()
+            }
+            self.bookLabel.isHidden = !isHidden
+        }
+    }
+    
     ///ConfigureUI
     private func configureUI() {
         //Colors
-        self.backgroundColor = AppColors.screensBackground.color
-        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.5, shadowRadius: 6.0)
-        layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.main.scale
-        self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+        self.backgroundColor = .clear//AppColors.screensBackground.color
+//        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        let shadow = AppShadowProperties()
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+//        layer.shouldRasterize = true
+//        layer.rasterizationScale = UIScreen.main.scale
         self.containerView.backgroundColor = AppColors.themeGreen
-        self.hotelFeesLabel.textColor = AppColors.themeWhite
-        self.bookLabel.textColor = AppColors.themeWhite
+        self.hotelFeesLabel.textColor = AppColors.unicolorWhite
+        self.bookLabel.textColor = AppColors.unicolorWhite
         self.containerView.roundBottomCorners(cornerRadius: 10.0)
         //Size
         self.hotelFeesLabel.font = AppFonts.SemiBold.withSize(20.0)
@@ -47,6 +76,7 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
         
         //Text
         self.bookLabel.text = LocalizedString.Book.localized
+        self.manageLoader()
     }
     
 }

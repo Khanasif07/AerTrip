@@ -19,6 +19,7 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     @IBOutlet weak var inclusionTypeLabel: UILabel!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var inclusionTypeLabelTopConstraints: NSLayoutConstraint!
     @IBOutlet weak var inclusionTypeLabelBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var shadowViewLeadingConstraints: NSLayoutConstraint!
     @IBOutlet weak var shadowViewTrailingConstraints: NSLayoutConstraint!
@@ -30,15 +31,22 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
         self.configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        inclusionTypeLabelTopConstraints.constant = 12
+    }
+    
     //Mark:- Methods
     //==============
     ///Configure UI
     private func configureUI() {
        // self.inclusionLabel.isHidden = true
         self.dividerView.isHidden = true
-        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.5, shadowRadius: 6.0)
+//        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        let shadow = AppShadowProperties()
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         //Color
-        self.backgroundColor = AppColors.screensBackground.color
+        self.backgroundColor = .clear//AppColors.screensBackground.color
         //self.inclusionLabel.textColor = AppColors.themeGray40
         self.inclusionTypeLabel.textColor = AppColors.themeBlack
         
@@ -89,8 +97,9 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     }
     
     
-    internal func configureOtherInclusionCell(otherInclusion: [String]) {
+    internal func configureOtherInclusionCell(otherInclusion: [String], isInclusionPresent: Bool) {
        // self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
+        inclusionTypeLabelTopConstraints.constant = isInclusionPresent ? 0 : 12
         self.inclusionTypeLabel.text = otherInclusion.joined(separator: ", ")
     }
     
@@ -134,4 +143,5 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
         }
         self.inclusionTypeLabel.text = otherInclusionText.joined(separator: ", ")
     }
+    
 }

@@ -21,7 +21,23 @@ extension HotelsMapVC {
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
+            self.viewModel.fetchRequestType = .normal
+            self.filterButton.isSelected = false
+            self.viewModel.isFilterApplied = false
+            HotelFilterVM.shared.isSortingApplied = false
+            let isFilterAppliedForDestinetionFlow = HotelFilterVM.shared.isFilterAppliedForDestinetionFlow
+            UserInfo.hotelFilter = nil
             HotelFilterVM.shared.resetToDefault()
+            self.viewModel.filterApplied = UserInfo.HotelFilter()
+            if isFilterAppliedForDestinetionFlow {
+                self.viewModel.fetchRequestType = .FilterApplied
+                self.viewModel.isFilterApplied = true
+                self.viewModel.filterApplied.sortUsing = .DistanceNearestFirst(ascending: true)
+                HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
+                HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
+                HotelFilterVM.shared.saveDataToUserDefaults()
+                //self.getSavedFilter()
+            }
             return
         }
         self.viewModel.fetchRequestType = .FilterApplied
@@ -59,9 +75,32 @@ extension HotelsMapVC {
         self.viewModel.getShareText()
     }
     
+    func removeAllFavouritesAlerts(){
+        
+        let title = LocalizedString.UnfavouriteAll.localized.capitalized + "?"
+        let message = LocalizedString.UnfavouriteAllMessage.localized
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let  cancelAction = UIAlertAction(title: LocalizedString.Cancel.localized, style: .default, handler: nil)
+        cancelAction.setValue(AppColors.themeDarkGreen, forKey: "titleTextColor")
+        
+        let  unFavouriteAction = UIAlertAction(title: LocalizedString.Unfavourite.localized, style: .destructive) { [weak self] (action) in
+            self?.removeAllFavouritesHotels()
+        }
+        unFavouriteAction.setValue(AppColors.themeRed, forKey: "titleTextColor")
+        
+        alert.addAction(cancelAction)
+        alert.addAction(unFavouriteAction)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
     func removeAllFavouritesHotels() {
-        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
-        self.switchView.setOn(isOn: false)
+        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {
+            self.isRemovingAllFav = false
+            return
+        }
+        //self.switchView.isOn = false
         self.manageSwitchContainer(isHidden: true)
         self.viewModel.isUnpinHotelTapped = true
         self.selectedIndexPath = nil
@@ -69,27 +108,40 @@ extension HotelsMapVC {
     }
     
     func expandGroup(_ hotels: [HotelSearched]) {
-        if let topVC = UIApplication.topViewController() {
-            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
-            dataVC.delegate = self
-            dataVC.viewModel.sid = self.viewModel.sid
-            dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
-            self.hotelsGroupExpendedVC = dataVC
-            dataVC.viewModel.samePlaceHotels = hotels
-            dataVC.viewModel.isFromFavorite = self.switchView.on
-            let sheet = PKBottomSheet.instanceFromNib
-            sheet.isAddTapGesture = false
-            sheet.headerHeight = 24.0
-            sheet.headerView = dataVC.headerView
-            sheet.isHideBottomSheetOnTap = false
-            
-            dataVC.sheetView = sheet
-            
-            sheet.frame = topVC.view.bounds
-            sheet.delegate = self
-            topVC.view.addSubview(sheet)
-            sheet.present(presentedViewController: dataVC, animated: true)
+        //        if let topVC = UIApplication.topViewController() {
+        //            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        //            dataVC.delegate = self
+        //            dataVC.viewModel.sid = self.viewModel.sid
+        //            dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
+        //            self.hotelsGroupExpendedVC = dataVC
+        //            dataVC.viewModel.samePlaceHotels = hotels
+        //            dataVC.viewModel.isFromFavorite = self.switchView.isOn
+        //            let sheet = PKBottomSheet.instanceFromNib
+        //            sheet.isAddTapGesture = false
+        //            sheet.headerHeight = 24.0
+        //            sheet.headerView = dataVC.headerView
+        //            sheet.isHideBottomSheetOnTap = false
+        //
+        //            dataVC.sheetView = sheet
+        //
+        //            sheet.frame = topVC.view.bounds
+        //            sheet.delegate = self
+        //            topVC.view.addSubview(sheet)
+        //            sheet.present(presentedViewController: dataVC, animated: true)
+        //        }
+        
+        let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        dataVC.delegate = self
+        dataVC.viewModel.sid = self.viewModel.sid
+        dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
+        self.hotelsGroupExpendedVC = dataVC
+        dataVC.viewModel.samePlaceHotels = hotels
+        dataVC.viewModel.isFromFavorite = self.switchView.isOn
+        if #available(iOS 13.0, *) {} else {
+            dataVC.modalPresentationStyle = .overCurrentContext
         }
+        self.present(dataVC, animated: true, completion: nil)
+        
     }
     
     func updateFavOnList(forIndexPath: IndexPath?) {
@@ -99,7 +151,7 @@ extension HotelsMapVC {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
             }
             else {
-                    self.hotelsMapCV.reloadItems(at: indexPath)
+                self.hotelsMapCV.reloadItems(at: indexPath)
             }
             selectedIndexPath = nil
         }
@@ -110,7 +162,7 @@ extension HotelsMapVC {
             else {
                 
                 self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
-                    self.hotelsMapCV.reloadData()
+                self.hotelsMapCV.reloadData()
             }
         }
     }
@@ -134,15 +186,15 @@ extension HotelsMapVC {
     }
     
     func moveMapToCurrentCity() {
-        if let loc = self.viewModel.searchedCityLocation {
-            self.focusMarker(coordinates: loc)
-        }
+        //        if let loc = self.viewModel.searchedCityLocation {
+        //            self.focusMarker(coordinates: loc)
+        //        }
     }
     
     func animateMapToFirstHotelInMapMode() {
-        if let locStr = self.viewModel.collectionViewLocArr.first, let loc = self.getLocationObject(fromLocation: locStr) {
-            self.focusMarker(coordinates: loc)
-        }
+        //        if let locStr = self.viewModel.collectionViewLocArr.first, let loc = self.getLocationObject(fromLocation: locStr) {
+        //            self.focusMarker(coordinates: loc)
+        //        }
     }
     
     func getHotelsCount() {
@@ -151,15 +203,15 @@ extension HotelsMapVC {
     
     func reloadHotelList(isUpdatingFav: Bool = false,drawMarkers: Bool = true) {
         if !self.viewModel.searchTextStr.isEmpty {
-            self.hotelSearchTableView.backgroundColor = self.viewModel.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+            self.hotelSearchTableView.backgroundColor = self.viewModel.searchedHotels.count > 0 ? AppColors.themeBlack26 : AppColors.clear
         }
         self.hotelSearchTableView.reloadData()
         self.hotelsMapCV.reloadData()
         
-        if drawMarkers {
-            updateMarkers()
-        }
-            self.showHotelOnMap(duration: 0)
+        //        if drawMarkers {
+        //            updateMarkers()
+        //        }
+        self.showHotelOnMap(duration: 0)
     }
     
     func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {
@@ -179,17 +231,18 @@ extension HotelsMapVC {
         self.viewModel.searchTextStr = forText
         self.viewModel.loadSaveData()
         self.reloadHotelList()
+        resetAllMarker()
     }
     
     func hideFavsButtons() {
-            self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 0, y: 0)
-            self.floatingButtonOnMapView.isHidden = true
+        self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.floatingButtonOnMapView.isHidden = true
     }
     
     
     func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
-            manageFloatingView(isHidden: false)
-            self.currentLocationButton.isHidden = false
+        manageFloatingView(isHidden: false)
+        self.currentLocationButton.isHidden = false
         
         if !isHidden {
             self.switchContainerView.isHidden = false
@@ -200,7 +253,7 @@ extension HotelsMapVC {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
                 guard let sSelf = self else {return}
                 
-                sSelf.switchContainerView.frame = newFrame
+                //sSelf.switchContainerView.frame = newFrame
                 sSelf.view.layoutIfNeeded()
                 
                 }, completion: { [weak self](isDone) in
@@ -214,7 +267,7 @@ extension HotelsMapVC {
         
         if isHidden, shouldOff {
             //if switch is hidden then it must be off, otherwise it should be as it is.
-            self.switchView.setOn(isOn: false, animated: false, shouldNotify: false)
+            //self.switchView.isOn = false
             self.viewModel.isFavouriteOn = false
             self.hideFavsButtons()
         }
@@ -223,51 +276,10 @@ extension HotelsMapVC {
     func manageFloatingView(isHidden: Bool) {
         self.currentLocationButton.isHidden = isHidden
         self.switchContainerView.isHidden = isHidden
-       // self.floatingButtonBackView.isHidden = isHidden
+        // self.floatingButtonBackView.isHidden = isHidden
     }
     
     // MARK: - Manage Header animation
-    
-    
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        //        self.manageMapViewOnScroll(scrollView)
-//        // self.manageFloatingButtonOnPaginationScroll(scrollView)
-//
-//        //for map re-focusing
-//        let currentX = scrollView.contentOffset.x
-//        guard currentX > 0 else {
-//            return
-//        }
-//        if currentX > self.oldOffset.x {
-//            self.isCollectionScrollingInc = true
-//        }
-//        else if currentX < self.oldOffset.x {
-//            self.isCollectionScrollingInc = false
-//        }
-//        self.oldOffset = scrollView.contentOffset
-//    }
-    
-//    func showHeaderIfHiddenOnTopAfterEndScrolling(_ scrollView: UIScrollView) {
-//        let yPosition = scrollView.contentOffset.y
-//        if yPosition >= 0 {
-//            if 0...140.0 ~= yPosition {
-//                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration*0.5, curve: .linear) { [weak self] in
-//                    self?.headerContainerViewTopConstraint.constant = 0.0
-//                    self?.view.layoutIfNeeded()
-//                }
-//                animator.startAnimation()
-//            }
-//        }
-//    }
-    
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
-//    }
-//
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
-//    }
     
     func manageForCollectionView(atIndex: Int) {
         
@@ -275,7 +287,8 @@ extension HotelsMapVC {
             let locStr = self.viewModel.collectionViewLocArr[atIndex]
             if let loc = self.getLocationObject(fromLocation: locStr) {
                 self.displayingHotelLocation = loc
-                focusMarker(coordinates: loc)
+                //                focusMarker(coordinates: loc)
+                selecteMarkerOnScrollCollection(location: loc)
             }
         }
     }
@@ -310,80 +323,20 @@ extension HotelsMapVC {
         return CGFloat(16.0)
     }
     
-    func configureCollectionViewLayoutItemSize() {
-    //        //call this methods in viewDidLayoutSubviews
-    //        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
-    //        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-    //
-    //        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 192.0)
-        }
-    
-    func indexOfMajorCell() -> Int {
-        let itemWidth =  UIDevice.screenWidth - (calculateSectionInset() * 2)//collectionViewLayout.itemSize.width
-        let proportionalOffset = self.hotelsMapCV.contentOffset.x / itemWidth
-        let index = Int(round(proportionalOffset))
-        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
-        let safeIndex = max(0, min(numberOfItemInCollection, index))
-        return safeIndex
-    }
-    
-    //ScrollView Delegate methods
-    //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    //        indexOfCellBeforeDragging = indexOfMajorCell()
-    //    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-            
-            
-            
-    //        guard scrollView === self.collectionView else {return}
-    //
-    //        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
-    //
-    //        // Stop scrollView sliding:
-    //        targetContentOffset.pointee = scrollView.contentOffset
-    //
-    //        // calculate where scrollView should snap to:
-    //        var indexOfMajorCell = self.indexOfMajorCell()
-    //
-    //        // calculate conditions:
-    //        let swipeVelocityThresholdToMove: CGFloat = 1.0
-    //
-    //        let absVelocity = abs(velocity.x)
-    //        if absVelocity >= swipeVelocityThresholdToMove {
-    //            if velocity.x < 0 {
-    //                indexOfMajorCell -= 1
-    //            }
-    //            else {
-    //                indexOfMajorCell += 1
-    //            }
-    //
-    //            indexOfMajorCell = max(0,indexOfMajorCell)
-    //            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
-    //        }
-    //        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-    //        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-    //
-    //        self.manageForCollectionView(atIndex: indexOfMajorCell)
-            
-            
-            
-//            let pageSide =  self.pageSize.width
-//            let offset =  hotelsMapCV.contentOffset.x
-//            let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
-//    //        DispatchQueue.main.async {
-//            self.manageForCollectionView(atIndex: currentPage)
-
-    //        }
-            
-        }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView === self.hotelsMapCV else {return}
-          let pageSide =  self.pageSize.width
-                  let offset =  hotelsMapCV.contentOffset.x
-                  let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
-                  self.manageForCollectionView(atIndex: currentPage)
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        guard scrollView === self.hotelsMapCV else {return}
+        self.manageForCollectionView(atIndex: getCurrentCollectionIndex())
+    }
+    
+    func getCurrentCollectionIndex()->Int{
+        let pageSide =  self.pageSize.width
+        let offset =  hotelsMapCV.contentOffset.x
+        return Int(floor((offset - pageSide / 2) / pageSide) + 1)
+    }
+    
     
     /// Get Star Rating
     private func getStarString(fromArr: [Int], maxCount: Int) -> String {

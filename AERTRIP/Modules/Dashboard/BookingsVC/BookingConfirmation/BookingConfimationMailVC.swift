@@ -9,52 +9,98 @@
 import Contacts
 import ContactsUI
 import UIKit
+import IQKeyboardManager
+import WSTagsField
 
 class BookingConfimationMailVC: BaseVC {
     // MARK: - IB Outlet
     
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var toLabel: UILabel!
-    @IBOutlet weak var toMailTextView: ATEmailSelectorTextView!
+    //    @IBOutlet weak var toMailTextView: ATEmailSelectorTextView!
     @IBOutlet weak var addEmailButton: UIButton!
     @IBOutlet weak var infoLabel: UILabel!
     
-    @IBOutlet weak var toEmailTextViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var toEmailViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var emailTextViewBottomConstraint: NSLayoutConstraint!
+    //    @IBOutlet weak var toEmailTextViewHeightConstraint: NSLayoutConstraint!
+    //    @IBOutlet weak var toEmailViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var toView: UIView!
+    @IBOutlet weak var emailTextViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var navigationViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomView: UIView!
+    
+    @IBOutlet weak var emailContainerView: UIView!
+    @IBOutlet weak var emailContainerViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     let viewModel  = BookingConfirmationMailVM()
-    
+    let tagsField = WSTagsField()
+    var  presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     
     // MARK: - Override methods
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnabled = false
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+        statusBarStyle = dismissalStatusBarStyle
+    }
     
     override func initialSetup() {
+        emailTextFieldHandlers()
         self.topNavigationView.delegate = self
-        self.toMailTextView.delegate = self
-        self.toMailTextView.textContainerInset = .zero
+        //        self.toMailTextView.delegate = self
+        //        self.toMailTextView.textContainerInset = .zero
         self.viewModel.getTravellerMail()
-        
+        setupColors()
+        self.tagsField.addTag(UserInfo.loggedInUser?.email ?? "")
+        //        self.toMailTextView.keyboardType = .emailAddress
+        self.updateSendButton()
+        if #available(iOS 13.0, *) {
+            navigationViewHeightConstraint.constant = 56
+        }
+                
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingConfirmationMail, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
+
+
     }
     
     override func setupFonts() {
         self.toLabel.font = AppFonts.Regular.withSize(16.0)
-        self.toMailTextView.font = AppFonts.Regular.withSize(16.0)
+        //        self.toMailTextView.font = AppFonts.Regular.withSize(16.0)
         self.infoLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
     override func setupTexts() {
         self.toLabel.text = LocalizedString.To.localized + ":"
         self.infoLabel.text = LocalizedString.BookingConfirmationInfo.localized
+        //        self.toMailTextView.placeholder = LocalizedString.EnterEmail.localized
     }
     
     override func setupColors() {
-        self.toLabel.textColor = AppColors.themeGray40
-        self.toMailTextView.textColor = AppColors.themeGray40
-        self.infoLabel.textColor = AppColors.themeGray40
+        self.toLabel.textColor = AppColors.themeGray153
+        //        self.toMailTextView.textColor = AppColors.themeGray40
+        self.infoLabel.textColor = AppColors.themeGray153
+        
+        //        self.toMailTextView.activeTagBackgroundColor = AppColors.clear
+        //        self.toMailTextView.inactiveTagFontColor = AppColors.themeGreen
+        //        self.toMailTextView.activeTagFontColor = AppColors.themeGreen
+        //        self.toMailTextView.tagSeparatorColor = AppColors.themeGreen
+        //        if #available(iOS 13, *) {
+        //        }else{
+        //            self.toMailTextView.placeholderTextColor = AppColors.themeGray40
+        //        }
+        self.toView.backgroundColor = AppColors.themeBlack26
+        self.view.backgroundColor = AppColors.themeWhite
+        self.emailContainerView.backgroundColor = AppColors.themeBlack26
+        self.bottomView.backgroundColor = AppColors.themeGray04
     }
     
     override func setupNavBar() {
@@ -79,22 +125,107 @@ class BookingConfimationMailVC: BaseVC {
         self.present(contactPicker, animated: true, completion: nil)
     }
     
-    func updateHeightOfHeader(_ textView: ATEmailSelectorTextView) {
-        let minHeight = textView.font!.lineHeight * 1.0
-        let maxHeight = textView.font!.lineHeight * 6.0
-        
-        var emailHeight = toMailTextView.text.sizeCount(withFont: textView.font!, bundingSize: CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
-        
-        emailHeight = max(minHeight, emailHeight)
-        emailHeight = min(maxHeight, emailHeight)
-        
-        self.bottomView.frame = CGRect(x: 0, y: 108 + emailHeight, width: UIDevice.screenWidth, height: (UIDevice.screenHeight - 108 + emailHeight))
-        
+    //    func updateHeightOfHeader(_ textView: ATEmailSelectorTextView) {
+    //        let minHeight = textView.font!.lineHeight * 1.0
+    //        let maxHeight = textView.font!.lineHeight * 6.0
+    //
+    //        var emailHeight = toMailTextView.text.sizeCount(withFont: textView.font!, bundingSize: CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
+    //
+    //        emailHeight = max(minHeight, emailHeight)
+    //        emailHeight = min(maxHeight, emailHeight)
+    //
+    //        self.bottomView.frame = CGRect(x: 0, y: 108 + emailHeight, width: UIDevice.screenWidth, height: (UIDevice.screenHeight - 108 + emailHeight))
+    //
+    //        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+    //            self?.toEmailTextViewHeightConstraint.constant = emailHeight
+    //        }, completion: { _ in
+    //
+    //        })
+    //    }
+    
+    func updateHeightOfHeader(_ headerHeight: CGFloat) {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
-            self?.toEmailTextViewHeightConstraint.constant = emailHeight
+            self?.emailContainerViewHeightConstraint.constant = headerHeight
         }, completion: { _ in
             
         })
+    }
+    
+    private func updateSendButton(){
+        
+        //            let mail = self.toMailTextView.text
+        //            let mailsArray = mail?.components(separatedBy: ",") ?? []
+        let mailsArray = self.tagsField.tags.map { (tag) -> String in
+            return tag.text
+        }
+        let emails = mailsArray.filter({ $0 != " " &&  $0 != ""})
+        var isEmailValid = false
+        for email in emails{
+            isEmailValid = email.trimmingCharacters(in: .whitespacesAndNewlines).checkValidity(.Email)
+            if !isEmailValid{
+                self.topNavigationView.firstRightButton.isEnabled = false
+                self.topNavigationView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+                return
+            }
+        }
+        
+        if !isEmailValid {
+            
+            //            self.email.checkValidity(.Email)
+            self.topNavigationView.firstRightButton.isEnabled = false
+            self.topNavigationView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        }else{
+            self.topNavigationView.firstRightButton.isEnabled = true
+            self.topNavigationView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        }
+        
+    }
+    
+    private func emailTextFieldHandlers() {
+        self.tagsField.frame = self.emailContainerView.bounds
+        self.tagsField.font = AppFonts.Regular.withSize(16.0)
+        self.tagsField.placeholder = LocalizedString.EnterEmail.localized
+        self.tagsField.placeholderColor = AppColors.themeGray40
+        self.tagsField.textField.keyboardType = .emailAddress
+        
+        tagsField.layoutMargins = UIEdgeInsets(top: 1, left: 5, bottom: 1, right: 5)
+        tagsField.contentInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2) //old padding
+        tagsField.spaceBetweenLines = 4
+        tagsField.spaceBetweenTags = 4
+        tagsField.tintColor = AppColors.miniPlaneBack//UIColor(displayP3Red: 0.961, green: 0.961, blue: 0.961, alpha: 1) //0.961 f5f5f5
+        tagsField.textColor = AppColors.themeGreen
+        tagsField.selectedColor = AppColors.themeGreen
+        tagsField.selectedTextColor = AppColors.themeWhite
+        tagsField.delimiter = ","
+        tagsField.isDelimiterVisible = false
+        tagsField.borderWidth = 0
+        tagsField.borderColor = .clear //AppColors.themeGreen
+        tagsField.textField.textColor = AppColors.themeBlack
+        tagsField.acceptTagOption = [.comma, .return, .space]
+        tagsField.cornerRadius = 4
+        
+        self.emailContainerView.addSubview(self.tagsField)
+        
+        tagsField.onDidChangeHeightTo = { [weak self] (_, height) in
+            printDebug("HeightTo: \( height)")
+            self?.updateHeightOfHeader(height)
+        }
+        
+        tagsField.onValidateTag = { tag, tags in
+            // custom validations, called before tag is added to tags list
+            return  tag.text.checkValidity(.Email)
+        }
+        
+        tagsField.onDidAddTag = { [weak self] (field, tag) in
+            printDebug("onDidAddTag \(tag.text)")
+            self?.updateSendButton()
+        }
+        
+        tagsField.onDidRemoveTag = { [weak self] (field, tag) in
+            printDebug("onDidRemoveTag \(tag.text)")
+            self?.updateSendButton()
+        }
+        
     }
 }
 
@@ -108,7 +239,23 @@ extension BookingConfimationMailVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("send button Tapped")
-        self.viewModel.sendConfirmationMail()
+        printDebug("Send mail")
+        self.view.endEditing(true)
+        //        let mail = self.toMailTextView.text
+        //        let mailsArray = mail?.components(separatedBy: ",") ?? []
+        let mailsArray = self.tagsField.tags.map { (tag) -> String in
+            return tag.text
+        }
+        self.viewModel.addedEmail = mailsArray.filter({ $0 != " " })
+        if self.viewModel.addedEmail.contains("") {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterEmail.localized)
+        } else {
+            if self.viewModel.token.isEmpty {
+                self.viewModel.getTravellerMail()
+            } else {
+                self.viewModel.sendConfirmationMail()
+            }
+        }
     }
 }
 
@@ -121,9 +268,10 @@ extension BookingConfimationMailVC: CNContactPickerDelegate {
         picker.dismiss(animated: true, completion: nil)
         if let _mail = contact.emailAddresses.first?.value as String? {
             printDebug("mail is \(_mail)")
-            self.toMailTextView.text.append(_mail)
-            self.toMailTextView.layoutIfNeeded()
-            self.updateHeightOfHeader(self.toMailTextView)
+            self.tagsField.addTag(_mail)
+            //            self.toMailTextView.text.append(_mail)
+            //            self.toMailTextView.layoutIfNeeded()
+            //            self.updateHeightOfHeader(self.toMailTextView)
         } else {
             AppToast.default.showToastMessage(message: LocalizedString.UnableToGetMail.localized, title: "", onViewController: self, duration: 0.6)
         }
@@ -134,8 +282,13 @@ extension BookingConfimationMailVC: CNContactPickerDelegate {
 
 extension BookingConfimationMailVC {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        self.updateHeightOfHeader(self.toMailTextView)
+        // self.updateHeightOfHeader(self.toMailTextView)
         
         return true
+    }
+    func textViewDidChange(_ textView: UITextView) {
+        delay(seconds: 0.2) {[weak self] in
+            self?.updateSendButton()
+        }
     }
 }

@@ -12,22 +12,22 @@ struct ATGalleryViewConfiguration {
     /* placeholderImage
      * - used to show while image is downloading from web.
      */
-    static var placeholderImage: UIImage = #imageLiteral(resourceName: "hotelCardPlaceHolder")
+    static var placeholderImage: UIImage = AppPlaceholderImage.hotelCard
     
     /* placeholderImage
      * - used in close button
      */
-    static var closeButtonImage: UIImage = #imageLiteral(resourceName: "ic_close_gallery")
+    static var closeButtonImage: UIImage = AppImages.CancelButtonWhite
     
     /* changeModeNormalImage
      * - used in change scrolldirection mode button button
      */
-    static var changeModeNormalImage: UIImage = #imageLiteral(resourceName: "ic_gallery_horizontal_view")
+    static var changeModeNormalImage: UIImage = AppImages.ic_gallery_horizontal_view
     
     /* changeModeSelectedImage
      * - used in change scrolldirection mode button button
      */
-    static var changeModeSelectedImage: UIImage = #imageLiteral(resourceName: "ic_gallery_vertical_view")
+    static var changeModeSelectedImage: UIImage = AppImages.ic_gallery_vertical_view
     
     /* placeholderImage
      * - used to show while image is downloading from web.
@@ -74,4 +74,7 @@ protocol ATGalleryViewDatasource: class {
 
 protocol ATGalleryViewDelegate: class {
     func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int)
+    func galleryViewWillClose(galleryView: ATGalleryViewController)
+    func galleryViewDidClose(galleryView: ATGalleryViewController)
+
 }

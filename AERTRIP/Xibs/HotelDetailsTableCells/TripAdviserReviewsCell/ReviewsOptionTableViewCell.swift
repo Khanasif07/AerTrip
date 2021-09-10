@@ -25,7 +25,7 @@ class ReviewsOptionTableViewCell: UITableViewCell {
     
     private func configUI() {
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
-        self.titleLabel.textColor = AppColors.themeGreen
+        self.titleLabel.textColor = AppColors.reviewGreen
     }
     
     internal func configCell() {

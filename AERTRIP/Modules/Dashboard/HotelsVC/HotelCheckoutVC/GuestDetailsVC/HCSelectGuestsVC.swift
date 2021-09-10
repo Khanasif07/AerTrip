@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 protocol HCSelectGuestsVCDelegate: class {
     func didAddedContacts()
@@ -33,49 +32,56 @@ class HCSelectGuestsVC: BaseVC {
     
     //MARK:- Private
     private let collectionLayout: ContactListCollectionFlowLayout = ContactListCollectionFlowLayout()
-//    fileprivate weak var categoryView: ATCategoryView!
+    //    fileprivate weak var categoryView: ATCategoryView!
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
     
-    private(set) var viewModel = HCSelectGuestsVM.shared
+    var viewModel = HCSelectGuestsVM.shared
     private var currentIndex: Int = 0 {
         didSet {
         }
     }
     
     private var allTabsStr: [HCGuestListVC.UsingFor] = []
-//    private var allTabs: [ATCategoryItem] {
-//        var temp = [ATCategoryItem]()
-//
-//        for item in allTabsStr {
-//            var obj = ATCategoryItem()
-//            obj.title = item.title
-//            temp.append(obj)
-//        }
-//
-//        return temp
-//    }
+    //    private var allTabs: [ATCategoryItem] {
+    //        var temp = [ATCategoryItem]()
+    //
+    //        for item in allTabsStr {
+    //            var obj = ATCategoryItem()
+    //            obj.title = item.title
+    //            temp.append(obj)
+    //        }
+    //
+    //        return temp
+    //    }
     
-    private var allChildVCs: [HCGuestListVC] = [HCGuestListVC]()
+    private var allChildVCs: [UIViewController] = [UIViewController]()
     
     private var currentSelectedGuestIndex: IndexPath = IndexPath(item: 0, section: 0)
     
     private let oldGuestState = GuestDetailsVM.shared.guests
+    private let oldTravellerSelcted = HCSelectGuestsVM.shared.selectedTravellerContacts
+    private let oldContactSelcted = HCSelectGuestsVM.shared.selectedPhoneContacts
+    private let oldGoogleSelcted = HCSelectGuestsVM.shared.selectedGoogleContacts
+    private let oldFacebookSelcted = HCSelectGuestsVM.shared.selectedFacebookContacts
     
     var noResultemptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noResult
         return newEmptyView
     }()
-    
+    var isFirstTimeUserComming = true
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.initialSetups()
+//        DispatchQueue.main.async {
+            self.initialSetups()
+//        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,25 +131,34 @@ class HCSelectGuestsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.viewModel.clearAllSelection()
-
+        if self.viewModel.productType == .hotel{
+            self.viewModel.totalGuestCount =  HotelsSearchVM.hotelFormData.totalGuestCount
+        }else{
+            self.viewModel.totalGuestCount =  GuestDetailsVM.shared.guests.first?.count ?? 0
+        }
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
         
+//        self.topNavView.backgroundColor = AppColors.themeWhiteDashboard
         self.topNavView.delegate = self
         self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
-        self.topNavView.configureNavBar(title: LocalizedString.SelectGuests.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.SelectPassengers.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhiteDashboard))
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Add.rawValue, selectedTitle: LocalizedString.Add.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .disabled)
+        self.topNavView.darkView.isHidden = false
+        self.topNavView.darkView.backgroundColor = AppColors.themeWhiteDashboard
         
-//        self.viewModel.selectedPhoneContacts.removeAll()
-//        self.viewModel.selectedFacebookContacts.removeAll()
-//        self.viewModel.selectedGoogleContacts.removeAll()
+        //        self.viewModel.selectedPhoneContacts.removeAll()
+        //        self.viewModel.selectedFacebookContacts.removeAll()
+        //        self.viewModel.selectedGoogleContacts.removeAll()
         
         self.searchBar.searchBarStyle = .default
         self.searchBar.delegate = self
         self.searchBar.placeholder = LocalizedString.search.localized
+        self.searchBar.backgroundColor = AppColors.themeWhiteDashboard
+        self.selectedContactsContainerView.backgroundColor = AppColors.themeWhiteDashboard
         
         self.selectedContactsCollectionView.dataSource = self
         self.selectedContactsCollectionView.delegate = self
@@ -151,16 +166,20 @@ class HCSelectGuestsVC: BaseVC {
         self.selectedContactsCollectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         
         if let _ = UserInfo.loggedInUserId {
-            allTabsStr = [HCGuestListVC.UsingFor.travellers, HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
+            allTabsStr = [HCGuestListVC.UsingFor.travellers, HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.google]
+            //[HCGuestListVC.UsingFor.travellers, HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
         }
         else {
-            allTabsStr = [HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
+            allTabsStr = [HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.google]
+//            [HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
         }
-
+        
         self.setupPagerView()
-
+        
         self.selectedContactsSetHidden(isHidden: false, animated: false)
         self.selectedContactsCollectionView.reloadData()
+        self.selectNextGuest()
+        self.topNavView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     
@@ -168,9 +187,15 @@ class HCSelectGuestsVC: BaseVC {
         self.currentIndex = 0
         self.allChildVCs.removeAll()
         for idx in 0..<allTabsStr.count {
-            let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
-            vc.currentlyUsingFor = allTabsStr[idx]
-            self.allChildVCs.append(vc)
+            if allTabsStr[idx] == .travellers{
+                let vc = TravellerMasterListVC.instantiate(fromAppStoryboard: .HotelCheckout)
+                self.allChildVCs.append(vc)
+            }else{
+                let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
+                vc.currentlyUsingFor = allTabsStr[idx]
+                self.allChildVCs.append(vc)
+            }
+            
         }
         self.view.layoutIfNeeded()
         if let _ = self.parchmentView{
@@ -180,23 +205,32 @@ class HCSelectGuestsVC: BaseVC {
         setupParchmentPageController()
     }
     
+    
+    override func setupColors() {
+        self.selectedContactsContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.selectedContactsCollectionView.backgroundColor = AppColors.clear//AppColors.themeGray04
+    }
+    
     // Added to replace the existing page controller, added Asif Khan, 28-29Jan'2020
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = allTabsStr.count == 4 ? (self.view.width - 274.0) / 3 : (self.view.width - 208.0) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 50)
-        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.menuItemSpacing = 0.0//allTabsStr.count == 4 ? (self.view.width - 274.0) / 3 : (self.view.width - 208.0) / 2
+        self.parchmentView?.menuInsets = UIEdgeInsets.zero//(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 49)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
-            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+            insets: UIEdgeInsets.zero)
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.parchmentView?.menuBackgroundColor = AppColors.themeWhiteDashboard
         self.listContainerView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.dataSource = self
@@ -205,13 +239,18 @@ class HCSelectGuestsVC: BaseVC {
         self.parchmentView?.select(index: 0)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-
+        
     }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-            self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 120.0
-            self?.view.layoutIfNeeded()
+            guard let self = self else{return}
+            if self.viewModel.productType == .hotel{
+                self.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 120.0
+            }else{
+                self.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
+            }
+            self.view.layoutIfNeeded()
         }) { (isCompleted) in
         }
     }
@@ -219,11 +258,11 @@ class HCSelectGuestsVC: BaseVC {
     private func selectNextGuest() {
         //update the currentSelected IndexPath according to the data
         
-     //   increasing selection for next only
+        //   increasing selection for next only
         //setup item
         let maxItemInCurrentSection = (GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section].count - 1)
         let newItem = (currentSelectedGuestIndex.item + 1)
-
+        
         //setup section
         if (newItem > maxItemInCurrentSection) {
             //increase section and make item 0
@@ -240,24 +279,42 @@ class HCSelectGuestsVC: BaseVC {
             currentSelectedGuestIndex = IndexPath(item: min(newItem, maxItemInCurrentSection), section: currentSelectedGuestIndex.section)
         }
         
-        
         //increasing next selection according to the selected data
         var idxPath: IndexPath?
-        for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
-            for (item, guest) in roomGuest.enumerated() {
-                // guest.firstName.isEmpty change for issue http://gitlab.appinvent.in/aertrip/iOS/issues/1302
-                if guest.id.isEmpty {
-                    idxPath = IndexPath(item: item, section: section)
+        if !isFirstTimeUserComming {
+            for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
+                for (item, guest) in roomGuest.enumerated() {
+                    // guest.firstName.isEmpty change for issue http://gitlab.appinvent.in/aertrip/iOS/issues/1302
+                    if guest.fullName.isEmpty, section >= currentSelectedGuestIndex.section,   item >= currentSelectedGuestIndex.item {
+                        idxPath = IndexPath(item: item, section: section)
+                        break
+                    }
+                }
+                
+                if let idx = idxPath {
+                    currentSelectedGuestIndex = idx
                     break
                 }
             }
-            if let idx = idxPath {
-                currentSelectedGuestIndex = idx
-                break
-            }
         }
         
+        if idxPath == nil {
+            for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
+                for (item, guest) in roomGuest.enumerated() {
+                    // guest.firstName.isEmpty change for issue http://gitlab.appinvent.in/aertrip/iOS/issues/1302
+                    if guest.fullName.isEmpty {
+                        idxPath = IndexPath(item: item, section: section)
+                        break
+                    }
+                }
+                if let idx = idxPath {
+                    currentSelectedGuestIndex = idx
+                    break
+                }
+            }
+        }
         selectedContactsCollectionView.reloadData()
+        isFirstTimeUserComming = false
     }
     
     //MARK:- Public
@@ -266,6 +323,10 @@ class HCSelectGuestsVC: BaseVC {
     //MARK:- Action
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         GuestDetailsVM.shared.guests = self.oldGuestState
+       HCSelectGuestsVM.shared.selectedTravellerContacts = oldTravellerSelcted
+        HCSelectGuestsVM.shared.selectedPhoneContacts = oldContactSelcted
+        HCSelectGuestsVM.shared.selectedGoogleContacts = oldGoogleSelcted
+        HCSelectGuestsVM.shared.selectedFacebookContacts = oldFacebookSelcted
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -286,6 +347,20 @@ extension HCSelectGuestsVC: UISearchBarDelegate {
         printDebug("textDidChange \(searchBar.text ?? "")")
         self.viewModel.searchText = searchBar.text ?? ""
         self.viewModel.search(forText: searchText)
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
+    }
+    
+}
+
+//Speech to text search delegate
+extension HCSelectGuestsVC:SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        self.searchBar.text = text
+        self.viewModel.searchText = text
+        self.viewModel.search(forText: text)
     }
 }
 
@@ -338,6 +413,88 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         self.selectedContactsCollectionView.setContentOffset(CGPoint(x: newOffsetX, y: 0), animated: true)
     }
     
+    func update(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
+        //        self.selectionDidChanged()
+        
+        let oldContact = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+        var item = ATContact(json: [:])
+        switch usingFor {
+        case .travellers:
+            item = self.viewModel._travellerContacts[index]
+            if let index = self.viewModel.selectedTravellerContacts.firstIndex(where: { (contact) -> Bool in
+                return oldContact.id == contact.id
+            }) {
+                self.viewModel.selectedTravellerContacts.remove(at: index)
+            }
+            
+        case .contacts:
+            item = self.viewModel._phoneContacts[index]
+            if let index = self.viewModel.selectedPhoneContacts.firstIndex(where: { (contact) -> Bool in
+                return oldContact.id == contact.id
+            }) {
+                self.viewModel.selectedPhoneContacts.remove(at: index)
+            }
+            
+        case .facebook:
+            item = self.viewModel._facebookContacts[index]
+            if let index = self.viewModel.selectedFacebookContacts.firstIndex(where: { (contact) -> Bool in
+                return oldContact.id == contact.id
+            }) {
+                self.viewModel.selectedFacebookContacts.remove(at: index)
+            }
+            
+        case .google:
+            item = self.viewModel._googleContacts[index]
+            if let index = self.viewModel.selectedGoogleContacts.firstIndex(where: { (contact) -> Bool in
+                return oldContact.id == contact.id
+            }) {
+                self.viewModel.selectedGoogleContacts.remove(at: index)
+            }
+            
+        }
+        
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].id = item.id
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].salutation = item.salutation
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].firstName = item.firstName
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].lastName = item.lastName
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].profilePicture = item.profilePicture
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].label = item.label
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].email = item.email
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].emailLabel = item.emailLabel
+        
+        self.selectedContactsCollectionView.reloadData()
+        
+        if getCollectionIndexPath(forContact: item) != nil {
+            
+            let oldValue = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+            
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom = oldValue.numberInRoom
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType = oldValue.passengerType
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
+            
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
+           //ApiId for flight.
+            if usingFor != .travellers{
+                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].apiId = oldValue.apiId
+            }
+            
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].mealPreference = oldValue.mealPreference
+
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].frequentFlyer = oldValue.frequentFlyer
+            self.updateSelectedFF(at: currentSelectedGuestIndex)
+            self.updateSelectedMeal(at: currentSelectedGuestIndex)
+            // self.selectNextGuest()
+            //            self.selectedContactsCollectionView.performBatchUpdates({
+            //                self.selectedContactsCollectionView.insertItems(at: [idx])
+            //            }, completion: { (isDone) in
+            self.selectedContactsCollectionView.reloadData()
+            self.selectedContactsCollectionView.scrollToItem(at: currentSelectedGuestIndex, at: .centeredHorizontally, animated: true)
+            //self.scrollCollectionToEnd()
+            //            })
+        }
+    }
+    
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
         //        self.selectionDidChanged()
         var item = ATContact(json: [:])
@@ -354,42 +511,55 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         case .google:
             item = self.viewModel._googleContacts[index]
         }
-    
+        
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].id = item.id
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].salutation = item.salutation
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].firstName = item.firstName
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].lastName = item.lastName
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].profilePicture = item.profilePicture
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].imageData = item.imageData
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].label = item.label
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].email = item.email
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].emailLabel = item.emailLabel
         
         self.selectedContactsCollectionView.reloadData()
-
+        
         if getCollectionIndexPath(forContact: item) != nil {
-
+            
             let oldValue = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
-
+            
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom = oldValue.numberInRoom
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType = oldValue.passengerType
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
-
+            
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
+           //ApiId for flight.
+           
+            if usingFor != .travellers{
+                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].apiId = oldValue.apiId
+            }
+    
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].mealPreference = oldValue.mealPreference
+            
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType = oldValue.passengerType
 
-
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].frequentFlyer = oldValue.frequentFlyer
+            self.updateSelectedFF(at: currentSelectedGuestIndex)
+            self.updateSelectedMeal(at: currentSelectedGuestIndex)
             self.selectNextGuest()
-//            self.selectedContactsCollectionView.performBatchUpdates({
-//                self.selectedContactsCollectionView.insertItems(at: [idx])
-//            }, completion: { (isDone) in
-                self.selectedContactsCollectionView.reloadData()
-                self.scrollCollectionToEnd()
-//            })
+            //            self.selectedContactsCollectionView.performBatchUpdates({
+            //                self.selectedContactsCollectionView.insertItems(at: [idx])
+            //            }, completion: { (isDone) in
+            self.selectedContactsCollectionView.reloadData()
+            self.selectedContactsCollectionView.scrollToItem(at: currentSelectedGuestIndex, at: .centeredHorizontally, animated: true)
+            //self.scrollCollectionToEnd()
+            //            })
         }
     }
     
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
-//        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item] = ATContact(json: [:])
+        //        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item] = ATContact(json: [:])
         var indexPath: IndexPath?
         switch usingFor {
         case .travellers:
@@ -397,10 +567,10 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
             
         case .contacts:
             indexPath = getCollectionIndexPath(forContact: self.viewModel.phoneContacts[index])
-
+            
         case .facebook:
             indexPath = getCollectionIndexPath(forContact: self.viewModel.facebookContacts[index])
-
+            
         case .google:
             indexPath = getCollectionIndexPath(forContact: self.viewModel.googleContacts[index])
         }
@@ -411,6 +581,7 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         }
         
         self.selectedContactsCollectionView.reloadData()
+        self.selectedContactsCollectionView.scrollToItem(at: currentSelectedGuestIndex, at: .centeredHorizontally, animated: true)
     }
     
     private func removeContact(forIndexPath indexPath: IndexPath) {
@@ -422,6 +593,7 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         //GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].label = ""
         GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].email = ""
         GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].emailLabel = ""
+        resetMealAndFF()
     }
     
     private func getCollectionIndexPath(forContact contact: ATContact) -> IndexPath? {
@@ -439,6 +611,60 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         }
         return indexPath
     }
+    
+    func updateSelectedFF(at index: IndexPath){
+        var passenger = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+        if let ffp = passenger.ffp, (ffp.count != 0),(passenger.frequentFlyer.count != 0){
+            for (index, value) in passenger.frequentFlyer.enumerated(){
+                if let frequentFlyer =   ffp.first(where: {$0.airlineCode == value.airlineCode}){
+                    passenger.frequentFlyer[index].number = frequentFlyer.ffNumber
+                }else{
+                    passenger.frequentFlyer[index].number = ""
+                }
+            }
+        }else{
+            for (index, _) in passenger.frequentFlyer.enumerated(){
+                passenger.frequentFlyer[index].number = ""
+            }
+        }
+        
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = passenger
+    }
+    
+    
+    func updateSelectedMeal(at index: IndexPath){
+        var passenger = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+        if !passenger.mealP.isEmpty{//mealPreference[i].preferenceCode
+            for (index, value) in passenger.mealPreference.enumerated(){
+                if let meal = value.preference[passenger.mealP]{
+                    passenger.mealPreference[index].preferenceCode = passenger.mealP
+                    passenger.mealPreference[index].mealPreference = meal
+                }else{
+                    passenger.mealPreference[index].preferenceCode = ""
+                    passenger.mealPreference[index].mealPreference = ""
+                }
+            }
+        }else{
+            for i in 0..<passenger.mealPreference.count{
+                passenger.mealPreference[i].preferenceCode = ""
+                passenger.mealPreference[i].mealPreference = ""
+            }
+        }
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = passenger
+    }
+    
+    func resetMealAndFF(){
+        var passenger = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+        for i in 0..<passenger.mealPreference.count{
+            passenger.mealPreference[i].preferenceCode = ""
+            passenger.mealPreference[i].mealPreference = ""
+        }
+        for (index, _) in passenger.frequentFlyer.enumerated(){
+            passenger.frequentFlyer[index].number = ""
+        }
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = passenger
+    }
+    
 }
 
 //MARK:- CollectionView Delegate
@@ -482,21 +708,32 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
         cell.roomNo = indexPath.section + 1
         cell.contact = GuestDetailsVM.shared.guests[indexPath.section][indexPath.item]
         cell.isUsingForGuest = true
+        cell.productType = self.viewModel.productType
         cell.isSelectedForGuest = false
         if (indexPath.section == currentSelectedGuestIndex.section) && (indexPath.item == currentSelectedGuestIndex.item){
             cell.isSelectedForGuest = true
         }
-        
+        if !(self.viewModel.productType == .hotel){
+            cell.roomLabel.text = ""
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: UIDevice.screenWidth / 5.0, height: collectionView.height)
+        return CGSize(width: 66, height: collectionView.height)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 0)
+        if  section == 0 {
+            return UIEdgeInsets(top: 0, left: 15.0, bottom: 0, right: 0)
+        } else {
+            return UIEdgeInsets(top: 0, left: 26.0, bottom: 0, right: 0)
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -568,35 +805,37 @@ extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
 
 extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index].title)
+        return MenuItem(title: self.allTabsStr[index].title, index: index, isSelected: true)
     }
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-         self.allTabsStr.count
+        self.allTabsStr.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController  {
-         return self.allChildVCs[index]
+        return self.allChildVCs[index]
     }
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
-
-        // depending onthe text size, give the width of the menu item
-        if let pagingIndexItem = pagingItem as? PagingIndexItem{
-            let text = pagingIndexItem.title
-            
-            let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font)
-        }
         
-        return 100.0
+        // depending onthe text size, give the width of the menu item
+//        if let pagingIndexItem = pagingItem as? MenuItem{
+//            let text = pagingIndexItem.title
+//
+//            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+//            return text.widthOfString(usingFont: font)
+//        }
+        
+        return UIScreen.width/CGFloat(self.allTabsStr.count)//100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
-           
-           let pagingIndexItem = pagingItem as! PagingIndexItem
-           self.currentIndex = pagingIndexItem.index
-       }
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
+        
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            self.currentIndex = pagingIndexItem.index
+        }
+    }
+    
 }
 
 

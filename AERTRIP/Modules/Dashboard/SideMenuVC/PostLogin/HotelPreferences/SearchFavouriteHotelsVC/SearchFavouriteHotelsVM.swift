@@ -13,8 +13,8 @@ protocol SearchFavouriteHotelsVMDelegate: class {
     func searchHotelsSuccess()
     func searchHotelsFail()
     
-    func willUpdateFavourite()
-    func updateFavouriteSuccess(withMessage: String)
+    func willUpdateFavourite(hIndex: Int)
+    func updateFavouriteSuccess(withMessage: String, hIndex: Int)
     func updateFavouriteFail()
 }
 
@@ -62,10 +62,10 @@ class SearchFavouriteHotelsVM: NSObject {
             updated.isFavourite = !updated.isFavourite
             self.hotels[index] = updated
         }
-        self.delegate?.willUpdateFavourite()
+        self.delegate?.willUpdateFavourite(hIndex: hIndex)
         APICaller.shared.callUpdateFavouriteAPI(params: param) { (isSuccess, errors, successMessage) in
             if isSuccess {
-                self.delegate?.updateFavouriteSuccess(withMessage: successMessage)
+                self.delegate?.updateFavouriteSuccess(withMessage: successMessage, hIndex: hIndex)
             }
             else {
                 if let _ = UserInfo.loggedInUserId {

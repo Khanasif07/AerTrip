@@ -21,12 +21,17 @@ class TableViewAddActionCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.cellBackgroundView.backgroundColor = AppColors.themeGray04
+        self.cellBackgroundView.backgroundColor = AppColors.profileHeaderBackground
+        actionLabel.textColor = AppColors.themeBlack
         self.bottomDividerView.isHidden = true
+        
+        self.topDividerView.defaultBackgroundColor = AppColors.dividerColor2
+        self.bottomDividerView.defaultBackgroundColor = AppColors.dividerColor2
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.topDividerView.isHidden = false
     }
 
     // MARK: - Helper Methods
@@ -38,10 +43,10 @@ class TableViewAddActionCell: UITableViewCell {
     func configureFotAddNewGroup() {
         greenButtonLeadingConstraint.constant = 16
         actionLabel.text = LocalizedString.AddNewGroup.localized
-        cellBackgroundView.backgroundColor = .white
-        topDividerView.isHidden = true
+//        cellBackgroundView.backgroundColor = .white
+//        topDividerView.isHidden = true
         actionLabel.font = AppFonts.Regular.withSize(14)
         actionLabel.textColor = AppColors.themeBlack
-        self.bottomDividerView.isHidden = false
+        self.bottomDividerView.isHidden = true
     }
 }

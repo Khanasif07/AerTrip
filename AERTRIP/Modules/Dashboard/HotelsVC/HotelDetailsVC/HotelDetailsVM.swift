@@ -20,6 +20,13 @@ protocol HotelDetailDelegate: class {
     
     func willSaveHotelWithTrip()
     func saveHotelWithTripSuccess(trip: TripModel, isAllreadyAdded: Bool)
+    
+    func willGetPinnedTemplate()
+    func getPinnedTemplateSuccess()
+    func getPinnedTemplateFail()
+    
+    func willFetchConfirmItineraryData(index:Int)
+    func fetchConfirmItineraryDataResponse(itineraryData: ItineraryData?, index:Int, error:ErrorCodes)
 }
 
 class HotelDetailsVM {
@@ -49,6 +56,13 @@ class HotelDetailsVM {
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
     var filterAppliedData: UserInfo.HotelFilter = UserInfo.HotelFilter()
+    var shareLinkURL = ""
+    var confirmationCount = 1
+    var isBookLoaderHidden = true
+    var isAllImageDownloadFails = false
+    
+    var filterParams = JSONDictionary()
+    var searchedFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
     
     private let defaultCheckInTime = "07:00"
     private let defaultCheckOutTime = "07:00"
@@ -98,6 +112,162 @@ class HotelDetailsVM {
         }
         return filteredRates
     }
+    
+    
+    func newFiltersAccordingToTags(rates: [Rates], selectedTag: [String])-> [Rates]{
+        var filteredRates: [Rates] = []
+        var tempRatesData = rates
+        if !selectedTag.isEmpty{
+            //            for tag in selectedTag{
+            //                if (tag != selectedTag.first ?? ""){//To Apply AND filter on rates.
+            //                    tempRatesData = filteredRates
+            //                    filteredRates = []
+            //                }
+            
+            
+            func getMatchedTagResult(tag: String, array: [Rates]) -> [Rates]{
+                return  array.filter { rates in
+                    
+                    //                    for tag in selectedTag{
+                    let roomRate = rates.roomsRates ?? []
+                    if roomRate.map({$0.name.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
+                        return true
+                    }
+                    if roomRate.map({$0.desc.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
+                        return true
+                    }
+                    if (rates.inclusion_array[APIKeys.boardType.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
+                        return true
+                    }
+                    if (rates.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
+                        return true
+                    }
+                    if (rates.inclusion_array[APIKeys.inclusions.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
+                        return true
+                    }
+                    if (rates.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
+                        return true
+                    }
+                    if (rates.cancellation_penalty?.is_refundable ?? false){
+                        
+                        if let firstRefundableData = rates.penalty_array?.first {
+                            let roomPrice: Double = rates.price
+                            let toDate: String = firstRefundableData.to
+                            let fromDate: String = firstRefundableData.from
+                            let penalty: Double = firstRefundableData.penalty
+                            
+                            if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 || (!toDate.isEmpty && !fromDate.isEmpty && penalty == 0) {
+                                // free cancelation
+                                if  (tag.lowercased() == "free cancellation") || (tag.lowercased() == "free") {
+                                    return true
+                                }
+                            }
+                            if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+                                // Part Refundable
+                                if (tag.lowercased() == "part refundable") {
+                                    return true
+                                }
+                            }
+                            if toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+                                // Part Refundable
+                                if  (tag.lowercased() == "part refundable") {
+                                    return true
+                                }
+                            }
+                        }
+                        //return false
+                    }
+                    if ((rates.cancellation_penalty?.is_refundable  ?? false) == false && ((tag.lowercased() == "non-refundable") || (tag.lowercased() == "non refundable"))){
+                        return true
+                    }
+                    //                    }
+                    return false
+                }
+            }
+            
+            func filterArray(filteredArray: [Rates]) {
+                for rt in filteredArray{
+                    if !filteredRates.contains(array: [rt]){
+                        filteredRates.append(rt)
+                    }
+                }
+            }
+            
+            let meal: [String] = ATMeal.allCases.map { $0.title.lowercased()}
+            let cancellationPolicy: [String] = ATCancellationPolicy.allCases.map { $0.title.lowercased()}
+            
+            var mealTags: [String] = []
+            var cancelationTags: [String] = []
+            var others: [String] = []
+
+            for tag in selectedTag{
+                if meal.contains(tag.lowercased()) {
+                    mealTags.append(tag)
+                }else if cancellationPolicy.contains(tag.lowercased()) {
+                    cancelationTags.append(tag)
+                } else {
+                    others.append(tag)
+                }
+            }
+            
+            var array: [Rates] = tempRatesData
+            for tag in mealTags{
+                let filteredArray = getMatchedTagResult(tag: tag, array: array)
+                filterArray(filteredArray: filteredArray)
+            }
+            if !mealTags.isEmpty {
+               array = filteredRates
+               filteredRates = []
+            }
+            for tag in cancelationTags{
+                let filteredArray = getMatchedTagResult(tag: tag, array: array)
+                filterArray(filteredArray: filteredArray)
+            }
+            if !cancelationTags.isEmpty {
+               array = filteredRates
+               filteredRates = []
+            }
+            for tag in others{
+                let filteredArray = getMatchedTagResult(tag: tag, array: array)
+                filterArray(filteredArray: filteredArray)
+                array = filteredRates
+            }
+            filteredRates = array
+            
+//            for tag in selectedTag{
+//                var applyMealAndCase = false
+//                var applyCancelationPolicyAndCase = false
+//                var array: [Rates] = filteredRates
+//
+//                let mealResult = meal.filter({ (meal) -> Bool in
+//                    return meal.title.lowercased() == tag.lowercased()
+//                })
+//                if !applyMealAndCase {
+//                    applyMealAndCase = !mealResult.isEmpty
+//                }
+//
+//                let policyResult = cancellationPolicy.filter({ (policy) -> Bool in
+//                    return policy.title.lowercased() == tag.lowercased()
+//                })
+//                if !applyCancelationPolicyAndCase {
+//                    applyCancelationPolicyAndCase = !policyResult.isEmpty
+//                }
+//
+//                let filteredArray = getMatchedTagResult(tag: tag, array: array)
+//
+//                for rt in filteredArray{
+//                    if !filteredRates.contains(array: [rt]){
+//                        filteredRates.append(rt)
+//                    }
+//                }
+//            }
+            //            }
+            return filteredRates
+        }else{
+            return rates
+        }
+    }
+    
     
     /* Filteration on the basis of RoomMealData , RoomOtherData && RoomCancellationData if these are not empty.
      If any of them is empty then filteration done on the basis on remianing non empty data
@@ -151,15 +321,15 @@ class HotelDetailsVM {
         if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
             return currentRate
         } else {
-            if isRefundableSelected && currentRate.cancellation_penalty!.is_refundable {
+            if isRefundableSelected && (currentRate.cancellation_penalty?.is_refundable ?? false) {
                 return currentRate
             } else if isPartRefundable {
-                for penalty in currentRate.penalty_array! {
+                for penalty in currentRate.penalty_array ?? [] {
                     if !penalty.to.isEmpty && !penalty.from.isEmpty {
                         return currentRate
                     }
                 }
-            } else if isNonRefundable && !currentRate.cancellation_penalty!.is_refundable {
+            } else if isNonRefundable && !(currentRate.cancellation_penalty?.is_refundable ?? false) {
                 return currentRate
             }
         }
@@ -168,7 +338,7 @@ class HotelDetailsVM {
     
     ///Get Hotel Info Api
     func getHotelInfoApi() {
-
+        
         APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData, currencyPref) in
             guard let sSelf = self else {return}
             if success {
@@ -179,6 +349,7 @@ class HotelDetailsVM {
                 }
             } else {
                 printDebug(errors)
+                sSelf.logEvents(with: .FoundNoHotelsInfo)
                 sSelf.isFooterViewHidden = true
                 sSelf.delegate?.getHotelDetailsFail()
             }
@@ -221,7 +392,7 @@ class HotelDetailsVM {
                         sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
                         _ = sSelf.hotelInfo?.afterUpdate
                     }
-            
+                    
                     sSelf.delegate?.updateFavouriteFail(errors:errors)
                 }
             }
@@ -235,7 +406,9 @@ class HotelDetailsVM {
                 if let sSelf = self {
                     if success {
                         sSelf.placeModel = placeData
+                        sSelf.logEvents(with: .CaptureHotelDistanceFromCentre, value: placeData?.distanceText)
                         printDebug(placeData)
+                        sSelf.capturesEvents()
                         sSelf.delegate?.getHotelDistanceAndTimeSuccess()
                         
                     } else {
@@ -306,4 +479,160 @@ class HotelDetailsVM {
             }
         }
     }
+    
+    func getShareLinkAPI(completionBlock: @escaping(_ success: Bool)->Void ) {
+        
+        // create params
+        var params = JSONDictionary()
+        if self.searchedFormData.ratingCount.isEmpty || self.searchedFormData.ratingCount.count == 5 {
+            self.searchedFormData.ratingCount = [1,2,3,4,5]
+        }
+//        for (idx, _) in  self.searchedFormData.ratingCount.enumerated() {
+//            params["filter[star][\(idx+1)star]"] = true
+//        }
+        let filter = filterParams
+        if !filter.keys.isEmpty {
+            params["filter"] = AppGlobals.shared.json(from: filter)
+        }
+        let _adultsCount = self.searchedFormData.adultsCount
+        params["p"] = "hotels"
+        params["dest_id"] = self.hotelSearchRequest?.requestParameters.destinationId
+        params["check_in"] = self.hotelSearchRequest?.requestParameters.checkIn
+        params["check_out"] = self.hotelSearchRequest?.requestParameters.checkOut
+        params["dest_type"] = self.hotelSearchRequest?.requestParameters.destType
+        params["dest_name"]  = self.hotelSearchRequest?.requestParameters.destName
+        params["lat"] = self.hotelSearchRequest?.requestParameters.latitude
+        params["lng"] = self.hotelSearchRequest?.requestParameters.longitude
+//        params["checkout"] = self.hotelSearchRequest?.requestParameters.checkOut
+            
+        
+        // get number of adult count
+        
+        for (idx ,  data) in _adultsCount.enumerated() {
+            params["r[\(idx)][a]"] = data
+        }
+        
+        // get number of children
+        for (room, children) in searchedFormData.childrenCounts.enumerated() {
+            if children < 1 { continue }
+            let roomChildrenAges = searchedFormData.childrenAge[room]
+            for index in 0..<children {
+                params["r[\(room)][c][\(index)]"] = roomChildrenAges[index]
+            }
+        }
+        
+        // Replaced previously written logic with the one above
+//        for (idx , dataX) in _chidrenAge.enumerated() {
+//            for (idy , dataY) in dataX.enumerated() {
+//                if dataY != 0 {
+//                    params["r[\(idx)][c][\(idy)]"] = dataY
+//                }
+//            }
+//        }
+        
+        // Get share text Api
+        
+        self.delegate?.willGetPinnedTemplate()
+        APICaller.shared.callShareTextAPI(params: params) { [weak self ] (success, error, message,shareText) in
+            if success {
+                self?.shareLinkURL = shareText
+                self?.delegate?.getPinnedTemplateSuccess()
+                completionBlock(true)
+            } else {
+                self?.delegate?.getPinnedTemplateFail()
+                completionBlock(false)
+            }
+        }
+       
+        // Previous Implementation
+//        var param = JSONDictionary()
+//        param["hid[]"] = self.hotelInfo?.hid ?? ""
+//        param[APIKeys.sid.rawValue] = self.hotelSearchRequest?.sid
+//        param["u"] = ""
+//
+//        self.delegate?.willGetPinnedTemplate()
+//        APICaller.shared.getShareLinkAPI(params: param) { [weak self] isSuccess, _, shareLinkUrl in
+//            if isSuccess {
+//                self?.shareLinkURL = shareLinkUrl
+//                self?.delegate?.getPinnedTemplateSuccess()
+//                completionBlock(true)
+//            } else {
+//                self?.delegate?.getPinnedTemplateFail()
+//                completionBlock(false)
+//            }
+//        }
+    }
+    
+    ///Hotel confirmation Api
+    func fetchConfirmItineraryData(at index:Int) {
+        let params: JSONDictionary = [APIKeys.sid.rawValue: self.hotelSearchRequest?.sid ?? "", APIKeys.hid.rawValue: self.hotelInfo?.hid ?? "", "data[0][qid]": self.ratesData[index].qid, "p": "hotels"]
+        delegate?.willFetchConfirmItineraryData(index: index)
+        APICaller.shared.fetchConfirmItineraryData(params: params) { [weak self] success, errors, itData in
+            guard let self = self else { return }
+            self.delegate?.fetchConfirmItineraryDataResponse(itineraryData: itData, index: index, error: errors)
+        }
+    }
+}
+
+
+///Logs Events For Hotels Details
+extension HotelDetailsVM{
+    
+    func capturesEvents(with index:Int = -1){
+        guard  let hotelDetail = self.hotelData else {
+            self.logEvents(with: .FoundNoHotelsInfo)
+            return
+        }
+        if index == -1{
+            if hotelDetail.rating != 0{
+                self.logEvents(with: .CaptureHotelTARating, value: "\(hotelDetail.rating)")
+            }
+            
+            if hotelDetail.star != 0{
+                self.logEvents(with: .CaptureHotelStarRating, value: "\(hotelDetail.star)")
+            }
+            if hotelDetail.photos.count == 0{
+                self.logEvents(with: .FoundNoHotelPhoto)
+            }
+            self.logEvents(with: .CountTotalRoomsAvailable, value: "\(hotelDetail.rates?.count ?? 0)")
+        }else{//For Action of Book button
+            if let rate = hotelDetail.rates?[index]{
+                if let boardType = rate.inclusion_array["Board Type"] as? [String]{
+                    if boardType.contains("Room Only"){
+                        self.logEvents(with: .BookRoomWithNoMeals)
+                    }else if boardType.contains("Breakfast"){
+                        self.logEvents(with: .BookRoomWithBreakfast)
+                    }else if boardType.contains("Half Board"){
+                        self.logEvents(with: .BookRoomWithHalfBoard)
+                    }else if boardType.contains("Full Board"){
+                        self.logEvents(with: .BookRoomWithHalfBoard)
+                    }else{
+                        self.logEvents(with: .BookRoomWithOtherBoardTypes)
+                    }
+                }
+                if let canPolicy = rate.cancellation_penalty, canPolicy.is_refundable, let firstCancellation  = rate.penalty_array?.first{
+                    self.eventsForRoomRefunds(toDate: firstCancellation.to, fromDate: firstCancellation.from, penalty: firstCancellation.penalty)
+                }else{
+                    self.logEvents(with: .BookRoomWithNoRefunds)
+                }
+            }
+        }
+        
+    }
+    
+    private func eventsForRoomRefunds(toDate: String, fromDate: String, penalty: Double) {
+        if (!toDate.isEmpty && fromDate.isEmpty && penalty == 0) || (!toDate.isEmpty && !fromDate.isEmpty && penalty == 0) {
+            self.logEvents(with: .BookRoomWithFreeCancellation)
+        } else if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+            self.logEvents(with: .BookRoomWithPartialCancellation)
+        } else if toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+            self.logEvents(with: .BookRoomWithFreeCancellation)
+        }
+        
+    }
+    
+    func logEvents(with eventType:FirebaseEventLogs.EventsTypeName, value:String? = nil){
+        FirebaseEventLogs.shared.logIndividualHotelsDetalsEvents(with: eventType, value: value)
+    }
+    
 }

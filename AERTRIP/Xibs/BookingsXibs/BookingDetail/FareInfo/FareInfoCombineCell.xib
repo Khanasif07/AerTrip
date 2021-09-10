@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareInfoCombineCell" rowHeight="275" id="u7E-oO-9cC" customClass="FareInfoCombineCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="374" height="275"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u7E-oO-9cC" id="8aq-KC-lIt">
+                <rect key="frame" x="0.0" y="0.0" width="374" height="275"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w68-MI-yEr">
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="265"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Information Available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zjs-to-yWH">
+                                <rect key="frame" x="16" y="122" width="342" height="21.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Zjs-to-yWH" firstAttribute="leading" secondItem="w68-MI-yEr" secondAttribute="leading" constant="16" id="Amp-y0-KBf"/>
+                            <constraint firstItem="Zjs-to-yWH" firstAttribute="centerX" secondItem="w68-MI-yEr" secondAttribute="centerX" id="SbZ-Lt-zit"/>
+                            <constraint firstItem="Zjs-to-yWH" firstAttribute="centerY" secondItem="w68-MI-yEr" secondAttribute="centerY" id="UIs-J3-MGu"/>
+                            <constraint firstAttribute="trailing" secondItem="Zjs-to-yWH" secondAttribute="trailing" constant="16" id="rRC-oy-7le"/>
+                        </constraints>
+                    </view>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gbL-mf-to6">
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="265"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="988" constant="265" id="xQL-4o-yf0"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="dataSource" destination="u7E-oO-9cC" id="u3t-H9-vs4"/>
+                            <outlet property="delegate" destination="u7E-oO-9cC" id="pQQ-Oe-2Ea"/>
+                        </connections>
+                    </tableView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="gbL-mf-to6" firstAttribute="leading" secondItem="8aq-KC-lIt" secondAttribute="leading" id="0OQ-4m-mIU"/>
+                    <constraint firstItem="w68-MI-yEr" firstAttribute="bottom" secondItem="gbL-mf-to6" secondAttribute="bottom" id="3tw-ci-FOw"/>
+                    <constraint firstItem="w68-MI-yEr" firstAttribute="leading" secondItem="gbL-mf-to6" secondAttribute="leading" id="IVL-Ny-Bur"/>
+                    <constraint firstItem="w68-MI-yEr" firstAttribute="top" secondItem="gbL-mf-to6" secondAttribute="top" id="K02-uX-Fg7"/>
+                    <constraint firstAttribute="bottom" secondItem="gbL-mf-to6" secondAttribute="bottom" constant="10" id="YV2-MJ-KOl"/>
+                    <constraint firstAttribute="trailing" secondItem="gbL-mf-to6" secondAttribute="trailing" id="tUP-fO-AFm"/>
+                    <constraint firstItem="gbL-mf-to6" firstAttribute="top" secondItem="8aq-KC-lIt" secondAttribute="top" id="wf6-ad-yRi"/>
+                    <constraint firstItem="w68-MI-yEr" firstAttribute="trailing" secondItem="gbL-mf-to6" secondAttribute="trailing" id="y6z-kg-kWk"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+            <viewLayoutGuide key="safeArea" id="6db-hS-m1p"/>
+            <connections>
+                <outlet property="combineFareTableView" destination="gbL-mf-to6" id="kAc-j8-wjf"/>
+                <outlet property="noInfoView" destination="w68-MI-yEr" id="yL3-ZO-0RY"/>
+                <outlet property="tableViewHeight" destination="xQL-4o-yf0" id="LPX-sT-9gH"/>
+            </connections>
+            <point key="canvasLocation" x="560.86956521739137" y="-106.80803571428571"/>
+        </tableViewCell>
+    </objects>
+</document>

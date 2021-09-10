@@ -24,7 +24,13 @@ class HCWhatNextCollectionViewCell: UICollectionViewCell {
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
         self.configUI()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     //Mark:- Methods
@@ -32,17 +38,17 @@ class HCWhatNextCollectionViewCell: UICollectionViewCell {
     ///COnfigure UI
     private func configUI() {
         //UI
-        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.16), offset: CGSize(width: 0.0, height: 0.0), opacity: 0.7, shadowRadius: 10.0)
-        self.containerView.cornerRadius = 13.0
+        self.shadowView.addShadow(cornerRadius: 13, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        self.containerView.cornerradius = 13.0
         self.containerView.clipsToBounds = true
         //Image
-        self.flightImageView.image = #imageLiteral(resourceName: "flightIcon")
+        self.flightImageView.image = AppImages.twiterIcon
         //Font
         self.nextPlanLabel.font = AppFonts.SemiBold.withSize(22.0)
         //Text
         
         //Color
-        self.nextPlanLabel.textColor = AppColors.textFieldTextColor51
+        self.nextPlanLabel.textColor = AppColors.themeBlack
        
     }
     

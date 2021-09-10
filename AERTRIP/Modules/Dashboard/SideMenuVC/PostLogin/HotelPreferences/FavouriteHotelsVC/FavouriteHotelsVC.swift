@@ -8,7 +8,6 @@
 
 import UIKit
 import Foundation
-import Parchment
 
 class FavouriteHotelsVC: BaseVC {
     
@@ -49,6 +48,7 @@ class FavouriteHotelsVC: BaseVC {
         // Do any additional setup after loading the view.
         self.initialSetups()
     }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.parchmentView?.view.frame = self.dataContainerView.bounds
@@ -73,8 +73,15 @@ class FavouriteHotelsVC: BaseVC {
         
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.FavouriteHotels.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "addHotel"), selectedImage: #imageLiteral(resourceName: "addHotel"))
+       self.topNavView.configureFirstRightButton(normalImage: AppImages.greenAdd, selectedImage: AppImages.greenAdd)
+        topNavView.darkView.isHidden = false
+        topNavView.darkView.backgroundColor = AppColors.themeBlack26
        // self.setUpViewPager()
+        self.view.backgroundColor = AppColors.themeWhite
+       
+        self.dataContainerView.backgroundColor = AppColors.clear
+    
+        self.shimmerView.backgroundColor = AppColors.themeWhite
     }
     
     private func setUpViewPager() {
@@ -88,7 +95,8 @@ class FavouriteHotelsVC: BaseVC {
             for idx in 0..<self.viewModel.hotels.count {
                 let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
                 vc.delegate = self
-                let hotels = self.viewModel.hotels[idx]
+                var hotels = self.viewModel.hotels[idx]
+                hotels.holetList.sort(by: { $0.preferenceId < $1.preferenceId })
                 vc.viewModel.forCity = hotels
 
                 self.allChildVCs.append(vc)
@@ -109,22 +117,27 @@ class FavouriteHotelsVC: BaseVC {
            self.parchmentView?.menuItemSpacing = 40.0
            self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
            self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
-           self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+           self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
            self.parchmentView?.borderOptions = PagingBorderOptions.visible(
                                            height: 0,
                                            zIndex: Int.max - 1,
-                                           insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+                                           insets: UIEdgeInsets.zero)
+            let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+            self.parchmentView?.register(nib, for: MenuItem.self)
            self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
            self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
            self.parchmentView?.indicatorColor = AppColors.themeGreen
            self.parchmentView?.selectedTextColor = AppColors.themeBlack
            self.dataContainerView.addSubview(self.parchmentView!.view)
-           
+        
            self.parchmentView?.dataSource = self
            self.parchmentView?.delegate = self
            self.parchmentView?.sizeDelegate = self
            self.parchmentView?.select(index: 0)
-           
+        
+        self.parchmentView?.menuBackgroundColor = AppColors.themeBlack26
+        self.parchmentView?.collectionView.backgroundColor = AppColors.themeBlack26
+        
            self.parchmentView?.reloadData()
            self.parchmentView?.reloadMenu()
        }
@@ -198,7 +211,8 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
             self.viewModel.removeHotel(forCity: forCity, cityIndex: self.currentIndex, forHotelAtIndex: forHotelAtIndex)
             //reload list at current city index
             self.allChildVCs[self.currentIndex].viewModel.forCity = self.viewModel.hotels[self.currentIndex]
-            self.allChildVCs[self.currentIndex].collectionView.reloadData()
+//            self.allChildVCs[self.currentIndex].collectionView.reloadData()
+            self.allChildVCs[self.currentIndex].collectionView.deleteItems(at: [IndexPath(item: forHotelAtIndex, section: 0)])
         }
         else {
             //reload complete list
@@ -213,6 +227,7 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
         _ = PKAlertController.default.presentActionSheet(nil, message: "\(LocalizedString.DoYouWishToRemoveAllHotelsFrom.localized) \(self.viewModel.hotels[self.currentIndex].cityName)?", sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { (alert, index) in
             if index == 0 {
                 self.viewModel.updateFavourite(forHotels: self.viewModel.hotels[self.currentIndex].holetList)
+                self.viewModel.logFirebaseEvent(with: .RemoveAllHotels)
             }
         }
     }

@@ -28,6 +28,7 @@ class AccountOfflineDepositVC: BaseVC {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var paymentButtonContainerView: UIView!
+    @IBOutlet weak var navigationBackgroundView: UIView!
     
     // MARK: - Properties
     var currentUsingAs: UsingForPayBy = UsingForPayBy.chequeOrDD
@@ -35,21 +36,28 @@ class AccountOfflineDepositVC: BaseVC {
     let viewModel = AccountOfflineDepositVM()
     
     // MARK: - View Life cycle
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.paymentButtonContainerView.addGredient(isVertical: false)
+    }
     
     override func initialSetup() {
-        
+        checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 0.5, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.view.backgroundColor = AppColors.themeWhite
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
-        self.addFooterView()
-        self.payButton.addGredient(isVertical: false)
         self.setUpNavigationView()
         self.registerXib()
         
-        self.loaderContainer.addGredient(isVertical: false)
+        self.loaderContainer.backgroundColor = .clear
         self.manageLoader(shouldStart: false)
+        //for header blur
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
+        self.navigationBackgroundView.backgroundColor = AppColors.doneViewClearColor
         
-        self.viewModel.userEnteredDetails.isForFundTransfer = self.currentUsingAs == .fundTransfer
+       
     }
     
     override func setupFonts() {
@@ -61,7 +69,8 @@ class AccountOfflineDepositVC: BaseVC {
     }
     
     override func setupColors() {
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.payButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.checkOutTableView.backgroundColor = AppColors.screensBackground.color
     }
     
     override func bindViewModel() {
@@ -74,10 +83,10 @@ class AccountOfflineDepositVC: BaseVC {
     private func setUpNavigationView() {
         self.topNavView.delegate = self
         
-        let navTitle = (self.currentUsingAs == .chequeOrDD) ? LocalizedString.ChequeDemandDraft.localized : LocalizedString.FundTransfer.localized
+        let navTitle = LocalizedString.PayOfflineNRegister.localized //(self.currentUsingAs == .chequeOrDD) ? LocalizedString.ChequeDemandDraft.localized : LocalizedString.FundTransfer.localized
         
         self.topNavView.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_account_info"), selectedImage: #imageLiteral(resourceName: "ic_account_info"))
+        self.topNavView.configureFirstRightButton(normalImage: AppImages.ic_account_info, selectedImage: AppImages.ic_account_info)
     }
     
     // Registe all Xib file to checkOut table view
@@ -91,10 +100,6 @@ class AccountOfflineDepositVC: BaseVC {
         self.checkOutTableView.registerCell(nibName: OfflineDepositeSlipUoloadCell.reusableIdentifier)
     }
     
-    private func addFooterView() {
-        self.paymentButtonContainerView.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 50.0)
-        self.checkOutTableView.tableFooterView = self.paymentButtonContainerView
-    }
 
     // Upadate All Data on Table View
     func updateAllData() {
@@ -108,16 +113,24 @@ class AccountOfflineDepositVC: BaseVC {
     }
 
     func manageLoader(shouldStart: Bool) {
-        self.indicatorView.style = .white
-        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.style = .medium//.white
+        self.indicatorView.color = AppColors.unicolorWhite
         self.indicatorView.startAnimating()
-        
+        self.payButton.isHidden = shouldStart
         self.loaderContainer.isHidden = !shouldStart
     }
     
     func showPaymentSuccessMessage() {
         if self.currentUsingFor == .addOns {
-            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
+            var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+            config.text = "\(LocalizedString.Register.localized) \(LocalizedString.Payment.localized)"
+            config.textFont = AppFonts.SemiBold.withSize(20.0)
+            config.cornerRadius = 0.0
+            config.width = self.payButton.width
+            config.buttonHeight = self.paymentButtonContainerView.height
+            config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
+            //AppFlowManager.default.showAddonRequestSent(buttonConfig: config, delegate: self)
+            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self, flow: .accountDeposit)
         }
         else {
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
@@ -127,14 +140,18 @@ class AccountOfflineDepositVC: BaseVC {
             config.width = self.payButton.width
             config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
             
-            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self)
+            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self, flow: .accountDeposit)
         }
     }
 
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
+        self.viewModel.isPayButtonTapped = true
+         self.viewModel.userEnteredDetails.isForFundTransfer = self.currentUsingAs == .fundTransfer
         if self.viewModel.userEnteredDetails.isDataVarified {
             self.viewModel.registerPayment(currentUsingAs: self.currentUsingAs)
+        }else{
+            self.checkOutTableView.reloadData()
         }
     }
     
@@ -157,19 +174,24 @@ class AccountOfflineDepositVC: BaseVC {
 
 extension AccountOfflineDepositVC: BulkEnquirySuccessfulVCDelegate {
     func doneButtonAction() {
-        if self.currentUsingFor == .addOns {
+//        if self.currentUsingFor == .addOns {
+            /*
             for vc in AppFlowManager.default.mainNavigationController.viewControllers {
                 if vc.isKind(of: FlightBookingsDetailsVC.self) {
                     AppFlowManager.default.popToViewController(vc, animated: true)
                     break
+                } else if vc.isKind(of: HotlelBookingsDetailsVC.self) {
+                    AppFlowManager.default.popToViewController(vc, animated: true)
                 }
             }
-        }
-        else {
-            self.sendDataChangedNotification(data: ATNotification.accountPaymentRegister)
-            if let vc = AppFlowManager.default.mainNavigationController.viewController(atIndex: 1) {
-                AppFlowManager.default.popToViewController(vc, animated: true)
-            }
-        }
+            */
+            AppFlowManager.default.goToDashboard()
+//        }
+//        else {
+//            self.sendDataChangedNotification(data: ATNotification.accountPaymentRegister)
+//            if let vc = AppFlowManager.default.mainNavigationController.viewController(atIndex: 1) {
+//                AppFlowManager.default.popToViewController(vc, animated: true)
+//            }
+//        }
     }
 }

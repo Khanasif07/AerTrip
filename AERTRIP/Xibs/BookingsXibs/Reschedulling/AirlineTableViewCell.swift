@@ -15,9 +15,10 @@ class AirlineTableViewCell: ATTableViewCell {
     @IBOutlet weak var airlineNameLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var airlineImageView: UIImageView!
+    @IBOutlet weak var containerView: UIView!
     
    
-    var flightDetail: FlightDetail? {
+    var flightDetail: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }

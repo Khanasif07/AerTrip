@@ -111,6 +111,11 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.addTapGesture()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+    }
+    
     func addBlurToImage() {
         if !UIAccessibility.isReduceTransparencyEnabled {
             
@@ -119,7 +124,6 @@ class SlideMenuProfileImageHeaderView: UIView {
             //always fill the view
             blurEffectView.frame = self.backgroundImageView.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
             backgroundImageView.addSubview(blurEffectView)
         }
     }
@@ -142,6 +146,9 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     func doInitialSetup() {
+        familyButton.backgroundColor = AppColors.blackWith40PerAlpha
+        familyButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        familyButton.setTitleColor(AppColors.themeWhite, for: .selected)
         familyButton.layer.cornerRadius = familyButton.height / 2.0
         self.makeImageCircular()
     }
@@ -150,7 +157,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.clipsToBounds = true
         profileImageView.contentMode = .scaleAspectFill
-        profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         profileImageView.layer.borderWidth = 4.0
         profileImageView.layer.masksToBounds = true
     }
@@ -170,7 +177,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         
         self.emailIdLabel.font = AppFonts.Regular.withSize(14.0)
         self.mobileNumberLabel.font = AppFonts.Regular.withSize(14.0)
-        self.dividerView.backgroundColor = AppColors.themeGray20
+//        self.dividerView.backgroundColor = AppColors.themeGray20
         self.dividerView.isHidden = false
         self.emailIdLabel.isHidden = false
         self.mobileNumberLabel.isHidden = false

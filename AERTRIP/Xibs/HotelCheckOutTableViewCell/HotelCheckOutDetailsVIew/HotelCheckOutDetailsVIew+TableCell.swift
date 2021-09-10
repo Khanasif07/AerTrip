@@ -21,7 +21,7 @@ extension HotelCheckOutDetailsVIew {
     }
 
     internal func getHotelRatingInfoCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
-        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelRatingInfoCell", for: indexPath) as? HotelRatingInfoCell  else { return UITableViewCell() }
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HCDataHotelRatingInfoTableViewCell", for: indexPath) as? HCDataHotelRatingInfoTableViewCell  else { return UITableViewCell() }
         cell.delegate = self
         if let hotelDetails = self.viewModel, let placeData = self.placeModel {
             cell.configHCDetailsCell(hotelData: hotelDetails, placeData: placeData)
@@ -31,12 +31,14 @@ extension HotelCheckOutDetailsVIew {
     
     internal func getHotelInfoAddressCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+        cell.addressInfoTextView.isUserInteractionEnabled = false
         cell.configureAddressCell(hotelData: hotelDetails)
         return cell
     }
     
     internal func getHotelOverViewCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+        cell.addressInfoTextView.isUserInteractionEnabled = false
         cell.configureOverviewCell(hotelData: hotelDetails)
         return cell
     }
@@ -118,7 +120,13 @@ extension HotelCheckOutDetailsVIew {
     internal func otherInclusionCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         if let otherInclusion =  ratesData.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusion.isEmpty {
             guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
-            cell.configureOtherInclusionCell(otherInclusion: otherInclusion)
+            var isInclusionPresent = false
+            if let boardInclusion =  ratesData.inclusion_array[APIKeys.boardType.rawValue] as? [String], !boardInclusion.isEmpty {
+                isInclusionPresent = true
+            }else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
+                isInclusionPresent = true
+            }
+            cell.configureOtherInclusionCell(otherInclusion: otherInclusion, isInclusionPresent: isInclusionPresent)
             cell.clipsToBounds = true
             return cell
         }

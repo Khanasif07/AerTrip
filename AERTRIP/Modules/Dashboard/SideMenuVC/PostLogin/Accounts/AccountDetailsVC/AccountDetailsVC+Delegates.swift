@@ -29,7 +29,12 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return AppFonts.SemiBold.withSize(16.0).lineHeight + 32.0
+        if tableView == self.tableView{
+            return section == 0 ? 45 : 35
+        }else{
+            return section == 0 ? 45 : 35//CGFloat.leastNonzeroMagnitude
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -37,7 +42,8 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
             return nil
         }
         
-        headerView.dateLabel.font = AppFonts.SemiBold.withSize(16.0)
+        
+        //headerView.headerLabel.font = AppFonts.SemiBold.withSize(16.0)
         var titleStr = ""
         if tableView === self.tableView {
             titleStr = self.viewModel.allDates[section]
@@ -45,34 +51,60 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         else {
             titleStr = self.viewModel.searchedAllDates[section]
         }
-        headerView.dateLabel.text = titleStr
-        headerView.parentView.backgroundColor = AppColors.themeWhite
-        headerView.dateLabelTopConstraint.constant = 20.0
-        headerView.dataLabelBottomConstraint.constant = 7.0
-            
-        return headerView
+        if let date = titleStr.toDate(dateFormat: "YYYY-MM-dd") {
+            if date.isCurrentYear {
+                titleStr = date.toString(dateFormat: "EEE, dd MMM")
+            } else {
+                titleStr = date.toString(dateFormat: "dd MMM YYYY")
+            }
+        }
+         headerView.configViewForBooking(date: titleStr, isFirstHeaderView: section == 0 ? true : false)
+               return headerView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView === self.tableView {
-            if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
-                
-                return allEvent.count
-            }
-        }
-        else {
-            if let allEvent = self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[section]] as? [AccountDetailEvent] {
-                
-                return allEvent.count
-            }
-        }
+//        if tableView === self.tableView {
+//            if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
+//
+//                return allEvent.count
+//            }
+//        }
+//        else {
+//            if let allEvent = self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[section]] as? [AccountDetailEvent] {
+//
+//                return allEvent.count
+//            }
+//        }
 
-        return 0
+        return self.getEvents(with: section, for: tableView).count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        var additionalHeight:CGFloat = 0
+        if getEvents(with: indexPath.section, for: tableView).count > indexPath.row{
+            
+            additionalHeight = (self.getEvents(with: indexPath.section, for: tableView)[indexPath.row].currencyRate == nil) ? 0 : 23
 
-        return 141.0
+            
+        }
+//        let additionalHeight:CGFloat = (self.getEvents(with: indexPath.section, for: tableView)[indexPath.row].currencyRate == nil) ? 0 : 23
+        
+//        if tableView === self.tableView{
+            if indexPath.row == 0 && indexPath.row == self.tableView.numberOfRows(inSection: indexPath.section) - 1{
+                return 165 + additionalHeight
+            }else if indexPath.row == 0{
+                return 157 + additionalHeight
+            }else if indexPath.row == self.tableView.numberOfRows(inSection: indexPath.section) - 1{
+                return 157 + additionalHeight
+            }else{
+                return 149 + additionalHeight
+            }
+//        }else{
+//            return 149
+//        }
+
+//        return 149.0
 //        let allCount = 2
 //        if (indexPath.row % allCount) == 0 {
 //            //event header cell + (for top space)
@@ -87,44 +119,50 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var allEvent: [AccountDetailEvent] = []
-        if tableView === self.tableView {
-            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
-        }
-        else {
-            allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
-        }
-        
+        let allEvent: [AccountDetailEvent] = self.getEvents(with: indexPath.section, for: tableView)
+//        if tableView === self.tableView {
+//            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+//        }
+//        else {
+//            allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+//        }
         guard !allEvent.isEmpty else {
             return UITableViewCell()
         }
-        
-        return self.getEventCell(forData: allEvent[indexPath.row])
-//        let allCount = 2
-//        if (indexPath.row % allCount) == 0 {
-//            //event header cell
-//            return self.getEventHeaderCell(forData: allEvent[Int(indexPath.row/allCount)])
-//        }
-//        else if (indexPath.row % allCount) == 1 {
-//            //event description cell
-//            let idx = Int(indexPath.row/allCount)
-//            let cell = self.getEventDescriptionCell(forData: allEvent[idx]) as! AccountDetailEventDescriptionCell
-//            cell.mainContainerBottomConstraint.constant = (idx == (allEvent.count-1)) ? 5.0 : 10.0
-//            return cell
-//        }
-//
-//        return UITableViewCell()
+        if indexPath.row < allEvent.count{
+            return self.getEventCell(forData: allEvent[indexPath.row], indexPath: indexPath, table: tableView)
+        }else{
+            return UITableViewCell()
+        }
     }
     
-    func getEventCell(forData: AccountDetailEvent) -> UITableViewCell {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountLedgerEventCell.reusableIdentifier) as? AccountLedgerEventCell else {
+    func getEventCell(forData: AccountDetailEvent, indexPath: IndexPath, table: UITableView) -> UITableViewCell {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: NewAccountLedgerEventCell.reusableIdentifier) as? NewAccountLedgerEventCell else {
             return UITableViewCell()
         }
         
         cell.event = forData
-        cell.clipsToBounds = true
+        //cell.clipsToBounds = true
         cell.backgroundColor = AppColors.themeWhite
-        
+        if table === self.tableView{
+            
+            if indexPath.row == 0 && indexPath.row == self.tableView.numberOfRows(inSection: indexPath.section) - 1{
+                cell.containerTopConstrain.constant = 16
+                cell.containerBottomConstaint.constant = 16
+            }else if indexPath.row == 0{
+                cell.containerTopConstrain.constant = 16
+                cell.containerBottomConstaint.constant = 8
+            }else if indexPath.row == self.tableView.numberOfRows(inSection: indexPath.section) - 1{
+                cell.containerTopConstrain.constant = 8
+                cell.containerBottomConstaint.constant = 16
+            }else{
+                cell.containerTopConstrain.constant = 8
+                cell.containerBottomConstaint.constant = 8
+            }
+        } else {
+            cell.containerTopConstrain.constant = 8
+            cell.containerBottomConstaint.constant = 8
+        }
         return cell
     }
     
@@ -149,13 +187,14 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var allEvent: [AccountDetailEvent] = []
-        if tableView === self.tableView {
-            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
-        }
-        else {
-            allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
-        }
+        printDebug(Date())
+        let allEvent: [AccountDetailEvent] = self.getEvents(with: indexPath.section, for: tableView)
+//        if tableView === self.tableView {
+//            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+//        }
+//        else {
+//            allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
+//        }
         
         guard !allEvent.isEmpty else {
             return
@@ -164,7 +203,30 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
 //        let allCount = 2
 //        let idx = Int(indexPath.row/allCount)
         let idx = indexPath.row
+        printDebug(Date())
+        
+        
+        let jsonDict : JSONDictionary = ["LoggedInUserType": UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                         "Voucher":allEvent[idx].voucher]
+        
+        FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerViewLedgerDetailsSelectedFromList, value: jsonDict)
+        
 
-        AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: allEvent[idx])
+
+        delay(seconds: 0.0){
+            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: allEvent[idx], detailType: .accountLadger)
+        }
+    }
+    
+    
+    func getEvents(with section: Int, for table: UITableView)->[AccountDetailEvent]{
+        var allEvent: [AccountDetailEvent] = []
+        if table === self.tableView {
+            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent]) ?? []
+        }
+        else {
+            allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[section]] as? [AccountDetailEvent]) ?? []
+        }
+        return allEvent
     }
 }

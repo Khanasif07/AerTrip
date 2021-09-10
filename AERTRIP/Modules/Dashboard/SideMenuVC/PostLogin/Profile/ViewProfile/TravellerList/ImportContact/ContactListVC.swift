@@ -13,8 +13,8 @@ class ContactListVC: BaseVC {
     
     enum UsingFor: Int {
         case contacts = 0
-        case facebook = 1
-        case google = 2
+        case facebook = 2
+        case google = 1
     }
     
     //MARK:- IBOutlets
@@ -33,7 +33,7 @@ class ContactListVC: BaseVC {
     let viewModel = ImportContactVM.shared
     let serialQueue = DispatchQueue(label: "serialQueue")
     let selectDeselectQueue = DispatchQueue(label: "selectDeselectQueue", qos: .userInteractive, target: .main)
-
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     private var workItem: DispatchWorkItem?
     
     //MARK:- Private
@@ -67,20 +67,29 @@ class ContactListVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
         self.initialSetups()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-       
+        //        if UIDevice.bottomPaddingFromSafeArea > 0.0 {
+        //            self.selectAllbtnBtmConstraint.constant = 0
+        //        } else {
+        //            self.selectAllbtnBtmConstraint.constant = 34.0
+        //        }
+        //        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        
     }
     
     override func setupColors() {
         self.selectAllButton.tintColor = AppColors.clear
-        self.bottomBackgroundView.backgroundColor = AppColors.themeGray04
+        self.bottomBackgroundView.backgroundColor = AppColors.clear// AppColors.themeWhite.withAlphaComponent(0.85)
         self.bottomBackgroundView.isHidden = true
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.tableView.sectionIndexBackgroundColor = AppColors.clear
+        self.tableView.sectionIndexTrackingBackgroundColor = AppColors.clear
     }
     
     override func setupTexts() {
@@ -202,11 +211,31 @@ class ContactListVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         
-        self.tableView.backgroundView = self.allowEmptyView
+        
         self.tableView.sectionIndexColor = AppColors.themeGreen
         self.tableView.delegate = self
         self.tableView.dataSource = self
        // noResultemptyView.mainImageViewTopConstraint.constant = 400
+        
+        if self.currentlyUsingFor == .contacts {
+            if self.viewModel.phoneContacts.isEmpty {
+                if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+                    delay(seconds: 0.4) { [weak self] in
+                        guard let strongSelf = self else {return}
+                        strongSelf.viewModel.fetchPhoneContacts(forVC: strongSelf)
+                    }
+                } else {
+                    self.tableView.backgroundView = self.allowEmptyView
+                }
+            } else {
+                tableView.backgroundView = nil
+            }
+        } else {
+            self.tableView.backgroundView = self.allowEmptyView
+        }
+        let bottom = self.selectAllButton.height + AppFlowManager.default.safeAreaInsets.bottom
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
+        self.bottomBackgroundView.addBlurEffect(style: .prominent, alpha: 1.0)
     }
     
     private func reloadList() {
@@ -221,7 +250,6 @@ class ContactListVC: BaseVC {
             populateData(in: cell, indexPath: indexPath)
         }
     }
-    
     
     private func hideSelectAllButton(isHidden: Bool = true) {
         self.bottomHeaderTopDiverView.isHidden = isHidden
@@ -301,7 +329,7 @@ class ContactListVC: BaseVC {
     
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
         
-        self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite,padding:  UIEdgeInsets(top: 2.0, left: 35.0, bottom: 2.0, right: 1.0))
+        self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeGray04,padding:  UIEdgeInsets(top: 2.0, left: 35.0, bottom: 2.0, right: 1.0))
         workItem?.cancel()
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
@@ -548,12 +576,35 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
         return 0
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderCellIdentifier) as? TravellerListTableViewSectionView else {
+            return nil
+        }
+        if self.currentlyUsingFor == .contacts {
+            headerView.configureCell(self.viewModel.sections[section].letter)
+        } else if self.currentlyUsingFor == .facebook {
+            headerView.configureCell(self.viewModel.facebookSection[section].letter)
+        } else if self.currentlyUsingFor == .google {
+            headerView.configureCell(self.viewModel.googleSection[section].letter)
+        }
+        headerView.containerView.backgroundColor = AppColors.themeGray04
+        headerView.headerLabel.textColor = AppColors.themeBlack
+        return headerView
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDetailsTableCell", for: indexPath) as! ContactDetailsTableCell
+        cell.contentView.backgroundColor = AppColors.themeBlack26
+        cell.backgroundColor = AppColors.themeBlack26
         return populateData(in: cell, indexPath: indexPath)
 
     }
@@ -645,16 +696,16 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if self.currentlyUsingFor == .contacts {
-            return self.viewModel.sections[section].letter
-        } else if self.currentlyUsingFor == .facebook {
-            return self.viewModel.facebookSection[section].letter
-        } else if self.currentlyUsingFor == .google {
-            return self.viewModel.googleSection[section].letter
-        }
-        return nil
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if self.currentlyUsingFor == .contacts {
+//            return self.viewModel.sections[section].letter
+//        } else if self.currentlyUsingFor == .facebook {
+//            return self.viewModel.facebookSection[section].letter
+//        } else if self.currentlyUsingFor == .google {
+//            return self.viewModel.googleSection[section].letter
+//        }
+//        return nil
+//    }
     
 }
 

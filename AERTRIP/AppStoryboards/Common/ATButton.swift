@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ATButton: UIButton {
+@objc class ATButton: UIButton {
     
     enum ActionState {
         case pressing
@@ -32,7 +32,7 @@ class ATButton: UIButton {
     private(set) var currentActionState: ActionState = ActionState.released
     
     //MARK:- Public
-    var shadowColor: UIColor = AppColors.themeGreen {
+    var shadowColor: UIColor = AppColors.aertripBtnShadowColor {
         didSet {
             self.layoutSubviews()
         }
@@ -44,13 +44,13 @@ class ATButton: UIButton {
         }
     }
     
-    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+    var gradientColors: [UIColor] = AppConstants.appthemeGradientColors {
         didSet {
             self.layoutSubviews()
         }
     }
     
-    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
+    var disabledGradientColors: [UIColor] = AppConstants.appthemeDisableGradientColors {
         didSet {
             self.layoutSubviews()
         }
@@ -77,6 +77,12 @@ class ATButton: UIButton {
         }
     }
     
+    var isEnabledShadow: Bool = false {
+        didSet {
+            self.layoutSubviews()
+        }
+    }
+    
     var isSocial: Bool = false {
         didSet {
             self.layoutSubviews()
@@ -98,7 +104,7 @@ class ATButton: UIButton {
             self.addGradientLayer()
         }
     }
-    
+    var isShadowColorNeeded = false
     var fontForTitle: UIFont = AppFonts.SemiBold.withSize(17.0) {
         didSet {
             self.titleLabel?.font = fontForTitle
@@ -128,6 +134,14 @@ class ATButton: UIButton {
         self.setupLoader()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if !self.isSocial {
+            self.addShadowLayer()
+        }
+        addGradientLayer()
+    }
+    
     private func addShadowLayer() {
         if shadowLayer == nil {
             shadowLayer = CAShapeLayer()
@@ -135,21 +149,28 @@ class ATButton: UIButton {
         }
         
         let shadowFrame = self.isSocial ? CGRect(x: 0.0, y:1.0, width: bounds.width, height: bounds.height) : CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
-        shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerRadius).cgPath
+        shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerradius).cgPath
         shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
-            
-            shadowLayer.shadowColor = shadowColor.cgColor
+            if isEnabledShadow {
+                shadowLayer.shadowColor = AppColors.aertripBtnShadowColor.cgColor//AppColors.clear.cgColor
+                shadowLayer.shadowOffset = CGSize.zero
+                shadowLayer.shadowOpacity = 0.0
+                shadowLayer.shadowRadius = 0.0
+            } else {
+                shadowLayer.shadowColor = (!isShadowColorNeeded) ? AppColors.aertripBtnShadowColor.cgColor : shadowColor.cgColor//shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 2.0 : 12.0)
             shadowLayer.shadowOpacity = self.isSocial ? 0.16 : 0.5
             shadowLayer.shadowRadius = self.isSocial ? 3.0 : 15.0
+            }
         } else {
             shadowLayer.shadowColor = AppColors.clear.cgColor
             shadowLayer.shadowOffset = CGSize.zero
             shadowLayer.shadowOpacity = 0.0
             shadowLayer.shadowRadius = 0.0
         }
+        
     }
     
     private func getGradientLayer() -> CAGradientLayer {
@@ -178,17 +199,24 @@ class ATButton: UIButton {
         gLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
         gLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
         
-        gLayer.cornerRadius = self.cornerRadius
+        gLayer.cornerRadius = self.cornerradius
         gLayer.masksToBounds = true
         
         if self.isEnabled {
-            gLayer.colors = gradientColors.map { (clr) -> CGColor in
-                clr.cgColor
+            if isEnabledShadow {
+                gLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
+                    clr.resolvedColor(with: traitCollection).cgColor
+                }
+            } else {
+                gLayer.colors = gradientColors.map { (clr) -> CGColor in
+                    clr.resolvedColor(with: traitCollection).cgColor
+                }
             }
+            
         }
         else {
             gLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
-                clr.cgColor
+                clr.resolvedColor(with: traitCollection).cgColor
             }
         }
     }
@@ -206,7 +234,7 @@ class ATButton: UIButton {
     override func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .highlighted)
-        if !self.isLoading {
+        if !self.isLoading, self.imageView != nil {
             self.bringSubviewToFront(self.imageView!)
         }
     }
@@ -251,13 +279,19 @@ class ATButton: UIButton {
             self.loaderContainer.autoresizingMask = [.flexibleWidth,.flexibleHeight]
             let size = min(self.frame.size.width, self.frame.size.height)
             self.loaderIndicator = UIActivityIndicatorView(frame: CGRect(x: (self.frame.size.width - size) / 2.0, y: 0.0, width: size, height: size))
-            self.loaderIndicator.style = .white
+            self.loaderIndicator.style = .medium//.white
             
             self.loaderContainer.addSubview(self.loaderIndicator)
             self.addSubview(self.loaderContainer)
+        }else{
+            self.loaderContainer.frame = self.bounds
+              let size = min(self.frame.size.width, self.frame.size.height)
+            loaderIndicator.frame = CGRect(x: (self.frame.size.width - size) / 2.0, y: 0.0, width: size, height: size)
+//            self.loaderContainer.center = self.center
+//            loaderIndicator.center = self.loaderContainer.center
         }
         
-        self.loaderContainer.layer.cornerRadius = self.cornerRadius
+        self.loaderContainer.layer.cornerRadius = self.cornerradius
         self.loaderContainer.layer.masksToBounds = true
         self.updateGradientLayer(gLayer: self.loaderGradientLayer)
         
@@ -300,7 +334,8 @@ class ATButton: UIButton {
     private func animateToPressedSatate() {
         disable(forSeconds: 1)
         guard self.shouldShowPressAnimation else {return}
-        UIView.animate(withDuration: AppConstants.kAnimationDuration / 3.5, animations: { [weak self] in
+        //AppConstants.kAnimationDuration / 3.5
+        UIView.animate(withDuration: 0, animations: { [weak self] in
             self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self?.shadowLayer?.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
         }) { (isDone) in
@@ -355,6 +390,27 @@ class ATButton: UIButton {
             _selectedFont = font
         }
     }
+    
+    
+     @objc func configureCommonGreenButton() {
+       
+        self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+        
+        self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.normal)
+        self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.selected)
+        self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.highlighted)
+
+        self.shadowColor = AppColors.aertripBtnShadowColor
+        
+        self.layer.cornerRadius = self.height / 2
+        self.layer.applySketchShadow(color: .black, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.shadowColor = AppColors.aertripBtnShadowColor
+        
+    }
+    
+    
 }
 
 
@@ -467,7 +523,7 @@ class ATBlurButton: UIButton {
     }
     
     private func makeCircle() {
-        self.cornerRadius = self.isCircular ? (self.width / 2.0) : 0.0
+        self.cornerradius = self.isCircular ? (self.width / 2.0) : 0.0
     }
     
     private func updateBorder() {
@@ -480,7 +536,7 @@ class ATBlurButton: UIButton {
 
 
 extension CALayer {
-    func applySketchShadow(
+    @objc func applySketchShadow(
         color: UIColor = .black,
         alpha: Float = 0.5,
         x: CGFloat = 0,

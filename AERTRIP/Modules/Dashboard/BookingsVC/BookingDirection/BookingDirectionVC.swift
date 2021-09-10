@@ -13,25 +13,49 @@ class BookingDirectionVC: BaseVC {
     
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var directionTableView: ATTableView!
+    @IBOutlet weak var navigationHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     
     let viewModel = BookingDirectionVM()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
+    }
+    
     override func initialSetup() {
         self.setupNavBar()
         self.registerXib()
-        
+        topNavigationView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            navigationHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
+        }
+        self.directionTableView.backgroundColor = AppColors.themeGray04
+        self.directionTableView.contentInset = UIEdgeInsets(top: topNavigationView.height , left: 0.0, bottom: 0.0, right: 0.0)
         self.directionTableView.dataSource = self
         self.directionTableView.delegate = self
         self.directionTableView.reloadData()
+
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsDirections, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
+
     }
     
     override func setupNavBar() {
         self.topNavigationView.delegate = self
-        self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.topNavigationView.navTitleLabel.textColor = AppColors.textFieldTextColor51
-        self.topNavigationView.configureNavBar(title: LocalizedString.Directions.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        //self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
+        //self.topNavigationView.navTitleLabel.textColor = AppColors.textFieldTextColor51
+        self.topNavigationView.configureNavBar(title: LocalizedString.Directions.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+         topNavigationView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
     }
     
     private func registerXib() {
@@ -60,10 +84,11 @@ extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("BookingDirectionTableViewCell not found")
         }
         
-        let airportName: String = self.viewModel.directionData[indexPath.row].city + "," + self.viewModel.directionData[indexPath.row].country_code
+        let airportName: String = self.viewModel.directionData[indexPath.row].city + ", " + self.viewModel.directionData[indexPath.row].country_code
         directionCell.configureCell(airportCode: self.viewModel.directionData[indexPath.row].iataCode, airportName: airportName, airportAddress: self.viewModel.directionData[indexPath.row].airportName)
         directionCell.bottomDividerView.isHidden = self.viewModel.directionData.count - 1 == indexPath.row
         directionCell.edgeToedgeBottomDividerView.isHidden = self.viewModel.directionData.count - 1 != indexPath.row
+        directionCell.containerView.backgroundColor = AppColors.themeBlack26
         return directionCell
     }
     
@@ -75,8 +100,11 @@ extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ViewProfileDetailTableViewSectionView") as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        
+        headerView.headerLabel.textColor = AppColors.themeGray60
+        headerView.headerLabel.font = AppFonts.Regular.withSize(14)
         headerView.headerLabel.text = self.viewModel.sectionData[section]
+        headerView.topSeparatorView.isHidden = section == 0
+        headerView.containerView.backgroundColor = AppColors.themeGray04
         return headerView
     }
     
@@ -89,6 +117,9 @@ extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
 
 extension BookingDirectionVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        //AppFlowManager.default.popViewController(animated: true)
     }
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+           self.dismiss(animated: true, completion: nil)
+       }
 }

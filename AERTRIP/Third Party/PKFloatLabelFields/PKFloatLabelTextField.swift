@@ -43,6 +43,8 @@ import UIKit
         }
     }
     
+    var editingBottom:CGFloat = 4.0
+    
     /// A Boolean value that determines whether the textfield is being edited or is selected.
     open var editingOrSelected: Bool {
         return super.isEditing || isSelected
@@ -127,7 +129,7 @@ import UIKit
 		}
 	}
 	
-	@IBInspectable var titleTextColour: UIColor = UIColor.gray {
+    @IBInspectable var titleTextColour: UIColor = AppColors.themeGray40 {
 		didSet {
 			if !isFirstResponder {
 				title.textColor = titleTextColour
@@ -164,6 +166,14 @@ import UIKit
 		setupSubviews()
 	}
 	
+    deinit {
+        printDebug("PKFloatLabelTextField deinit")
+        self.attributedPlaceholder = nil
+        self.attributedText = nil
+        self.inputView = nil
+        self.inputAccessoryView = nil
+    }
+    
 	// MARK:- Overrides
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if self.isSelectionOptionEnabled {
@@ -227,7 +237,7 @@ import UIKit
             updateLineView(isEditing: true)
 			var top = ceil(title.font.lineHeight + hintYPadding)
 			top = min(top, maxTopInset())
-            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: 4, right: 0.0))
+            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: editingBottom, right: 0.0))
         } else {
             UIView.animate(withDuration: 0.0) { [weak self] in
                 self?.updateLineView(isEditing: false)
@@ -334,13 +344,13 @@ import UIKit
 	}
     
     fileprivate func createLineView() {
-        
+        lineView.removeFromSuperview()
         lineView.isUserInteractionEnabled = false
         
         updateLineView()
         setNeedsDisplay()
         
-        lineView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        lineView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         addSubview(lineView)
     }
     
@@ -348,6 +358,8 @@ import UIKit
         lineView.isHidden = self.isHiddenBottomLine
         lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected,isEditing: isEditing)
         lineView.backgroundColor = self.lineColor
+        
+//        printDebug("lineView.frame: \(lineView.frame)")
     }
     
 
@@ -372,12 +384,12 @@ extension PKFloatLabelTextField {
     
     func setupTextField(placehoder: String,with symbol: String = "",foregroundColor: UIColor = AppColors.themeGray40,
                         textColor: UIColor = AppColors.themeBlack,
-                        titleTextColor: UIColor = AppColors.themeGray20,
+                        titleTextColor: UIColor = AppColors.themeGray40,//themeGray20
                         titleFont: UIFont = AppFonts.Regular.withSize(14.0),
-                        titleActiveTextColor: UIColor = AppColors.themeGreen,
+                        titleActiveTextColor: UIColor = AppColors.commonThemeGreen,
                         keyboardType: UIKeyboardType,
                         returnType: UIReturnKeyType,
-                        isSecureText: Bool) {
+                        isSecureText: Bool, placeholderColor: UIColor? = nil) {
         
         self.keyboardType       = keyboardType
         self.placeholder        = placehoder
@@ -385,11 +397,14 @@ extension PKFloatLabelTextField {
         self.isSecureTextEntry  = isSecureText
         self.returnKeyType      = returnType
         self.font           = AppFonts.Regular.withSize(18)
-        self.tintColor = AppColors.themeGreen
+        self.tintColor = AppColors.commonThemeGreen
         self.titleTextColour = titleTextColor
         self.titleFont = titleFont
         self.titleActiveTextColour = titleActiveTextColor
         let attriburedString = NSMutableAttributedString(string: placehoder)
+        if let col = placeholderColor {
+            attriburedString.addAttributes([.foregroundColor: col], range: NSRange(location: 0, length: attriburedString.length))
+        }
         let asterix = NSAttributedString(string: symbol, attributes: [.foregroundColor: foregroundColor])
         attriburedString.append(asterix)
         

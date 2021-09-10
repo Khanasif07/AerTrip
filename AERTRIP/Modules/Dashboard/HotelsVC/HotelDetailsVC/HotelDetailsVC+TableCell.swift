@@ -37,9 +37,19 @@ extension HotelDetailsVC {
     
     internal func getImageSlideCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
-        cell.imageUrls = hotelDetails.photos
+//        cell.imageUrls = hotelDetails.photos
+        cell.images = hotelDetails.atImageData
         cell.delegate = self
-        cell.configCell(imageUrls: hotelDetails.photos)
+        cell.imgDelegate = self
+//        cell.configCell(imageUrls: hotelDetails.photos)
+        cell.configureCell(with: hotelDetails.atImageData)
+        return cell
+    }
+    
+    
+    func getNoImageCell()-> UITableViewCell{
+        guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: NoImageDetailsCell.reusableIdentifier) as?  NoImageDetailsCell else {return UITableViewCell()}
+        cell.configureCell(isTAImageAvailable: !(self.viewModel.hotelInfo?.locid?.isEmpty ?? true))
         return cell
     }
     
@@ -49,6 +59,7 @@ extension HotelDetailsVC {
         if let hotelDetails = self.viewModel.hotelInfo, let placeData = self.viewModel.placeModel {
             cell.configureCell(hotelData: hotelDetails, placeData: placeData)
         }
+        cell.hideShowLoader(isHidden: !self.needToShowLoaderOnShare)
         return cell
     }
     
@@ -58,14 +69,16 @@ extension HotelDetailsVC {
         cell.addressInfoTextView.isUserInteractionEnabled = true
         cell.addressInfoTextView.isSelectable = false
         cell.addressInfoTextView.isEditable = false
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getHotelOverViewCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
-        cell.addressInfoTextView.isUserInteractionEnabled = false
-//        cell.addressInfoTextView.isSelectable = false
         cell.configureOverviewCell(hotelData: hotelDetails)
+        cell.addressInfoTextView.isUserInteractionEnabled = false
+        cell.setColorsForBooking()
+//        cell.addressInfoTextView.isSelectable = false
         return cell
     }
     
@@ -80,11 +93,13 @@ extension HotelDetailsVC {
             cell.dividerViewLeadingCons.constant = 0.0
             cell.dividerViewTrailingCons.constant = 0.0
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getTripAdviserCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell  else { return UITableViewCell() }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -105,7 +120,10 @@ extension HotelDetailsVC {
 //            cell.allTagsForFilteration = tags
 //        }
         cell.allTagsForFilteration = AppConstants.staticRoomTags
+        cell.statusBarStyle = statusBarStyle
         cell.tagCollectionView.reloadData()
+        cell.contentView.backgroundColor = AppColors.themeGray04
+        cell.searchBar.textFieldColor = AppColors.hotelsDetailSearchBarColor
         return cell
     }
     
@@ -113,7 +131,10 @@ extension HotelDetailsVC {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
         
         cell.delegate = self
-        let key = Array(roomData.keys)[indexPath.row]
+        let array = Array(roomData.keys).sorted {
+            $0.name < $1.name
+        }
+        let key = array[indexPath.row]
         let value = roomData[key]
         var isOnlyOneRoom: Bool = false
         if roomData.count == 1 && value == 1 {
@@ -133,7 +154,14 @@ extension HotelDetailsVC {
                 cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: false)
             }
         }
+        if (indexPath.section - 2) == 0 && indexPath.row == 0 {
+            cell.shadowViewTopConstraint.constant = 12
+        } else {
+            cell.shadowViewTopConstraint.constant = cell.shadowViewTopConstraint.constant == 0.0 ? 0.0 : 8.0
+        }
+        
         cell.clipsToBounds = true
+        cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
         return cell
     }
     
@@ -142,11 +170,13 @@ extension HotelDetailsVC {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureCell(ratesData: ratesData)
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         } else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureCell(ratesData: ratesData)
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -154,9 +184,16 @@ extension HotelDetailsVC {
     
     internal func otherInclusionCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         if let otherInclusion =  ratesData.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusion.isEmpty {
+            var isInclusionPresent = false
+            if let boardInclusion =  ratesData.inclusion_array[APIKeys.boardType.rawValue] as? [String], !boardInclusion.isEmpty {
+                isInclusionPresent = true
+            }else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
+                isInclusionPresent = true
+            }
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
-            cell.configureOtherInclusionCell(otherInclusion: otherInclusion)
+            cell.configureOtherInclusionCell(otherInclusion: otherInclusion,isInclusionPresent: isInclusionPresent)
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -169,7 +206,7 @@ extension HotelDetailsVC {
             cell.delegate = self
             if self.allIndexPath.contains(indexPath) {
                 cell.allDetailsLabel.isHidden = false
-                cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)?.trimWhiteSpace()
+                cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)//?.trimWhiteSpace()
 //                cell.infoBtnOutlet.isHidden = false
             }
             else {
@@ -178,6 +215,7 @@ extension HotelDetailsVC {
                 cell.allDetailsLabel.attributedText = nil
             }
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -198,6 +236,7 @@ extension HotelDetailsVC {
             cell.infoBtnOutlet.isHidden = false
         }
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
         return cell
     }
     
@@ -219,6 +258,7 @@ extension HotelDetailsVC {
                // cell.moreBtnOutlet.isHidden = false
             }
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -227,8 +267,9 @@ extension HotelDetailsVC {
     internal func getCheckOutCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsCheckOutTableViewCell", for: indexPath) as? HotelDetailsCheckOutTableViewCell  else { return nil }
         cell.shadowViewBottomConstraints.constant = (indexPath.section  == self.viewModel.hotelDetailsTableSectionData.count - 1 ) ? 16.0 : 8.0
-        cell.hotelFeesLabel.text = ratesData.price.amountInDelimeterWithSymbol
-        cell.clipsToBounds = true
+        cell.hotelFeesLabel.attributedText = ratesData.price.getConvertedAmount(using: AppFonts.SemiBold.withSize(20))
+//        cell.hideShowLoader(isHidden: self.viewModel.isBookLoaderHidden)
+        //cell.clipsToBounds = true
         return cell
     }
     

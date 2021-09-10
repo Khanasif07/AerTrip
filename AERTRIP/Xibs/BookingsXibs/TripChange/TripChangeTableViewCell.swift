@@ -15,6 +15,14 @@ class TripChangeTableViewCell: ATTableViewCell {
     @IBOutlet weak var tripTitleLabel: UILabel!
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var changeButton: UIButton!
+    @IBOutlet weak var viewBottomContraint: NSLayoutConstraint!
+    @IBOutlet weak var cellHeightConstraints: NSLayoutConstraint!
+    
+    var hideBottomSpace = false {
+        didSet {
+            self.updateBottomConstraint()
+        }
+    }
     
     override func doInitialSetup() {
         self.tripChangeImageView.tintColor = AppColors.brightViolet
@@ -28,10 +36,11 @@ class TripChangeTableViewCell: ATTableViewCell {
     
     override func setupColors() {
         self.tripChangeImageView.tintColor = AppColors.brightViolet
-        self.tripTitleLabel.textColor = AppColors.themeGray40
+        self.tripTitleLabel.textColor = AppColors.themeGray153
         self.tripNameLabel.textColor = AppColors.textFieldTextColor51
         self.changeButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.changeButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     override func setupTexts() {
@@ -42,5 +51,13 @@ class TripChangeTableViewCell: ATTableViewCell {
     
     func configureCell(tripName: String) {
         self.tripNameLabel.text = tripName
+    }
+    
+    private func updateBottomConstraint() {
+        let bottomConstant: CGFloat = hideBottomSpace ? 0 : 21
+        if viewBottomContraint.constant != bottomConstant {
+            viewBottomContraint.constant = bottomConstant
+            self.contentView.layoutIfNeeded()
+        }
     }
 }

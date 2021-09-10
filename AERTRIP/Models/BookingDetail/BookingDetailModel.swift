@@ -8,6 +8,12 @@
 import Foundation
 
 struct BookingDetailModel {
+    
+    enum BookingStatusType: String {
+        case pending
+        case booked
+    }
+    
     var id: String = ""
     var bookingNumber: String = ""
     var bookingDate: Date?
@@ -22,10 +28,12 @@ struct BookingDetailModel {
     var itineraryId: String = ""
     var cases: [Case] = []
     var receipt: Receipt?
+    var shareUrl : String = ""
+
     
     var totalAmountPaid: Double = 0.0
     var vCode: String = ""
-    var bookingStatus: String = ""
+    //var bookingStatus: String = ""
     var documents: [DocumentDownloadingModel] = []
     var tripInfo: TripInfo?
     var additionalInformation: AdditionalInformation?
@@ -39,6 +47,11 @@ struct BookingDetailModel {
     var tripWeatherData: [WeatherInfo] = []
     var weatherDisplayedWithin16Info: Bool = false
     var frequentFlyerData: [FrequentFlyerData] = []
+    var displaySeatMap:Bool = false
+    var bookingStatus: BookingStatusType = .pending
+    var bookinAddons:[BookingAddons]?
+    var bookingCurrencyRate:CurrencyConversionRate?
+
     var jsonDict: JSONDictionary {
         return [:]
     }
@@ -47,7 +60,13 @@ struct BookingDetailModel {
         self.init(json: [:])
     }
     
-    init(json: JSONDictionary) {
+    init(json: JSONDictionary)
+    {
+        if let obj = json["search_url"]
+        {
+            self.shareUrl = "\(obj)".removeNull
+        }
+
         if let obj = json["id"] {
             self.id = "\(obj)".removeNull
         }
@@ -94,11 +113,14 @@ struct BookingDetailModel {
             self.user = obj
         }
         
-        // M
-        if let obj = json["receipt"] as? JSONDictionary {
-            self.receipt = Receipt(json: obj, bookingId: self.id)
+        if let obj = json["display_seat_map"] as? Bool {
+            self.displaySeatMap = obj
         }
-        
+//        // M
+//        if let obj = json["receipt"] as? JSONDictionary {
+//            self.receipt = Receipt(json: obj, bookingId: self.id)
+//        }
+//
         if let obj = json["total_amount_paid"] {
             self.totalAmountPaid = "\(obj)".toDouble ?? 0.0
         }
@@ -120,10 +142,14 @@ struct BookingDetailModel {
         if let obj = json["billing_info"] as? JSONDictionary {
             self.billingInfo = BillingDetail(json: obj)
         }
+        //Currency rate
+        if let bookingCurrency = json["booking_currency_rate"] as? JSONDictionary{
+            self.bookingCurrencyRate = CurrencyConversionRate(json: bookingCurrency)
+        }
 
         // receipt
         if let obj = json["receipt"] as? JSONDictionary {
-            self.receipt = Receipt(json: obj, bookingId: self.id)
+            self.receipt = Receipt(json: obj, bookingId: self.id, currencyRate: self.bookingCurrencyRate)
         }
         
         if let obj = json["addon_request_allowed"] {
@@ -177,20 +203,46 @@ struct BookingDetailModel {
 //
 //            ]
             self.weatherInfo = WeatherInfo.getModels(json: obj)
+            let filtered = self.weatherInfo.filter({$0.maxTemperature != nil || $0.minTemperature != nil || $0.temperature != nil})
+            if filtered.count == 0{
+                self.weatherInfo = []
+            }
+
         }
         
-        if self.product == "flight" {
-            for leg in self.bookingDetail?.leg ?? [] {
-                for flight in leg.flight {
-                    var weather = WeatherInfo()
-                    weather.date = flight.departDate
-                    weather.city = flight.departCity
-                    weather.countryCode = flight.departureCountryCode
-                    self.tripWeatherData.append(weather)
-                }
-            }
+        if self.product.lowercased() == "flight" {
+            
             
             if !self.weatherInfo.isEmpty {
+                
+                for leg in self.bookingDetail?.leg ?? [] {
+                    for flight in leg.flight {
+                        var departureWeather = WeatherInfo()
+                        departureWeather.date = flight.departDate
+                        departureWeather.city = flight.departCity
+                        departureWeather.countryCode = flight.departureCountryCode
+                        if let lastWeather = self.tripWeatherData.last {
+                            if lastWeather.city != departureWeather.city || !(lastWeather.date ?? Date()).isEqualTo((departureWeather.date ?? Date())) {
+                                self.tripWeatherData.append(departureWeather)
+                            }
+                        } else {
+                            self.tripWeatherData.append(departureWeather)
+                        }
+                        
+                        var arrivalWeather = WeatherInfo()
+                        arrivalWeather.date = flight.arrivalDate
+                        arrivalWeather.city = flight.arrivalCity
+                        arrivalWeather.countryCode = flight.arrivalCountryCode
+                        if let lastWeather = self.tripWeatherData.last {
+                            if lastWeather.city != arrivalWeather.city || !(lastWeather.date ?? Date()).isEqualTo((arrivalWeather.date ?? Date())) {
+                                self.tripWeatherData.append(arrivalWeather)
+                            }
+                        } else {
+                            self.tripWeatherData.append(arrivalWeather)
+                        }
+                    }
+                }
+                
                 for (_, weatherInfoData) in self.weatherInfo.enumerated() {
                     for (j, weatherTripInfoData) in self.tripWeatherData.enumerated() {
                         if weatherInfoData.date?.isEqualTo(weatherTripInfoData.date ?? Date()) ?? false, weatherInfoData.countryCode == weatherTripInfoData.countryCode, weatherInfoData.city == weatherTripInfoData.city {
@@ -201,22 +253,24 @@ struct BookingDetailModel {
             }
             
             for tripWeatherData in self.tripWeatherData {
-                if tripWeatherData.minTemperature == 0 || tripWeatherData.maxTemperature == 0 {
+                if tripWeatherData.minTemperature == nil || tripWeatherData.maxTemperature == nil {
                     self.weatherDisplayedWithin16Info = true
                     break
                 }
             }
         }
         else {
-            // set trip Weather Data for Hotel
-            let datesBetweenArray = Date.dates(from: self.bookingDetail?.checkIn ?? Date(), to: self.bookingDetail?.checkOut ?? Date())
-            for date in datesBetweenArray {
-                var weatherInfo = WeatherInfo()
-                weatherInfo.date = date
-                self.tripWeatherData.append(weatherInfo)
-            }
+            
             
             if !self.weatherInfo.isEmpty {
+                // set trip Weather Data for Hotel
+                let datesBetweenArray = Date.dates(from: self.bookingDetail?.checkIn ?? Date(), to: self.bookingDetail?.checkOut ?? Date())
+                for date in datesBetweenArray {
+                    var weatherInfo = WeatherInfo()
+                    weatherInfo.date = date
+                    self.tripWeatherData.append(weatherInfo)
+                }
+                
                 for (_, weatherInfoData) in self.weatherInfo.enumerated() {
                     for (j, weatherTripInfoData) in self.tripWeatherData.enumerated() {
                         if weatherInfoData.date == weatherTripInfoData.date {
@@ -227,11 +281,18 @@ struct BookingDetailModel {
             }
             
             for tripWeatherData in self.tripWeatherData {
-                if tripWeatherData.temperature == 0 {
+                if tripWeatherData.temperature == nil {
                     self.weatherDisplayedWithin16Info = true
                     break
                 }
             }
+        }
+        
+        if let bookingStatus = json[APIKeys.bstatus.rawValue]{
+            self.bookingStatus = BookingStatusType(rawValue: "\(bookingStatus)".removeNull) ?? .pending
+        }
+        if let addons = json["booking_addons"]{
+            self.bookinAddons = JSON(addons).arrayValue.map({BookingAddons($0, leg: self.bookingDetail?.leg.first)})
         }
     }
     
@@ -293,7 +354,7 @@ extension BookingDetailModel {
             let temp = getNormalString(forArr: tripCts)
             return NSMutableAttributedString(string: temp)
         }
-        else if self.isReturnFlight(forArr: tripCts) {
+        else if self.tripType.lowercased() == "return" {//self.isReturnFlight(forArr: tripCts)
             // return flight case
             let temp = getReturnString(forArr: tripCts)
             return NSMutableAttributedString(string: temp)
@@ -309,41 +370,60 @@ extension BookingDetailModel {
                     return NSMutableAttributedString(string: temp)
                 }
                 else {
-                    var routeStr = ""
-                    var travLastIndex: Int = 0
-                    var prevCount: Int = 0
-                    for route in routes {
-                        var temp = route.joined(separator: " → ")
-                        
-                        if !routeStr.isEmpty {
-                            temp = ", \(temp)"
-                        }
-                        
-                        for (idx, ct) in route.enumerated() {
-                            let newIdx = idx + prevCount
-                            if travledCity.count > newIdx, travledCity[newIdx] == ct {
-                                //travelled through this city
-                                var currentCityTemp = " \(ct) →"
-                                if !routeStr.isEmpty, idx == 0 {
-                                    currentCityTemp = ", \(ct) →"
-                                }
-                                travLastIndex = routeStr.count + currentCityTemp.count
-                            }
-                        }
-                        routeStr += temp
-                        prevCount = route.count
-                    }
-                    
-                    let attributedStr1 = NSMutableAttributedString(string: routeStr)
-                    if travLastIndex > 0 {
-                        attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex + 2))
-                    }
-                    return attributedStr1
+                    return self.createNameForMulticity(routes: routes, travelledCity: travledCity)
                 }
             }
             return NSMutableAttributedString(string: LocalizedString.dash.localized)
         }
     }
+    
+    func createNameForMulticity(routes: [[String]], travelledCity:[String]) -> NSMutableAttributedString{
+        
+//        let routes = self.bookingDetail?.routes ?? []
+        var routeStr = ""
+        var grayString = ""
+        
+        for route in routes{
+            if routeStr.isEmpty{
+                routeStr += route.joined(separator: " → ")
+            }else{
+                routeStr += ", \(route.joined(separator: " → "))"
+            }
+        }
+        
+        var totalCityCount = 0
+        
+        for (upperIndex, route) in routes.enumerated(){
+            var newRoutes = route
+            if upperIndex != 0{
+                totalCityCount += routes[upperIndex - 1].count - 1
+            }
+            newRoutes.removeLast()
+            for (index, _) in newRoutes.enumerated(){
+                let travelledCityIndex = index + totalCityCount
+                if travelledCity.count > travelledCityIndex{
+                    grayString += "\(travelledCity[travelledCityIndex]) → "
+                    if (index == newRoutes.count - 1){
+                        if (upperIndex != (routes.count - 1)){
+                            grayString += "\(route.last ?? ""), "
+                        }else{
+                            grayString += "\(route.last ?? "")"
+                        }
+                    }
+                }else{
+                    continue
+                }
+            }
+        }
+        let attributedStr1 = NSMutableAttributedString(string: routeStr)
+        if grayString != routeStr{
+            let range = NSString(string: routeStr).range(of: grayString)
+            attributedStr1.addAttributes([.foregroundColor: AppColors.themeGray20], range: range)
+        }
+        return attributedStr1
+    }
+    
+    
     
     /*
      Loop through the vouchers array, consider the object that has
@@ -352,15 +432,25 @@ extension BookingDetailModel {
      */
     
     var bookingPrice: Double {
-        let price: Double = 0.0
+        var price: Double = 0.0
         // TODO: Recheck all price logic as transaction key not coming
-//        for voucher in self.receipt?.voucher ?? [] {
-//            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
-//                price = totalTran.amount
-//                break
-//            }
-//        }
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
+                price = totalTran.amount
+                break
+            }
+        }
         return price
+    }
+    
+    
+    var bookingPriceCurrency: CurrencyConversionRate? {
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value {
+                return voucher.basic?.currencyRate
+            }
+        }
+        return nil
     }
     
     /*
@@ -378,6 +468,15 @@ extension BookingDetailModel {
             }
         }
         return price
+    }
+    
+    var addOnCurrency: CurrencyConversionRate? {
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.salesAddon.value {
+                return voucher.basic?.currencyRate
+            }
+        }
+        return nil
     }
     
     /*
@@ -398,6 +497,27 @@ extension BookingDetailModel {
         return price
     }
     
+    
+    var cancellationChargeAmount: Double {
+        var price: Double = 0.0
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReturn.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "cancellation charges" }).first {
+                price += totalTran.amount
+            }
+        }
+        return price
+    }
+    
+    
+    var cancellationCurrency: CurrencyConversionRate? {
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReturn.value {
+                return voucher.basic?.currencyRate
+            }
+        }
+        return nil
+    }
+    
     // TODO: Reschedule Amount Not coming in the Api , Already inform the same to Yash
     
     /*
@@ -410,19 +530,39 @@ extension BookingDetailModel {
     var rescheduleAmount: Double {
         var price: Double = 0.0
         for voucher in self.receipt?.voucher ?? [] {
-            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReschedule.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReschedule.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "rescheduling charges" }).first {
                 price += totalTran.amount
             }
         }
         return price
     }
     
+    
+    var rescheduleChargeAmount: Double {
+        var price: Double = 0.0
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReschedule.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "rescheduling charges" }).first {
+                price += totalTran.amount
+            }
+        }
+        return price
+    }
+    
+    var reschedulingCurrency: CurrencyConversionRate? {
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReschedule.value {
+                return voucher.basic?.currencyRate
+            }
+        }
+        return nil
+    }
+    
     // Paid :
     // Total_amount_paid
     
     var paid: Double {
-      //  return self.totalAmountPaid
-        return 0.0
+        return self.totalAmountPaid
+//        return 0.0
     }
     
     // Refund Amount: Total of cancellations + Total of Reschedules
@@ -450,46 +590,73 @@ extension BookingDetailModel {
 //    Total cost of booking - Total amount received
     
     var totalOutStanding: Double {
-//        return self.receipt?.totalAmountDue ?? 0.0
-        return 0.0
+        return self.receipt?.totalAmountDue ?? 0.0
+//        return 0.0
     }
     
     // Web checking url
     
     var webCheckinUrl: String {
         if let legs = self.bookingDetail?.leg, let index = legs.firstIndex(where: { $0.completed == 0 }) {
-            return (index < (self.additionalInformation?.webCheckins.count ?? 0)) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
-        }
-        else {
-            // TODO: - handeling for hotels
-            return self.additionalInformation?.webCheckins.first ?? ""
-            if self.bookingDetail?.journeyCompleted == 1 {
-                return ""
+            
+            var departDateTimeStr = ""
+            if let departDate = self.bookingDetail?.leg.first?.flight.first?.departDate{
+                let inputFormatter = DateFormatter()
+                inputFormatter.dateFormat = "dd-MM-yyyy"
+                departDateTimeStr = inputFormatter.string(from: departDate)
             }
-            else {
-                if let index = self.bookingDetail?.leg.firstIndex(where: { (result) -> Bool in
-                    result.completed == 0
-                }) {
-                    if index < self.additionalInformation?.webCheckins.count ?? 0 {
-                        return self.additionalInformation?.webCheckins[index] ?? ""
-                    }
-                    else {
-                        return ""
-                    }
+            
+            if let departureTime = self.bookingDetail?.leg.first?.flight.first?.departureTime{
+                departDateTimeStr.append(" \(departureTime)")
+            }
+
+
+            let inputFormatter = DateFormatter()
+            inputFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+            let currDateTimeStr = inputFormatter.string(from: Date())
+
+            if let currDate = inputFormatter.date(from:currDateTimeStr), let depDate = inputFormatter.date(from:departDateTimeStr)
+            {
+                if depDate.isSmallerThan(currDate)  || depDate.isEqualTo(currDate){
+                    return ""
+                }else{
+                    return (index < (self.additionalInformation?.webCheckins.count ?? 0)) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
                 }
-                return ""
+            }else{
+                return (index < (self.additionalInformation?.webCheckins.count ?? 0)) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
             }
         }
+        return ""
     }
     
     var frequentFlyerDatas: [FrequentFlyerData] {
         var temp: [FrequentFlyerData] = []
+        let totalFlight = (self.bookingDetail?.leg ?? []).flatMap({$0.flight})
+        let pax = (self.bookingDetail?.leg ?? []).first?.pax ?? []
         
-        for leg in self.bookingDetail?.leg ?? [] {
-            for pax in leg.pax {
-                temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
+        for px in pax{
+            var newFF = FrequentFlyerData(passenger: px, flights: [])
+            for flight in totalFlight{
+                if !newFF.flights.contains(where: {$0.carrier == flight.carrier}){
+                    newFF.flights.append(flight)
+                }
             }
+            temp.append(newFF)
         }
+        
+//        for leg in self.bookingDetail?.leg ?? [] {
+//            for pax in leg.pax {
+//                // need to remove duplicates
+//                if !temp.contains(where: { (object) -> Bool in
+//                    if  pax.paxId == object.passenger?.paxId {
+//                        return true
+//                    }
+//                    return false
+//                }) {
+//                    temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
+//                }
+//            }
+//        }
         
         return temp
     }
@@ -500,7 +667,7 @@ struct BookingDetail {
     var travelledCities: [String] = []
     var disconnected: Bool = false
     var routes: [[String]] = [[]]
-    var leg: [Leg] = []
+    var leg: [BookingLeg] = []
     
     var journeyCompleted: Int = 0
     var travellers: [Traveller] = []
@@ -525,7 +692,7 @@ struct BookingDetail {
     var photos: [String] = []
     var amenitiesGroups: [String: Any] = [:]
     var amenities: Amenities?
-    var info: String = ""
+    var overview: String = ""
     var taLocationID: String = ""
     var website: String = ""
     var city: String = ""
@@ -549,8 +716,9 @@ struct BookingDetail {
     var eventStartDate: Date?
     var eventEndDate: Date?
     
-    
+    var amenities_group_order: [String : String] = [:]
     var bookingId: String = ""
+    var atImageData = [ATGalleryImage]()
     
     init() {
         self.init(json: [:], bookingId: "")
@@ -625,12 +793,6 @@ struct BookingDetail {
             self.hotelEmail = "\(obj)".removeNull
         }
         
-        if let obj = json["photos"] as? [String] {
-            self.photos = obj
-        }
-        
-     
-        
         if let jsonData = json[APIKeys.amenities_group.rawValue] as? JSONDictionary {
             self.amenitiesGroups = jsonData
         }
@@ -640,8 +802,8 @@ struct BookingDetail {
             self.amenities = Amenities.getAmenitiesData(response: obj)
         }
         
-        if let obj = json["info"] {
-            self.info = "\(obj)".removeNull
+        if let obj = json["overview"] {
+            self.overview = "\(obj)".removeNull
         }
         
         if let obj = json["ta_location_id"] {
@@ -660,6 +822,14 @@ struct BookingDetail {
         }
         if let obj = json["hotel_img"] {
             self.hotelImage = "\(obj)".removeNull
+        }
+        if let obj = json["photos"] as? [String] {
+            self.photos = obj + [self.hotelImage]
+            self.atImageData = self.photos.map{img in
+                var imgData = ATGalleryImage()
+                imgData.imagePath = img
+                return imgData
+            }
         }
         if let obj = json["hotel_star_rating"] {
             self.hotelStarRating = "\(obj)".toDouble ?? 0.0
@@ -732,7 +902,7 @@ struct BookingDetail {
         
         // leg parsing
         if let obj = json["leg"] as? [JSONDictionary] {
-            self.leg = Leg.getModels(json: obj, eventStartDate: self.eventStartDate, bookingId: bookingId)
+            self.leg = BookingLeg.getModels(json: obj, eventStartDate: self.eventStartDate, bookingId: bookingId)
         }
         
         if let obj = json["journey_completed"] {
@@ -751,6 +921,10 @@ struct BookingDetail {
         
         if let obj = json["event_end_date"] {
             self.eventEndDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        if let obj = json[APIKeys.amenities_group_order.rawValue] as? [String : String] {
+            self.amenities_group_order = obj
         }
     }
     
@@ -771,8 +945,8 @@ struct BookingDetail {
     
     var websiteDetail: String {
 //        return self.website.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.website
-        return self.website
-
+        
+        return (self.website != "somedummywebsite.com") ? self.website : ""
     }
     
     // Phone Details
@@ -785,8 +959,8 @@ struct BookingDetail {
     // Over view Details
     
     var overViewData: String {
-//        return self.info.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.info
-         return self.info
+//        return self.overview.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.info
+         return self.overview
     }
     
     // hotel Address
@@ -810,9 +984,9 @@ struct BookingDetail {
     }
 }
 
-// MARK: - Leg ,Flight and pax Details
+// MARK: - BookingLeg ,Flight and pax Details
 
-struct Leg {
+struct BookingLeg {
     var legId: String = ""
     var origin: String = ""
     var destination: String = ""
@@ -821,7 +995,7 @@ struct Leg {
     var refundable: Int = 0
     var reschedulable: Int = 0
     var fareName: String = ""
-    var flight: [FlightDetail] = []
+    var flight: [BookingFlightDetail] = []
     var halts: String = ""
     var pax: [Pax] = []
     var completed: Int = 0
@@ -835,6 +1009,10 @@ struct Leg {
     var selectedPaxs: [Pax] = [] //used while selecting paxes for rescheduling/cancelltaion request
     
     var bookingId: String = ""
+    
+    //For book same flight
+    var parentOrigin:String = ""
+    var parentDestination:String = ""
     
     init() {}
     
@@ -871,7 +1049,7 @@ struct Leg {
         
         // other parsing
         if let obj = json["flights"] as? [JSONDictionary] {
-            self.flight = FlightDetail.getModels(json: obj)
+            self.flight = BookingFlightDetail.getModels(json: obj)
         }
         
         if let obj = json["pax"] as? [JSONDictionary] {
@@ -889,6 +1067,13 @@ struct Leg {
         if let obj = json["apc"] {
             self.apc = "\(obj)".removeNull
         }
+        if let obj = json["parent_origin"] {
+            self.parentOrigin = "\(obj)".removeNull
+        }
+        
+        if let obj = json["parent_destination"] {
+            self.parentDestination = "\(obj)".removeNull
+        }
     }
     
     var flightNumbers: [String] {
@@ -904,7 +1089,7 @@ struct Leg {
     }
     
     var cabinClass: String {
-        return self.flight.map { $0.cabinClass }.joined(separator: ",")
+        return self.flight.map { $0.cabinClass }.removeDuplicates().joined(separator: ", ")
     }
     
     var legDuration: Double {
@@ -928,12 +1113,12 @@ struct Leg {
         return self.flight.count - 1 + self.haltCount
     }
     
-    static func getModels(json: [JSONDictionary], eventStartDate: Date?, bookingId: String) -> [Leg] {
-        return json.map { Leg(json: $0, eventStartDate: eventStartDate, bookingId: bookingId) }
+    static func getModels(json: [JSONDictionary], eventStartDate: Date?, bookingId: String) -> [BookingLeg] {
+        return json.map { BookingLeg(json: $0, eventStartDate: eventStartDate, bookingId: bookingId) }
     }
 }
 
-struct FlightDetail {
+struct BookingFlightDetail {
     var flightId: String = ""
     var departure: String = ""
     var departureAirport: String = ""
@@ -973,8 +1158,12 @@ struct FlightDetail {
     var changeOfPlane: Int = 0
     var bookingClass: String = ""
     var fbn: String = ""
+    var cc: String = ""
+    var bc: String = ""
     var halt: [Halt] = []
     var amenities: [ATAmenity] = []
+    var ovgtf:Bool = false
+    var ovgtlo:Bool = false
     var numberOfCellFlightInfo: Int {
         var temp: Int = 2
         
@@ -983,7 +1172,9 @@ struct FlightDetail {
         }
         
         if self.layoverTime > 0 {
+//            if ovgtlo {
             temp += 1
+//            }
         }
         return temp
     }
@@ -1008,11 +1199,13 @@ struct FlightDetail {
         }
         
         if self.layoverTime > 0 {
-            temp += 1
+            if ovgtlo {
+                temp += 1
+            }
         }
         
         if let nt = self.baggage?.checkInBg?.notes, !nt.isEmpty {
-            temp += 1
+            //temp += 1
         }
         
         return temp
@@ -1029,6 +1222,9 @@ struct FlightDetail {
         }
         return total
     }
+    var calendarDepartDate: Date?
+    var calendarArivalDate: Date?
+
     
     init() {
         self.init(json: [:])
@@ -1070,6 +1266,16 @@ struct FlightDetail {
         
         if let obj = json["departure_time"] {
             self.departureTime = "\(obj)".removeNull
+        }
+        
+        if  let date = json["depart_date"], let time = json["departure_time"]{
+            // "2019-02-01"
+            self.calendarDepartDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm")
+        }
+        
+        if  let date = json["arrival_date"], let time = json["arrival_time"]{
+            // "2019-02-01"
+            self.calendarArivalDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
         if let obj = json["arrival"] {
@@ -1169,6 +1375,14 @@ struct FlightDetail {
             self.fbn = "\(obj)".removeNull
         }
         
+        if let obj = json["cabin_class"] {
+            self.cc = "\(obj)".removeNull
+        }
+        
+        if let obj = json["booking_class"] {
+            self.bc = "\(obj)".removeNull
+        }
+        
         // Parse the halt data
         if let obj = json["halt"] as? [JSONDictionary] {
             self.halt = Halt.getModels(json: obj)
@@ -1178,13 +1392,20 @@ struct FlightDetail {
         if let obj = json["baggage"] as? JSONDictionary {
             self.baggage = Baggage(json: obj)
         }
+        if let obj = json["ovgtf"] as? Bool{
+            self.ovgtf = obj
+        }
+        
+        if let obj = json["ovgtlo"] as? Bool{
+            self.ovgtlo = obj
+        }
         
         // TODO: parse the real data for amenities
         self.amenities = [ATAmenity.Wifi, ATAmenity.Gym, ATAmenity.Internet, ATAmenity.Pool, ATAmenity.RoomService]
     }
     
-    static func getModels(json: [JSONDictionary]) -> [FlightDetail] {
-        return json.map { FlightDetail(json: $0) }
+    static func getModels(json: [JSONDictionary]) -> [BookingFlightDetail] {
+        return json.map { BookingFlightDetail(json: $0) }
     }
     
     // computed
@@ -1203,7 +1424,7 @@ struct FlightDetail {
             finalStr += "\n\(self.equipmentLayout)"
         }
         
-        return finalStr + " >"
+        return finalStr //+ " >"
     }
 }
 
@@ -1266,9 +1487,9 @@ struct Baggage {
 
 // Structure for baggage
 struct CheckInBg {
-    var infant: String?
-    var child: String?
-    var adult: String?
+    var infant: BaggageInfo?
+    var child: BaggageInfo?
+    var adult: BaggageInfo?
     var notes: String = ""
     
     init() {
@@ -1276,16 +1497,16 @@ struct CheckInBg {
     }
     
     init(json: JSONDictionary) {
-        if let obj = json["ADT"] {
-            self.adult = "\(obj)".removeNull
+        if let obj = json["ADT"] as? JSONDictionary {
+            self.adult = BaggageInfo(json: obj)
         }
         
-        if let obj = json["CHD"] {
-            self.child = "\(obj)".removeNull
+        if let obj = json["CHD"] as? JSONDictionary {
+            self.child = BaggageInfo(json: obj)
         }
         
-        if let obj = json["INF"] {
-            self.infant = "\(obj)".removeNull
+        if let obj = json["INF"] as? JSONDictionary {
+            self.infant = BaggageInfo(json: obj)
         }
         
         if let obj = json["notes"] {
@@ -1297,9 +1518,9 @@ struct CheckInBg {
 // Structure for Cbg
 
 struct CabinBg {
-    var infant: CabinBgInfo?
-    var child: CabinBgInfo?
-    var adult: CabinBgInfo?
+    var infant: BaggageInfo?
+    var child: BaggageInfo?
+    var adult: BaggageInfo?
     
     init() {
         self.init(json: [:])
@@ -1307,24 +1528,27 @@ struct CabinBg {
     
     init(json: JSONDictionary) {
         if let obj = json["ADT"] as? JSONDictionary {
-            self.adult = CabinBgInfo(json: obj)
+            self.adult = BaggageInfo(json: obj)
         }
         
         if let obj = json["CHD"] as? JSONDictionary {
-            self.child = CabinBgInfo(json: obj)
+            self.child = BaggageInfo(json: obj)
         }
         
         if let obj = json["INF"] as? JSONDictionary {
-            self.infant = CabinBgInfo(json: obj)
+            self.infant = BaggageInfo(json: obj)
         }
     }
 }
 
-struct CabinBgInfo {
+struct BaggageInfo {
     var weight: String = ""
     var piece: String = "" // Now its coming as null, what does this mean
+    var maxPieces: String = ""
+    var maxWeight: String = ""
+    var note: String = ""
     var dimension: Dimension?
-    
+
     init() {
         self.init(json: [:])
     }
@@ -1333,10 +1557,18 @@ struct CabinBgInfo {
         if let obj = json["weight"] {
             self.weight = "\(obj)".removeNull
         }
-        
-        if let obj = json["piece"] {
+        if let obj = json["pieces"] {
             self.piece = "\(obj)".removeNull
-            self.piece = self.piece.isEmpty ? "1" : self.piece
+//            self.piece = self.piece.isEmpty ? "1" : self.piece
+        }
+        if let obj = json["max_weight"] {
+            self.maxWeight = "\(obj)".removeNull
+        }
+        if let obj = json["max_pieces"] {
+            self.maxPieces = "\(obj)".removeNull
+        }
+        if let obj = json["note"] {
+            self.note = "\(obj)".removeNull
         }
         
         if let obj = json["dimension"] as? JSONDictionary {
@@ -1347,6 +1579,8 @@ struct CabinBgInfo {
 
 struct Dimension {
     var cm: CM?
+    var inch: CM?
+    var weight = ""
     
     init() {
         self.init(json: [:])
@@ -1355,6 +1589,12 @@ struct Dimension {
     init(json: JSONDictionary) {
         if let obj = json["cm"] as? JSONDictionary {
             self.cm = CM(json: obj)
+        }
+        if let inch = json["in"] as? JSONDictionary{
+            self.inch = CM(json: inch)
+        }
+        if let weight = json["weight"]{
+            self.weight = "\(weight)".removeNull
         }
     }
 }
@@ -1441,8 +1681,8 @@ struct BillingDetail {
         }
         
         if let obj = json["gst"] {
-            self.gst = !"\(obj)".removeNull.isEmpty ? "\(obj)" : "-"
-            self.gst = self.gst.isEmpty ? LocalizedString.dash.localized : self.gst
+            self.gst = !"\(obj)".removeNull.isEmpty ? "\(obj)" : ""
+            //self.gst = self.gst.isEmpty ? LocalizedString.dash.localized : self.gst
         }
         
         if let obj = json["address"] as? JSONDictionary {
@@ -1533,7 +1773,7 @@ struct Pax {
     var ticket: String = ""
     var pnr: String = ""
     var addOns: AddOns?
-    var flight: [FlightDetail] = []
+    var flight: [BookingFlightDetail] = []
     var inProcess: Bool = false
     var profileImage: String = ""
     var seat: String = ""
@@ -1543,14 +1783,15 @@ struct Pax {
     var seatPreferences: String = ""
     var mealPreferenes: String = ""
     var dob: String = ""
+    var reversalMFPax:Double = 0.0
 
     
     var netRefundForReschedule: Double {
-        return self.amountPaid - self.rescheduleCharge
+        return self.amountPaid - (self.rescheduleCharge > 0 ? self.rescheduleCharge : 0)
     }
     
     var netRefundForCancellation: Double {
-        return self.amountPaid - self.cancellationCharge
+        return self.amountPaid - (self.cancellationCharge > 0 ? self.cancellationCharge : 0 )
     }
     
     var fullNameWithSalutation: String {
@@ -1563,7 +1804,7 @@ struct Pax {
 //    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
     
     var _pnr: String {
-        return self.pnr.isEmpty ? LocalizedString.dash.localized : self.pnr + "-" + self.status
+        return self.pnr.isEmpty ? (self.status.lowercased() == "pending" ? self.status.capitalized : LocalizedString.dash.localized ): self.pnr + "-" + self.status
     }
     
     var _seat: String {
@@ -1616,6 +1857,7 @@ struct Pax {
         return "\(self.salutation) \(self.paxName)"
     }
     
+    
     var detailsToShow: JSONDictionary {
         var temp = JSONDictionary()
         
@@ -1627,6 +1869,15 @@ struct Pax {
         temp["5Meal Preferences"] = self._mealPreferences
         temp["6Baggage"] = self._baggage
         temp["7Others"] = self._others
+        //temp["8Frequent Flyer"] = self._ff
+        
+        var objectIndex = 8
+        if let obj = self.addOns?.ff, !obj.isEmpty {
+            obj.forEach { (ff) in
+                temp["\(objectIndex)Frequent Flyer"] = ff
+                objectIndex += 1
+            }
+        }
         
         return temp
     }
@@ -1634,17 +1885,17 @@ struct Pax {
     var salutationImage: UIImage {
         switch self.salutation {
         case "Mrs":
-            return #imageLiteral(resourceName: "woman")
+            return AppImages.woman
         case "Mr":
-            return #imageLiteral(resourceName: "man")
+            return AppImages.man
         case "Mast":
-            return #imageLiteral(resourceName: "man")
+            return AppImages.man
         case "Miss":
-            return #imageLiteral(resourceName: "girl")
+            return AppImages.girl
         case "Ms":
-            return #imageLiteral(resourceName: "woman")
+            return AppImages.woman
         default:
-            return #imageLiteral(resourceName: "person")
+            return AppImages.person
         }
     }
     
@@ -1709,7 +1960,9 @@ struct Pax {
         if let obj = json["dob"] {
             self.dob = "\(obj)".removeNull
         }
-        
+        if let obj = json["reversalMF_pax"]{
+            self.reversalMFPax = "\(obj)".toDouble ?? 0.0
+        }
     }
     
     static func getModels(json: [JSONDictionary]) -> [Pax] {
@@ -1831,12 +2084,14 @@ struct Receipt {
     
     var totalAmountDue: Double = 0.0
     var totalAmountPaid: Double = 0.0
+    var reversalMF:Double = 0.0
+    var currencyRate: CurrencyConversionRate?
     
     init() {
-        self.init(json: [:], bookingId: "")
+        self.init(json: [:], bookingId: "", currencyRate: nil)
     }
     
-    init(json: JSONDictionary, bookingId: String) {
+    init(json: JSONDictionary, bookingId: String, currencyRate:CurrencyConversionRate?) {
         if let obj = json["total_amount_due"] {
             self.totalAmountDue = "\(obj)".toDouble ?? 0.0
         }
@@ -1844,9 +2099,12 @@ struct Receipt {
         if let obj = json["total_amount_paid"] {
             self.totalAmountPaid = "\(obj)".toDouble ?? 0.0
         }
-        
+        if let obj = json["reversalMF"]{
+            self.reversalMF = "\(obj)".toDouble ?? 0.0
+        }
+        self.currencyRate = currencyRate
         if let obj = json["vouchers"] as? [JSONDictionary] {
-            let (all, receipt, others) = Voucher.getModels(json: obj, bookingId: bookingId)
+            let (all, receipt, others) = Voucher.getModels(json: obj, bookingId: bookingId, currencyRate: currencyRate)
             self.voucher = all
             self.receiptVoucher = receipt
             self.otherVoucher = others
@@ -1861,13 +2119,13 @@ struct Voucher {
     var bookingId: String = ""
     
     init() {
-        self.init(json: [:], bookingId: "")
+        self.init(json: [:], bookingId: "", currencyRate: nil)
     }
     
-    init(json: JSONDictionary, bookingId: String) {
+    init(json: JSONDictionary, bookingId: String, currencyRate:CurrencyConversionRate?) {
         self.bookingId = bookingId
         if let obj = json["basic"] as? JSONDictionary {
-            self.basic = Basic(json: obj)
+            self.basic = Basic(json: obj, currencyRate: currencyRate)
         }
         
         if let obj = json["transactions"] as? [JSONDictionary] {
@@ -1882,13 +2140,13 @@ struct Voucher {
         }
     }
     
-    static func getModels(json: [JSONDictionary], bookingId: String) -> (all: [Voucher], receipt: [Voucher], others: [Voucher]) {
+    static func getModels(json: [JSONDictionary], bookingId: String, currencyRate:CurrencyConversionRate?) -> (all: [Voucher], receipt: [Voucher], others: [Voucher]) {
         var allVoucher = [Voucher]()
         var receiptVoucher = [Voucher]()
         var otherVoucher = [Voucher]()
         
         for data in json {
-            let vchr = Voucher(json: data, bookingId: bookingId)
+            let vchr = Voucher(json: data, bookingId: bookingId, currencyRate: currencyRate)
             if let basic = vchr.basic, basic.typeSlug == .receipt {
                 receiptVoucher.append(vchr)
             }
@@ -1926,6 +2184,7 @@ struct Basic {
     var voucherNo: String = ""
     var transactionDateTime: Date?
     var transactionId: String = ""
+    var currencyRate: CurrencyConversionRate?
     
     var typeSlug: TypeSlug {
         get {
@@ -1938,10 +2197,10 @@ struct Basic {
     }
     
     init() {
-        self.init(json: [:])
+        self.init(json: [:], currencyRate: nil)
     }
     
-    init(json: JSONDictionary) {
+    init(json: JSONDictionary, currencyRate:CurrencyConversionRate?) {
         if let obj = json["id"] {
             self.id = "\(obj)".removeNull
         }
@@ -1980,6 +2239,14 @@ struct Basic {
             // "2019-05-29 11:21:09"
             self.transactionDateTime = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
+        
+        if let obj = json["currency_rate"] as? JSONDictionary{
+            self.currencyRate = CurrencyConversionRate(json: obj)
+        }else{
+            self.currencyRate = currencyRate
+        }
+        
+        
     }
 }
 
@@ -1989,23 +2256,61 @@ struct Transaction {
     var codes: [Codes] = []
     
     init(json: JSONDictionary) {
-        if let obj = json["amount"] {
-            self.amount = "\(obj)".toDouble ?? 0.0
-        }
-        else if let obj = json["total"] {
-            self.amount = "\(obj)".toDouble ?? 0.0
-        }
-        
-        if let obj = json["ledger_name"] {
-            self.ledgerName = "\(obj)"
-        }
-        if let obj = json["codes"] as? JSONDictionary {
-            self.codes = Codes.models(json: obj)
+        if let amt = (json["Total"] as? JSONDictionary)?["amount"]{
+            self.amount = "\(amt)".toDouble ?? 0.0
+            self.ledgerName = "total"
+        }else{
+            if let obj = json["amount"] {
+                self.amount = "\(obj)".toDouble ?? 0.0
+            }
+            else if let obj = json["total"] {
+                self.amount = "\(obj)".toDouble ?? 0.0
+            }
+            
+            if let obj = json["ledger_name"] {
+                self.ledgerName = "\(obj)"
+            }
+            if let obj = json["codes"] as? JSONDictionary {
+                self.codes = Codes.models(json: obj)
+            }
         }
     }
     
     static func models(jsonArr: [JSONDictionary]) -> [Transaction] {
-        return jsonArr.map { Transaction(json: $0) }
+        if let firstObject = jsonArr.first {
+            if let firstKey = firstObject.keys.first, let _ = firstObject[firstKey] as? JSONDictionary {
+                var temp: [Transaction] = []
+                _ = jsonArr.map {
+                    for key in Array($0.keys) {
+                    if let data = $0[key] as? JSONDictionary {
+                        var newData = data
+                        newData["ledger_name"] = key
+                        temp.append(Transaction(json: newData))
+                    }
+                    }
+                }
+                return temp
+            } else {
+                return jsonArr.map { Transaction(json: $0) }
+
+            }
+        }
+        return []
+//        if jsonArr.count == 1 {
+//        return jsonArr.map { Transaction(json: $0) }
+//        } else {
+//        var temp: [Transaction] = []
+//        _ = jsonArr.map {
+//            for key in Array($0.keys) {
+//            if let data = $0[key] as? JSONDictionary {
+//                var newData = data
+//                newData["ledger_name"] = key
+//                temp.append(Transaction(json: newData))
+//            }
+//            }
+//        }
+//        return temp
+//        }
     }
     
     static func models(json: JSONDictionary) -> [Transaction] {
@@ -2027,6 +2332,21 @@ struct BookingPaymentInfo {
         case netbanking
         case card
         case upi
+        case wallet
+    }
+    
+    enum Wallets:String{
+        case mobikwik
+        case freecharge
+        case payzapp
+        case airtelmoney
+        case jiomoney
+        case olamoney
+        case phonepe
+        case phonepeswitch
+        case paypal
+        case amazonpay
+        case none
     }
     
     var orderId: String = ""
@@ -2038,6 +2358,7 @@ struct BookingPaymentInfo {
     var bankName: String = ""
     var upiId: String = ""
     var cardNumber: String = ""
+    var walletName : String = ""
     
     var method: Method {
         get {
@@ -2046,6 +2367,17 @@ struct BookingPaymentInfo {
         
         set {
             self._method = newValue.rawValue
+        }
+    }
+    
+    
+    var wallet: Wallets {
+        get {
+            return Wallets(rawValue: self.walletName.lowercased()) ?? Wallets.none
+        }
+        
+        set {
+            self.walletName = newValue.rawValue
         }
     }
     
@@ -2105,11 +2437,14 @@ struct BookingPaymentInfo {
         if let obj = json["card_number"] {
             self.cardNumber = "\(obj)".removeNull
         }
+        if let obj = json["wallet_name"] {
+            self.walletName = "\(obj)".removeNull
+        }
     }
 }
 
 struct Codes {
-    var code: String = ""
+    var code: Int = 0
     var ledgerName: String = ""
     var amount: Double = 0.0
     
@@ -2119,7 +2454,7 @@ struct Codes {
     
     init(json: JSONDictionary) {
         if let obj = json["id"] {
-            self.code = "\(obj)".removeNull
+            self.code = "\(obj)".toInt ?? 0
         }
         
         if let obj = json["ledger_name"] {
@@ -2141,16 +2476,18 @@ struct Codes {
                 codes.append(Codes(json: temp))
             }
         }
+        codes.sort { $0.code < $1.code }
+        printDebug(codes)
         return codes
     }
 }
 
 struct WeatherInfo {
-    var maxTemperature: Int = 0
-    var minTemperature: Int = 0
+    var maxTemperature: Int?
+    var minTemperature: Int?
     var weather: String = ""
     var weatherIcon: String = ""
-    var temperature: Int = 0
+    var temperature: Int?
     var date: Date?
     var countryCode: String = ""
     var city: String = ""
@@ -2185,6 +2522,11 @@ struct WeatherInfo {
         if let obj = json["city"] {
             self.city = "\(obj)"
         }
+        
+        if let obj = json["temperature"] {
+            self.temperature = "\(obj)".toInt ?? 0
+        }
+        
     }
     
     static func getModels(json: [JSONDictionary]) -> [WeatherInfo] {
@@ -2232,7 +2574,7 @@ struct TripInfo {
 struct AddOns {
     var addOn: AddOn?
     var preferences: Preference?
-    var ff: FF?
+    var ff: [FF]?
     
     init() {
         self.init(json: [:])
@@ -2249,7 +2591,7 @@ struct AddOns {
         }
         
         if let obj = json["ff"] as? JSONDictionary {
-            self.ff = FF(json: obj)
+            self.ff = FF.models(json: obj)
         }
     }
 }
@@ -2317,15 +2659,78 @@ struct Preference {
 
 
 struct FF {
-    var az: String = ""
-    
+    var key: String = ""
+    var value: String = ""
+
     init() {
         self.init(json: [:])
     }
-    
+
     init(json: JSONDictionary) {
-        if let obj = json["AZ"] {
-            self.az = "\(obj)".removeNull
+        if let obj = json["key"] {
+            self.key = "\(obj)".removeNull
+        }
+        if let obj = json["value"] {
+            self.value = "\(obj)".removeNull
         }
     }
+
+    static func models(json: JSONDictionary) -> [FF] {
+        var ff = [FF]()
+
+        let keyArr: [String] = Array(json.keys)
+        for key in keyArr {
+            let temp = ["key": key , "value": json[key] ?? ""]
+            ff.append(FF(json: temp as JSONDictionary))
+        }
+        return ff
+    }
 }
+
+struct BookingAddons{
+    var serviceName:String = ""
+    var paxId:String = ""
+    var addonType:String = ""
+    var legId:String = ""
+    var flightId:String = ""
+    var ssrCode:String = ""
+    var addonId:String = ""
+    var extraDetails:String = ""
+    var bookingId:String = ""
+    var price:String = ""
+    var status:String = ""
+    var pax:Pax?
+    init(_ json:JSON = JSON(), leg:BookingLeg? = nil) {
+        serviceName = json["service_name"].stringValue
+        paxId = json["pax_id"].stringValue
+        addonType = json["addon_type"].stringValue
+        legId = json["leg_id"].stringValue
+        flightId = json["flight_id"].stringValue
+        ssrCode = json["ssr_code"].stringValue
+        addonId = json["addon_id"].stringValue
+        extraDetails = json["extra_details"].stringValue
+        bookingId = json["booking_id"].stringValue
+        price = json["price"].stringValue
+        status = json["status"].stringValue
+        if let leg = leg{
+            self.pax = leg.pax.first(where: {$0.paxId == self.paxId})
+        }
+    }
+    
+}
+
+///Booking Currency conversion rate Model
+
+struct CurrencyConversionRate{
+    let cancellationRate:Double
+    let currencyCode:String
+    let rate:Double
+    
+    init(json: JSONDictionary) {
+        cancellationRate = JSON(json["cancellation_rate"] ?? 1.0).doubleValue
+        currencyCode = JSON(json["currency_code"] ?? "INR").stringValue
+        rate = JSON(json["rate"] ?? 1.0).doubleValue
+    }
+    
+}
+ 

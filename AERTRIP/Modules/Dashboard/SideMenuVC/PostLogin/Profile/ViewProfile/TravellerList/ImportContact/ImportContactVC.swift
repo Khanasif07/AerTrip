@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Parchment
-
 
 class ImportContactVC: BaseVC {
     
@@ -21,7 +19,7 @@ class ImportContactVC: BaseVC {
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var listContainerView: UIView!
     @IBOutlet weak var selectedContactsCollectionView: UICollectionView!
-    
+    @IBOutlet weak var blurContainerView: BlurView!
     
     
     //MARK:- Properties
@@ -44,7 +42,8 @@ class ImportContactVC: BaseVC {
         }
     }
     
-    private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
+    private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Google.localized]
+    //[LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
     
     
     var allChildVCs: [ContactListVC] = [ContactListVC]()
@@ -89,6 +88,11 @@ class ImportContactVC: BaseVC {
         self.parchmentView?.loadViewIfNeeded()
     }
     
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     deinit {
         printDebug("deinit")
     }
@@ -101,7 +105,7 @@ class ImportContactVC: BaseVC {
         
         self.topNavView.delegate = self
         self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
-        self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false,backgroundType: .color(color: AppColors.themeWhite))
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false,backgroundType: .color(color: AppColors.clear))// LocalizedString.AllowContacts.localized
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Import.rawValue, selectedTitle: LocalizedString.Import.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
@@ -149,14 +153,16 @@ class ImportContactVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
+        self.parchmentView?.menuItemSpacing = 0.0//(self.view.width - 251.5) / 2
+        self.parchmentView?.menuInsets = UIEdgeInsets.zero//(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 40)
-        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
-            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+            insets: UIEdgeInsets.zero)
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
@@ -171,6 +177,8 @@ class ImportContactVC: BaseVC {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
+        self.parchmentView?.menuBackgroundColor = UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
@@ -179,6 +187,7 @@ class ImportContactVC: BaseVC {
         if newValue == value {
             return
         }
+        
         UIView.animate(withDuration: animated ? 0.0 : 0.0, animations: { [weak self] in
             guard let selff = self else { return }
             selff.selectedContactsContainerHeightConstraint.constant = newValue
@@ -187,7 +196,7 @@ class ImportContactVC: BaseVC {
             
         }
     }
-   
+    
     private func updateNavTitle() {
         
         if self.viewModel.totalSelectedContacts <= 0 {
@@ -195,23 +204,23 @@ class ImportContactVC: BaseVC {
             switch self.currentIndex {
             case 0:
                 //phone
-                self.topNavView.navTitleLabel.text = self.viewModel.sections.isEmpty ? LocalizedString.AllowContacts.localized : LocalizedString.SelectContactsToImport.localized
+                self.topNavView.navTitleLabel.text = "" //self.viewModel.sections.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.AllowContacts.localized
                 
             case 1:
                 //facebook
-                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? LocalizedString.ConnectWithFB.localized : LocalizedString.SelectContactsToImport.localized
+                self.topNavView.navTitleLabel.text = "" // self.viewModel.facebookSection.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.ConnectWithFB.localized
                 
             case 2:
                 //google
-                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? LocalizedString.ConnectWithGoogle.localized : LocalizedString.SelectContactsToImport.localized
+                self.topNavView.navTitleLabel.text = "" // self.viewModel.facebookSection.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.ConnectWithGoogle.localized
                 
             default:
-                self.topNavView.navTitleLabel.text = LocalizedString.AllowContacts.localized
+                self.topNavView.navTitleLabel.text = "" //LocalizedString.AllowContacts.localized
             }
         }
         else {
             self.topNavView.firstRightButton.isEnabled = true
-            self.topNavView.navTitleLabel.text = "\(self.viewModel.totalSelectedContacts) \(LocalizedString.ContactsSelected.localized)"
+            self.topNavView.navTitleLabel.text = "\(self.viewModel.totalSelectedContacts) \(self.viewModel.totalSelectedContacts > 1 ? LocalizedString.ContactsSelected.localized : LocalizedString.ContactSelected.localized)"
         }
     }
     
@@ -237,6 +246,7 @@ extension ImportContactVC: UISearchBarDelegate {
 
 extension ImportContactVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.viewModel.logEvent(with: .Cancel)
         self.cancelButtonAction(sender)
     }
     
@@ -316,19 +326,31 @@ extension ImportContactVC: ImportContactVMDelegate {
             item = self.viewModel.selectedGoogleContacts.count
             section = 2
         }
+        func reloadCollectionView() {
+            //self?.selectedContactsCollectionView.reloadSection(section: section)
+            self.selectedContactsCollectionView.performBatchUpdates({
+                self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item-1, section: section)])
+            }, completion: nil)
+        }
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
-        delay(seconds: 0.2) { [weak self] in
-            self?.selectedContactsCollectionView.reloadSection(section: section)
+        if self.viewModel.totalSelectedContacts > 1 {
+            reloadCollectionView()
+        } else {
+            delay(seconds: 0.2) {
+                reloadCollectionView()
+            }
         }
-        
         //self.scrollCollectionToEnd()
         
     }
-
+    
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
         self.itemsCounts[usingFor.rawValue] -= 1
-        self.selectedContactsCollectionView.reloadData()
+        //self.selectedContactsCollectionView.reloadData()
+        self.selectedContactsCollectionView.performBatchUpdates({
+            self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: fromIndex, section: usingFor.rawValue)])
+        }, completion: nil)
         self.selectionDidChanged()
     }
     func remove(for usingFor: ContactListVC.UsingFor) {
@@ -365,7 +387,9 @@ extension ImportContactVC: ImportContactVMDelegate {
         }
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
-        self.selectedContactsCollectionView.reloadData()
+        delay(seconds: 0.2) { [weak self] in
+            self?.selectedContactsCollectionView.reloadData()
+        }
         
     }
     
@@ -383,7 +407,7 @@ extension ImportContactVC: ImportContactVMDelegate {
             item = self.viewModel.selectedGoogleContacts.count
             
         }
-
+        
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         self.selectedContactsCollectionView.reloadData()
@@ -556,15 +580,15 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
 
 extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
-       
-               if let pagingIndexItem = pagingItem as? PagingIndexItem{
-                   let text = pagingIndexItem.title
-                   
-                   let font = AppFonts.SemiBold.withSize(16.0)
-                return text.widthOfString(usingFont: font) + 2.5
-               }
-               
-               return 100.0
+        
+//        if let pagingIndexItem = pagingItem as? MenuItem{
+//            let text = pagingIndexItem.title
+//
+//            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+//            return text.widthOfString(usingFont: font)
+//        }
+        
+        return UIScreen.width/2//100.0
     }
     
     
@@ -577,13 +601,14 @@ extension ImportContactVC: PagingViewControllerDataSource , PagingViewController
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
+        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:true)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        let pagingIndexItem = pagingItem as! PagingIndexItem
-        self.currentIndex = pagingIndexItem.index
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            self.currentIndex = pagingIndexItem.index
+        }
     }
 }
 

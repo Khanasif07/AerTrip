@@ -20,6 +20,7 @@ class HotlelBookingsDetailsVM {
     var currentDocumentPath: String = ""
     var urlOfDocuments: String = ""
     var urlLink: URL?
+    var showWaletLoader = false
     
     func getSectionData() {
         self.getDocumentDownloadingData()

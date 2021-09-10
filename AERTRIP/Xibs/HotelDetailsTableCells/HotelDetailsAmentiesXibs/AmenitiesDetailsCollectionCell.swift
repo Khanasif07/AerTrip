@@ -22,7 +22,7 @@ class AmenitiesDetailsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var amenitiesNameLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView! {
         didSet {
-            self.dividerView.alpha = 0.2
+            //self.dividerView.alpha = 0.2
         }
     }
     
@@ -35,7 +35,8 @@ class AmenitiesDetailsCollectionCell: UICollectionViewCell {
     }
     
     private func configUi() {
-        self.amenitiesNameLabel.font = AppFonts.Regular.withSize(17.0)//18 is to big
+        let fontSize: CGFloat = UIScreen.width > 320 ? 17 : 12
+        self.amenitiesNameLabel.font = AppFonts.Regular.withSize(fontSize)//18 is to big
         self.amenitiesNameLabel.textColor = AppColors.themeBlack
     }
 
@@ -51,7 +52,7 @@ class AmenitiesDetailsCollectionCell: UICollectionViewCell {
             self.dividerView.isHidden = true
         } else {
             self.amenitiesImageView.alpha = 0.20
-            self.dividerView.alpha = 0.2
+            self.dividerView.alpha = 1.0
             self.amenitiesNameLabel.alpha = 0.20
             self.dividerView.isHidden = false
         }

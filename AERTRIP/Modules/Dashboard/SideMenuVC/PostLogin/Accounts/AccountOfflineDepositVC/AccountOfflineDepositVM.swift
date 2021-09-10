@@ -19,11 +19,16 @@ class AccountOfflineDepositVM: NSObject {
     
     var paymentModeDetails: PaymentModeDetails?
     var bankMaster: [String] = []
-
+    var itineraryData:DepositItinerary?
     var userEnteredDetails: AccountOfflineDepositDetails = AccountOfflineDepositDetails()
     
     weak var delegate: AccountOfflineDepositVMDelegate?
     
+    var isPayButtonTapped = false
+    
+    var currency :String{
+        Currencies.getCurrencySymbol(currencyCode: self.itineraryData?.currency ?? "INR")
+    }
     
     func registerPayment(currentUsingAs: AccountOfflineDepositVC.UsingForPayBy) {
         
@@ -37,21 +42,22 @@ class AccountOfflineDepositVM: NSObject {
         param["payee_bank_name"] = userEnteredDetails.userBank
         param["account_number"] = userEnteredDetails.userAccountNum
         param["account_name"] = userEnteredDetails.userAccountName
-        param["draft_cheque_date"] = userEnteredDetails.depositDateStr
         
         if currentUsingAs == .chequeOrDD {
             param["draft_cheque_number"] = userEnteredDetails.ddNum
             param["branch_name"] = userEnteredDetails.depositBranchDetail
+            param["draft_cheque_date"] = userEnteredDetails.depositDateStr
         }
         else {
             param["transfer_type"] = userEnteredDetails.transferType
-            param["swift_code"] = userEnteredDetails.utrCode
+            param["utr_number"] = userEnteredDetails.utrCode
+            param["deposit_date"] = userEnteredDetails.depositDateStr
         }
         
         param["type"] = "offline"
         param["payment_method_id"] = paymentModeDetails?.id ?? ""
-        param["it_id"] = paymentModeDetails?.itId ?? ""
-        param["currency_code"] = UserInfo.loggedInUser?.preferredCurrency ?? ""
+        param["it_id"] = self.itineraryData?.id ?? ""
+        param["currency_code"] = UserInfo.preferredCurrencyCode ?? ""
         param["total_amount"] = userEnteredDetails.depositAmount
         param["product_type"] = "make-payment"
         

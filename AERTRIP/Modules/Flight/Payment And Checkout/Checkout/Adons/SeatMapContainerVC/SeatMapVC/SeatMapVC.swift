@@ -1,0 +1,148 @@
+//
+//  SeatMapVC.swift
+//  AERTRIP
+//
+//  Created by Rishabh on 22/05/20.
+//  Copyright © 2020 Pramod Kumar. All rights reserved.
+//
+
+import UIKit
+
+class SeatMapVC: UIViewController {
+
+    // MARK: Properties
+    typealias seatRelatedInfo = (rowStr: String, columnStr: String, seatData: SeatMapModel.SeatMapRow)
+    typealias visibleRectMultipliers = (xMul: CGFloat, yMul: CGFloat, widthMul: CGFloat, heightMul: CGFloat)
+        
+    internal let viewModel = SeatMapVM()
+    
+    var onReloadPlaneLayoutCall: ((SeatMapModel.SeatMapFlight?) -> ())?
+    var onScrollViewScroll: ((visibleRectMultipliers) -> ())?
+    
+    lazy var noResultsemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noSeatMapData
+        return newEmptyView
+    }()
+    
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var deckSelectionView: UIView!
+    @IBOutlet weak var mainDeckBtn: UIButton!
+    @IBOutlet weak var upperDeckBtn: UIButton!
+    @IBOutlet weak var seatMapCollView: UICollectionView!
+    @IBOutlet weak var seatMapCollViewFlowLayout: StickyGridCollectionViewLayout! {
+           didSet {
+            seatMapCollViewFlowLayout.stickyRowsCount = 1
+            seatMapCollViewFlowLayout.stickyColumnsCount = 1
+           }
+       }
+    
+    
+    // MARK: View Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initialSetup()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        toggleUpperDeck(viewModel.curSelectedDeck == .upper)
+        seatMapCollView.reloadData()
+    }
+    
+    func setFlightData(_ model: SeatMapModel.SeatMapFlight,_ setupFor: SeatMapContainerVM.SetupFor) {
+        viewModel.flightData = model
+        viewModel.setupFor = setupFor
+    }
+    
+//    func setPassengersFromBooking(_ passengersArr: [ATContact]) {
+//        viewModel.passengersFromBooking = passengersArr
+//    }
+    
+    // MARK: IBActions
+    
+    @IBAction func mainDeckBtnAction(_ sender: UIButton) {
+        if viewModel.curSelectedDeck == .main { return }
+        toggleUpperDeck(false)
+    }
+
+    @IBAction func upperDeckBtnAction(_ sender: UIButton) {
+        if viewModel.curSelectedDeck == .upper { return }
+        toggleUpperDeck(true)
+    }
+    
+    // MARK: Functions
+    
+    private func initialSetup() {
+        setupCollView()
+        deckSelectionView.isHidden = viewModel.flightData.ud.rows.isEmpty
+        mainDeckBtn.layer.borderColor = AppColors.themeGreen.cgColor
+        mainDeckBtn.setTitle(LocalizedString.mainDeck.localized, for: .normal)
+        mainDeckBtn.titleLabel?.font = AppFonts.SemiBold.withSize(14)
+        mainDeckBtn.roundParticularCorners(4, [.layerMinXMinYCorner, .layerMinXMaxYCorner])
+        upperDeckBtn.layer.borderColor = AppColors.themeGreen.cgColor
+        upperDeckBtn.setTitle(LocalizedString.upperDeck.localized, for: .normal)
+        upperDeckBtn.titleLabel?.font = AppFonts.SemiBold.withSize(14)
+        upperDeckBtn.roundParticularCorners(4, [.layerMaxXMinYCorner, .layerMaxXMaxYCorner])
+        if viewModel.flightData.md.rows.isEmpty && !viewModel.flightData.ud.rows.isEmpty {
+            toggleUpperDeck(true)
+        } else {
+            toggleUpperDeck(false)
+        }
+    }
+    
+    private func setupCollView() {
+        seatMapCollView.register(UINib(nibName: "SeatCollCell", bundle: nil), forCellWithReuseIdentifier: "SeatCollCell")
+        seatMapCollView.delegate = self
+        seatMapCollView.dataSource = self
+        seatMapCollView.showsVerticalScrollIndicator = false
+        seatMapCollView.showsHorizontalScrollIndicator = false
+        seatMapCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        seatMapCollView.backgroundColor = AppColors.themeWhite
+    }
+    
+    private func toggleUpperDeck(_ selected: Bool) {
+        if selected {
+            upperDeckBtn.backgroundColor = AppColors.deckSelected
+            upperDeckBtn.setTitleColor(.white, for: .normal)
+            mainDeckBtn.backgroundColor = AppColors.themeBlack26
+            if isLightTheme() {
+                mainDeckBtn.setTitleColor(AppColors.themeGreen, for: .normal)
+                upperDeckBtn.layer.borderWidth = 0
+                mainDeckBtn.layer.borderWidth = 1
+            } else {
+                mainDeckBtn.setTitleColor(.white, for: .normal)
+                upperDeckBtn.layer.borderWidth = 0
+                mainDeckBtn.layer.borderWidth = 0
+            }
+            viewModel.curSelectedDeck = .upper
+        } else {
+            mainDeckBtn.backgroundColor = AppColors.deckSelected
+            mainDeckBtn.setTitleColor(.white, for: .normal)
+            upperDeckBtn.backgroundColor = AppColors.themeBlack26
+            if isLightTheme() {
+                upperDeckBtn.setTitleColor(AppColors.themeGreen, for: .normal)
+                upperDeckBtn.layer.borderWidth = 1
+                mainDeckBtn.layer.borderWidth = 0
+            } else {
+                upperDeckBtn.setTitleColor(.white, for: .normal)
+                upperDeckBtn.layer.borderWidth = 0
+                mainDeckBtn.layer.borderWidth = 0
+            }
+            viewModel.curSelectedDeck = .main
+        }
+        seatMapCollView.reloadData()
+        seatMapCollView.scrollRectToVisible(CGRect(origin: .zero, size: seatMapCollView.size), animated: true)
+        onReloadPlaneLayoutCall?(nil)
+        checkForNoData()
+    }
+    
+    private func checkForNoData() {
+        if viewModel.deckData.rowsArr.isEmpty {
+            seatMapCollView.backgroundView = noResultsemptyView
+        } else {
+            seatMapCollView.backgroundView = nil
+        }
+    }
+}

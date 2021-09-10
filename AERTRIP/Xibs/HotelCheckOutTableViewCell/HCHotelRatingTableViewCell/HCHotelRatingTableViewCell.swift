@@ -20,6 +20,7 @@ class HCHotelRatingTableViewCell: UITableViewCell {
     @IBOutlet weak var hotelRatingView: FloatRatingView!
     @IBOutlet weak var tripadviserImageView: UIImageView!
     @IBOutlet weak var hotelAdviserDotsView: FloatRatingView!
+    @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var deviderView: ATDividerView!
     
     //Mark:- LifeCycle
@@ -27,6 +28,11 @@ class HCHotelRatingTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.containerView.roundTopCorners(cornerRadius: 10)
     }
     
     //Mark:- Methods
@@ -38,6 +44,9 @@ class HCHotelRatingTableViewCell: UITableViewCell {
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)
         self.tripadviserImageView.isHidden = true
         self.hotelAdviserDotsView.isHidden = true
+        let shadow = AppShadowProperties()
+        self.shadowView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+        self.deviderView.isHidden = true
     }
     
     internal func configCell(hotelName: String ,hotelRating: Double , tripAdvisorRating: Double) {

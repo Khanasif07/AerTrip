@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import LinkedinSwift
+//import LinkedinSwift
 
 protocol LinkedAccountsVMDelegate: class {
     func willFetchLinkedAccount()
@@ -21,12 +21,42 @@ class LinkedAccountsVM {
     //MARK:- Properties
     //MARK:- Public
     weak var delegate: LinkedAccountsVMDelegate?
-    var linkedAccounts: [LinkedAccount] = []
+    var linkedAccounts: [LinkedAccount] = [] {
+        didSet {
+           calculateMaxWithForLbl()
+        }
+    }
+    var connectLblMaxWidht: CGFloat = 0
     
     //MARK:- Private
     private var userData = SocialUserModel()
     
     //MARK:- Methods
+    
+    private func calculateMaxWithForLbl() {
+        var labelWidths = [CGFloat]()
+        linkedAccounts.forEach { (acc) in
+            if acc.eid.isEmpty {
+                let newLbl = UILabel()
+                newLbl.font = AppFonts.SemiBold.withSize(16)
+                switch acc.socialType {
+                case .apple:
+                    newLbl.text = LocalizedString.Continue_with_Apple.localized
+                case .facebook:
+                    newLbl.text = LocalizedString.ConnectWithFB.localized
+                case .google:
+                    newLbl.text = LocalizedString.ConnectWithGoogle.localized
+                default:
+                    break
+                }
+                labelWidths.append(newLbl.intrinsicContentSize.width)
+            }
+        }
+        if let maxWidth = labelWidths.max() {
+            connectLblMaxWidht = maxWidth
+        }
+    }
+    
     //MARK:- Public
     func fetchLinkedAccounts() {
         self.delegate?.willFetchLinkedAccount()
@@ -89,6 +119,7 @@ extension LinkedAccountsVM {
                     // do nothing
                 } else {
                     self.webserviceForSocialLogin()
+                    self.logForConnect(with: .facebook)
                 }
                 completionBlock?(true)
             }
@@ -120,6 +151,7 @@ extension LinkedAccountsVM {
                 // do nothing
             } else {
                 self.webserviceForSocialLogin()
+                self.logForConnect(with: .google)
             }
             
         }){ (err : Error) in
@@ -129,52 +161,74 @@ extension LinkedAccountsVM {
     }
     
     func linkedLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? ) {
-        
-        let linkedinHelper = LinkedinSwiftHelper(
-            configuration: LinkedinSwiftConfiguration(clientId: AppConstants.linkedIn_Client_Id, clientSecret: AppConstants.linkedIn_ClientSecret, state: AppConstants.linkedIn_States, permissions: AppConstants.linkedIn_Permissions, redirectUrl: AppConstants.linkedIn_redirectUri)
-        )
-        
-        linkedinHelper.authorizeSuccess({ (lsToken) -> Void in
-            //Login success lsToken
+        /*
+         let linkedinHelper = LinkedinSwiftHelper(
+         configuration: LinkedinSwiftConfiguration(clientId: AppConstants.linkedIn_Client_Id, clientSecret: AppConstants.linkedIn_ClientSecret, state: AppConstants.linkedIn_States, permissions: AppConstants.linkedIn_Permissions, redirectUrl: AppConstants.linkedIn_redirectUri)
+         )
+         
+         linkedinHelper.authorizeSuccess({ (lsToken) -> Void in
+         //Login success lsToken
+         
+         
+         linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,headline,picture-url,public-profile-url)?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
+         
+         guard let data = response.jsonObject else {return}
+         
+         if let email = data["emailAddress"] as? String, email.isEmpty {
+         //show toast
+         delay(seconds: 0.2, completion: {
+         AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInLinkedIn.localized)
+         })
+         linkedinHelper.logout()
+         }
+         else {
+         self.userData.authKey     = linkedinHelper.lsAccessToken?.accessToken ?? ""
+         self.userData.firstName  = data["firstName"] as? String ?? ""
+         self.userData.lastName  = data["lastName"]  as? String ?? ""
+         self.userData.id            = data["id"] as? String ?? ""
+         self.userData.service   = "linkedin_oauth2"
+         self.userData.email      =  data["emailAddress"] as? String ?? ""
+         self.userData.picture   = data["pictureUrl"] as? String ?? ""
+         
+         printDebug(response)
+         completionBlock?(true)
+         self.webserviceForSocialLogin()
+         linkedinHelper.logout()
+         }
+         }) { (error) -> Void in
+         completionBlock?(false)
+         //Encounter error
+         }
+         
+         }, error: { (error) -> Void in
+         //Encounter error: error.localizedDescription
+         completionBlock?(false)
+         }, cancel: { () -> Void in
+         //User Cancelled!
+         completionBlock?(false)
+         })
+         */
+    }
+    
+    func appleLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? )  {
+        AppleLoginController.shared.login(success: { (model :  AppleUser) in
+            //            let message = "Apple Login Succes.\nUser Name: \(model.fullName)\nEmail: \(model.email)\nUser id: \(model.id)"
+            //            AppToast.default.showToastMessage(message: message)
+            //
             
+            self.userData.authKey        = ""//model.accessToken
+            self.userData.firstName       = model.firstName
+            self.userData.lastName        = model.lastName
+            self.userData.email          = model.email
+            self.userData.service         = "apple_oauth2"
+            self.userData.id            = model.id
+            completionBlock?(true)
             
-            linkedinHelper.requestURL("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,headline,picture-url,public-profile-url)?format=json", requestType: LinkedinSwiftRequestGet, success: { (response) -> Void in
-                
-                guard let data = response.jsonObject else {return}
-                
-                if let email = data["emailAddress"] as? String, email.isEmpty {
-                    //show toast
-                    delay(seconds: 0.2, completion: {
-                        AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInLinkedIn.localized)
-                    })
-                    linkedinHelper.logout()
-                }
-                else {
-                    self.userData.authKey     = linkedinHelper.lsAccessToken?.accessToken ?? ""
-                    self.userData.firstName  = data["firstName"] as? String ?? ""
-                    self.userData.lastName  = data["lastName"]  as? String ?? ""
-                    self.userData.id            = data["id"] as? String ?? ""
-                    self.userData.service   = "linkedin_oauth2"
-                    self.userData.email      =  data["emailAddress"] as? String ?? ""
-                    self.userData.picture   = data["pictureUrl"] as? String ?? ""
-                    
-                    printDebug(response)
-                    completionBlock?(true)
-                    self.webserviceForSocialLogin()
-                    linkedinHelper.logout()
-                }
-            }) { (error) -> Void in
-                completionBlock?(false)
-                //Encounter error
-            }
-            
-        }, error: { (error) -> Void in
-            //Encounter error: error.localizedDescription
-             completionBlock?(false)
-        }, cancel: { () -> Void in
-            //User Cancelled!
-             completionBlock?(false)
-        })
+            self.webserviceForSocialLogin(isAppleLogin: true)
+            self.logForConnect(with: .apple)
+        }) { (error) in
+            completionBlock?(false)
+        }
     }
 }
 
@@ -182,23 +236,33 @@ extension LinkedAccountsVM {
 //MARK:-
 extension LinkedAccountsVM {
     
-    func webserviceForSocialLogin() {
+    func webserviceForSocialLogin(isAppleLogin: Bool = false) {
         
         var params = JSONDictionary()
-        
-        params[APIKeys.id.rawValue]        = self.userData.id
-        params[APIKeys.userName.rawValue]    = self.userData.firstName
-        params[APIKeys.firstName.rawValue]   = self.userData.firstName
-        params[APIKeys.lastName.rawValue]    = self.userData.lastName
-        params[APIKeys.authKey.rawValue]     = self.userData.authKey
-        params[APIKeys.email.rawValue]     = self.userData.email
-        params[APIKeys.picture.rawValue]   = self.userData.picture
-        params[APIKeys.service.rawValue]   = self.userData.service
-        params[APIKeys.dob.rawValue]       = self.userData.dob
-        
-        let permission = ["user_birthday" : 1, "user_friends" : 1, "email" : 1, "publish_actions" : 1 , "public_profile" : 1]
-        params[APIKeys.permissions.rawValue] = AppGlobals.shared.json(from: [permission])
-        
+        if isAppleLogin {
+            params[APIKeys.id.rawValue]        = self.userData.id
+            params[APIKeys.userName.rawValue]    = (self.userData.firstName + " " + self.userData.lastName).removeAllWhiteSpacesAndNewLines//self.userData.firstName
+            params[APIKeys.firstName.rawValue]   = self.userData.firstName
+            params[APIKeys.lastName.rawValue]    = self.userData.lastName
+            params[APIKeys.authKey.rawValue]     = self.userData.id
+            params[APIKeys.email.rawValue]     = self.userData.email
+            params[APIKeys.picture.rawValue]   = ""
+            params[APIKeys.gender.rawValue]   = ""
+            params[APIKeys.service.rawValue]   = self.userData.service
+        }else {
+            params[APIKeys.id.rawValue]        = self.userData.id
+            params[APIKeys.userName.rawValue]    = self.userData.firstName
+            params[APIKeys.firstName.rawValue]   = self.userData.firstName
+            params[APIKeys.lastName.rawValue]    = self.userData.lastName
+            params[APIKeys.authKey.rawValue]     = self.userData.authKey
+            params[APIKeys.email.rawValue]     = self.userData.email
+            params[APIKeys.picture.rawValue]   = self.userData.picture
+            params[APIKeys.service.rawValue]   = self.userData.service
+            params[APIKeys.dob.rawValue]       = self.userData.dob
+            
+            let permission = ["user_birthday" : 1, "user_friends" : 1, "email" : 1, "publish_actions" : 1 , "public_profile" : 1]
+            params[APIKeys.permissions.rawValue] = AppGlobals.shared.json(from: [permission])
+        }
         APICaller.shared.callSocialLinkAPI(params: params, loader: true, completionBlock: {(success, errors) in
             
             if success {
@@ -208,9 +272,41 @@ extension LinkedAccountsVM {
                 delay(seconds: 0.2, completion: {
                     AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 })
-              
+                
             }
         })
     }
 }
 
+///Firebase events log
+extension LinkedAccountsVM{
+    
+    func logForDisconnect(with account: LinkedAccount){
+        switch account.socialType {
+        case .facebook:
+            self.logEvent(with: .connectWithFacebook)
+        case .google:
+            self.logEvent(with: .connectWithGoogle)
+        case .apple:
+            self.logEvent(with: .connectWithApple)
+        case .none:break
+        }
+    }
+    
+    func logForConnect(with type: LinkedAccount.SocialType){
+        switch type{
+        case .facebook:
+            self.logEvent(with: .connectWithFacebook)
+        case .google:
+            self.logEvent(with: .connectWithGoogle)
+        case .apple:
+            self.logEvent(with: .connectWithApple)
+        case .none:break
+        }
+    }
+    
+    func logEvent(with event:FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logLinkedAccountEvents(with: event)
+    }
+    
+}

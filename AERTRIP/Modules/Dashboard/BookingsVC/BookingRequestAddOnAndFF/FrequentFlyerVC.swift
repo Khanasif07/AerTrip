@@ -18,12 +18,24 @@ class FrequentFlyerVC: BaseVC {
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     let headerViewIdentifier = "BookingFrequentFlyerHeaderView"
     
+    var delegate:BookingRequestAddOnsFFVCTextfiledDelegate?
+    
     override func initialSetup() {
         registerXib()
         frequentFlyerTableView.dataSource = self
         frequentFlyerTableView.delegate = self
         frequentFlyerTableView.reloadData()
-        
+        self.frequentFlyerTableView.backgroundColor = AppColors.themeGray04
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        frequentFlyerTableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        frequentFlyerTableView.reloadData()
     }
     
     // MARK: Helper methods
@@ -65,7 +77,7 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
         arilineCell.flightData = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights[indexPath.row]
         arilineCell.leftDividerView.isHidden = indexPath.row == (BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights.count ?? 0) - 1
         arilineCell.rightDividerView.isHidden = indexPath.row == (BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights.count ?? 0) - 1
-        
+        arilineCell.contentView.backgroundColor = AppColors.themeBlack26
         arilineCell.delegate = self
         return arilineCell
     }
@@ -94,7 +106,7 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
             age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
         }
         headerView.configureCell(profileImage: passenger.profileImage, salutationImage: AppGlobals.shared.getEmojiIcon(dob: dob, salutation: passenger.salutation, dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue), passengerName: passenger.paxName, age: age)
-        
+        headerView.containerView.backgroundColor = AppColors.themeBlack26
         return headerView
     }
     
@@ -102,6 +114,8 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = self.frequentFlyerTableView.dequeueReusableHeaderFooterView(withIdentifier: self.footerViewIdentifier) as? BookingInfoEmptyFooterView else {
             fatalError("BookingInfoFooterView not found")
         }
+        let totalSection = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData.count ?? 0
+        footerView.bottomDividerView.isHidden = (totalSection - 1) == section
         return footerView
     }
 }
@@ -115,5 +129,8 @@ extension FrequentFlyerVC: BookingFFAirlineTableViewCellDelegate {
             return
         }
         BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights[indexPath.row].frequentFlyerNumber = textField.text ?? ""
+        
+        self.delegate?.closeKeyboard()
+
     }
 }

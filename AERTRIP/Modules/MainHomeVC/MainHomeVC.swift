@@ -33,8 +33,9 @@ class MainHomeVC: BaseVC {
     var isPushedToNext: Bool {
         return !(self.scrollView.contentOffset.x < UIDevice.screenWidth)
     }
-    var isLaunchThroughSplash = false
     
+    var isLaunchThroughSplash = false
+    var toBeSelect: DashboardVC.SelectedOption = .aerin
     private var logoViewOriginalFrame: CGRect?
     private var profileImgViewOriginalFrame: CGRect?
     
@@ -47,6 +48,9 @@ class MainHomeVC: BaseVC {
         self.initialSetups()
     }
     
+    deinit {
+        printDebug("deinit MainHomeVC")
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -85,12 +89,19 @@ class MainHomeVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .userLoggedInSuccess {
-            self.scrollViewSetup()
-            self.makeDefaultSetup()
-        }
-        else if let noti = note.object as? ATNotification, noti == .profileChanged {
-            self.setUserDataOnProfileHeader()
+        
+        if let noti = note.object as? ATNotification {
+            
+            switch noti {
+            case .userLoggedInSuccess(let successJson):
+                let fromFlights = successJson["flights"].boolValue
+                self.scrollViewSetup(fromFlights)
+                self.makeDefaultSetup()
+            case .profileChanged:
+                self.setUserDataOnProfileHeader()
+            default:
+                break
+            }
         }
     }
     
@@ -100,39 +111,54 @@ class MainHomeVC: BaseVC {
         self.statusBarStyle = .lightContent
 
         self.view.layoutIfNeeded()
-        self.view.backgroundColor = AppColors.screensBackground.color
-        self.contentView.backgroundColor = AppColors.screensBackground.color
+        self.view.backgroundColor = AppColors.homeScreenColor
+        self.contentView.backgroundColor = AppColors.homeScreenColor
+        scrollView.backgroundColor = AppColors.homeScreenColor
+        mainContainerView.backgroundColor = AppColors.homeScreenColor
         
         //setup scroll view
         self.scrollViewSetup()
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         self.makeDefaultSetup()
-        
         self.addEdgeSwipeGesture()
+        
+
     }
     
     private func makeDefaultSetup() {
         delay(seconds: 0.3) {[weak self] in
             if UserInfo.loggedInUserId == nil {
                 self?.setupLogoView()
-            }
-            else {
+            } else {
                 self?.setupProfileView()
             }
         }
     }
     
-    private func scrollViewSetup() {
+    private func scrollViewSetup(_ fromFlights: Bool = false) {
         
         //set content size
         
         //setup side menu controller
-        let sideVC = self.createSideMenu()
-        sideVC.view.frame = CGRect(x: UIDevice.screenWidth * 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
         
-        self.contentView.addSubview(sideVC.view)
-        self.addChild(sideVC)
-        sideVC.didMove(toParent: self)
+        //To avoid dashboard reset when login flow works from flights
+        if fromFlights {
+            if let pkSideMenu = children.first as? PKSideMenuController {
+                let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)
+                sideMenu.delegate = self
+                self.sideMenuVC = sideMenu
+                pkSideMenu.menuViewController(sideMenu)
+                resetHotelsRecentSearches()
+                SwiftObjCBridgingController.shared.resetFlightsRecentSearches()
+            }
+        } else {
+            let sideVC = self.createSideMenu()
+            sideVC.view.frame = CGRect(x: UIDevice.screenWidth * 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+            
+            self.contentView.addSubview(sideVC.view)
+            self.addChild(sideVC)
+            sideVC.didMove(toParent: self)
+        }
         
         if let _ = UserInfo.loggedInUserId {
             //setup view profile vc
@@ -142,8 +168,7 @@ class MainHomeVC: BaseVC {
             self.contentView.addSubview(viewProfile.view)
             self.addChild(viewProfile)
             viewProfile.didMove(toParent: self)
-        }
-        else {
+        } else {
             //setup social login vc
             let social = self.createSocialLoginVC()
             social.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight-44.0)
@@ -152,6 +177,11 @@ class MainHomeVC: BaseVC {
             self.addChild(social)
             social.didMove(toParent: self)
         }
+    }
+    
+    private func resetHotelsRecentSearches() {
+        guard let pksideMenuController = children.first as? PKSideMenuController, let dashboardVC = pksideMenuController.mainViewController as? DashboardVC, dashboardVC.children.indices.contains(2), let hotelSearchVC = dashboardVC.children[2] as? HotelsSearchVC else { return }
+        hotelSearchVC.viewModel.getRecentSearchesData()
     }
     
     private func addEdgeSwipeGesture() {
@@ -166,25 +196,25 @@ class MainHomeVC: BaseVC {
         if sender.state == .began, self.isPushedToNext {
             if UserInfo.loggedInUserId == nil {
                 self.popLogoAnimation()
-            }
-            else {
+            } else {
                 self.popProfileAnimation()
             }
         }
     }
     
     private func createSideMenu() -> PKSideMenuController {
-        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeBlackGreen
-        PKSideMenuOptions.mainViewShadowColor = AppColors.themeBlackGreen
-        PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
+//        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.drawerSideColor
+        PKSideMenuOptions.mainViewShadowColor = AppColors.drawerSideColor
+        PKSideMenuOptions.dropOffShadowColor = AppColors.sideDrawerShadowColor
         
         let sideMenuVC = PKSideMenuController()
         sideMenuVC.delegate = self
         sideMenuVC.view.frame = UIScreen.main.bounds
-        sideMenuVC.view.backgroundColor = AppColors.screensBackground.color
+        sideMenuVC.view.backgroundColor = AppColors.homeScreenColor
     
         let dashBoardScene = DashboardVC.instantiate(fromAppStoryboard: .Dashboard)
         dashBoardScene.isLaunchThroughSplash = self.isLaunchThroughSplash
+        dashBoardScene.toBeSelect = self.toBeSelect
         sideMenuVC.mainViewController(dashBoardScene)
         
         let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)
@@ -213,7 +243,7 @@ class MainHomeVC: BaseVC {
         self.socialLoginVC = obj
         self.socialLoginVC?.fbButton.isSocial = true
         self.socialLoginVC?.googleButton.isSocial = true
-        self.socialLoginVC?.linkedInButton .isSocial = true
+        self.socialLoginVC?.appleButton .isSocial = true
         self.socialLoginVC?.fbButton.layer.applySketchShadow()
         self.socialLoginVC?.googleButton.layer.applySketchShadow(color: AppColors.themeRed, alpha: 1.0, x: 2, y: 2, blur: 6, spread: 0)
         
@@ -245,8 +275,7 @@ class MainHomeVC: BaseVC {
             self.profileView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
             //  self.profileView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
             self.profileView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont) ?? UIImage(), showIndicator: false)
-        }
-        else {
+        } else {
             self.profileView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
             self.profileView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
         }
@@ -266,12 +295,13 @@ class MainHomeVC: BaseVC {
         toAddImgView.layer.cornerRadius = (toAddImgView.frame.size.width ) / 2
         toAddImgView.clipsToBounds = true
         toAddImgView.layer.borderWidth = 2.5
-        toAddImgView.layer.borderColor = AppColors.themeGray20.cgColor
+        toAddImgView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         toAddImgView.image = self.profileView?.profileImageView.image
+        toAddImgView.contentMode = .scaleAspectFill
         view.addSubview(toAddImgView)
         view.bringSubviewToFront(toAddImgView)
         profileImgViewOriginalFrame = toAddImgView.frame
-        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { 
             self.scrollView.contentOffset = pushPoint
             toAddImgView.layoutIfNeeded()
             if let profileImage = self.viewProfileVC?.profileImageHeaderView?.profileImageView {
@@ -291,7 +321,7 @@ class MainHomeVC: BaseVC {
         animator.startAnimation()
     }
     
-    private func popProfileAnimation() {
+    func popProfileAnimation(completion: (() -> ())? = nil) {
         self.statusBarStyle = .default
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         
@@ -303,8 +333,9 @@ class MainHomeVC: BaseVC {
         toAddImgView.layer.cornerRadius = (toAddImgView.frame.size.width ) / 2
         toAddImgView.clipsToBounds = true
         toAddImgView.layer.borderWidth = 2.5
-        toAddImgView.layer.borderColor = AppColors.themeGray20.cgColor
+        toAddImgView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         toAddImgView.image = viewProfileVC?.profileImageHeaderView?.profileImageView.image
+        toAddImgView.contentMode = .scaleAspectFill
         view.addSubview(toAddImgView)
         view.bringSubviewToFront(toAddImgView)
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
@@ -322,10 +353,11 @@ class MainHomeVC: BaseVC {
             }
             
             toAddImgView.removeFromSuperview()
-            
+            completion?()
         }
         
         animator.startAnimation()
+        self.sideMenuVC?.getAccountSummary()
     }
     
     private func setupLogoView() {
@@ -363,6 +395,7 @@ class MainHomeVC: BaseVC {
         let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 179.0)
         
         self.socialLoginVC?.animateContentOnLoad()
+        
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             
             self.scrollView.contentOffset = pushPoint
@@ -390,7 +423,7 @@ class MainHomeVC: BaseVC {
         }
     }
     
-    private func popLogoAnimation() {
+    func popLogoAnimation(completion: (() -> ())? = nil) {
         
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
@@ -413,6 +446,7 @@ class MainHomeVC: BaseVC {
             self.sideMenuVC?.logoContainerView.messageLabel.isHidden = false
             self.sideMenuVC?.logoContainerView.logoImageView.isHidden = false
             self.sideMenuVC?.logoContainerView.logoTextView.isHidden = false
+            completion?()
         })
     }
     
@@ -446,6 +480,7 @@ extension MainHomeVC: PKSideMenuControllerDelegate {
 //        self.sideMenuVC?.sideMenuTableView.setContentOffset(CGPoint(x: 0.0, y: -UIApplication.shared.statusBarFrame.height), animated: false)
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: (UserInfo.loggedInUserId != nil), onView: self.view)
         self.statusBarStyle = .default
+        self.sideMenuVC?.getAccountSummary()
     }
 }
 
@@ -468,7 +503,9 @@ extension MainHomeVC: SocialLoginVCDelegate {
 
 extension MainHomeVC {
     func startAnimation() {
+        
         func setupForProfilePop() {
+          
             if self.transitionAnimator == nil {
                 if let profile = self.profileView {
                     self.sideMenuVC?.updateProfileView(view: profile)

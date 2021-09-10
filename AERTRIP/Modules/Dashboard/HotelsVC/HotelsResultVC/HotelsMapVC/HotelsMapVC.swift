@@ -7,31 +7,15 @@
 //
 
 import CoreData
-import GoogleMaps
 import UIKit
 import Kingfisher
+import MapKit
 
 class MapContainerView: UIView {
-    weak var mapView: GMSMapView? {
-        didSet {
-            if let vw = mapView {
-                self.addSubview(vw)
-                vw.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            }
-        }
-    }
-    
-    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        //  self.mapView?.frame = self.bounds
-        
         self.backgroundColor = AppColors.clear
-        self.mapView?.backgroundColor = AppColors.themeGreen
-        
     }
-    
     deinit {
         printDebug("MapContainerView deinit")
     }
@@ -48,7 +32,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var dividerView: ATDividerView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var unPinAllFavouriteButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
@@ -59,12 +43,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         didSet {
             self.hotelsMapCV.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
             self.hotelsMapCV.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
-            //            self.hotelsMapCV.isPagingEnabled = true
-            //            self.hotelsMapCV.delegate = self
-            //            self.hotelsMapCV.dataSource = self
             self.hotelsMapCV.showsVerticalScrollIndicator = false
             self.hotelsMapCV.showsHorizontalScrollIndicator = false
             self.hotelsMapCV.backgroundColor = AppColors.clear
+            self.hotelsMapCV.decelerationRate = UIScrollView.DecelerationRate.fast
+            self.hotelsMapCV.isPagingEnabled = false
+            self.hotelsMapCV.decelerationRate = UICollectionView.DecelerationRate.fast
         }
     }
     
@@ -83,12 +67,18 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     // Searching View
     @IBOutlet weak var hotelSearchView: UIView! {
         didSet {
-            self.hotelSearchView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+            self.hotelSearchView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
             self.hotelSearchView.isUserInteractionEnabled = true
         }
     }
     
-    @IBOutlet weak var hotelSearchTableView: ATTableView!
+    @IBOutlet weak var hotelSearchTableView: ATTableView! {
+        didSet {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(searchTabeleTapped(tap:)))
+            self.hotelSearchTableView.addGestureRecognizer(tap)
+            self.hotelSearchTableView.backgroundColor = AppColors.themeBlack26
+        }
+    }
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var floatingButtonBackView: UIView!
@@ -99,6 +89,10 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     @IBOutlet weak var cardGradientView: UIView!
     
     @IBOutlet weak var switchGradientView: UIView!
+    @IBOutlet weak var appleMap: MKMapView!
+    @IBOutlet weak var bottomBackView: UIView!
+    
+    
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
@@ -107,16 +101,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     var searchIntitialFrame: CGRect = .zero
     var aerinFilterUndoCompletion : (() -> Void)?
     weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
-    var displayingHotelLocation: CLLocationCoordinate2D? {
-        didSet {
-            if let oLoc = oldValue, displayingHotelLocation != nil {
-                self.updateMarker(atLocation: oLoc, isSelected: false)
-            }
-            if let loc = displayingHotelLocation {
-                self.updateMarker(atLocation: loc)
-            }
-        }
-    }
+    var displayingHotelLocation: CLLocationCoordinate2D?
     
     var visibleMapHeightInVerticalMode: CGFloat = 160.0
     var oldScrollPosition: CGPoint = CGPoint.zero
@@ -131,7 +116,6 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     var isHidingOnMapTap: Bool = false
     
     //Map Related
-    var mapView: GMSMapView?
     let minZoomLabel: Float = 1.0
     let maxZoomLabel: Float = 30.0
     let defaultZoomLabel: Float = 12.0
@@ -139,11 +123,11 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     let thresholdZoomLabel: Float = 14.0
     var prevZoomLabel: Float = 1.0
     var markersOnLocations: JSONDictionary = JSONDictionary()
-    var maxVisblePriceMarker = 5
+    var maxVisblePriceMarker = 6
     // Request and View Type
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!
-    
+    var isZoomLevelOnceSet = false
     
     // Empty State view
     
@@ -164,6 +148,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     lazy var noHotelFoundOnFilterEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noHotelFoundOnFilter
+        newEmptyView.delegate = self
         return newEmptyView
     }()
     
@@ -185,23 +170,29 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     var indexOfCellBeforeDragging = 0
     
     //Manage Transition Created by golu
+    var detailsShownMarkers = [MyAnnotation]()
+    var seletedIndexForSearchTable:Int?
+    var isRemovingAllFav:Bool = false
+    var selectedAnnotation:MyAnnotation?
+    var currentMapSpan = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta:  0.035)
     internal var transition: CardTransition?
     override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
         return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
     }
+    var blurView = UIVisualEffectView()
+    var isMapZoomNeedToSet = false
+    var isNeedToReload = false
     
     // MARK: - ViewLifeCycle
     
     // MARK: -
     
     override func initialSetup() {
+        self.mapContainerViewBottomConstraint.constant = (!UIDevice.isIPhoneX) ? 173.0 : 207.0
         self.view.layoutIfNeeded()
         self.filterButton.isEnabled = false
-        self.mapView?.isMyLocationEnabled = false
-        // self.animateCollectionView(isHidden: true, animated: false)
-        
-        self.view.backgroundColor = AppColors.themeWhite
-        
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        bottomBackView.backgroundColor = AppColors.themeWhite
         self.initialSetups()
         self.registerXib()
         
@@ -209,6 +200,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.aerinFilterUndoCompletion = {
             printDebug("Undo Button tapped")
         }
+        self.appleMap.register(ResistantAnnotationView.self, forAnnotationViewWithReuseIdentifier: "route")
         self.cardGradientView.isHidden = false
         
         self.currentLocationButton.isHidden = false
@@ -216,11 +208,47 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         animateFloatingButtonOnMapView(isAnimated: false)
         self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
         self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
-        self.switchView.setOn(isOn: self.viewModel.isFavouriteOn, animated: false, shouldNotify: false)
+//        self.switchView.isOn = self.viewModel.isFavouriteOn
+        
+        
+        
+        switchView.tintColor = AppColors.themeGray20
+        switchView.offTintColor = AppColors.switchGray
+        switchView.onThumbImage = AppImages.switch_fav_on
+        switchView.offThumbImage = AppImages.switch_fav_on
+        self.switchView.isOn = self.viewModel.isFavouriteOn
+        switchView.setupUI()
+        
+        
+        
         //        self.animateMapToFirstHotelInMapMode()
         self.filterButton.isSelected = self.viewModel.isFilterApplied
-        searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
+        searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
+        
+        addGradientToCardGradientView()
+        self.additionalSafeAreaInsets = .zero
+        self.addMapView()
+        self.appleMap.delegate = self
+        self.addGestureRecognizerForTap()
+        self.loadFinalDataOnScreen()
+        self.setupCollection()
+        
+        if !self.viewModel.searchTextStr.isEmpty {
+            animateHeaderToMapView()
+            self.showSearchAnimation()
+            self.searchBar.text = self.viewModel.searchTextStr
+            self.searchBar.hideMiceButton(isHidden: self.viewModel.searchTextStr.isEmpty)
+        }
+        self.addCurrentLocationShadow()
+    }
+    
+    private func addGradientToCardGradientView() {
+        
+        if let gLayer = gradientLayer {
+            gLayer.removeFromSuperlayer()
+            gradientLayer = nil
+        }
         
         self.gradientLayer = CAGradientLayer()
         self.gradientLayer?.frame = self.cardGradientView.bounds
@@ -230,19 +258,6 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.gradientLayer?.locations = [0.0, 0.5, 1.0]
         self.cardGradientView.layer.addSublayer(self.gradientLayer!)
         self.cardGradientView.backgroundColor = AppColors.clear
-        self.additionalSafeAreaInsets = .zero
-        self.addMapView()
-        if AppGlobals.shared.isNetworkRechable() {
-            delay(seconds: 0.2) { [weak self] in
-                guard let strongSelf = self else {return}
-                strongSelf.mapView?.delegate = self
-                strongSelf.loadFinalDataOnScreen()
-            }
-        } else {
-            self.noHotelFound()
-            AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
-        }
-        setupCollection()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -251,15 +266,25 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.statusBarStyle = .default
         
         addCustomBackgroundBlurView()
+        //Reload collection when pushed from HotelResultVC.
+        if self.isNeedToReload{
+            self.hotelsMapCV.reloadData()
+            self.isNeedToReload = false
+        }
+        
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        addGradientToCardGradientView()
+        dividerView.isHidden = !isLightTheme()
+        self.addCurrentLocationShadow()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
         backView.removeFromSuperview()
-        //        if  self.isMovingFromParent {
-        //            backView.removeFromSuperview()
-        //        }
     }
     
     
@@ -270,31 +295,30 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.gradientLayer?.frame = self.cardGradientView.bounds
-        
-        //        self.configureCollectionViewLayoutItemSize()
     }
     
     deinit {
-        //        CoreDataManager.shared.deleteData("HotelSearched")
-        printDebug("HotelResultVC deinit")
+        printDebug("HotelsMapVC deinit")
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
-            //re-hit the search API
-            self.manageShimmer(isHidden: false)
-            CoreDataManager.shared.deleteData("HotelSearched")
-            self.viewModel.hotelListOnPreferencesApi()
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .GRNSessionExpired:
+                //re-hit the search API
+                self.manageShimmer(isHidden: false)
+                CoreDataManager.shared.deleteData("HotelSearched")
+                self.viewModel.hotelListOnPreferencesApi()
+            default:
+                break
+            }
         }
         else if let _ = note.object as? HotelDetailsVC {
-            //fav updated from hotel details
-            //updateFavOnList(forIndexPath: selectedIndexPath)
-            // manage favourite switch buttons
             self.selectedIndexPath = nil
+            
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
-            self.updateMarkers()
-            self.showHotelOnMap(duration: 0.4)
-            //            updateFavouriteSuccess(isHotelFavourite: true)
+            //            self.updateMarkers()
+            //            self.showHotelOnMap(duration: 0.4)
         }
         else if let _ = note.object as? HCDataSelectionVC {
             updateFavOnList(forIndexPath: selectedIndexPath)
@@ -304,6 +328,25 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         } else if let _ = note.object as? HotelsGroupExpendedVC {
             
         }
+        
+        if let index = self.seletedIndexForSearchTable{
+            self.updateFavouriteAnnotationDetail(duration: 0.4, index: index)
+            self.seletedIndexForSearchTable = nil
+        }else{
+            self.updateFavouriteAnnotationDetail(duration: 0.4)
+        }
+    }
+    
+    override func currencyChanged(_ note: Notification) {
+        self.hotelsMapCV.reloadData()
+        self.resetAllMarker()
+        self.hotelSearchTableView.reloadData()
+    }
+    
+    
+    private func addCurrentLocationShadow(){
+        let cornerRadius = self.currentLocationButton.frame.height/2
+        self.currentLocationButton.addShadow(cornerRadius: cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.black20Percent, offset: CGSize(width: 0.0, height: 4.0), opacity: 1, shadowRadius: 10)
     }
     
     func addCustomBackgroundBlurView(){
@@ -319,7 +362,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         backVisualEfectView.effect = UIBlurEffect(style: .prominent)
         backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
-        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        backContainerView.backgroundColor = AppColors.themeWhiteDashboard//.withAlphaComponent(0.85)
         //backContainerView.addSubview(backVisualEfectView)
         
         
@@ -336,8 +379,10 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -7)
         layout.scrollDirection = .horizontal
+        layout.scrollScalePoint = 1.8
         layout.sideItemScale = 1.0
         layout.sideItemAlpha = 1.0
+        //layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 201)
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 201)
     }
     // MARK: - Methods
@@ -359,23 +404,35 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     }
     
     func initialSetups() {
+        dividerView.isHidden = !isLightTheme()
         self.setUpFloatingView()
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
-        //self.reloadHotelList()
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchTableView.separatorStyle = .none
         self.hotelSearchTableView.delegate = self
         self.hotelSearchTableView.dataSource = self
-        
         self.hotelSearchTableView.backgroundView = noResultemptyView
         self.hotelSearchTableView.reloadData()
-        
-        
-        //  self.searchBar.backgroundColor = .red
         self.searchBar.searchBarStyle = .default
+        // replaced the switch with flight switch
+//        switchView.tintColor = AppColors.themeGray20
+//        switchView.offTintColor = AppColors.switchGray
+//        switchView.isOn = false
+//        switchView.setupUI()
+        
+        
+        
+        switchView.tintColor = AppColors.themeGray20
+        switchView.offTintColor = AppColors.switchGray
+        switchView.onThumbImage = AppImages.switch_fav_on
+        switchView.offThumbImage = AppImages.switch_fav_on
+        switchView.isOn = false
+        switchView.setupUI()
+        
+        /*
         self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.switchView.selectedColor = AppColors.themeRed
         self.switchView.originalBorderColor = AppColors.themeGray04//AppColors.themeGray20
@@ -384,11 +441,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.switchView.selectedBorderWidth = 0.0//1.5
         self.switchView.iconBorderWidth = 0.0
         self.switchView.iconBorderColor = AppColors.clear
-        self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
-        self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
+        self.switchView.originalImage = AppImages.switch_fav_on.maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
+        self.switchView.selectedImage = AppImages.switch_fav_on
         self.switchView.isBackgroundBlurry = true
+        */
         self.switchGradientView.backgroundColor = AppColors.clear
-        self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
+        self.switchGradientView.addGrayShadow(ofColor: AppColors.unicolorBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         // self.manageFloatingView(isHidden: true)
     }
     
@@ -415,14 +473,14 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     private func presentEmailVC() {
         
         func showEmailComposer() {
-            self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
-                guard let strongSelf = self else {return}
-                if status {
+//            self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
+//                guard let strongSelf = self else {return}
+//                if status {
                     // url fetched
-                    AppFlowManager.default.presentMailComposerVC(strongSelf.viewModel.favouriteHotels, strongSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), strongSelf.viewModel.shortUrl)
+                    AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-                }
-            }
+//                }
+//            }
         }
         AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { (_) in
             guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
@@ -448,12 +506,14 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     // MARK: - Action
     
     @IBAction func backButtonAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logHotelMapViewEvents(with: .SwitchToHotelList)
         self.viewModel.hotelResultDelegate?.updateFavouriteAndFilterView()
         self.statusBarStyle = .lightContent
         AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func filterButtonAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logHotelMapViewEvents(with: .OpenHotelFilters)
         AppFlowManager.default.showFilterVC(self)
     }
     
@@ -471,9 +531,9 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     }
     
     @IBAction func floatingButtonOptionOnMapViewTapped(_ sender: Any) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Email.localized, LocalizedString.Share.localized, LocalizedString.RemoveFromFavourites.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
-        
-        _ = PKAlertController.default.presentActionSheet(LocalizedString.FloatingButtonsTitle.localized, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Email.localized, LocalizedString.Share.localized, LocalizedString.UnfavouriteAll.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeRed])
+        let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.FloatingButtonsTitle.localized,titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
             
             if index == 0 {
                 printDebug("Email")
@@ -482,37 +542,63 @@ class HotelsMapVC: StatusBarAnimatableViewController {
                 printDebug("Share")
                 self?.openSharingSheet()
             } else if index == 2 {
-                self?.removeAllFavouritesHotels()
-                printDebug("Remove All photo")
+                self?.isRemovingAllFav = true
+                self?.removeAllFavouritesAlerts()
+//                printDebug("Remove All photo")
             }
         }
+        
+        
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         backButton.alpha = 1
         self.viewModel.searchedHotels.removeAll()
+        self.reloadHotelList()
         self.viewModel.fetchRequestType = .normal
         
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
         self.viewModel.searchTextStr = ""
-        self.reloadHotelList()
+//        self.reloadHotelList()
         delay(seconds: 0.1) { [weak self] in
-            self?.viewModel.loadSaveData()
+            guard let self = self else {return}
+            self.viewModel.loadSaveData()
+            self.resetAllMarker()
+//            if self.viewModel.isResetAnnotation{
+//                self.appleMap.removeAnnotations(self.appleMap.annotations)
+//                self.addAllMarker()
+//                self.viewModel.isResetAnnotation = false
+//            }
         }
         // nitin       self.getFavouriteHotels(shouldReloadData: false)
     }
     
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {
-        self.moveMapToCurrentCity()
-        self.mapView?.animate(toZoom: self.mapView?.camera.zoom ?? (self.defaultZoomLabel + 5.0))
+        guard let loc = self.viewModel.searchedCityLocation else{return}
+        MKMapView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10, options: .curveEaseInOut, animations: {
+        self.appleMap.setRegion(MKCoordinateRegion(center: loc, span: self.currentMapSpan), animated: true)
+        }, completion: nil)
+        FirebaseEventLogs.shared.logHotelMapViewEvents(with: .NavigateToMapCenter)
     }
     
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             printDebug("Long press tapped")
-            AppFlowManager.default.presentAerinTextSpeechVC()
+//            AppFlowManager.default.presentAerinTextSpeechVC()
+        }
+    }
+    
+    @objc func searchTabeleTapped(tap:UITapGestureRecognizer) {
+        let location = tap.location(in: self.hotelSearchTableView)
+        let path = self.hotelSearchTableView.indexPathForRow(at: location)
+        if let indexPathForRow = path {
+            self.tableView(self.hotelSearchTableView, didSelectRowAt: indexPathForRow)
+        } else if (hotelSearchTableView.backgroundView == nil || hotelSearchTableView.backgroundView?.isHidden ?? false){
+            // handle tap on empty space below existing rows however you want
+            printDebug("tapped at empty space of table view")
+            self.cancelButtonTapped(self.cancelButton)
         }
     }
     
@@ -522,19 +608,15 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         let remoteHostStatus = networkReachability.currentReachabilityStatus
         
         if remoteHostStatus == .notReachable {
-            print("Not Reachable")
+            printDebug("Not Reachable")
             // self.noHotelFound()
             
         }
         else if remoteHostStatus == .reachableViaWiFi {
-            print("Reachable via Wifi")
+            printDebug("Reachable via Wifi")
         }
         else {
-            print("Reachable")
+            printDebug("Reachable")
         }
     }
-    
-    
-    
-    
 }

@@ -34,10 +34,20 @@ class FareUpdatedPopUpVC: BaseVC {
     override func initialSetup() {
     }
     
+    override func setupColors() {
+        self.fareIncreasedContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.decreaseContainerView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.setupDecreasePopUp()
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func setupIncreasePopUp() {
-        fareIncreasedContainerView.cornerRadius = 10.0
+        fareIncreasedContainerView.cornerradius = 10.0
         descriptionLabel.font = AppFonts.Regular.withSize(14.0)
         descriptionLabel.textColor = AppColors.themeBlack
         
@@ -47,11 +57,11 @@ class FareUpdatedPopUpVC: BaseVC {
         
         goBackButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         goBackButton.setTitle(LocalizedString.GoBackToResults.localized, for: .normal)
-        goBackButton.setTitleColor(AppColors.themeRed, for: .normal)
+        goBackButton.setTitleColor(AppColors.themeRed254, for: .normal)
     }
     
     private func setupRefundPopUp() {
-        fareIncreasedContainerView.cornerRadius = 10.0
+        fareIncreasedContainerView.cornerradius = 10.0
         descriptionLabel.font = AppFonts.Regular.withSize(14.0)
         descriptionLabel.textColor = AppColors.themeBlack
         
@@ -65,30 +75,29 @@ class FareUpdatedPopUpVC: BaseVC {
     }
     
     private func setupDecreasePopUp() {
-        decreaseContainerView.cornerRadius = 10.0
-        decreaseContainerView.layer.borderWidth = 1.0
+        decreaseContainerView.cornerradius = 10.0
+        decreaseContainerView.layer.borderWidth = self.isLightTheme() ? 1.0 : 0.0
         decreaseContainerView.layer.borderColor = AppColors.themeGreen.withAlphaComponent(0.2).cgColor
         decreaseContainerView.backgroundColor = AppColors.iceGreen
     }
     
     private func getIncreaseTitleAttrText(forAmount amount: Double, fontColor: UIColor) -> NSMutableAttributedString {
         
-        let currency = "$"
-        let finalText = "\(LocalizedString.FareIncreasedBy.localized)\n\(currency)\(amount)"
+        //let currency = "$"
+        let finalText = "\(LocalizedString.FareIncreasedBy.localized)\n\(amount.getConvertedAmount(using: AppFonts.Regular.withSize(18)).string)"
         
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: fontColor, NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)])
         
-        attString.addAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(28.0)], range: (finalText as NSString).range(of: "\(currency)\(amount)"))
+        attString.addAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(28.0)], range: (finalText as NSString).range(of: "\(amount.getConvertedAmount(using: AppFonts.Regular.withSize(18)).string)"))
 
         return attString
     }
     
     private func updateIncreasePopUp(increasedAmount: Double, totalUpdatedAmount: Double) {
         setupIncreasePopUp()
-        titleLabel.attributedText = getIncreaseTitleAttrText(forAmount: increasedAmount, fontColor: AppColors.themeRed)
+        titleLabel.attributedText = getIncreaseTitleAttrText(forAmount: increasedAmount, fontColor: AppColors.themeRed254)
         
-        let currency = "$"
-        descriptionLabel.text = "\(LocalizedString.TotalUpdatedPrice.localized) \(currency)\(totalUpdatedAmount)"
+        descriptionLabel.text = "\(LocalizedString.TotalUpdatedPrice.localized) \(totalUpdatedAmount.getConvertedAmount(using: AppFonts.Regular.withSize(14)).string)"
     }
     
     private func updateRefundPopUp(refundAmount: Double, paymentMode: String) {
@@ -100,10 +109,9 @@ class FareUpdatedPopUpVC: BaseVC {
     
     private func updateDecreasePopUp(decreasedAmount: Double) {
         setupDecreasePopUp()
-        let currency = "$"
-        let attrText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "ic_fare_dipped"), endText: "   \(LocalizedString.FareDippedBy.localized) \(currency) \(decreasedAmount)", font: AppFonts.Regular.withSize(16.0))
-        
-        attrText.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], range: (attrText.string as NSString).range(of: attrText.string))
+        //let currency = "$"
+        let attrText = AppGlobals.shared.getTextWithImage(startText: "", image: AppImages.ic_fare_dipped, endText: "   \(LocalizedString.FareDippedBy.localized)  \(decreasedAmount.getPriceStringWithCurrency)", font: AppFonts.Regular.withSize(16.0))
+        attrText.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.commonThemeGreen], range: (attrText.string as NSString).range(of: attrText.string))
         
         decreaseLabel.attributedText = attrText
     }
@@ -137,7 +145,7 @@ class FareUpdatedPopUpVC: BaseVC {
     //MARK:- Public
     func showIncreasedPopUp(increasedAmount: Double, totalUpdatedAmount: Double, continueButtonAction: (()->Void)?, goBackButtonAction: (()->Void)?) {
         
-        view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        view.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.3)
         view.isUserInteractionEnabled = true
         hideDecreasedPopUp()
         continueHandler = continueButtonAction
@@ -148,7 +156,7 @@ class FareUpdatedPopUpVC: BaseVC {
     
     func showRefundPopUp(refundAmount: Double, paymentMode: String, confirmButtonAction: (()->Void)?, cancelButtonAction: (()->Void)?) {
         
-        view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        view.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.3)
         view.isUserInteractionEnabled = true
         hideDecreasedPopUp()
         continueHandler = confirmButtonAction
@@ -164,12 +172,12 @@ class FareUpdatedPopUpVC: BaseVC {
         updateDecreasePopUp(decreasedAmount: decreasedAmount)
         setVisiblityForDecreasedPopUp(isHidden: false, animated: true)
         
-        delay(seconds: 2.0) {[weak self] in
+        delay(seconds: 5.0) {[weak self] in
             self?.setVisiblityForDecreasedPopUp(isHidden: true, animated: true)
         }
     }
     
-    class func showPopUp(isForIncreased: Bool, decreasedAmount: Double, increasedAmount: Double, totalUpdatedAmount: Double, continueButtonAction: (()->Void)?, goBackButtonAction: (()->Void)?){
+    class func showPopUp(isForIncreased: Bool, decreasedAmount: Double, increasedAmount: Double, totalUpdatedAmount: Double, continueButtonAction: (()->Void)?, goBackButtonAction: (()->Void)?, isMultiJourney : Bool = false){
         
         if let topVC = UIApplication.topViewController() {
             let obj = FareUpdatedPopUpVC.instantiate(fromAppStoryboard: .HotelCheckout)
@@ -180,6 +188,9 @@ class FareUpdatedPopUpVC: BaseVC {
                 obj.showIncreasedPopUp(increasedAmount: increasedAmount, totalUpdatedAmount: totalUpdatedAmount, continueButtonAction: continueButtonAction, goBackButtonAction: goBackButtonAction)
             }
             else {
+                if isMultiJourney{
+                    obj.decreaseBottomConstraint.constant = 118.0
+                }
                 obj.showDecreasedPopUp(decreasedAmount: decreasedAmount)
             }
         }

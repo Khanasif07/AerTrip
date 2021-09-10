@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MessageUI
 //Mark:- UITableView Cell
 //=======================
 extension YouAreAllDoneVC {
@@ -15,7 +15,12 @@ extension YouAreAllDoneVC {
     /* AllDone Section Cells */
     internal func getAllDoneCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return nil }
-        cell.configCell(forBookingId: self.viewModel.bookingIds.first ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized)
+        cell.configCell(forBookingId: self.viewModel.hotelReceiptData?.booking_number ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized, isBookingPending: (self.viewModel.hotelReceiptData?.booking_status ?? .pending) == .pending)
+        cell.delegate = self
+        cell.handler = {[weak self] in
+            self?.sendEmail()
+        }
+        cell.addToAppleWalletButton.isLoading = self.viewModel.showWaletLoader
         return cell
     }
     
@@ -25,7 +30,8 @@ extension YouAreAllDoneVC {
         cell.configCell(tripName: self.viewModel.hotelReceiptData?.trip_details?.name ?? "")
         cell.changeBtnHandler = {[weak self] in
             guard let strongSelf = self else {return}
-            AppFlowManager.default.selectTrip(strongSelf.viewModel.hotelReceiptData?.trip_details) { [weak self] (tripModel, tripDetail) in
+            strongSelf.viewModel.logEvent(with: .TapOnChangeTrip)
+            AppFlowManager.default.selectTrip(strongSelf.viewModel.hotelReceiptData?.trip_details, tripType: .bookingTripChange, presentingStatusBarStyle: strongSelf.statusBarStyle, dismissalStatusBarStyle: strongSelf.statusBarStyle) { [weak self] (tripModel, tripDetail) in
                 guard let strongSelf = self else {return}
                 printDebug(tripDetail)
                 if let detail = tripDetail {
@@ -41,19 +47,27 @@ extension YouAreAllDoneVC {
     internal func getRatingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCHotelRatingTableViewCell.reusableIdentifier, for: indexPath) as? HCHotelRatingTableViewCell else { return nil }
         cell.configCell(hotelName: self.viewModel.hotelReceiptData?.hname ?? "", hotelRating: self.viewModel.hotelReceiptData?.star ?? 0.0, tripAdvisorRating: self.viewModel.hotelReceiptData?.rating ?? 0.0)
+        cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getAddressCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelInfoAddressCell.reusableIdentifier, for: indexPath) as? HotelInfoAddressCell else { return nil }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HCHotelAddreesCell.reusableIdentifier, for: indexPath) as? HCHotelAddreesCell else { return nil }
         cell.hcConfigureAddressCell(address: self.viewModel.hotelReceiptData?.address ?? "")
+        cell.setupForAllDoneVC()
+        cell.moreBtnOutlet.isHidden = true
         cell.deviderView.isHidden = true
+        cell.addressInfoTextView.isUserInteractionEnabled = false
+        cell.addressInfoTextView.backgroundColor = AppColors.selectDestinationHeaderColor
+        cell.containerView.backgroundColor = AppColors.selectDestinationHeaderColor
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getPhoneCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCPhoneTableViewCell.reusableIdentifier, for: indexPath) as? HCPhoneTableViewCell else { return nil }
-        cell.configCell(countryImage: #imageLiteral(resourceName: "ne"), phoneNumber: "+91 1234567890")
+        cell.configCell(countryImage: AppImages.indianFlag, phoneNumber: "+91 1234567890")
         return cell
     }
     
@@ -67,20 +81,28 @@ extension YouAreAllDoneVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
         cell.topDividerView.isHidden = self.viewModel.sectionData[indexPath.section].contains(.webSiteCell) ? true : false
         cell.configCell(checkInDate: self.viewModel.hotelReceiptData?.checkin ?? "", checkOutDate: self.viewModel.hotelReceiptData?.checkout ?? "", totalNights: self.viewModel.hotelReceiptData?.num_nights ?? 0)
+        cell.setupForAllDoneVC()
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     /* Guest Sections Cells */
     internal func getBedDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCBedDetailsTableViewCell.reusableIdentifier, for: indexPath) as? HCBedDetailsTableViewCell else { return nil }
-        let index: String = (self.viewModel.hotelReceiptData?.rooms.count ?? 0 > 1) ? "\(indexPath.section - 1)" : ""
-        cell.configCell(roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.row] ?? Room(), index: index)
+        let index: String = (self.viewModel.hotelReceiptData?.rooms.count ?? 0 > 0) ? "\(indexPath.section - 1)" : ""
+        if let passenger = self.viewModel.hotelReceiptData?.travellers[indexPath.section - 2] {
+        cell.configCell(roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.row] ?? Room(), index: index, passengers: passenger)
+        }
+        let isLast = (self.viewModel.hotelReceiptData?.travellers.count ?? 0) ==  (indexPath.section - 1)
+        cell.setupForLastCell(isLastCell: isLast, isForAllDone: true)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getBedTypeCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsInclusionTableViewCell.reusableIdentifier, for: indexPath) as? HotelDetailsInclusionTableViewCell else { return nil }
         cell.configHCBedsCell(bedDetails: "2 Single Beds")
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -88,12 +110,14 @@ extension YouAreAllDoneVC {
     internal func getInclusionCell(_ tableView: UITableView, indexPath: IndexPath, roomData: Room) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsInclusionTableViewCell.reusableIdentifier, for: indexPath) as? HotelDetailsInclusionTableViewCell else { return nil }
         cell.configHCInclusionCell(roomInclusions: roomData.inclusions)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getOtherInclusionCell(_ tableView: UITableView, indexPath: IndexPath, roomData: Room) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsInclusionTableViewCell.reusableIdentifier, for: indexPath) as? HotelDetailsInclusionTableViewCell else { return nil }
         cell.configHCOtherInlusionCell(roomInclusions: roomData.inclusions)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -112,6 +136,7 @@ extension YouAreAllDoneVC {
             cell.allDetailsLabel.isHidden = true
             cell.allDetailsLabel.attributedText = nil
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -120,6 +145,7 @@ extension YouAreAllDoneVC {
         cell.delegate = self
         cell.clipsToBounds = true
         cell.configureHCPaymentCell(isHotelDetailsScreen: false)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -142,6 +168,7 @@ extension YouAreAllDoneVC {
                 cell.allDetailsLabel.attributedText = nil
               //  cell.moreBtnOutlet.isHidden = false
             }
+            cell.contentView.backgroundColor = AppColors.themeBlack26
             return cell
         }
         return nil
@@ -152,6 +179,7 @@ extension YouAreAllDoneVC {
         cell.delegate = self
         cell.travellers = self.viewModel.hotelReceiptData?.travellers[indexPath.section - 2] ?? [TravellersList]()
         cell.guestsCollectionView.reloadData()
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -159,7 +187,8 @@ extension YouAreAllDoneVC {
     internal func getTotalChargeCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCTotalChargeTableViewCell.reusableIdentifier, for: indexPath) as? HCTotalChargeTableViewCell else { return nil }
         cell.dividerView.isHidden = self.viewModel.sectionData[indexPath.section].contains(.confirmationVoucherCell) ? false : true
-        cell.configCell(mode: self.viewModel.hotelReceiptData?.payment_details?.mode ?? "", totalCharge: (self.viewModel.hotelReceiptData?.payment_details?.info?.payment_amount ?? 0.0).amountInDelimeterWithSymbol)
+        cell.configCell(mode: self.viewModel.hotelReceiptData?.payment_details?.mode ?? "", totalCharge: (self.viewModel.hotelReceiptData?.payment_details?.info?.payment_amount ?? 0.0).getPriceStringWithCurrency)
+        
         return cell
     }
     
@@ -172,12 +201,37 @@ extension YouAreAllDoneVC {
     internal func getWhatNextCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return nil }
         cell.delegate = self
-        if !self.viewModel.whatNextValues.isEmpty {
-            cell.configCell(whatNextString: self.viewModel.whatNextValues)
-        } else {
-            cell.whatNextStackView.isHidden = true
+        guard let receipt = self.viewModel.hotelReceiptData else{return cell}
+        let whtNextNew = receipt.whatNext.filter{$0.product != ""}
+        cell.suggetionImage = AppImages.hotel_green_icon
+        cell.configCellwith(whtNextNew, usedFor: "hotel", isNeedToAdd: !self.viewModel.bookingIds.isEmpty)
+        cell.whatNextStackView.isHidden = self.viewModel.bookingIds.isEmpty
+        cell.selectedWhatNext = {[weak self] index in
+            self?.tapOnSeletedWhatNext(index: index)
         }
-        //        cell.whatNextStackView.isHidden = false
+        cell.instagramButton.isLoading = self.needToShowLoaderOnShare
         return cell
     }
+}
+
+extension YouAreAllDoneVC: MFMailComposeViewControllerDelegate{
+    
+    func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.overrideUserInterfaceStyle = .light
+            mail.mailComposeDelegate = self
+            mail.setToRecipients([LocalizedString.AertripEmailId.localized])
+            mail.setMessageBody("", isHTML: true)
+
+            present(mail, animated: true)
+        } else {
+            // show failure alert
+        }
+    }
+
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+    
 }

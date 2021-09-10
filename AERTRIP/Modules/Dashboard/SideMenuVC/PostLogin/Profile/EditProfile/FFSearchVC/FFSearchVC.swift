@@ -25,6 +25,7 @@ class FFSearchVC: BaseVC {
     let cellIdentifier = "SearchTableViewCell"
     var searchData: [FlyerModel] = []
     var defaultAirlines: [FlyerModel] = []
+    var selectedAirline: [FrequentFlyer] = []
     let viewModel = FFSearchVM()
     weak var delgate: SearchVCDelegate?
     
@@ -49,7 +50,7 @@ class FFSearchVC: BaseVC {
  
         searchBar.placeholder = LocalizedString.SearchAirlines.localized
         searchBar.delegate = self
-        
+        self.view.backgroundColor = AppColors.themeBlack26
         doInitialSetUp()
         registerXib()
     }
@@ -70,6 +71,7 @@ class FFSearchVC: BaseVC {
     
     func doInitialSetUp() {
         
+//        self.view.backgroundColor = AppColors.themeWhite
         self.topNavView.delegate = self
         self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
         self.topNavView.configureNavBar(title: LocalizedString.FrequentFlyer.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
@@ -117,12 +119,21 @@ extension FFSearchVC: UITableViewDataSource, UITableViewDelegate {
         }
         if searchData.count > 0 {
             cell.configureCell(searchData[indexPath.row].logoUrl, searchData[indexPath.row].label, searchData[indexPath.row].iata)
+            if self.selectedAirline.contains(where: {$0.airlineCode.lowercased() == searchData[indexPath.row].iata.lowercased()}){
+                cell.titleLabel.textColor = AppColors.themeGray40
+            }else{
+                cell.titleLabel.textColor = AppColors.themeBlack
+            }
         }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard (!self.selectedAirline.contains(where: {$0.airlineCode.lowercased() == searchData[indexPath.row].iata.lowercased()})) else{
+            AppToast.default.showToastMessage(message: "Airline is already added in Frequent flyer")
+            return
+        }
         delgate?.frequentFlyerSelected(searchData[indexPath.row])
         dismiss(animated: true, completion: nil)
     }

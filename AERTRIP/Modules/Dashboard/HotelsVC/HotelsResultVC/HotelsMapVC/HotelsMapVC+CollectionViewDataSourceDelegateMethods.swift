@@ -15,6 +15,13 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.hotelsMapCV.isHidden = self.viewModel.collectionViewLocArr.count == 0
+//        if  (self.viewModel.fetchRequestType != .normal) {
+        if !self.viewModel.favouriteHotels.isEmpty {
+            self.switchContainerView.isHidden = false
+        } else {
+            self.switchContainerView.isHidden = true
+        }
+//        }
         return self.viewModel.collectionViewLocArr.count
     }
     
@@ -30,8 +37,13 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelGroupCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelGroupCardCollectionViewCell else {
                 fatalError("HotelGroupCardCollectionViewCell not found")
             }
-            
+            cell.layer.shouldRasterize = true
+            cell.layer.rasterizationScale = UIScreen.main.scale
             cell.hotelListData = hData.first
+            cell.hotelList = hData
+            cell.containerTopConstraint.constant = 10
+            cell.containerBottomConstraint.constant = 8
+            cell.secondViewBottomConstataints.constant = (hData.count < 3) ? 0.0 : 12.0
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
             
@@ -40,6 +52,8 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelCardCollectionViewCell else {
                 fatalError("HotelCardCollectionViewCell not found")
             }
+            cell.layer.shouldRasterize = true
+            cell.layer.rasterizationScale = UIScreen.main.scale
             cell.hotelListData = hData.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
@@ -53,59 +67,76 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let _ = collectionView.cellForItem(at: indexPath) as? HotelGroupCardCollectionViewCell {
             self.expandGroup((self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.row]] as? [HotelSearched]) ?? [])
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .OpenGroupedHotels)
         }
         else if let cell = collectionView.cellForItem(at: indexPath) as? HotelCardCollectionViewCell, let data = cell.hotelListData {
              //--------------------------- Golu Change ---------------------
             self.selectedIndexPath = indexPath
-//            AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: data, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+//            presentControllerDefault(cell: cell, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest, filterParams: viewModel.getFilterParams(), searchFormData: viewModel.searchedFormData)
             
-            presentController(cell: cell, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .OpenHotelByCardTap)
         }
          //--------------------------- End ---------------------
-//        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
+    
+    
+//    func presentControllerDefault(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+//        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+//        vc.viewModel.hotelInfo = hotelInfo
+//        vc.delegate = self
+//        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+//        var img = cell.selfImage
+//        if cell.selfImage == nil{
+//            img = cell.viewScreenShot()
+//        }
+//        vc.backImage = img
+//        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+//        self.present(nav, animated: true)
+//
+//    }
     
     
      //--------------------------- Golu Change ---------------------
-    func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
-        
-        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-        vc.viewModel.hotelInfo = hotelInfo
-        vc.delegate = self
-        vc.viewModel.hotelSearchRequest = hotelSearchRequest
-        var img = cell.selfImage
-        if cell.selfImage == nil{
-           img = cell.viewScreenShot()
-        }
-        vc.backImage = img
-        cell.freezeAnimations()
-        let currentCellFrame = cell.layer.presentation()!.frame
-        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
-        vc.modalPresentationStyle = .custom
-        let frameWithoutTransform = { () -> CGRect in
-            let center = cell.center
-            let size = cell.bounds.size
-            let r = CGRect(
-                x: center.x - size.width / 2,
-                y: center.y - size.height / 2,
-                width: size.width,
-                height: size.height
-            )
-            return cell.superview!.convert(r, to: nil)
-        }()
-        
-        let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
-        self.transition = CardTransition(params: params)
-        
-        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)//UINavigationController(rootViewController: vc)
-        
-        nav.transitioningDelegate = transition
-        nav.modalPresentationCapturesStatusBarAppearance = true
-        nav.modalPresentationStyle = .custom
-        self.present(nav, animated: true, completion: {
-            cell.unfreezeAnimations()
-        })
-        
-    }
+//    func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+//
+//        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+//        vc.viewModel.hotelInfo = hotelInfo
+//        vc.delegate = self
+//        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+//        var img = cell.selfImage
+//        if cell.selfImage == nil{
+//           img = cell.viewScreenShot()
+//        }
+//        vc.backImage = img
+//        cell.freezeAnimations()
+//        let currentCellFrame = cell.layer.presentation()!.frame
+//        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
+//        vc.modalPresentationStyle = .custom
+//        let frameWithoutTransform = { () -> CGRect in
+//            let center = cell.center
+//            let size = cell.bounds.size
+//            let r = CGRect(
+//                x: center.x - size.width / 2,
+//                y: center.y - size.height / 2,
+//                width: size.width,
+//                height: size.height
+//            )
+//            return cell.superview!.convert(r, to: nil)
+//        }()
+//
+//        let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
+//        self.transition = CardTransition(params: params)
+//
+//        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)//UINavigationController(rootViewController: vc)
+//
+//        nav.transitioningDelegate = transition
+//        nav.modalPresentationCapturesStatusBarAppearance = true
+//        nav.modalPresentationStyle = .custom
+//        self.present(nav, animated: true, completion: {
+//            cell.unfreezeAnimations()
+//        })
+//
+//    }
     
 }

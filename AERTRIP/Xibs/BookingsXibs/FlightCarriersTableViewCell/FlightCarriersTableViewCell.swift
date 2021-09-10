@@ -31,6 +31,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
     @IBOutlet weak var flightCode: UILabel!
     @IBOutlet weak var remainingCodesLabel: UILabel!
     @IBOutlet weak var nextScreenImageView: UIImageView!
+    @IBOutlet weak var containerTopConstraints: NSLayoutConstraint!
     
     // MARK: - LifeCycle
     
@@ -39,8 +40,15 @@ class FlightCarriersTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.setupColors()
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColors()
+        self.configUI()
+    }
     // MARK: - Functions
     
     // MARK: ===========
@@ -56,21 +64,42 @@ class FlightCarriersTableViewCell: UITableViewCell {
         self.moreFlightCarriersLabel.textColor = AppColors.themeWhite
         self.totalCarriersOrFlNameLabel.textColor = AppColors.themeBlack
         self.flightCode.textColor = AppColors.themeBlack
-        self.remainingCodesLabel.textColor = AppColors.themeGray40
+        self.remainingCodesLabel.textColor = AppColors.themeGray153
         
         // SetUp
         self.secondFlightCarriersContView.isHidden = true
         self.moreFlightCarriersContView.isHidden = true
         
-        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+        [firstFlightCarriersImgVw, secondFlightCarriersImgVw, moreFlightCarriersImgVw].forEach{ imgView in
+            imgView?.roundedCorners(cornerRadius: 3.0)
+        }
+        
+        
+        //self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+//        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        let shadow = AppShadowProperties(self.isLightTheme())
+        self.containerView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
     }
     
     internal func configCell(carriers: [String], carrierCode: [String], flightNumbers: [String]) {
         self.remainingCodesLabel.text = "+\(flightNumbers.count - 1) \(LocalizedString.More.localized)"
         let firstCarrierCode = carrierCode.first ?? ""
         let firstFlightNumber = flightNumbers.first ?? ""
-        self.flightCode.text = (firstCarrierCode + firstFlightNumber)
+        self.flightCode.text = (firstCarrierCode + " " + firstFlightNumber)
         self.remainingCodesLabel.isHidden = false
+        self.setupImageWith(carrierCode: carrierCode, carriers: carriers)
+        
+    }
+    
+    
+    func setupColors(){
+        [containerView, firstFlightCarriersContView, secondFlightCarriersContView, moreFlightCarriersContView].forEach { view in
+            view?.backgroundColor = AppColors.themeWhiteDashboard
+        }
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
+    
+    func setupImageWith(carrierCode:[String], carriers:[String]){
         
         // logic for carrier image and name label :
         /*
@@ -80,11 +109,15 @@ class FlightCarriersTableViewCell: UITableViewCell {
          else more than 3 carrier then show two carrier and third carrier(blurred) and count above it
          
          */
+        let uniqueCarrierCode = carrierCode.removeDuplicates()
+        let uniqueCarriers = carriers.removeDuplicates()
         switch carriers.count {
         case 1:
-            if !carrierCode[0].isEmpty {
-                let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[0])
+            if uniqueCarrierCode.indices.contains(0),!uniqueCarrierCode[0].isEmpty {
+                let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: uniqueCarrierCode[0])
                 self.firstFlightCarriersImgVw.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
+            } else {
+                self.firstFlightCarriersContView.isHidden = true
             }
             self.secondFlightCarriersContView.isHidden = true
             self.moreFlightCarriersContView.isHidden = true
@@ -95,8 +128,16 @@ class FlightCarriersTableViewCell: UITableViewCell {
             self.moreFlightCarriersLabel.isHidden = true
             self.moreFlightCarriersContView.isHidden = true
             self.totalCarriersOrFlNameLabel.isHidden = true
-            self.firstFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[0]), placeholder: AppPlaceholderImage.default, showIndicator: true)
-            self.secondFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[1]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            if uniqueCarrierCode.indices.contains(0),!uniqueCarrierCode[0].isEmpty {
+            self.firstFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: uniqueCarrierCode[0]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.firstFlightCarriersContView.isHidden = true
+            }
+            if uniqueCarrierCode.indices.contains(1),!uniqueCarrierCode[1].isEmpty {
+                self.secondFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: uniqueCarrierCode[1]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.secondFlightCarriersContView.isHidden = true
+            }
             
         case 3:
             self.secondFlightCarriersContView.isHidden = false
@@ -104,17 +145,56 @@ class FlightCarriersTableViewCell: UITableViewCell {
             self.moreFlightCarriersContView.isHidden = false
             self.moreFlightBlurOverlayView.isHidden = true
             self.totalCarriersOrFlNameLabel.isHidden = true
-            self.firstFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[0]), placeholder: AppPlaceholderImage.default, showIndicator: true)
-            self.secondFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[1]), placeholder: AppPlaceholderImage.default, showIndicator: true)
-            self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            if uniqueCarrierCode.indices.contains(0),!uniqueCarrierCode[0].isEmpty {
+            self.firstFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: uniqueCarrierCode[0]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.firstFlightCarriersContView.isHidden = true
+            }
+            if uniqueCarrierCode.indices.contains(1),!uniqueCarrierCode[1].isEmpty {
+            self.secondFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: uniqueCarrierCode[1]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.secondFlightCarriersContView.isHidden = true
+            }
+            if uniqueCarrierCode.indices.contains(2),!uniqueCarrierCode[2].isEmpty {
+            self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: uniqueCarrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.moreFlightCarriersLabel.isHidden = true
+                self.moreFlightCarriersContView.isHidden = true
+            }
             
         default:
             self.secondFlightCarriersContView.isHidden = false
-            self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
             self.moreFlightCarriersContView.isHidden = false
+            if uniqueCarrierCode.indices.contains(2),!uniqueCarrierCode[2].isEmpty {
+            self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: uniqueCarrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.moreFlightCarriersContView.isHidden = true
+            }
             self.moreFlightCarriersLabel.text = "+ \(carriers.count - 3)"
             self.totalCarriersOrFlNameLabel.text = "\(carriers.count) \(LocalizedString.Carriers.localized)"
         }
+        
+        if uniqueCarriers.count == 1 {
+           self.totalCarriersOrFlNameLabel.text = carriers[0]
+            self.totalCarriersOrFlNameLabel.isHidden = false
+        }
+        
+    }
+    
+    
+    func configureCellWith(_ leg: IntLeg, airLineDetail:[String:String]){
+        let firstCarrierCode = leg.al.first ?? ""
+        let firstFlightNumber = leg.flightsWithDetails.first?.fn ?? ""
+        self.flightCode.text = (firstCarrierCode + " " + firstFlightNumber)
+        self.remainingCodesLabel.isHidden = false
+        let codes = leg.flightsWithDetails.map{$0.al}
+        var carriers = [String]()
+        for code in codes{
+            carriers.append(airLineDetail[code] ?? "")
+        }
+        self.remainingCodesLabel.text = "+\(codes.count - 1) \(LocalizedString.More.localized)"
+        self.setupImageWith(carrierCode: codes, carriers: carriers)
+        
     }
     
     // MARK: - IBActions

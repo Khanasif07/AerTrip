@@ -49,9 +49,9 @@ class BookingRequestAddOnsFFVM {
     var mealPreferences = [String: String]()
     
     // FrequentFlyer Data
-    var sectionData: [(profileImage: UIImage, userName: String)] = [(profileImage: UIImage(named: "boy")!, userName: "Mr. Alan McCarthy"), (profileImage: UIImage(named: "boy")!, userName: "Mrs. Jane McCarthy"), (profileImage: UIImage(named: "boy")!, userName: "Mr. Steve McCarthy"), (profileImage: UIImage(named: "boy")!, userName: "Miss. June McCarthy")]
-    
-    var ffAirlineData: [(airlineImage: UIImage, airlineName: String)] = [(airlineImage: UIImage(named: "aertripGreenLogo")!, airlineName: "Air India"), (airlineImage: UIImage(named: "aertripGreenLogo")!, airlineName: "Jet Airways")]
+//    var sectionData: [(profileImage: UIImage, userName: String)] = [(profileImage: UIImage(named: "boy")!, userName: "Mr. Alan McCarthy"), (profileImage: UIImage(named: "boy")!, userName: "Mrs. Jane McCarthy"), (profileImage: UIImage(named: "boy")!, userName: "Mr. Steve McCarthy"), (profileImage: UIImage(named: "boy")!, userName: "Miss. June McCarthy")]
+//    
+//    var ffAirlineData: [(airlineImage: UIImage, airlineName: String)] = [(airlineImage: UIImage(named: "aertripGreenLogo")!, airlineName: "Air India"), (airlineImage: UIImage(named: "aertripGreenLogo")!, airlineName: "Jet Airways")]
     
     // AddOn Data
     

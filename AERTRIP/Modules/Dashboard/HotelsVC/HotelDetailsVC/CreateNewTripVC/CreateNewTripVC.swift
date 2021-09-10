@@ -17,7 +17,6 @@ class CreateNewTripVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var popUpContainerView: UIView!
-    @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var tripImageView: UIImageView!
     @IBOutlet weak var tripImageShadowView: UIView!
@@ -25,13 +24,17 @@ class CreateNewTripVC: BaseVC {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var createButton: ATButton!
     @IBOutlet weak var inputContainerShadowView: UIView!
-    
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var stickyLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
     
     //MARK:- Properties
     //MARK:- Public
     let viewModel = CreateNewTripVM()
     weak var delegate: CreateNewTripVCDelegate?
-    
+    var initialTouchPoint = CGPoint.zero
+    var initailContainerYPosition: CGFloat?
+    var viewTranslation = CGPoint(x: 0, y: 0)
     //MARK:- Private
     
     //MARK:- ViewLifeCycle
@@ -40,27 +43,40 @@ class CreateNewTripVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         createButton.layer.cornerRadius = createButton.height / 2
-        editButton.cornerRadius = editButton.height / 2.0
-        createButton.layer.masksToBounds = true
+        editButton.cornerradius = editButton.height / 2.0
+//        createButton.layer.masksToBounds = true
         
-        popUpContainerView.roundTopCorners(cornerRadius: 10.0)
-        inputContainerView.cornerRadius = 10.0
-        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack, offset: CGSize(width: 0.0, height: 0.0), opacity: 0.5, shadowRadius: 5.0)
+       // popUpContainerView.roundTopCorners(cornerRadius: 10.0)
+        inputContainerView.cornerradius = 10.0
+        let shadowProp = AppShadowProperties(self.isLightTheme())
+        self.inputContainerShadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+//        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerradius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        inputContainerShadowView.clipsToBounds = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.statusBarStyle = .lightContent
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if initailContainerYPosition == nil {
+            initailContainerYPosition = popUpContainerView.y
+        }
     }
     
     override func initialSetup() {
         
-        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        swipeGesture.delegate = self
-        self.view.addGestureRecognizer(swipeGesture)
-        
-        topNavView.delegate = self
-        topNavView.configureNavBar(title: LocalizedString.CreateNewTrip.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-        
-        topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"))
+        headerView.backgroundColor = .clear
+        popUpContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.view.backgroundColor = .clear
         
         titleTextField.becomeFirstResponder()
         titleTextField.autocorrectionType = .no
+        
+        self.createButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.createButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     override func bindViewModel() {
@@ -70,27 +86,38 @@ class CreateNewTripVC: BaseVC {
     override func setupFonts() {
         createButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         createButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        createButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         editButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
         titleTextField.font = AppFonts.Regular.withSize(18.0)
+        self.stickyLabel.font = AppFonts.SemiBold.withSize(18.0)
+
     }
     
     override func setupTexts() {
         createButton.setTitle(LocalizedString.Create.localized, for: .normal)
         
         editButton.setTitle(LocalizedString.Edit.localized, for: .normal)
-        titleTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.NameYourTrip.localized)
+        titleTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.NameYourTrip.localized, with: "")
+        self.stickyLabel.text = LocalizedString.CreateNewTrip.localized
+
     }
     
     override func setupColors() {
-        
-        view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+        if #available(iOS 13.0, *) {} else {
+            view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+        }
         createButton.isSocial = false
-        createButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        createButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         
         editButton.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)
-        editButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        editButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         
         tripImageShadowView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+        
+        self.stickyLabel.textColor = AppColors.themeBlack
+        self.headerView.backgroundColor = AppColors.flightsNavBackViewColor
+        self.inputContainerView?.backgroundColor = AppColors.themeWhiteDashboard
+        self.inputContainerShadowView?.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     //MARK:- Methods
@@ -117,6 +144,11 @@ class CreateNewTripVC: BaseVC {
             trip.image = tripImageView.image
             viewModel.add(trip: trip)
         }
+    }
+    @IBAction func closeBtnTapped(_ sender: Any) {
+        //cross button
+        ((self.presentingViewController as? SelectTripVC)?.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .CancelCreateNewTrip)
+        self.dismiss(animated: true)
     }
 }
 
@@ -147,6 +179,9 @@ extension CreateNewTripVC: CreateNewTripVMDelegate {
     }
     
     func saveTripSuccess(trip: TripModel) {
+        if tripImageView.image != nil{
+            ((self.presentingViewController as? SelectTripVC)?.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .SetATripPhoto)
+        }
         self.delegate?.createNewTripVC(sender: self, didCreated: trip)
         self.dismiss(animated: true)
     }
@@ -155,45 +190,6 @@ extension CreateNewTripVC: CreateNewTripVMDelegate {
     }
 }
 
-//MARK:- Navigation View delegat methods
-//MARK:-
-extension CreateNewTripVC: TopNavigationViewDelegate {
-    func topNavBarLeftButtonAction(_ sender: UIButton) {
-        // no need to implement
-    }
-    
-    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        //cross button
-        self.dismiss(animated: true)
-    }
-}
-
 extension CreateNewTripVC {
-    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: view?.window)
-        var initialTouchPoint = CGPoint.zero
-        print(touchPoint)
-        
-        switch sender.state {
-        case .began:
-            initialTouchPoint = touchPoint
-        case .changed:
-            if touchPoint.y > initialTouchPoint.y {
-                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
-            }
-        case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 300 {
-                dismiss(animated: true, completion: nil)
-            } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame = CGRect(x: 0,
-                                             y: 0,
-                                             width: self.view.frame.size.width,
-                                             height: self.view.frame.size.height)
-                })
-            }
-        case .failed, .possible:
-            break
-        }
-    }
+
 }

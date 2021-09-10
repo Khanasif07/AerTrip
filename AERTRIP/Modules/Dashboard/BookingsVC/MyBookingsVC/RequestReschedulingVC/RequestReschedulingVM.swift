@@ -16,13 +16,41 @@ protocol RequestReschedulingVMDelegate: class {
 
 class RequestReschedulingVM {
     
-    var legsWithSelection: [Leg] = []
-    
+    var legsWithSelection: [BookingLeg] = []
+    var isOnlyReturn = false
+    var minimumDate:Date{
+        if isOnlyReturn{
+            let startDate = self.legsWithSelection.first?.eventStartDate ?? Date()
+            if startDate < Date(){
+                return Date()
+            }else{
+                return startDate
+            }
+        }else{
+            return Date()
+        }
+    }
     var totRefund: Double {
         return legsWithSelection.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForReschedule })) }
     }
     
     weak var delegate: RequestReschedulingVMDelegate?
+    
+    
+    func isValidData() -> Bool {
+        for leg in self.legsWithSelection {
+            
+            //set dates
+            if let _ = leg.rescheduledDate {
+            }
+            else {
+                AppToast.default.showToastMessage(message: "Please select all rescheduling dates.")
+                return false
+            }
+            
+        }
+        return true
+    }
     
     private func getParamForRescheduling() -> JSONDictionary {
         
@@ -51,13 +79,13 @@ class RequestReschedulingVM {
             }
             
             //set preferred_flight if any
-            if !leg.prefredFlightNo.isEmpty {
+//            if !leg.prefredFlightNo.isEmpty {
                 params["\(leg.legId)[preferred_flight]"] = leg.prefredFlightNo
-            }
+//            }
             
             //set selected pax_id
-            for pax in leg.selectedPaxs {
-                params["\(leg.legId)[pax_id][]"] = pax.paxId
+            for (index, pax) in leg.selectedPaxs.enumerated() {
+                params["\(leg.legId)[pax_id][\(index)]"] = pax.paxId
             }
             
             params["booking_id"] = leg.bookingId

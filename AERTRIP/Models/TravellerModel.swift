@@ -16,6 +16,24 @@ struct TravellerModel {
     var lastName: String
     var dob: String
     var profileImage: String
+    var nationality = ""
+    var passportNumber = ""
+    var passportExpiryDate: String = ""
+    var mobile:String = ""
+    var email:String = ""
+    var isd:String = ""
+    var ffp:[FFP]?
+    var mealp:String = ""
+    var paxType:PassengersType = .Adult
+    var group:String = ""
+    
+    var firstLastName:String{
+        "\(firstName)\(lastName)".uppercased()
+    }
+    
+    var lastFirstName:String{
+        "\(lastName)\(firstName)".uppercased()
+    }
     
     init() {
         let json = JSON()
@@ -50,7 +68,17 @@ struct TravellerModel {
         contact.lastName = self.lastName
         contact.dob = self.dob
         contact.profilePicture = self.profileImage
-        
+        contact.nationality = ""
+        contact.countryCode = self.nationality
+        contact.passportNumber = self.passportNumber
+        contact.passportExpiryDate = self.passportExpiryDate
+        contact.ffp = self.ffp
+        contact.apiId = "\(self.id)"
+        contact.emailLabel = self.email
+        contact.contact = mobile
+        contact.isd = self.isd
+        contact.mealP = self.mealp
+        contact.passengerType = self.paxType
         return contact
     }
     
@@ -63,6 +91,16 @@ struct TravellerModel {
         self.lastName = json["last_name"].stringValue.removeNull
         self.dob = json["dob"].stringValue.removeNull
         self.profileImage = json["profile_img"].stringValue.removeNull
+        nationality = json["passport_country"].stringValue.removeNull
+        passportNumber = json["passport_number"].stringValue.removeNull
+        passportExpiryDate = json["passport_expiry_date"].stringValue.removeNull
+        ffp = json["ffp"].arrayValue.map{FFP($0)}
+        mobile = json["mobile"].stringValue
+        email = json["email"].stringValue
+        isd = json["isd"].stringValue
+        mealp = json["mealp"].stringValue
+        paxType = PassengersType(rawValue: json["pax_type"].stringValue) ?? .Adult
+        group = json["group"].stringValue
     }
     
     static func models(jsonArr: [JSON]) -> [TravellerModel] {
@@ -90,8 +128,8 @@ struct TravellerModel {
     static func filterByGroups(json: JSON) -> [String: Any] {
         var travellers: [String: Any] = [:]
         let travellersArray = models(json: json)
-        travellers["Friends"] = travellersArray.filter { $0.label == "Friends" }
-        travellers["Other"] = travellersArray.filter { $0.label == "Other" || $0.label.isEmpty }
+        travellers["Friends"] = travellersArray.filter { $0.label.lowercased() == "friends" }
+        travellers["Other"] = travellersArray.filter { $0.label.lowercased() == "other" || $0.label.isEmpty }
         return travellers
     }
     
@@ -99,5 +137,20 @@ struct TravellerModel {
         let travellers: [String: Any] = [:]
         
         return travellers
+    }
+}
+
+struct FFP{
+    
+    var ffNumber:String
+    var airlineCode:String
+    var passengerId:String
+    var ffpName:String?
+    init(_ json: JSON = JSON()){
+        
+        ffNumber = json["ff_number"].stringValue
+        airlineCode = json["airline_code"].stringValue
+        passengerId = json["passenger_id"].stringValue
+        ffpName = json["ffpName"].string
     }
 }

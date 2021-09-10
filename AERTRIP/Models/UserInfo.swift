@@ -170,15 +170,20 @@ class UserInfo {
                 self.labels.append(newLabel)
                 labelsWithPriority[newLabel] = idx + 5
             }
+            if !self.labels.contains("Others") {
+                self.labels.append("Others")
+                labelsWithPriority["Others"] = newList.count + 5
+            }
         }
     }
     
     
     struct HotelFilter : Codable {
-        var ratingCount: [Int] = [0,1,2,3,4,5]
+        var ratingCount: [Int] = [1,2,3,4,5]
         var tripAdvisorRatingCount: [Int] = [1,2,3,4,5]
         var isIncludeUnrated: Bool = true
-        var distanceRange : Double = 20
+        var isIncludeTAUnrated = true
+        var distanceRange : Double = 25
         var minimumPrice : Double = 0.0
         var maximumPrice : Double = 0.0
         var leftRangePrice : Double = 0.0
@@ -188,14 +193,15 @@ class UserInfo {
         var roomCancelation : [String] = []
         var roomOther : [String] = []
         var sortUsing : SortUsing = .BestSellers
-        var priceType : Price = .Total
-        
+        var priceType : Price = .PerNight
+        var isFilterAppliedForDestinetionFlow : Bool = false
         
         init() {
-            ratingCount =  [0,1,2,3,4,5]
+            ratingCount =  [1,2,3,4,5]
             tripAdvisorRatingCount  = [1,2,3,4,5]
             isIncludeUnrated  = true
-            distanceRange  = 20
+            isIncludeTAUnrated = true
+            distanceRange  = 25
             minimumPrice  = 0.0
             maximumPrice  = 0.0
             leftRangePrice = 0.0
@@ -205,8 +211,8 @@ class UserInfo {
             roomCancelation  = []
             roomOther  = []
             sortUsing = .BestSellers
-            priceType = .Total
-           
+            priceType = .PerNight
+           isFilterAppliedForDestinetionFlow = false
         }
         
         
@@ -214,6 +220,7 @@ class UserInfo {
             case ratingCount
             case tripAdvisorRatingCount
             case isIncludeUnrated
+            case isIncludeTAUnrated
             case distanceRange
             case minimumPrice
             case maximumPrice
@@ -225,6 +232,7 @@ class UserInfo {
             case roomOther
             case sortUsing
             case priceType
+            case isFilterAppliedForDestinetionFlow
         }
 
         
@@ -233,6 +241,7 @@ class UserInfo {
             ratingCount = try values.decode([Int].self, forKey: .ratingCount)
             tripAdvisorRatingCount = try values.decode([Int].self, forKey: .tripAdvisorRatingCount)
             isIncludeUnrated  = try values.decode(Bool.self, forKey: .isIncludeUnrated)
+            isIncludeTAUnrated = try values.decode(Bool.self, forKey: .isIncludeTAUnrated)
             distanceRange = try values.decode(Double.self, forKey: .distanceRange)
             minimumPrice = try values.decode(Double.self, forKey: .minimumPrice)
             maximumPrice = try values.decode(Double.self, forKey: .maximumPrice)
@@ -244,11 +253,70 @@ class UserInfo {
             roomOther = try values.decode([String].self, forKey: .roomOther)
             sortUsing =  try values.decode(SortUsing.self, forKey: .sortUsing)
             priceType = try values.decode(Price.self, forKey: .priceType)
-            
+            isFilterAppliedForDestinetionFlow = try values.decode(Bool.self, forKey: .isFilterAppliedForDestinetionFlow)
+
             
         }
         
-        
+        init(recentSearchFilter: RecentSearchesFilter) {
+            ratingCount =  recentSearchFilter.stars
+            var taRatings = [Int]()
+            if recentSearchFilter.firstTripAdvisorStar { taRatings.append(1) }
+            if recentSearchFilter.secondTripAdvisorStar { taRatings.append(2) }
+            if recentSearchFilter.thirdTripAdvisorStar { taRatings.append(3) }
+            if recentSearchFilter.fourthTripAdvisorStar { taRatings.append(4) }
+            if recentSearchFilter.fifthTripAdvisorStar { taRatings.append(5) }
+            if taRatings.isEmpty { taRatings = [1, 2, 3, 4, 5] }
+            tripAdvisorRatingCount  = taRatings
+            isIncludeUnrated  = true
+            isIncludeTAUnrated = recentSearchFilter.noTripAdvisorStar
+            let distance = recentSearchFilter.distance == 0 ? 25 : recentSearchFilter.distance.toDouble
+            distanceRange  = distance
+            
+            minimumPrice = HotelFilterVM.shared.minimumPrice
+            maximumPrice = HotelFilterVM.shared.maximumPrice
+                        
+            let recentLeftPrice = Double(recentSearchFilter.minPrice),
+                recentRightPrice = Double(recentSearchFilter.maxPrice)
+            
+            leftRangePrice = recentLeftPrice < minimumPrice ? minimumPrice : recentLeftPrice
+            rightRangePrice = (recentRightPrice > maximumPrice || recentRightPrice == 0) ? maximumPrice : recentRightPrice
+            
+            var amenities = [String]()
+            recentSearchFilter.amenities.values.forEach { (val) in
+                if let value = val as? JSONDictionary {
+                    if let id = value[APIKeys.id.rawValue] as? String, let isChecked = value[APIKeys.isChecked.rawValue] as? Bool, isChecked {
+                        amenities.append(id)
+                    }
+                }
+            }
+            amentities  = amenities
+            var roomMeals = [String]()
+            if recentSearchFilter.no_meals { roomMeals.append(LocalizedString.RoomOnly.localized) }
+            if recentSearchFilter.breakfast { roomMeals.append(LocalizedString.Breakfast.localized) }
+            if recentSearchFilter.full_board { roomMeals.append(LocalizedString.FullBoard.localized) }
+            if recentSearchFilter.half_board { roomMeals.append(LocalizedString.HalfBoard.localized) }
+            if recentSearchFilter.otherMeals { roomMeals.append(LocalizedString.Others.localized) }
+            roomMeal  = roomMeals
+            var cancellationArr = [String]()
+            if recentSearchFilter.refundable { cancellationArr.append(LocalizedString.FreeCancellation.localized) }
+            if recentSearchFilter.partiallyRefundable { cancellationArr.append(LocalizedString.PartRefundable.localized) }
+            if recentSearchFilter.nonRefundable { cancellationArr.append(LocalizedString.NonRefundable.localized) }
+            roomCancelation  = cancellationArr
+            
+            var othersArr = [String]()
+
+            if let wifi = recentSearchFilter.others[APIKeys.wifi.rawValue] as? Bool, wifi {
+                    othersArr.append(LocalizedString.FreeWifi.localized)
+                }
+            if let tranfer = recentSearchFilter.others[APIKeys.transfer.rawValue] as? Bool, tranfer {
+                othersArr.append(LocalizedString.TransferInclusive.localized)
+            }
+            roomOther  = othersArr
+            sortUsing = recentSearchFilter.sort
+            priceType = recentSearchFilter.priceType
+           isFilterAppliedForDestinetionFlow = false
+        }
         
     }
     
@@ -258,7 +326,7 @@ class UserInfo {
             return UserDefaults.getObject(forKey: UserDefaults.Key.loggedInUserId.rawValue) as? String
         }
         set{
-            if let vlue = newValue{
+            if let vlue = newValue, !vlue.isEmpty{
                 UserDefaults.setObject(vlue, forKey: UserDefaults.Key.loggedInUserId.rawValue)
             }
             else{
@@ -286,6 +354,32 @@ class UserInfo {
     
     var userId:String = ""
     
+    static var preferredCurrencyDetails:CurrencyModel?{
+        
+        get {
+            return UserDefaults.standard.retrieve(objectType: CurrencyModel.self, fromKey: UserDefaults.Key.preferredCurrency.rawValue)
+        }
+        set{
+            if let value = newValue{
+                UserDefaults.standard.save(customObject: value, inKey:UserDefaults.Key.preferredCurrency.rawValue )
+            }
+        }
+        
+    }
+    
+    
+   static var preferredCurrencyCode:String{
+        get{
+            return UserDefaults.standard.string(forKey: UserDefaults.Key.preferredCurrencyCode.rawValue) ?? ""
+//            return (userData?["preferred_currency"] as? String ?? "").removeNull
+        }
+        set{
+             UserDefaults.standard.setValue(newValue, forKey: UserDefaults.Key.preferredCurrencyCode.rawValue)
+//            updateInfo(withData: ["preferred_currency":newValue])
+        }
+    }
+    
+
     var email: String {
         get{
             return (userData?["email"] as? String ?? "").removeNull
@@ -310,6 +404,34 @@ class UserInfo {
         }
         set{
             updateInfo(withData: ["isLoggedIn":newValue])
+        }
+    }
+    
+    var isWalletEnable: Bool{
+        get{
+            return ((userData?["disable_wallet_otp"] as? String ?? "0") == "0")
+        }
+        set{
+            
+            updateInfo(withData: ["disable_wallet_otp":(newValue ? "0" : "1")])
+        }
+    }
+    
+    var hasPassword: Bool {
+        get{
+            if let value = userData?["has_password"] as? Bool {
+                return value
+            } else if let value = userData?["has_password"] as? String {
+                if value.lowercased() == "false" || value.lowercased() == "0" {
+                   return false
+                } else {
+                    return true
+                }
+            }
+            return true
+        }
+        set{
+            updateInfo(withData: ["has_password":newValue])
         }
     }
     
@@ -426,14 +548,7 @@ class UserInfo {
         }
     }
     
-    var preferredCurrency:String{
-        get{
-            return (userData?["preferred_currency"] as? String ?? "").removeNull
-        }
-        set{
-            updateInfo(withData: ["preferred_currency":newValue])
-        }
-    }
+
     
     var paxId:String{
         get{
@@ -510,7 +625,7 @@ class UserInfo {
     
     var currentLocale: Locale {
 
-        switch self.preferredCurrency.uppercased() {
+        switch UserInfo.preferredCurrencyCode.uppercased() {
         case "USD":
             return Locale(identifier: "en_US")
             
@@ -666,6 +781,9 @@ class UserInfo {
         return temp
     }
 
+    var calenderSynsStatus : Bool = true
+
+    
     init(withData data:JSONDictionary, userId:String) {
         self.userId = userId
         self.updateInfo(withData: data)
@@ -677,7 +795,7 @@ class UserInfo {
         for (key, value) in data {
             userInfo[key] = "\(value)"
         }
-
+        
         UserDefaults.setObject(userInfo, forKey: "userProfileData_\(userId)")
     }
     private func deleteValueFor(key:String){
@@ -695,13 +813,14 @@ class UserInfo {
         }
         return nil
     }
+    
     class func deleteUser(userId:String){
         
         UserDefaults.removeObject(forKey: "userProfileData_\(userId)")
     }
     
-    func profileImagePlaceholder(font: UIFont = AppFonts.Regular.withSize(35.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
-        return AppGlobals.shared.getImageFor(firstName: UserInfo.loggedInUser?.firstName, lastName: UserInfo.loggedInUser?.lastName, font: font, textColor: textColor)
+    func profileImagePlaceholder(font: UIFont = AppFonts.Regular.withSize(35.0), textColor: UIColor = AppColors.themeGray40, backgroundColor:UIColor = AppColors.themeWhiteDashboard) -> UIImage {
+        return AppGlobals.shared.getImageFor(firstName: UserInfo.loggedInUser?.firstName, lastName: UserInfo.loggedInUser?.lastName, font: font, textColor: textColor, backGroundColor: backgroundColor)
     }
 }
 

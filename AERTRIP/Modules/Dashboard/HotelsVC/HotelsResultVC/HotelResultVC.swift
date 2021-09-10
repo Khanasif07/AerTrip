@@ -24,14 +24,11 @@ enum HotelResultViewType {
 
 let visualEffectViewHeight =  CGFloat(20)//CGFloat(200.0)
 
-
-
-
-class HotelResultVC: StatusBarAnimatableViewController {
+class HotelResultVC: BaseVC {
     
     // MARK: - IBOutlets
     // MARK: -
-    
+    @IBOutlet weak var statusBarViewContainer: UIView!
     @IBOutlet weak var headerContainerView: UIView!
     @IBOutlet weak var navContainerView: UIView!
     @IBOutlet weak var backButton: UIButton!
@@ -41,9 +38,15 @@ class HotelResultVC: StatusBarAnimatableViewController {
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var dividerView: ATDividerView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var unPinAllFavouriteButton: UIButton!
-    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var emailButton: ATButton! {
+        didSet {
+            emailButton.isSocial = true
+            emailButton.gradientColors = []
+            emailButton.shouldShowPressAnimation = false
+        }
+    }
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var switchView: ATSwitcher!
     @IBOutlet weak var backContainerView: UIView!
@@ -52,12 +55,17 @@ class HotelResultVC: StatusBarAnimatableViewController {
             self.tableViewVertical.registerCell(nibName: HotelCardTableViewCell.reusableIdentifier)
             self.tableViewVertical.register(HotelResultSectionHeader.self, forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
             self.tableViewVertical.register(UINib(nibName: "HotelResultSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
+            // self.tableViewVertical.register(UINib(nibName: "HotelSearchResultHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "HotelSearchResultHeaderView")
+            
             self.tableViewVertical.delegate = self
             self.tableViewVertical.dataSource = self
             self.tableViewVertical.separatorStyle = .none
-            self.tableViewVertical.showsVerticalScrollIndicator = false
+            self.tableViewVertical.showsVerticalScrollIndicator = true
             self.tableViewVertical.showsHorizontalScrollIndicator = false
-            self.tableViewVertical.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+            self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
+            self.tableViewVertical.tableHeaderView = searchResultHeaderView
+            self.tableViewVertical.sectionHeaderHeight = hotelSearchResultHeaderViewHeight.min
+            self.tableViewVertical.backgroundColor = AppColors.themeBlack26
         }
     }
     
@@ -70,20 +78,23 @@ class HotelResultVC: StatusBarAnimatableViewController {
     // Searching View
     @IBOutlet weak var hotelSearchView: UIView! {
         didSet {
-            self.hotelSearchView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+            self.hotelSearchView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
             self.hotelSearchView.isUserInteractionEnabled = true
         }
     }
     
-    @IBOutlet weak var hotelSearchTableView: ATTableView!
+    @IBOutlet weak var hotelSearchTableView: ATTableView! {
+        didSet {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(searchTabeleTapped(tap:)))
+            self.hotelSearchTableView.addGestureRecognizer(tap)
+            self.hotelSearchTableView.backgroundColor = AppColors.themeBlack26
+        }
+    }
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var floatingButtonBackView: UIView!
     @IBOutlet weak var switchContainerView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
-    //    @IBOutlet weak var cardGradientView: UIView!
-    //    @IBOutlet weak var shimmerGradientView: UIView!
     @IBOutlet weak var filterView: UIView!
-    
     @IBOutlet weak var filterCollectionView: UICollectionView! {
         didSet {
             filterCollectionView.delegate = self
@@ -93,12 +104,14 @@ class HotelResultVC: StatusBarAnimatableViewController {
             filterCollectionView.contentInset = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         }
     }
+    @IBOutlet weak var mapButtonIndicator: UIActivityIndicatorView!
     @IBOutlet weak var switchGradientView: UIView!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var blurViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerBlurView: UIView!
+    
     // MARK: - Properties
-    
-    //    var container: NSPersistentContainer!
-    
+    let topContentSpace: CGFloat = 96
     var time: Float = 0.0
     var timer: Timer?
     var isAboveTwentyKm: Bool = false
@@ -113,21 +126,23 @@ class HotelResultVC: StatusBarAnimatableViewController {
     var oldScrollPosition: CGPoint = CGPoint.zero
     var selectedIndexPath: IndexPath?
     var selectedIndexPathForHotelSearch: IndexPath?
-    var isMapInFullView: Bool = false
     var floatingViewInitialConstraint : CGFloat = 0.0
     
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
+    var isDataFetched = false
     
-    var visualEffectView : UIVisualEffectView!
-    var backView : UIView!
-    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
-        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
-    }
+    var hotelMapVC: HotelsMapVC?
+    
     
     // Empty State view
-    
     lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
+    lazy var noResultemptyViewVerticalTableView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noResult
         return newEmptyView
@@ -144,6 +159,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
     lazy var noHotelFoundOnFilterEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noHotelFoundOnFilter
+        newEmptyView.delegate = self
         return newEmptyView
     }()
     
@@ -159,26 +175,47 @@ class HotelResultVC: StatusBarAnimatableViewController {
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
     var applyButtonTapped: Bool = false
+    var isViewDidAppear = false
+    var visualEffectViewHeight : CGFloat {
+        return statusBarHeight + 96
+    }
+    var statusBarHeight : CGFloat {
+//        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+        return AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+    }
+    var scrollviewInitialYOffset = CGFloat(0.0)
     
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
     
     //Manage Transition Created by golu
-     internal var transition: CardTransition?
-     
+    internal var transition: CardTransition?
+    var hotelSearchResultHeaderViewHeight: (min: CGFloat, max: CGFloat) = (min: 36, max: 70)
+    lazy var  searchResultHeaderView: HotelSearchResultHeaderView = {
+        let view = HotelSearchResultHeaderView.instanceFromNib()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: UIScreen.width).isActive = true
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: hotelSearchResultHeaderViewHeight.min)
+        view.numberOfRooms = viewModel.searchedFormData.roomNumber
+        view.resultListPriceType = .perNight
+        view.updateHeight(height: hotelSearchResultHeaderViewHeight.min)
+        return view
+    }()
     // MARK: - ViewLifeCycle
     
     // MARK: -
     
     override func initialSetup() {
         self.view.layoutIfNeeded()
-        
+        mapButtonIndicator.tintColor = AppColors.themeGreen
         self.filterCollectionView.isUserInteractionEnabled = false
-        self.filterButton.isEnabled = false
-        self.mapButton.isEnabled = false
-        self.searchButton.isEnabled = false
+        self.filterButton.isUserInteractionEnabled = false
+        self.mapButton.isUserInteractionEnabled = false
+        self.searchButton.isUserInteractionEnabled = false
         //self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
-        
+        self.hotelSearchTableView.showsVerticalScrollIndicator = true
+        self.searchButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 0, right: 0)
         self.view.backgroundColor = AppColors.themeWhite
         
         self.initialSetups()
@@ -190,7 +227,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
             
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             self?.viewModel.fetchRequestType = .FilterApplied
-            if let old = UserInfo.hotelFilter {
+            if let old = self?.viewModel.tempHotelFilter {//UserInfo.hotelFilter {
                 HotelFilterVM.shared.setData(from: old)
             }
             self?.doneButtonTapped()
@@ -222,27 +259,41 @@ class HotelResultVC: StatusBarAnimatableViewController {
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
         }
         
-        searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
+        searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
+        //addCustomBackgroundBlurView()
+        headerBlurView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.85)
         
+//        setGroupedFooterView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.isViewDidAppear = true
+        self.statusBarColor = AppColors.clear
+        self.statusBarStyle = .default
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(animated)        
+        // addCustomBackgroundBlurView()
         self.statusBarColor = AppColors.clear
         self.statusBarStyle = .default
-        addCustomBackgroundBlurView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
-        backView.removeFromSuperview()
-        //        if  self.isMovingFromParent {
-        //            backView.removeFromSuperview()
-        //        }
+        //        self.headerBlurView.removeFromSuperview()
+        //        self.statusBarBlurView.removeFromSuperview()
+        
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.mapButton.alpha = 1.0
+        self.mapButtonIndicator.stopAnimating()
+    }
     
     override func bindViewModel() {
         self.viewModel.hotelResultDelegate = self
@@ -251,22 +302,32 @@ class HotelResultVC: StatusBarAnimatableViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //        self.configureCollectionViewLayoutItemSize()
+        self.blurViewHeightConstraint.constant = self.statusBarHeight
+    }
+    
+    
+    override func currencyChanged(_ note: Notification) {
+        self.tableViewVertical.reloadData()
+        self.hotelSearchTableView.reloadData()
     }
     
     deinit {
         CoreDataManager.shared.deleteData("HotelSearched")
-        //        ImageCache.default.clearMemoryCache()
-        //        ImageCache.default.clearDiskCache()
-        //        ImageCache.default.cleanExpiredDiskCache()
+        self.hotelMapVC = nil
         printDebug("HotelResultVC deinit")
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
-            //re-hit the search API
-            self.manageShimmer(isHidden: false)
-            CoreDataManager.shared.deleteData("HotelSearched")
-            self.viewModel.hotelListOnPreferencesApi()
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .GRNSessionExpired:
+                //re-hit the search API
+                self.manageShimmer(isHidden: false)
+                CoreDataManager.shared.deleteData("HotelSearched")
+                self.viewModel.hotelListOnPreferencesApi()
+            default:
+                break
+            }
         }
         else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
@@ -286,31 +347,19 @@ class HotelResultVC: StatusBarAnimatableViewController {
         }
     }
     
-    func addCustomBackgroundBlurView(){
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        printDebug("scrollViewShouldScrollToTop")
+        delay(seconds: 0.8) {
+            self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: -self.topContentSpace), animated: false)
+            self.showBluredHeaderViewCompleted()
+        }
+        // self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
+        //        revealBlurredHeaderView(self.topContentSpace)
         
-        visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
-        visualEffectView.effect = UIBlurEffect(style: .prominent)
-        
-        backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 20))
-        backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
-        backView.addSubview(visualEffectView)
-        
-        let backVisualEfectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: backContainerView.height))
-        backVisualEfectView.effect = UIBlurEffect(style: .prominent)
-        backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        
-        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
-        //backContainerView.addSubview(backVisualEfectView)
-        
-        
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.view.backgroundColor = .clear
-        //self.navigationController?.view.addSubview(backView)
-        navigationItem.hidesBackButton = true
-        self.navigationItem.leftBarButtonItem=nil
-        
+        return true
     }
+    
     // MARK: - Methods
     
     // MARK: - Private
@@ -322,6 +371,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
             self.hotelSearchTableView.tableFooterView = footerView
         }
     }
+    
     override func keyboardWillHide(notification: Notification) {
         if let _ = self.view.window {
             //checking if the screen in window only then this method should call
@@ -333,7 +383,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
         self.setUpFloatingView()
         self.setupTableHeader()
         self.searchBar.delegate = self
-        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+//        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
         self.reloadHotelList()
         self.floatingButtonOnMapView.isHidden = true
@@ -352,22 +402,21 @@ class HotelResultVC: StatusBarAnimatableViewController {
         
         //  self.searchBar.backgroundColor = .red
         self.searchBar.searchBarStyle = .default
-        self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
-        self.switchView.selectedColor = AppColors.themeRed
-        self.switchView.originalBorderColor = AppColors.themeGray04//AppColors.themeGray20
-        self.switchView.selectedBorderColor = AppColors.themeRed
-        self.switchView.originalBorderWidth = 0.0//1.5
-        self.switchView.selectedBorderWidth = 0.0//1.5
-        self.switchView.iconBorderWidth = 0.0
-        self.switchView.iconBorderColor = AppColors.clear
-        self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
-        self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
-        self.switchView.isBackgroundBlurry = true
+        
+        // replaced the switch with flight switch
+        switchView.tintColor = AppColors.themeGray20
+        switchView.offTintColor = AppColors.switchGray
+        switchView.onThumbImage = AppImages.switch_fav_on
+        switchView.offThumbImage = AppImages.switch_fav_on
+        switchView.isOn = false
+        switchView.setupUI()
+        
         self.switchGradientView.backgroundColor = AppColors.clear
         self.switchGradientView.isHidden = true
         // self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         self.manageFloatingView(isHidden: true)
         self.searchBarContainerView.isHidden = true
+        
     }
     
     override func setupFonts() {
@@ -394,23 +443,19 @@ class HotelResultVC: StatusBarAnimatableViewController {
     
     
     private func presentEmailVC() {
-        
+      
         func showEmailComposer() {
-            self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
-                guard let strongSelf = self else {return}
-                if status {
-                    // url fetched
-                    AppFlowManager.default.presentMailComposerVC(strongSelf.viewModel.favouriteHotels, strongSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), strongSelf.viewModel.shortUrl)
-                    AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-                }
-            }
+            AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: statusBarStyle)
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
         }
-        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { (_) in
+        
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare) { (_) in
             guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
             showEmailComposer()
+            self.viewModel.updateRecentSearch()
         }
-        
     }
+    
     
     func manageShimmer(isHidden: Bool) {
         self.shimmerView.isHidden = isHidden
@@ -429,27 +474,55 @@ class HotelResultVC: StatusBarAnimatableViewController {
         self.filterButton.addGestureRecognizer(longPressGesture)
     }
     
-    // MARK: - Public
     
     // MARK: - Action
     
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.statusBarStyle = .lightContent
         AppFlowManager.default.popViewController(animated: true)
-    }
-    
-    @IBAction func filterButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.showFilterVC(self)
-    }
-    
-    @IBAction func mapButtonAction(_ sender: Any) {
-        delay(seconds: 0.1) {
-            AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+        if viewModel.hotelListResult.isEmpty {
+            FirebaseEventLogs.shared.logHotelListEvents(with: .NavigateBackBeforeHotelListAppears)
+        } else {
+            FirebaseEventLogs.shared.logHotelListEvents(with: .NavigateBackFromHotelList)
         }
     }
     
+    @IBAction func filterButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.showFilterVC(self, index: 0)
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: .HotelSortFilterByTapOnFilterIcon)
+    }
+    
+    @IBAction func mapButtonAction(_ sender: Any) {
+        self.mapButtonIndicator.isHidden = false
+        self.mapButton.alpha = 0.5
+        self.mapButtonIndicator.startAnimating()
+        if let vc = self.hotelMapVC{
+            vc.isNeedToReload = true
+            AppFlowManager.default.mainNavigationController.pushViewController(vc, animated: true)
+        }else{
+            delay(seconds: 0.1) {
+                AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+            }
+        }
+        FirebaseEventLogs.shared.logHotelListEvents(with: .HotelsMapViewOpened)
+    }
+    
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
-        self.removeAllFavouritesHotels()
+        let title = LocalizedString.UnfavouriteAll.localized.capitalized + "?"
+        let message = LocalizedString.UnfavouriteAllMessage.localized
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let  cancelAction = UIAlertAction(title: LocalizedString.Cancel.localized, style: .default, handler: nil)
+        cancelAction.setValue(AppColors.themeDarkGreen, forKey: "titleTextColor")
+        
+        let  unFavouriteAction = UIAlertAction(title: LocalizedString.Unfavourite.localized, style: .destructive) { [weak self] (action) in
+            self?.removeAllFavouritesHotels()
+        }
+        unFavouriteAction.setValue(AppColors.themeRed, forKey: "titleTextColor")
+        
+        alert.addAction(cancelAction)
+        alert.addAction(unFavouriteAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
@@ -479,29 +552,46 @@ class HotelResultVC: StatusBarAnimatableViewController {
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
+        self.searchResultHeaderView.updateHeight(height: hotelSearchResultHeaderViewHeight.min)
+        self.tableViewVertical.sectionHeaderHeight = hotelSearchResultHeaderViewHeight.min
         self.viewModel.searchedHotels.removeAll()
+        self.reloadHotelList()
         self.viewModel.fetchRequestType = .normal
         
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
         self.viewModel.searchTextStr = ""
-        self.reloadHotelList()
+        //self.reloadHotelList()
         delay(seconds: 0.1) { [weak self] in
             self?.viewModel.loadSaveData()
         }
         // nitin       self.getFavouriteHotels(shouldReloadData: false)
     }
-
+    
     
     @IBAction func searchBtnTapped(_ sender: Any) {
         self.showSearchAnimation()
+        FirebaseEventLogs.shared.logHotelListEvents(with: .HotelSearchTapped)
     }
     
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             printDebug("Long press tapped")
-            AppFlowManager.default.presentAerinTextSpeechVC()
+            //            AppFlowManager.default.presentAerinTextSpeechVC()
+        }
+    }
+    
+    // added tap gesture to handle the tap on mapview when vertical tableview is visible
+    @objc func searchTabeleTapped(tap:UITapGestureRecognizer) {
+        let location = tap.location(in: self.hotelSearchTableView)
+        let path = self.hotelSearchTableView.indexPathForRow(at: location)
+        if let indexPathForRow = path {
+            self.tableView(self.hotelSearchTableView, didSelectRowAt: indexPathForRow)
+        } else if (hotelSearchTableView.backgroundView == nil || hotelSearchTableView.backgroundView?.isHidden ?? false){
+            // handle tap on empty space below existing rows however you want
+            printDebug("tapped at empty space of table view")
+            self.cancelButtonTapped(self.cancelButton)
         }
     }
     
@@ -511,15 +601,15 @@ class HotelResultVC: StatusBarAnimatableViewController {
         let remoteHostStatus = networkReachability.currentReachabilityStatus
         
         if remoteHostStatus == .notReachable {
-            print("Not Reachable")
+            printDebug("Not Reachable")
             // self.noHotelFound()
             
         }
         else if remoteHostStatus == .reachableViaWiFi {
-            print("Reachable via Wifi")
+            printDebug("Reachable via Wifi")
         }
         else {
-            print("Reachable")
+            printDebug("Reachable")
         }
     }
     

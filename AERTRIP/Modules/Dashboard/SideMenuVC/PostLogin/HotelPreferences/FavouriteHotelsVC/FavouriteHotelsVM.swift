@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import PKCategoryView
+
 
 protocol ViewAllHotelsVMDelegate: class {
     func willGetHotelPreferenceList()
@@ -43,6 +43,7 @@ class FavouriteHotelsVM {
             if success {
                 
                 strongSelf.hotels = cities
+                strongSelf.hotels.sort(by: { $0.cityName < $1.cityName })
 //                strongSelf.allTabs = strongSelf.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
                 
                 strongSelf.delegate?.getHotelPreferenceListSuccess()
@@ -94,4 +95,14 @@ class FavouriteHotelsVM {
     }
     
     //MARK:- Action
+}
+
+
+///Logs Events For Hotels Details
+extension FavouriteHotelsVM{
+    
+    func logFirebaseEvent(with event: FirebaseEventLogs.EventsTypeName, value:String? = nil){
+        FirebaseEventLogs.shared.logFavouriteHotelsEvents(with: event, value: value)
+    }
+    
 }

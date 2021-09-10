@@ -10,9 +10,11 @@ import UIKit
 import IQKeyboardManager
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate {
-
-    private let indicator = UIActivityIndicatorView(style: .gray)
+    
+    private let indicator = UIActivityIndicatorView(style: .medium)
     private let indicatorContainer = UIView()
+    
+//    var togglesStatusBarWithAppearance = false
     
     var statusBarColor: UIColor = AppColors.themeWhite {
         didSet{
@@ -24,8 +26,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         didSet{
             /*HINT:
              Open your info.plist and insert a new key named "View controller-based status bar appearance" to NO
-            */
-            UIApplication.shared.statusBarStyle = statusBarStyle
+             */
+//            UIApplication.shared.statusBarStyle = statusBarStyle
             setNeedsStatusBarAppearanceUpdate()
         }
     }
@@ -33,6 +35,23 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return self.statusBarStyle
     }
+    
+    //    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    //        super.traitCollectionDidChange(previousTraitCollection)
+    //
+    //        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+    //            updateStatusBarColor()
+    //        }
+    //    }
+    //
+    //    func updateStatusBarColor() {
+    //        switch traitCollection.userInterfaceStyle {
+    //        case .unspecified: statusBarStyle = .default
+    //        case .light:       statusBarStyle = .darkContent
+    //        case .dark:        statusBarStyle = .lightContent
+    //        @unknown default:  statusBarStyle = .default
+    //        }
+    //    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -59,9 +78,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         indicator.color = AppColors.themeGreen
         indicator.startAnimating()
         indicatorContainer.addSubview(indicator)
-
+        
         self.bindViewModel()
-
+        
         self.initialSetup()
         self.setupFonts()
         self.setupTexts()
@@ -80,9 +99,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
             backV.sendSubviewToBack(blurEffectView)
         }
         
-        delay(seconds: 0.1) {
-            self.setupLayout()
-        }
+        //        delay(seconds: 0.1) {
+        //            self.setupLayout()
+        //        }
         IQKeyboardManager.shared().toolbarTintColor = AppColors.themeGreen
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
@@ -90,33 +109,37 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currencyChanged), name: .currencyChanged, object: nil)
     }
-
+    
+    
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.setupLayout()
+        // self.setupLayout()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.registerLogoutNotification()
-        
-        UIView.appearance().semanticContentAttribute = LanguageEnum.isLanguageEnglish ? .forceLeftToRight : .forceRightToLeft
-
-        if let nav = self.navigationController {
-            AppFlowManager.default.setCurrentTabbarNavigationController(navigation: nav)
+                
+        if let nav = self.navigationController, !nav.navigationBar.isHidden {
+            //nav.isNavigationBarHidden = true
+            nav.isNavigationBarHidden = true
+            nav.navigationBar.isHidden = true
+            nav.setNavigationBarHidden(true, animated: false)
         }
+        
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
-        
         self.deRegisterLogoutNotification()
     }
     
@@ -138,12 +161,18 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         self.view.endEditing(true)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
     //MARK: Overrideabel functions
     private func registerDataChangeNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
     }
     
     func bindViewModel() {
+        
     }
     
     override var shouldAutorotate: Bool{
@@ -153,25 +182,19 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
         return UIInterfaceOrientationMask.portrait
     }
-
+    
     //MARK: Private functions
     private func registerLogoutNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(sessionExpired), name: .sessionExpired, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(logoutDone), name: .logOut, object: nil)
     }
     
-   
-    
     private func deRegisterLogoutNotification() {
         NotificationCenter.default.removeObserver(self, name: .sessionExpired, object: nil)
         NotificationCenter.default.removeObserver(self, name: .logOut, object: nil)
-       
     }
     
-   
-    
     final func addTapGestureOnView(view:UIView) {
-        
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         // prevents the scroll view from swallowing up the touch event of child buttons
         tapGesture.cancelsTouchesInView = true
@@ -203,8 +226,14 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         self.resetUser()
         self.showMessage()
     }
-
+    
     @objc func dataChanged(_ note: Notification) {
+        //function intended to override
+    }
+    
+    @objc func currencyChanged(_ note: Notification){ }
+    
+    @objc func statusBarTapped(_ note: Notification) {
         //function intended to override
     }
     
@@ -235,8 +264,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
-
-        printDebug("deinit")
+        NotificationCenter.default.removeObserver(self, name: .currencyChanged, object: nil)
+        printDebug("BaseVC deinit")
     }
 }
 
@@ -264,9 +293,9 @@ extension BaseVC {
     }
     
     /// Setup Layout
-    @objc func setupLayout() {
-        
-    }
+    //    @objc func setupLayout() {
+    //
+    //    }
     
     /// Setup up Nav Bar
     
@@ -274,7 +303,7 @@ extension BaseVC {
         
     }
     
-   
+    
     
     @objc func keyboardWillShow(notification: Notification) {
     }
@@ -295,10 +324,10 @@ extension BaseVC {
         }
         let navigationBarAppearence = UINavigationBar.appearance()
         navigationBarAppearence.backgroundColor = AppColors.themeWhite
-//        navigationBarAppearence.barStyle
+        //        navigationBarAppearence.barStyle
         let shadow = NSShadow()
         shadow.shadowOffset = CGSize(width: 0, height: 0)
-
+        
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = title
         navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -307,7 +336,7 @@ extension BaseVC {
         navigationBar.prefersLargeTitles = true
         let cancelButton = UIBarButtonItem(image: buttonImage, style: .plain, target: self, action: #selector(cancelButtonTapped))
         self.navigationItem.rightBarButtonItem  = cancelButton
-//        self.contentInsetAdjustmentBehavior = .automatic
+        //        self.contentInsetAdjustmentBehavior = .automatic
         self.extendedLayoutIncludesOpaqueBars = true
         navigationBar.shadowImage = UIImage(color: .clear)
     }
@@ -329,16 +358,6 @@ extension BaseVC {
     }
 }
 
-extension UINavigationController {
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return visibleViewController?.supportedInterfaceOrientations ?? super.supportedInterfaceOrientations
-    }
-    
-    open override var shouldAutorotate: Bool {
-        return visibleViewController?.shouldAutorotate ?? super.shouldAutorotate
-    }
-}
-
 extension UITabBarController {
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if let selected = selectedViewController {
@@ -355,3 +374,34 @@ extension UITabBarController {
     }
 }
 
+
+///Price currency convertor
+extension BaseVC{
+    ///Price convertor for booking and Account Section
+    func getConvertedPrice(for amount: Double, with rate:CurrencyConversionRate?, using font: UIFont, isForCancellation: Bool) -> NSMutableAttributedString{
+        
+        if let rate = rate, AppConstants.isCurrencyConversionEnable{
+            if isForCancellation{
+                return amount.convertCancellationAmount(with: rate, using: font)
+            }else{
+                return amount.convertAmount(with: rate, using: font)
+            }
+        }else{
+            return amount.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+        }
+    }
+    
+    func getConvertedAmount(for amount: Double, with rate:CurrencyConversionRate?, isForCancellation: Bool) -> Double{
+        
+        if let rate = rate{
+            if isForCancellation{
+                return amount * rate.cancellationRate
+            }else{
+                return amount * rate.rate
+            }
+        }else{
+            return amount
+        }
+    }
+    
+}

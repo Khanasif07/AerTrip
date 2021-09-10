@@ -53,18 +53,18 @@ class BookingFareInfoDetailVC: BaseVC {
         self.currentIndex = 0
         
         if self.currentlyUsingAs == .fareRules {
-            let vc = FareRulesVC.instantiate(fromAppStoryboard: .Bookings)
+            let vc = FareBookingRulesVC.instantiate(fromAppStoryboard: .Bookings)
             self.allChildVCs.append(vc)
         }
         else {
             for i in 0..<self.allTabsStr.count {
                 if i == 0 {
-                    let vc = FareInfoVC.instantiate(fromAppStoryboard: .Bookings)
+                    let vc = FareBookingInfoVC.instantiate(fromAppStoryboard: .Bookings)
                     vc.viewModel.legDetails = self.viewModel.legDetails
                     vc.viewModel.bookingFee = self.viewModel.bookingFee
                     self.allChildVCs.append(vc)
                 } else if i == 1 {
-                    let vc = FareRulesVC.instantiate(fromAppStoryboard: .Bookings)
+                    let vc = FareBookingRulesVC.instantiate(fromAppStoryboard: .Bookings)
                     self.allChildVCs.append(vc)
                 }
             }
@@ -160,9 +160,9 @@ extension BookingFareInfoDetailVC: BookingFareInfoDetailVMDelegate{
     
     func getFareRulesSuccess(fareRules: String, ruteString: String) {
         
-        var fareVC: FareRulesVC?
+        var fareVC: FareBookingRulesVC?
         for vc in self.allChildVCs {
-            if let obj = vc as? FareRulesVC {
+            if let obj = vc as? FareBookingRulesVC {
                 fareVC = obj
                 break
             }

@@ -33,13 +33,21 @@ class TravellersDetailsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUI()
+        self.setColor()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.travellerName.attributedText = nil
+        self.setColor()
     }
     // MARK: - Functions
+    
+    private func setColor(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
+    
     
     // MARK: ===========
     
@@ -54,13 +62,13 @@ class TravellersDetailsTableViewCell: UITableViewCell {
     internal func configCell(travellersImage: String, travellerName: String,firstName: String,lastName: String, isLastTravellerInRoom: Bool, isLastTraveller: Bool, isOtherBookingData: Bool = false, dob: String, salutation: String, age: String, congigureForHotelDetail: Bool ) {
         //self.travellerName.text = travellerName
         self.travellerImgViewBottomConstraint.constant = (isLastTraveller || isLastTravellerInRoom) ? 16.0 : 4.0
-        self.containerViewBottomConstraint.constant = isLastTraveller ? 26.0 : 0.0
+        self.containerViewBottomConstraint.constant = isLastTraveller ? 16 : 0.0 // 21 : 0.0
         if !isOtherBookingData {
             self.lastCellShadowSetUp(isLastCell: isLastTraveller)
         }
         if !travellersImage.isEmpty {
-            self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
-            self.travellerProfileImage.contentMode = .scaleAspectFit
+            self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: AppImages.profilePlaceholder, showIndicator: true)
+            self.travellerProfileImage.contentMode = .scaleAspectFill
         } else {
             //self.travellerProfileImage.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
             if congigureForHotelDetail {
@@ -85,16 +93,21 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         // self.travellerNameLabel.text = travelName
         self.travellerName.appendFixedText(text: travellerName, fixedText: ageString)
         if !age.isEmpty {
-            self.travellerName.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+            self.travellerName.AttributedFontColorForText(text: ageString, textColor: AppColors.themeGray153)
         }
         
     }
     
     private func lastCellShadowSetUp(isLastCell: Bool) {
         if isLastCell {
-            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+//            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+            let shadow = AppShadowProperties()
+            self.containerView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         } else {
-            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+//            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+            let shadow = AppShadowProperties()
+            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         }
     }
 }
+

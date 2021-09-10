@@ -16,10 +16,10 @@ class HotelsSearchVC: BaseVC {
     internal var checkInOutView: CheckInOutView?
     internal var recentSearchesView: RecentHotelSearcheView?
     private var previousOffSet = CGPoint.zero
-    private var collectionViewHeight: CGFloat = 85.0
-    private var containerViewHeight: CGFloat = 429.0
+    private var collectionViewHeight: CGFloat = 86.0
+    private var containerViewHeight: CGFloat = 422.0
     private var scrollViewContentSize: CGSize = CGSize.zero
-    private var recentSearchHeight: CGFloat = 194.0
+    private var recentSearchHeight: CGFloat = 162.0
     private var addRoomPicIndex: IndexPath?
     private(set) var viewModel = HotelsSearchVM()
     private var needToGetRecentSearches: Bool = false
@@ -44,6 +44,15 @@ class HotelsSearchVC: BaseVC {
     @IBOutlet weak var firstLineView: ATDividerView!
     @IBOutlet weak var secondLineView: ATDividerView!
     @IBOutlet weak var thirdLineView: ATDividerView!
+    //    @IBOutlet weak var fourthLineView: ATDividerView!
+    //    @IBOutlet weak var starRatingLabel: UILabel!
+    //    @IBOutlet weak var allStarLabel: UILabel!
+    //    @IBOutlet weak var oneStarLabel: UILabel!
+    //    @IBOutlet weak var twoStarLabel: UILabel!
+    //    @IBOutlet weak var threeStarLabel: UILabel!
+    //    @IBOutlet weak var fourStarLabel: UILabel!
+    //    @IBOutlet weak var fiveStarLabel: UILabel!
+    //    @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet weak var searchBtnOutlet: ATButton!
     @IBOutlet weak var bulkBookingsLbl: UILabel!
     @IBOutlet weak var addRoomCollectionView: UICollectionView! {
@@ -70,6 +79,10 @@ class HotelsSearchVC: BaseVC {
         super.viewDidLoad()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .checkoutSessionExpired, object: nil)
+    }
+    
     override func initialSetup() {
         
         self.cityNameLabel.text = ""
@@ -79,17 +92,18 @@ class HotelsSearchVC: BaseVC {
         self.shadowSetUp()
         self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         self.scrollView.delegate = self
-        self.searchBtnOutlet.layer.cornerRadius = 25.0
-        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
-        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
-        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
-        self.searchBtnOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-        self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.searchBtnOutlet.configureCommonGreenButton()
+//        self.searchBtnOutlet.layer.cornerRadius = 25.0
+//        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+//        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+//        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+//        self.searchBtnOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+//        self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
         self.hideRecentSearchesView()
-        self.searchBtnOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-        self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+//        self.searchBtnOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+//        self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         
         //        for btn in self.starButtonsOutlet {
@@ -102,6 +116,16 @@ class HotelsSearchVC: BaseVC {
         // call this method after all setup
         self.footerViewSetUp ()
         self.setDataFromPreviousSearch()
+        self.updateNearMeLocation()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(checkoutSessionExpired(_:)), name: .checkoutSessionExpired, object: nil)
+        
+        if AppFlowManager.default.showHotelResult {
+            AppFlowManager.default.showHotelResult = false
+            delay(seconds: 0.6) {
+                self.searchButtonAction(self.searchBtnOutlet)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,13 +134,18 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func viewDidLayoutSubviews() {
+        
         super.viewDidLayoutSubviews()
+        
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
         }
+        
         if let view = self.recentSearchesView {
             view.frame = self.recentSearchesContainerView.bounds
+            view.layoutSubviews()
         }
+        
         if !(self.scrollViewContentSize == .zero) {
             self.updateCollectionViewFrame()
         }
@@ -125,6 +154,15 @@ class HotelsSearchVC: BaseVC {
         self.secondLineView.height = 0.5
         self.thirdLineView.height = 0.5
 
+    }
+    
+    func performAerinSearch() {
+        if AppFlowManager.default.showHotelResult {
+            AppFlowManager.default.showHotelResult = false
+            delay(seconds: 0.6) {
+                self.searchButtonAction(self.searchBtnOutlet)
+            }
+        }
     }
     
     override func bindViewModel() {
@@ -177,7 +215,7 @@ class HotelsSearchVC: BaseVC {
                 if parent.mainScrollView.contentOffset.y + parent.mainScrollView.height < parent.mainScrollView.contentSize.height{
                     if scrollView.contentOffset.y > 0.0 {
                         parent.mainScrollView.contentOffset.y = min(parent.mainScrollView.contentOffset.y + difference, parent.mainScrollView.contentSize.height - parent.mainScrollView.height)
-                        //scrollView.contentOffset = CGPoint.zero
+                        scrollView.contentOffset = CGPoint.zero
                     }
                 }
             } else {
@@ -191,6 +229,11 @@ class HotelsSearchVC: BaseVC {
         previousOffSet = scrollView.contentOffset
     }
     
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard let parent = parent as? DashboardVC else { return }
+        parent.innerScrollDidEndDragging(scrollView)
+    }
+    
     //MARK:- Methods
     //=============
     
@@ -198,15 +241,22 @@ class HotelsSearchVC: BaseVC {
     ///Shadow Set Up
     private func shadowSetUp() {
         // corner radius
-        self.containerView.layer.cornerRadius = 10
-        // border
-        //self.containerView.layer.borderWidth = 1.0
-        //        self.containerView.layer.borderColor = UIColor.black.cgColor
-        // shadow
-        self.containerView.layer.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16).cgColor// UIColor.black.cgColor
-        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 16)
-        self.containerView.layer.shadowOpacity = 0.7
-        self.containerView.layer.shadowRadius = 6.0
+//        self.containerView.layer.cornerRadius = 10
+//        // border
+//        //self.containerView.layer.borderWidth = 1.0
+//        //        self.containerView.layer.borderColor = UIColor.black.cgColor
+//        // shadow
+//        self.containerView.layer.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16).cgColor// UIColor.black.cgColor
+//        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 16)
+//        self.containerView.layer.shadowOpacity = 0.7
+//        self.containerView.layer.shadowRadius = 6.0
+        
+        if self.isLightTheme(){
+            self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 16), opacity: 1, shadowRadius: 6.0)
+        }else{
+            self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 0), opacity: 1, shadowRadius: 0)
+        }
+        
     }
     
     ///ConfigureCheckInOutView
@@ -278,19 +328,57 @@ class HotelsSearchVC: BaseVC {
         self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
     }
     
+    private func updateNearMeLocation() {
+        if HotelsSearchVM.hotelFormData.isComingFromFavouriteHotels {
+            return
+        }
+        func fetchUpdatedLocation() {
+            LocationManager.shared.startUpdatingLocationWithCompletionHandler { [weak self] (location, error) in
+                LocationManager.shared.locationUpdate = nil
+                self?.viewModel.hotelsNearByMe()
+            }
+        }
+        if self.viewModel.searchedFormData.destId.isEmpty {
+            if let model = self.viewModel.nearMeLocation, !model.dest_id.isEmpty {
+                didSelectedDestination(hotel: model)
+            } else {
+                fetchUpdatedLocation()
+            }
+        } else if self.viewModel.searchedFormData.isHotelNearMeSelected {
+            fetchUpdatedLocation()
+        } else {
+            fetchUpdatedLocation()
+        }
+    }
+    
+    private func updateAddressTextForHotelNearMe() {
+        if !self.viewModel.searchedFormData.destId.isEmpty, self.viewModel.searchedFormData.isHotelNearMeSelected {
+            self.cityNameLabel.text = LocalizedString.NearMe.localized
+            self.stateNameLabel.text = self.viewModel.searchedFormData.destName
+        }
+    }
     ///GetDataFromPreviousSearch
-    private func setDataFromPreviousSearch(olddata: HotelFormPreviosSearchData? = nil, isSettingForFirstTime: Bool = false) {
+     fileprivate func setDataFromPreviousSearch(olddata: HotelFormPreviosSearchData? = nil, isSettingForFirstTime: Bool = false) {
         let date = Date()
         var oldData = olddata ?? HotelsSearchVM.hotelFormData
         if olddata != nil {
             self.viewModel.searchedFormData = olddata ?? HotelFormPreviosSearchData()
         } else {
+            if oldData.isComingFromFavouriteHotels {
+                viewModel.callSearchDestinationAPI(oldData)
+                return
+            }
             self.viewModel.searchedFormData = oldData
         }
         
         //set selected city
+        if self.viewModel.searchedFormData.destType.lowercased() == "hotel" {
+        self.cityNameLabel.text = self.viewModel.searchedFormData.destName
+        } else {
         self.cityNameLabel.text = self.viewModel.searchedFormData.cityName
+        }
         self.stateNameLabel.text = self.viewModel.searchedFormData.stateName
+        self.updateAddressTextForHotelNearMe()
         self.manageAddressLabels()
         
         //set checkIn/Out Date
@@ -308,9 +396,9 @@ class HotelsSearchVC: BaseVC {
                 let newCheckInData = self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date()
                 //if checkOut date didn't expired then checkOut date will be same
                 //no need to do anything
-                if let checkOutDate = oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate.daysFrom(newCheckInData) < 0 {
+                if let checkOutDate = oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate.daysFrom(newCheckInData) <= 0 {
                     //if checkOut date expired and not equal to checkIn date then make blank it.
-                    self.viewModel.searchedFormData.checkOutDate = ""
+                    self.viewModel.searchedFormData.checkOutDate = newCheckInData.addDay(days: 1) ?? ""
                 }
             }
             else if checkInDate.daysFrom(date) == 0, let checkOutDate = oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate.daysFrom(checkInDate) <= 0 {
@@ -318,7 +406,9 @@ class HotelsSearchVC: BaseVC {
                  
                  */
                 //if checkOut date expired and not equal to checkIn date then make blank it.
-                self.viewModel.searchedFormData.checkOutDate = ""
+                self.viewModel.searchedFormData.checkOutDate = checkInDate.addDay(days: 1) ?? ""
+            }else if let checkOutDate = oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate.daysFrom(checkInDate) <= 0 {
+                self.viewModel.searchedFormData.checkOutDate = checkInDate.addDay(days: 1) ?? ""
             }
         }
         self.checkInOutView?.setDates(fromData: self.viewModel.searchedFormData)
@@ -334,7 +424,7 @@ class HotelsSearchVC: BaseVC {
         //reset all the buttons first
         //        for starBtn in self.starButtonsOutlet {
         //            starBtn.isSelected = false
-        //            starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+        //            starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
         //        }
         //        for star in oldData.ratingCount {
         //            self.updateStarButtonState(forStar: star, isSettingFirstTime: isSettingForFirstTime)
@@ -388,6 +478,22 @@ class HotelsSearchVC: BaseVC {
         }
         else {
             
+            //            for starBtn in self.starButtonsOutlet {
+            //
+            //                if starBtn.tag == forStar {
+            //                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
+            //                    let img = starBtn.isSelected ? AppImages.starRatingFilled : AppImages.starRatingUnfill
+            //                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
+            //                }
+            //                else if self.viewModel.searchedFormData.ratingCount.contains(starBtn.tag) {
+            //                    starBtn.isSelected = true
+            //                    starBtn.setImage(AppImages.starRatingFilled, for: .selected)
+            //                }
+            //                else {
+            //                    starBtn.isSelected = false
+            //                    starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
+            //                }
+            //            }
         }
     }
     
@@ -501,16 +607,19 @@ class HotelsSearchVC: BaseVC {
     private func validateData() -> Bool {
         var flag = true
         if self.viewModel.searchedFormData.destName.isEmpty {
-            AppToast.default.showToastMessage(message: "Please select destination name.")
+            AppToast.default.showToastMessage(message: "Please select a destination.")
             flag = false
+            self.whereLabel.nudgeAnimation()
         }
         else if self.viewModel.searchedFormData.checkInDate.isEmpty {
             AppToast.default.showToastMessage(message: "Please select check in date.")
             flag = false
+            self.checkInOutView?.checkInLabel.nudgeAnimation()
         }
         else if self.viewModel.searchedFormData.checkOutDate.isEmpty {
             AppToast.default.showToastMessage(message: "Please select check out date.")
             flag = false
+            self.checkInOutView?.checkOutLabel.nudgeAnimation()
         }
         
         return flag
@@ -520,16 +629,32 @@ class HotelsSearchVC: BaseVC {
         self.footerView.backgroundColor = .clear
     }
     
+    @objc private func checkoutSessionExpired(_ note: Notification) {
+        self.searchButtonAction(self.searchBtnOutlet)
+    }
+    
     //MARK:- Public
     //MARK:- IBAction
     //===============
     
+    //    @IBAction func starButtonsAction(_ sender: UIButton) {
+    //        self.updateStarButtonState(forStar: sender.tag)
+    ////        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.searchedFormData.ratingCount, maxCount: 5)
+    //        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+    //    }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
+//        AppFlowManager.default.presentYouAreAllDoneVC(forItId: "5f3a173ebc716e330942beed", bookingIds: ["13662"], cid: [], originLat: "1.4605111451913", originLong: "103.76455485821", recieptData: nil)
         AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .hotelForm)
+        self.viewModel.logEvents(with: .ClickWhere)
     }
     
+    
     @IBAction func searchButtonAction(_ sender: ATButton?) {
+        performSearch(sender)
+    }
+    
+    private func performSearch(_ sender: ATButton?, recentSearchModel: RecentSearchesModel? = nil) {
         if validateData() {
             delay(seconds: 0.1) {
                 sender?.isLoading = true
@@ -554,8 +679,10 @@ class HotelsSearchVC: BaseVC {
 //                        UserInfo.hotelFilterApplied = nil
 //                        UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
 //                    }
+                    printDebug(self.viewModel.searchedFormData)
                     if AppGlobals.shared.isNetworkRechable() {
-                        AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
+                        AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData, recentSearchModel: recentSearchModel)
+                        self.viewModel.createLogSerchHotels(with: recentSearchModel)
                     }
                     sender?.isLoading = false
                 }
@@ -570,12 +697,14 @@ class HotelsSearchVC: BaseVC {
         if let range = string.range(of: text) {
             if gesture.didTapAttributedTextInLabel(label: self.bulkBookingsLbl, inRange: NSRange(range, in: string)) {
                 printDebug("Tapped BulkBookings")
-                AppFlowManager.default.showBulkBookingVC(withOldData: self.viewModel.searchedFormData)
+                AppFlowManager.default.showBulkBookingVC(withOldData: self.viewModel.searchedFormData, delegate: self)
+                self.viewModel.logEvents(with: .OpenBulkBooking)
             } else {
                 printDebug("This is not bulk bookings text")
             }
         }
     }
+    
 }
 
 //Mark:- UICollectionView Delegate and Datasource
@@ -588,7 +717,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if self.viewModel.searchedFormData.adultsCount.count < 4 && self.viewModel.searchedFormData.adultsCount.count == indexPath.item {
+        if self.viewModel.searchedFormData.adultsCount.count < 4 && self.viewModel.searchedFormData.adultsCount.count == indexPath.item{
             guard let addRoomCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomCell", for: indexPath) as? AddRoomCell else {
                 return UICollectionViewCell()
             }
@@ -633,7 +762,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print(indexPath.item)
+        printDebug(indexPath.item)
     }
 }
 
@@ -651,11 +780,16 @@ extension HotelsSearchVC: ExpandedCellDelegate {
             UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                 self.updateCollectionViewFrame()
                 self.addRoomCollectionView.performBatchUpdates({ () -> Void in
+                    if let cell = self.addRoomCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as?AddRoomPictureCell {
+                        cell.configureCell(for: IndexPath(row: 0, section: 0), viewModel: self.viewModel)
+                    } else {
+                        self.addRoomCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
+                    }
                     self.addRoomCollectionView.insertItems(at: [indexPath])
-                    let indices: IndexSet = [indexPath.section]
-                    self.addRoomCollectionView.reloadSections(indices)
+//                    let indices: IndexSet = [indexPath.section]
+//                    self.addRoomCollectionView.reloadSections(indices)
                 }, completion: { (true) in
-                    //self.reloadCollectionView()
+                    self.reloadCollectionView()
                 })
             }
         } else {
@@ -678,6 +812,19 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                     self.addRoomCollectionView.performBatchUpdates({ () -> Void in
                         self.updateCollectionViewFrame()
+//                        if let cell = self.addRoomCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as?AddRoomPictureCell {
+//                            cell.configureCell(for: IndexPath(row: 0, section: 0), viewModel: self.viewModel)
+//                        } else {
+//                            self.addRoomCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
+//                        }
+                        if indexPath.row == 0  {
+                            if let cell = self.addRoomCollectionView.cellForItem(at: IndexPath(row: 1, section: 0)) as?AddRoomPictureCell {
+                                cell.configureCell(for: IndexPath(row: 0, section: 0), viewModel: self.viewModel, animate: true)
+                            }
+                        }
+                        if let cell = self.addRoomCollectionView.cellForItem(at: IndexPath(row: 2, section: 0)) as?AddRoomPictureCell {
+                            cell.configureCell(for: IndexPath(row: 1, section: 0), viewModel: self.viewModel, animate: true)
+                        }
                         self.addRoomCollectionView.deleteItems(at: [indexPath])
                     }) { (true) in
                         self.reloadCollectionView()
@@ -693,7 +840,11 @@ extension HotelsSearchVC: ExpandedCellDelegate {
         self.viewModel.searchedFormData.destType = hotel.dest_type
         self.viewModel.searchedFormData.destName = hotel.dest_name
         self.viewModel.searchedFormData.destId = hotel.dest_id
+        self.viewModel.searchedFormData.isHotelNearMeSelected = hotel.isHotelNearMeSelected
+        self.viewModel.searchedFormData.lat = hotel.latitude
+        self.viewModel.searchedFormData.lng = hotel.longitude
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+        
     }
 }
 
@@ -711,6 +862,9 @@ extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
         self.addRoomCollectionView.reloadData()
         printDebug("adults: \(adults), children: \(children), ages: \(childrenAges), roomNumber: \(roomNumber)")
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+        self.viewModel.logEvents(with: .CountTotalAdults, valueString: "\(self.viewModel.searchedFormData.adultsCount.reduce(0){$0 + $1})")
+        self.viewModel.logEvents(with: .CountTotalChildren, valueString: "\(self.viewModel.searchedFormData.childrenCounts.reduce(0){$0 + $1})")
+        self.viewModel.logEvents(with: .CountTotalRooms, valueString: "\(self.viewModel.searchedFormData.adultsCount.count)")
     }
 }
 
@@ -719,7 +873,12 @@ extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
 extension HotelsSearchVC: SelectDestinationVCDelegate {
     func didSelectedDestination(hotel: SearchedDestination) {
         printDebug("selected: \(hotel)")
-        if !hotel.city.isEmpty {
+        if hotel.dest_type.lowercased() == "hotel" {
+            self.cityNameLabel.text = hotel.dest_name
+            self.viewModel.searchedFormData.cityName = hotel.city
+            self.viewModel.searchedFormData.lat = hotel.latitude
+            self.viewModel.searchedFormData.lng = hotel.longitude
+        }else if !hotel.city.isEmpty {
             self.cityNameLabel.text = hotel.city
             self.viewModel.searchedFormData.cityName = hotel.city
             self.viewModel.searchedFormData.lat = hotel.latitude
@@ -738,15 +897,33 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
         let stateName = splittedStringArray.joined(separator: ",")
         self.stateNameLabel.text = stateName//hotel.value
         self.viewModel.searchedFormData.stateName = stateName//hotel.value
-        self.manageAddressLabels()
         self.dataForApi(hotel: hotel)
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+        self.updateAddressTextForHotelNearMe()
+        self.manageAddressLabels()
+        self.viewModel.createLogEventForSearchType(with: hotel)
     }
 }
 
 //MARK:- SearchHoteslOnPreferencesDelegate
 //========================================
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
+    
+    func favouriteHotelAPISuccess() {
+        HotelsSearchVM.hotelFormData.isComingFromFavouriteHotels = false
+        setDataFromPreviousSearch()
+    }
+    
+    func getMyLocationSuccess() {
+        if let model = self.viewModel.nearMeLocation {
+            if ((self.viewModel.createSearchedFormDataFromRecentRearch() == nil) && self.viewModel.searchedFormData.destId.isEmpty){
+                didSelectedDestination(hotel: model)
+            }
+        }
+    }
+    
+    func getMyLocationFail() {
+    }
     
     func getRecentSearchesDataSuccess() {
         if let recentSearchesView = self.recentSearchesView, let recentSearchesData = self.viewModel.recentSearchesData {
@@ -762,7 +939,9 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
         }
         self.needToGetRecentSearches = true
         printDebug(self.viewModel.recentSearchesData)
-        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+//        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+        self.setDataFromPreviousSearch(olddata: self.viewModel.createSearchedFormDataFromRecentRearch())
+        
     }
     
     func getRecentSearchesDataFail() {
@@ -785,6 +964,7 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         
         self.viewModel.searchedFormData.adultsCount.removeAll()
         self.viewModel.searchedFormData.childrenAge.removeAll()
+        self.viewModel.searchedFormData.childrenCounts.removeAll()
         for roomData in recentSearch.room ?? [] {
             if roomData.isPresent {
                 if let adultCounts = roomData.adultCounts.toInt {
@@ -792,12 +972,15 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
                 }
                 var childrenArray: [Int] = []
                 childrenArray.removeAll()
+                var childrenCounter = 0
                 for child in roomData.child {
                     if child.isPresent {
                         childrenArray.append(child.childAge)
+                        childrenCounter += 1
                     }
                 }
                 self.viewModel.searchedFormData.childrenAge.append(childrenArray)
+                self.viewModel.searchedFormData.childrenCounts.append(childrenCounter)
             }
         }
         self.viewModel.searchedFormData.ratingCount = recentSearch.filter?.stars ?? []
@@ -815,9 +998,10 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         printDebug("searching again for \(recentSearch.dest_name)")
         self.viewModel.searchedFormData.lat = recentSearch.lat
         self.viewModel.searchedFormData.lng = recentSearch.lng
-
+        self.viewModel.searchedFormData.isHotelNearMeSelected = false
+        
         self.setDataFromPreviousSearch(olddata: self.viewModel.searchedFormData, isSettingForFirstTime: true)
-        self.searchButtonAction(nil)
+        self.performSearch(self.searchBtnOutlet, recentSearchModel: recentSearch)
         //        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
         //open result screen for the recent
         //        AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)
@@ -830,12 +1014,13 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
 extension HotelsSearchVC: CheckInOutViewDelegate {
     
     func selectCheckInDate(_ sender: UIButton) {
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: true)
+        self.viewModel.logEvents(with: .OpenCheckIn)
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") , checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: true)
     }
     
     func selectCheckOutDate(_ sender: UIButton) {
-        
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: false) }
+        self.viewModel.logEvents(with: .OpenCheckOut)
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") , checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: false) }
 }
 
 extension HotelsSearchVC: CalendarDataHandler {
@@ -847,7 +1032,9 @@ extension HotelsSearchVC: CalendarDataHandler {
         }
         if endDate != nil {
             self.viewModel.searchedFormData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
-        } else {
+        } else if startDate != nil{
+            self.viewModel.searchedFormData.checkOutDate = startDate.add(days: 1)?.toString(dateFormat: "yyyy-MM-dd") ?? ""
+        }else{
             self.viewModel.searchedFormData.checkOutDate = ""
         }
         if let checkInOutVw = self.checkInOutView {
@@ -857,6 +1044,33 @@ extension HotelsSearchVC: CalendarDataHandler {
         printDebug(endDate)
         printDebug(isHotelCalendar)
         printDebug(isReturn)
+        if let firstDate = startDate, let lastDate = endDate{
+            let night = startDate.daysFrom(Date())
+            self.viewModel.logEvents(with: .CalculateCheckInDateFromCurrentDate,valueString: "\(night)")
+            self.viewModel.logEvents(with: .CalculateTotalNights,valueString: "\(lastDate.daysFrom(firstDate))")
+        }
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
+    
+    func tryToSelectMoreThan30Night() {
+        self.viewModel.logEvents(with: .TryForMoreThan30Nights)
+    }
 }
+
+extension HotelsSearchVC: BulkBookingVCDelegate {
+    
+    func didSelectedDestination(checkinDate: Date?, checkOutDate: Date?, location: SearchedDestination?) {
+        if let destination = location {
+            didSelectedDestination(hotel: destination)
+        }
+        if (checkinDate != nil) || (checkOutDate != nil) {
+            self.selectedDates(fromCalendar: checkinDate, end: checkOutDate, isHotelCalendar: true, isReturn: false)
+        }else{
+            self.viewModel.logEvents(with: .CaptureWhere, valueString: location?.dest_name)
+        }
+    }
+    
+}
+
+
+

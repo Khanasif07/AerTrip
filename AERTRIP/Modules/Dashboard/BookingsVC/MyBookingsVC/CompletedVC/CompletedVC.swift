@@ -10,11 +10,14 @@ import UIKit
 import CoreData
 
 class CompletedVC: BaseVC {
-
+    
     //Mark:- Variables
     //================
     let viewModel = UpcomingBookingsVM()
     var isComingFromFilter: Bool = false
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
+    var showFirstDivider: Bool = false
+    fileprivate let refreshControl = UIRefreshControl()
     
     //Mark:- IBOutlets
     //================
@@ -32,9 +35,11 @@ class CompletedVC: BaseVC {
         didSet {
             footerView.delegate = self
             footerView.pendingActionSwitch.isOn = false
+            footerView.clipsToBounds = true
         }
     }
     @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var footerBottomConstraint: NSLayoutConstraint!
     
     // Empty State view
     // No Result Found empty View
@@ -59,7 +64,13 @@ class CompletedVC: BaseVC {
         return newEmptyView
     }()
     
-    
+    // No Filter result Found Empty View
+    lazy var noResultFilterEmptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noCompletedBookingFilter
+        newEmptyView.delegate = self
+        return newEmptyView
+    }()
     
     var isOnlyPendingAction: Bool = false
     
@@ -67,39 +78,45 @@ class CompletedVC: BaseVC {
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
         // booking will be in desending order by date
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: false), NSSortDescriptor(key: "bookingProductType", ascending: false), NSSortDescriptor(key: "bookingId", ascending: true)]
-
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: false), NSSortDescriptor(key: "bookingProductType", ascending: true), NSSortDescriptor(key: "bookingNumber", ascending: false), NSSortDescriptor(key: "bookingId", ascending: false)]
+        
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         return fetchedResultsController
     }()
     
     //Mark:- LifeCycle
-        //================
-        override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-            super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        }
+    //================
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func initialSetup() {
+        self.registerXibs()
+        self.loadSaveData(isForFirstTime: MyBookingFilterVM.shared.searchText.isEmpty)
+        //        self.reloadList(isFirstTimeLoading: true)
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.completedBookingsTableView.refreshControl = refreshControl
+        self.completedBookingsTableView.showsVerticalScrollIndicator = true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-        }
-        
-        override func initialSetup() {
-            self.registerXibs()
-            self.loadSaveData(isForFirstTime: MyBookingFilterVM.shared.searchText.isEmpty)
-    //        self.reloadList(isFirstTimeLoading: true)
-        }
-        
-        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            
-            self.dismissKeyboard()
-        }
+        self.dismissKeyboard()
+    }
     
     //Mark:- Functions
     //================
-    private func manageFooter(isHidden: Bool) {
+    func manageFooter(isHidden: Bool) {
         self.footerView?.isHidden = isHidden
-        self.footerHeightConstraint?.constant = isHidden ? 0.0 : 44.0
+        self.footerHeightConstraint?.constant = isHidden ? 0.0 : (44.0 + AppFlowManager.default.safeAreaInsets.bottom)
+        self.footerBottomConstraint?.constant = 0.0
+        //        self.view.layoutIfNeeded()
     }
     
     func reloadList(isFirstTimeLoading: Bool = false) {
@@ -109,28 +126,29 @@ class CompletedVC: BaseVC {
         self.emptyStateSetUp()
     }
     
-//    func reloadTable() {
-//        delay(seconds: 0.2) { [weak self] in
-//            self?.reloadAndScrollToTop()
-//        }
-//    }
+    //    func reloadTable() {
+    //        delay(seconds: 0.2) { [weak self] in
+    //            self?.reloadAndScrollToTop()
+    //        }
+    //    }
     
     
     func reloadTable() {
         self.completedBookingsTableView?.reloadData()
     }
     
-//    func reloadAndScrollToTop() {
-//        self.completedBookingsTableView?.reloadData()
-//        self.completedBookingsTableView?.layoutIfNeeded()
-//        self.completedBookingsTableView?.setContentOffset(.zero, animated: false)
-//
-//    }
+    //    func reloadAndScrollToTop() {
+    //        self.completedBookingsTableView?.reloadData()
+    //        self.completedBookingsTableView?.layoutIfNeeded()
+    //        self.completedBookingsTableView?.setContentOffset(.zero, animated: false)
+    //
+    //    }
     
     private func registerXibs() {
         self.completedBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
+        self.completedBookingsTableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
     }
     
     private func emptyStateSetUp() {
@@ -140,21 +158,18 @@ class CompletedVC: BaseVC {
             let emptyView: UIView?
             if MyBookingFilterVM.shared.searchText.isEmpty {
                 if self.isOnlyPendingAction {
-                        emptyView = noPendingActionmFoundEmptyView
-                    } else if self.isComingFromFilter {
-                        noResultemptyView.searchTextLabel.isHidden = false
-                        noResultemptyView.messageLabel.isHidden = true
-                        noResultemptyView.searchTextLabel.text = "No Bookings Available. We couldn’t find bookings to match your filters. Try changing the filters, or reset them."
-                        emptyView = noResultemptyView
-                    }
-                    else {
-                         emptyView = noCompletedBookingResultemptyView
-                    }
-                } else {
-                    noResultemptyView.searchTextLabel.isHidden = false
-                    noResultemptyView.searchTextLabel.text = "for \(MyBookingFilterVM.shared.searchText.quoted)"
-                    emptyView = noResultemptyView
+                    emptyView = noPendingActionmFoundEmptyView
+                } else if self.isComingFromFilter {
+                    emptyView = noResultFilterEmptyView
                 }
+                else {
+                    emptyView = noCompletedBookingResultemptyView
+                }
+            } else {
+                noResultemptyView.searchTextLabel.isHidden = false
+                noResultemptyView.searchTextLabel.text = "for \(MyBookingFilterVM.shared.searchText.quoted)"
+                emptyView = noResultemptyView
+            }
             self.completedBookingsTableView.backgroundView = emptyView
         }
     }
@@ -163,18 +178,34 @@ class CompletedVC: BaseVC {
         if let noti = note.object as? ATNotification {
             //refresh the data with filters
             
-            if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+            switch noti {
+            case .myBookingFilterApplied, .myBookingFilterCleared:
                 self.isComingFromFilter  = true
                 self.loadSaveData()
                 self.reloadTable()
-            }
-            else if noti == .myBookingSearching {
+            case .myBookingSearching:
+                if  MyBookingFilterVM.shared.isFilterAplied() {
+                    self.isComingFromFilter = true
+                }
                 self.loadSaveData()
                 self.reloadTable()
+            default:
+                break
             }
         }
     }
-
+    
     //Mark:- IBActions
     //================
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        MyBookingsVM.shared.getBookings(showProgress: false)
+    }
+}
+extension CompletedVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: ATButton) {
+    }
+    
+    func bottomButtonAction(sender: UIButton) {
+        self.sendDataChangedNotification(data: ATNotification.myBookingFilterCleared)
+    }
 }

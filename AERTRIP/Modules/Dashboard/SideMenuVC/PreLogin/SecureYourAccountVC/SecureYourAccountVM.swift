@@ -47,12 +47,38 @@ extension SecureYourAccountVM {
             
             if success {
                 self.delegate?.getSuccess()
+                self.logEvent(with: .enterPasswordAndContinue)
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.getFail(errors: errors)
+                if errors.contains(126){
+                    self.logEvent(with: .UsedAPreviouslyUsedPassword)
+                }
             }
         })
         
     }
 }
+
+
+///firebase event logs
+
+extension SecureYourAccountVM{
+    
+    
+    func logEvent(with event: FirebaseEventLogs.EventsTypeName){
+        switch isPasswordType{
+        case .resetPasswod:
+                FirebaseEventLogs.shared.logResetPasswordEvents(with: event)
+        case .setPassword:
+            switch  event {
+            case .UsedAPreviouslyUsedPassword: break
+            default: FirebaseEventLogs.shared.logSecureYourAccountEvents(with: event)
+            }
+        }
+    }
+    
+}
+    
+

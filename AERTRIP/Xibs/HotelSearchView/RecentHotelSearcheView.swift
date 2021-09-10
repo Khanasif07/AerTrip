@@ -26,7 +26,7 @@ class RecentHotelSearcheView: UIView {
         didSet {
             self.recentCollectionView.delegate = self
             self.recentCollectionView.dataSource = self
-            self.recentCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
+            self.recentCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 14.0, bottom: 0.0, right: 16.0)
         }
     }
     @IBOutlet weak var recentSearchLabel: UILabel!
@@ -41,6 +41,10 @@ class RecentHotelSearcheView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initialSetUp()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
     
     //Mark:- Function
@@ -58,7 +62,7 @@ class RecentHotelSearcheView: UIView {
     }
     
     private func configureUI() {
-        self.recentSearchLabel.textColor =  AppColors.themeWhite.withAlphaComponent(0.5)
+        self.recentSearchLabel.textColor =  AppColors.white60Percent//unicolorWhite.withAlphaComponent(0.6)
         self.recentSearchLabel.font = AppFonts.Regular.withSize(16.0)
     }
     
@@ -85,15 +89,29 @@ extension RecentHotelSearcheView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.passRecentSearchesData(recentSearch: self.recentSearchesData?[indexPath.row] ?? RecentSearchesModel())
+        var recentSerach = self.recentSearchesData?[indexPath.row] ?? RecentSearchesModel()
+        if indexPath.row == 0{
+            recentSerach.currentIndexInList = 0
+        }
+        self.delegate?.passRecentSearchesData(recentSearch: recentSerach)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSize = CGSize(width: 278.0 , height: collectionView.frame.height)
+        
+        let recentSearchesData = self.recentSearchesData?[indexPath.row] ?? RecentSearchesModel()
+        let width: CGFloat = recentSearchesData.getTextWidth(collectionView.frame.height)
+        let textWidth = width + 86
+
+        let cellWidth = textWidth > 275 ? 275 : textWidth
+        printDebug("width: \(width)")
+        printDebug("textWidth: \(textWidth)")
+        printDebug("cellWidth: \(cellWidth)")
+
+        let itemSize = CGSize(width: cellWidth , height: collectionView.frame.height)
         return itemSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
+        return 8.0
     }
 }

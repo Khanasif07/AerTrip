@@ -8,6 +8,13 @@
 
 import UIKit
 
+class AccountDetailPostModel {
+     var accVouchers: [String] = []
+     var accountLadger: JSONDictionary = JSONDictionary()
+     var periodicEvents: JSONDictionary = JSONDictionary()
+     var outstandingLadger: AccountOutstanding = AccountOutstanding(json: [:])
+}
+
 struct SpecialAccountEvent {
     var title: String = ""
     var description: String? = nil
@@ -41,9 +48,9 @@ struct SpecialAccountEvent {
 }
 
 protocol SpecialAccountDetailsVMDelegate: class {
-    func willFetchScreenDetails()
-    func fetchScreenDetailsSuccess()
-    func fetchScreenDetailsFail()
+    func willFetchScreenDetails(showProgress: Bool)
+    func fetchScreenDetailsSuccess(showProgress: Bool)
+    func fetchScreenDetailsFail(showProgress: Bool)
     
     func willGetOutstandingPayment()
     func getOutstandingPaymentSuccess()
@@ -76,10 +83,12 @@ class SpecialAccountDetailsVM {
     private let detailWithDescH: CGFloat = 40.0
     private let grandTotalH: CGFloat = 41.0
     
+    var deepLinkParams = [String:String]()
+    
     //MARK:- Private
     private func getStatementSummery(accountData: AccountModel) {
-        let stmtSummery = ["Statement Summery", "Opening Balance", "Recent Payments & Credits", "Recent Charges", "Total Outstanding"]
-        let stmtSummeryHeight: [CGFloat] = [titleH, detailWithDescH, detailH, detailWithDescH, grandTotalH]
+        let stmtSummery = ["Statement Summary", "Opening Balance", "Recent Transactions", "Total Outstanding"]
+        let stmtSummeryHeight: [CGFloat] = [titleH, detailWithDescH, detailWithDescH, grandTotalH]
         
         self.statementSummery.removeAll()
         for (idx, str) in stmtSummery.enumerated() {
@@ -89,35 +98,37 @@ class SpecialAccountDetailsVM {
             
             if idx == 0 {
                 obj.isForTitle = true
+                obj.height = stmtSummeryHeight[idx] - 8.0
             }
             else if idx == 1 {
                 if let event = accountData.statements?.lastStatementBalence {
                     if let date = event.dates.last {
                         let dateStr = date.toString(dateFormat: "EE, dd MMM YYYY")
-                        obj.description = dateStr.isEmpty ? "" : "Up to \(dateStr)"
+                        obj.description = dateStr.isEmpty ? "" : "Upto \(dateStr)"
                     }
-                    obj.amount = abs(event.amount).amountInDelimeterWithSymbol
+                    obj.amount = event.amount.amountInDelimeterWithSymbol
+                    //abs(event.amount).amountInDelimeterWithSymbol
                 }
             }
-            else if idx == 2 {
-                if let amount = accountData.statements?.recentCredit {
-                    obj.symbol = (amount < 0) ? "-" : "+"
-                    obj.amount = abs(amount).amountInDelimeterWithSymbol
-                }
-            }
-            else if idx == 3 {
+//            else if idx == 2 {
+//                if let amount = accountData.statements?.recentCredit {
+//                    obj.symbol = (amount < 0) ? "-" : "+"
+//                    obj.amount = abs(amount).amountInDelimeterWithSymbol
+//                }
+//            }
+            else if idx == 2 {//3 {
                 
                 if let event = accountData.statements?.recentDebit {
                     if let start = event.dates.first, let end = event.dates.last {
                         obj.description = "\(start.toString(dateFormat: "dd MMM")) - \(end.toString(dateFormat: "dd MMM"))"
                     }
                     
-                    obj.symbol = (event.amount < 0) ? "-" : "+"
-                    obj.amount = abs(event.amount).amountInDelimeterWithSymbol
+                    obj.symbol = "+" //(event.amount < 0) ? "-" : "+"
+                    obj.amount = event.amount.amountInDelimeterWithSymbol
                 }
                 obj.isDevider = true
             }
-            else if idx == 4 {
+            else if idx == 3 {//4 {
                 obj.symbol = "="
                 obj.amount = (accountData.statements?.amountDue ?? 0.0).amountInDelimeterWithSymbol
             }
@@ -138,15 +149,16 @@ class SpecialAccountDetailsVM {
             
             if idx == 0 {
                 obj.isForTitle = true
+                obj.height = tpupSummeryHeight[idx] - 8.0
             }
             else if idx == 1 {
                 obj.amount = (accountData.topup?.topupLimit ?? 0.0).amountInDelimeterWithSymbol
-                obj.height = tpupSummeryHeight[idx] - 13.0
+                obj.height = tpupSummeryHeight[idx] - 8.0
             }
             else if idx == 2 {
                 obj.symbol = "-"
                 obj.amount = (accountData.topup?.usedCredit ?? 0.0).amountInDelimeterWithSymbol
-                obj.height = tpupSummeryHeight[idx] - 4.0
+                //obj.height = tpupSummeryHeight[idx] - 4.0
                 obj.isDevider = true
             }
             else if idx == 3 {
@@ -159,7 +171,7 @@ class SpecialAccountDetailsVM {
     }
     
     private func getBilwiseSummery(accountData: AccountModel) {
-        let bwSummery = ["Billwise Statement", "Total Over Due", "Recent Charges", "Total Outstanding"]
+        let bwSummery = ["Billwise Statement", "Total Over Due", "Recent Transactions", "Total Outstanding"]
         let bwSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
         self.bilWiseSummery.removeAll()
@@ -170,13 +182,14 @@ class SpecialAccountDetailsVM {
             
             if idx == 0 {
                 obj.isForTitle = true
+                obj.height = bwSummeryHeight[idx] - 8.0
             }
             else if idx == 1 {
                 obj.amount = (accountData.billwise?.totalOverDue ?? 0.0).amountInDelimeterWithSymbol
-                obj.height = bwSummeryHeight[idx] - 13.0
+                obj.height = bwSummeryHeight[idx] - 10.0
             }
             else if idx == 2 {
-                obj.symbol = "-"
+                obj.symbol = "+"//"-"
                 obj.amount = (accountData.billwise?.recentCharges ?? 0.0).amountInDelimeterWithSymbol
                 obj.isDevider = true
             }
@@ -190,7 +203,7 @@ class SpecialAccountDetailsVM {
     }
     
     private func getCreditSummery(accountData: AccountModel) {
-        let crdSummery = ["Credit Summery", "Credit Limit", "Current Balance", "Available Credits"]
+        let crdSummery = ["Credit Summary", "Credit Limit", "Current Balance", "Available Credits"]
         let crdSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
         self.creditSummery.removeAll()
@@ -210,7 +223,7 @@ class SpecialAccountDetailsVM {
             else if idx == 2 {
                 let amount = (accountData.credit?.currentBalance ?? 0.0)
                 obj.symbol = "-"
-                obj.amount = abs(amount).amountInDelimeterWithSymbol
+                obj.amount = amount.amountInDelimeterWithSymbol
                 obj.height = crdSummeryHeight[idx]
                 obj.isDevider = true
             }
@@ -227,7 +240,7 @@ class SpecialAccountDetailsVM {
         var otrAction = ["Account Ledger", "Outstanding Ledger"]
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == UserCreditType.statement {
-            otrAction.append("Periodic statement")
+            otrAction.append("Periodic Statement")
         }
         
         self.otherAction.removeAll()
@@ -245,7 +258,7 @@ class SpecialAccountDetailsVM {
     
     //MARK:- Methods
     //MARK:- Public
-    func formatDataForScreen() {
+    func formatDataForScreen(showProgress: Bool) {
         //************************//
         guard let usr = UserInfo.loggedInUser, let accountData = usr.accountData else {
             return
@@ -273,14 +286,25 @@ class SpecialAccountDetailsVM {
         
         //************************//
         
-        self.delegate?.fetchScreenDetailsSuccess()
+        self.delegate?.fetchScreenDetailsSuccess(showProgress: showProgress)
     }
     
-    func fetchScreenDetails() {
-        self.delegate?.willFetchScreenDetails()
+    func setAccountDetail(model: AccountDetailPostModel) {
+        self.accountLadger = model.accountLadger
+        self.periodicEvents = model.periodicEvents
+        self.outstandingLadger = model.outstandingLadger
+        self.accVouchers = model.accVouchers
+        self.formatDataForScreen(showProgress: false)
+    }
+    
+    func fetchScreenDetails(showProgress: Bool) {
         
         //firstly show the saved data
-        self.formatDataForScreen()
+        if showProgress {
+            self.formatDataForScreen(showProgress: false)
+        }
+        self.delegate?.willFetchScreenDetails(showProgress: showProgress)
+
         
         //hit api to update the saved data and show it on screen
         APICaller.shared.getAccountDetailsAPI(params: [:]) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
@@ -294,10 +318,13 @@ class SpecialAccountDetailsVM {
                 
                 self?.accVouchers = accVchrs
                 
-                self?.formatDataForScreen()
+                
+
+                self?.formatDataForScreen(showProgress: showProgress)
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.fetchScreenDetailsFail(showProgress: showProgress)
             }
         }
     }
@@ -318,4 +345,36 @@ class SpecialAccountDetailsVM {
     }
     
     //MARK:- Private
+}
+
+
+    ///Deep linking functions to get events
+
+extension SpecialAccountDetailsVM{
+    
+    func getEventFromOutstadingLadger(with id:String)-> AccountDetailEvent?{
+        let trans = (Array(self.outstandingLadger.ladger.values) as? [[AccountDetailEvent]] ?? []).flatMap{$0}
+        if let event  = trans.first(where: {$0.voucherNo == id}){
+            return event
+        }
+        return nil
+    }
+    func getEventFromAccountLadger(with id:String)-> AccountDetailEvent?{
+        let trans = (Array(self.accountLadger.values) as? [[AccountDetailEvent]] ?? []).flatMap{$0}
+        if let event  = trans.first(where: {$0.voucherNo == id}){
+            return event
+        }
+        return nil
+    }
+    func getEventFromOutstadingOnAccountLadger(with id:String)->OnAccountLedgerEvent?{
+        let trans = (Array(self.outstandingLadger.ladger.values) as? [[OnAccountLedgerEvent]] ?? []).flatMap{$0}
+        if let event  = trans.first(where: {$0.voucherNo == id}){
+            return event
+        }
+        return nil
+        
+    }
+    
+    
+    
 }

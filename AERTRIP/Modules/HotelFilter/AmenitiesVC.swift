@@ -27,6 +27,10 @@ class AmenitiesVC: BaseVC {
         self.addFooterView()
         registerXib()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setFilterValues()
+    }
     
     // MARK: - Helper methods
     
@@ -34,6 +38,7 @@ class AmenitiesVC: BaseVC {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func registerXib() {
@@ -41,10 +46,14 @@ class AmenitiesVC: BaseVC {
     }
     
     private func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 120))
-        customView.backgroundColor = AppColors.themeWhite
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 35))
+        customView.backgroundColor = AppColors.themeWhiteDashboard
         
         tableView.tableFooterView = customView
+    }
+    
+    func setFilterValues() {
+        tableView?.reloadData()
     }
 }
 
@@ -70,11 +79,35 @@ extension AmenitiesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var updateFilter = true
         if HotelFilterVM.shared.amenitites.contains(amentiesDetails[indexPath.row].rawValue) {
             HotelFilterVM.shared.amenitites.remove(at: HotelFilterVM.shared.amenitites.firstIndex(of: amentiesDetails[indexPath.row].rawValue)!)
         } else {
-            HotelFilterVM.shared.amenitites.append(amentiesDetails[indexPath.row].rawValue)
+            if HotelFilterVM.shared.availableAmenities.contains(amentiesDetails[indexPath.row].rawValue) {
+                HotelFilterVM.shared.amenitites.append(amentiesDetails[indexPath.row].rawValue)
+            } else {
+                updateFilter = false
+            }
         }
+        if updateFilter {
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
         self.tableView.reloadData()
+        }
+        
+        var valueStr = ""
+        
+        HotelFilterVM.shared.amenitites.forEach { (amen) in
+            if let amenity = amentiesDetails.first(where: {$0.rawValue == amen}) {
+                let amenDetail = amenity.title
+                valueStr.append("\(amenDetail), ")
+            }
+        }
+        
+        if valueStr.suffix(2) == ", " {
+            valueStr.removeLast(2)
+        }
+        
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Amenities.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: valueStr]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
 }

@@ -25,6 +25,12 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         // Predicate for searching based on Hotel Name and a
         var finalPredicate: NSCompoundPredicate?
         let orPredicate = getSearchTextPredicate()
+        
+        // added check as bestsellers sort was not applied in case no other filter is applied
+        if filterApplied.sortUsing == .BestSellers {
+            addSortDescriptors()
+        }
+        
         switch self.fetchRequestType {
         case .FilterApplied:
             switch self.filterApplied.sortUsing {
@@ -75,7 +81,9 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             finalPredicate = finalPred
             
         case .normalInSearching, .normal :
+            
             self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+           
             if self.fetchRequestType == .normalInSearching {
                 self.searchedHotels.removeAll()
             }
@@ -84,28 +92,23 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
                 //if switch is on then all the operations must be only on fav data
                 let favPred = NSPredicate(format: "fav == '1'")
                 finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
-            }
-            else {
+                
+            } else {
                 self.fetchRequestWithoutFilter()
             }
         }
+        
+//        if !self.showBeyondTwenty{
+//            let distancePredicate = NSPredicate(format: "distance <= 20")
+//            var pred : [NSPredicate] = finalPredicate?.subpredicates as? [NSPredicate] ?? []
+//            pred.append(distancePredicate)
+//            finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: pred)
+//        }
         
         if let pred = finalPredicate {
             self.fetchedResultsController.fetchRequest.predicate = pred
         }
         
-        
-        //        if let pred = finalPredicate {
-        //            if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
-        //                self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [starPred, pred])
-        //            }
-        //            else {
-        //                self.fetchedResultsController.fetchRequest.predicate = pred
-        //            }
-        //        }
-        //        else if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
-        //            self.fetchedResultsController.fetchRequest.predicate = starPred
-        //        }
         self.fetchDataFromCoreData(finalPredicate: finalPredicate)
     }
     
@@ -118,13 +121,13 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         case .BestSellers:
             self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bc", ascending: true)]
         case .PriceLowToHigh:
-            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "price", ascending: true)]
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "price", ascending: self.filterApplied.sortUsing == .PriceLowToHigh(ascending: true))]
         case .TripAdvisorRatingHighToLow:
-            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: false)]
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: self.filterApplied.sortUsing == .TripAdvisorRatingHighToLow(ascending: true))]
         case .StartRatingHighToLow:
-            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "star", ascending: false)]
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "star", ascending: self.filterApplied.sortUsing == .StartRatingHighToLow(ascending: true))]
         case .DistanceNearestFirst:
-            self.fetchedResultsController.fetchRequest.sortDescriptors =  [NSSortDescriptor(key: "distance", ascending: true)]
+            self.fetchedResultsController.fetchRequest.sortDescriptors =  [NSSortDescriptor(key: "distance", ascending: self.filterApplied.sortUsing == .DistanceNearestFirst(ascending: true))]
             
         }
     }
@@ -133,7 +136,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
     
     func createSubPredicates() -> [NSPredicate] {
         
-        if HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && (HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty || HotelFilterVM.shared.ratingCount.count == 0)  &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty   {
+        if HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && (HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty || HotelFilterVM.shared.ratingCount.count == 0)  &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.isIncludeTAUnrated == HotelFilterVM.shared.defaultIsIncludeTAUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty   {
             return []
         }
         
@@ -144,7 +147,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         let maximumPricePredicate = NSPredicate(format: "perNightPrice <= \(filterApplied.rightRangePrice)")
         subpredicates.append(minimumPricePredicate)
         subpredicates.append(maximumPricePredicate)
-        if self.filterApplied.distanceRange < 20 {
+        if self.filterApplied.distanceRange < 25 {
             let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
             subpredicates.append(distancePredicate)
         }
@@ -152,6 +155,12 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             self.filterApplied.ratingCount.append(0)
         } else {
             self.filterApplied.ratingCount.remove(object: 0)
+        }
+        
+        if self.filterApplied.isIncludeTAUnrated {
+            self.filterApplied.tripAdvisorRatingCount.append(0)
+        } else {
+            self.filterApplied.tripAdvisorRatingCount.remove(object: 0)
         }
         
         if let amentitiesPredicate = amentitiesPredicate() {
@@ -168,6 +177,12 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         
         // set up filter button red-dot setup
         // self.filterButton.isSelected = true
+       
+//        if !self.showBeyondTwenty{
+//            let distancePredicate = NSPredicate(format: "distance <= 20")
+//            subpredicates.append(distancePredicate)
+//        }
+//
         
         return subpredicates
     }
@@ -213,17 +228,21 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         var tripAdvisorPredicate: NSPredicate?
         var tripAdvisorPredicates = [AnyHashable]()
         
-        if self.filterApplied.tripAdvisorRatingCount.isEmpty {
-            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
+        //        if self.filterApplied.tripAdvisorRatingCount.isEmpty {
+        //            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
+        //        }
+        //        else {
+        var array = self.filterApplied.tripAdvisorRatingCount
+//        if !array.contains(0) {
+//            array.append(0)
+//        }
+        for rating in array {
+            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(rating)'"))
         }
-        else {
-            for rating in self.filterApplied.tripAdvisorRatingCount {
-                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(rating)'"))
-            }
-            if !self.filterApplied.tripAdvisorRatingCount.contains(0) {
-                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
-            }
-        }
+        //            if !self.filterApplied.tripAdvisorRatingCount.contains(0) {
+        //                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
+        //            }
+        //        }
         
         if tripAdvisorPredicates.count > 0 {
             if let tripAdvisorPredicates = tripAdvisorPredicates as? [NSPredicate] {
@@ -251,16 +270,16 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             try self.fetchedResultsController.performFetch()
             self.hotelResultDelegate?.getHotelsCount()
             self.hotelMapDelegate?.getHotelsCount()
-
+            
             if !self.searchTextStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 //TO DO
-               // self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+                // self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
             }
             
             self.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
             self.hotelMapDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
-
+            
             if !isUpdatingFav {
                 self.hotelResultDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
             }
@@ -285,6 +304,9 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             var turnOffFilter = true
             if self.fetchRequestType  == .FilterApplied, self.isFavouriteOn  {
                 turnOffFilter = allFavs.isEmpty ? true : false
+            }
+            if (self.isFavouriteOn && allFavs.isEmpty){
+                self.isResetAnnotation =  true
             }
             self.hotelResultDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
             self.hotelMapDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
@@ -313,10 +335,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch (type) {
-            //        case .insert:
-            //            if let indexPath = newIndexPath {
-            //                tableViewVertical.insertRows(at: [indexPath], with: .fade)
-        //            }
+
         case .delete:
             
             if self.isFavouriteOn, let indexPath = indexPath {
@@ -326,20 +345,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
                     self.deleteHotelsDataForCollectionView(hotel: hotel)
                 }
             }
-            //        case .update:
-            //            if let indexPath = indexPath, let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
-            //                configureCell(cell: cell, at: indexPath)
-            //            }
-            //        case .move:
-            //            if let indexPath = indexPath {
-            //                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
-            //            }
-            //
-            //            if let newIndexPath = newIndexPath {
-            //                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
-            //            }
-            
-            
+
         @unknown default: break
         }
     }

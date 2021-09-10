@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HCHotelAddreesCell" rowHeight="155" id="Reg-Zv-baO" customClass="HCHotelAddreesCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="137.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Reg-Zv-baO" id="G8g-Ga-mbg">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="137.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJn-v7-oKn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="137.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pu4-fb-IEX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="137.5"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087 123123442 sdsdsdsdsdsdsdsddsd" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zp-GQ-yRR" customClass="PKTapAndCopyUITextView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="17" y="10" width="342" height="121"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UHY-yT-rAj">
+                                <rect key="frame" x="299" y="99" width="60" height="22"/>
+                                <subviews>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgJ-hu-meh">
+                                        <rect key="frame" x="0.0" y="0.0" width="15" height="22"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iHY-Sm-PkD">
+                                        <rect key="frame" x="15" y="0.0" width="45" height="22"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="more"/>
+                                        <connections>
+                                            <action selector="moreButtonAction:" destination="Reg-Zv-baO" eventType="touchUpInside" id="xSO-KL-9jQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="iHY-Sm-PkD" secondAttribute="bottom" id="6mR-zl-aqS"/>
+                                    <constraint firstAttribute="trailing" secondItem="iHY-Sm-PkD" secondAttribute="trailing" id="Mxd-CO-ugS"/>
+                                    <constraint firstItem="iHY-Sm-PkD" firstAttribute="top" secondItem="UHY-yT-rAj" secondAttribute="top" id="OVm-OP-qfA"/>
+                                    <constraint firstItem="qgJ-hu-meh" firstAttribute="leading" secondItem="UHY-yT-rAj" secondAttribute="leading" id="Zcq-56-Afr"/>
+                                    <constraint firstAttribute="height" constant="22" id="dgi-F6-8l7"/>
+                                    <constraint firstItem="iHY-Sm-PkD" firstAttribute="leading" secondItem="UHY-yT-rAj" secondAttribute="leading" constant="15" id="eFZ-9f-Pud"/>
+                                    <constraint firstAttribute="bottom" secondItem="qgJ-hu-meh" secondAttribute="bottom" id="hya-J1-Sdm"/>
+                                    <constraint firstItem="iHY-Sm-PkD" firstAttribute="leading" secondItem="qgJ-hu-meh" secondAttribute="trailing" id="jFn-Dz-tFv"/>
+                                    <constraint firstAttribute="width" constant="60" id="lhf-6r-ObD"/>
+                                    <constraint firstItem="qgJ-hu-meh" firstAttribute="top" secondItem="UHY-yT-rAj" secondAttribute="top" id="pwX-gK-3b5"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nUI-Sa-y8C" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="137" width="343" height="0.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="4B0-zD-RMH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="nUI-Sa-y8C" firstAttribute="top" secondItem="UHY-yT-rAj" secondAttribute="bottom" constant="16" id="L6z-wa-bTb"/>
+                            <constraint firstItem="0Zp-GQ-yRR" firstAttribute="top" secondItem="pu4-fb-IEX" secondAttribute="top" constant="10" id="SPp-aW-RE9"/>
+                            <constraint firstAttribute="trailing" secondItem="nUI-Sa-y8C" secondAttribute="trailing" constant="16" id="SuP-kS-Fya"/>
+                            <constraint firstAttribute="trailing" secondItem="0Zp-GQ-yRR" secondAttribute="trailing" constant="16" id="Yd0-kI-6KF"/>
+                            <constraint firstAttribute="bottom" secondItem="nUI-Sa-y8C" secondAttribute="bottom" id="ZSL-Nf-CSx"/>
+                            <constraint firstItem="nUI-Sa-y8C" firstAttribute="leading" secondItem="pu4-fb-IEX" secondAttribute="leading" constant="16" id="iY0-vQ-MLL"/>
+                            <constraint firstAttribute="trailing" secondItem="UHY-yT-rAj" secondAttribute="trailing" constant="16" id="q2R-Mr-boD"/>
+                            <constraint firstItem="nUI-Sa-y8C" firstAttribute="top" secondItem="0Zp-GQ-yRR" secondAttribute="bottom" constant="6" id="uln-Wf-1cq"/>
+                            <constraint firstItem="0Zp-GQ-yRR" firstAttribute="leading" secondItem="pu4-fb-IEX" secondAttribute="leading" constant="17" id="zFW-Cj-GJm"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="pu4-fb-IEX" secondAttribute="trailing" id="0Pe-vL-73Z"/>
+                    <constraint firstItem="eJn-v7-oKn" firstAttribute="top" secondItem="pu4-fb-IEX" secondAttribute="top" id="5qb-hb-ph9"/>
+                    <constraint firstItem="eJn-v7-oKn" firstAttribute="trailing" secondItem="pu4-fb-IEX" secondAttribute="trailing" id="8XJ-Hd-vHR"/>
+                    <constraint firstItem="eJn-v7-oKn" firstAttribute="leading" secondItem="pu4-fb-IEX" secondAttribute="leading" id="G7F-gX-aGv"/>
+                    <constraint firstItem="pu4-fb-IEX" firstAttribute="leading" secondItem="G8g-Ga-mbg" secondAttribute="leading" id="YxU-Ym-B4U"/>
+                    <constraint firstItem="pu4-fb-IEX" firstAttribute="top" secondItem="G8g-Ga-mbg" secondAttribute="top" id="ZeJ-Tq-TYF"/>
+                    <constraint firstAttribute="bottom" secondItem="pu4-fb-IEX" secondAttribute="bottom" id="a8q-xh-gTu"/>
+                    <constraint firstItem="eJn-v7-oKn" firstAttribute="bottom" secondItem="pu4-fb-IEX" secondAttribute="bottom" id="oE4-TI-DjJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="fd1-ql-kOb"/>
+            <connections>
+                <outlet property="addressInfoTextView" destination="0Zp-GQ-yRR" id="4FG-hz-tLG"/>
+                <outlet property="containerLeadingConstraint" destination="YxU-Ym-B4U" id="Dgg-MU-hjR"/>
+                <outlet property="containerTrailingConstraint" destination="0Pe-vL-73Z" id="FJp-I3-o5R"/>
+                <outlet property="containerView" destination="pu4-fb-IEX" id="QhT-yI-Qon"/>
+                <outlet property="deviderView" destination="nUI-Sa-y8C" id="UpT-eQ-0Ae"/>
+                <outlet property="gradientView" destination="qgJ-hu-meh" id="I4B-2a-5N8"/>
+                <outlet property="infoTextViewTrailingConstraint" destination="Yd0-kI-6KF" id="TjC-aS-PGJ"/>
+                <outlet property="moreBtnContainerView" destination="UHY-yT-rAj" id="XZm-Mq-749"/>
+                <outlet property="moreBtnOutlet" destination="iHY-Sm-PkD" id="EcS-SJ-q5t"/>
+                <outlet property="shadowView" destination="eJn-v7-oKn" id="5oR-fW-2xv"/>
+            </connections>
+            <point key="canvasLocation" x="297" y="105"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class AccountOutstandingLadgerVC: BaseVC {
     
     enum ViewState {
-        case searching
+//        case searching
         case selecting
         case normal
     }
-
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
@@ -47,15 +48,18 @@ class AccountOutstandingLadgerVC: BaseVC {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var subHeaderTopConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var dividerView: ATDividerView!
+
     //MARK:- Properties
     //MARK:- Public
     let viewModel = AccountOutstandingLadgerVM()
     
     //MARK:- Private
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     private var searchModeSearchBarTopCurrent: CGFloat = 0.0
     private var oldOffset: CGPoint = CGPoint.zero
-    private(set) var currentViewState = ViewState.normal {
+    var currentViewState = ViewState.normal {
         didSet {
             if oldValue != currentViewState {
                 //currentViewState is being changed then manage header
@@ -63,6 +67,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             }
         }
     }
+    private let refreshControl = UIRefreshControl()
     
     // Empty State view
     private lazy var noAccountTransectionView: EmptyScreenView = {
@@ -70,33 +75,53 @@ class AccountOutstandingLadgerVC: BaseVC {
         newEmptyView.vType = .noAccountTransection
         return newEmptyView
     }()
-
+    
     lazy var noResultemptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noResult
         return newEmptyView
     }()
     
+    
+    
     //MARK:- ViewLifeCycle
     //MARK:-
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .accountDetailFetched, object: nil)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+    }
+    
     override func initialSetup() {
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.loaderContainer.addGredient(isVertical: false)
         
+        self.loaderContainer.backgroundColor = .clear
+        self.makePaymentContainerView.backgroundColor = .clear
         self.topNavView.delegate = self
         
         //add search view in tableView header
         self.tableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
-        
-        self.searchBar.isMicEnabled = true
-        
+        self.tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
+//        addSwipeSelectGestureOnTableView()
+//        self.searchBar.isMicEnabled = true
         self.searchDataContainerView.backgroundColor = AppColors.clear
         self.mainSearchBar.showsCancelButton = true
+        self.mainSearchBar.showsCancelButton = true
+        if let cancelButton = mainSearchBar.value(forKey: "cancelButton") as? UIButton{
+            cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18)
+        }
         self.searchBar.delegate = self
         self.mainSearchBar.delegate = self
         
@@ -111,7 +136,24 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.reloadList()
         self.manageLoader(shouldStart: false)
         
+        //for header blur
+        self.searchDataContainerView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.85)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
+        
         self.searchModeSearchBarTopConstraint.constant = ((self.subHeaderContainer.height + self.topNavView.height) - self.mainSearchBar.height)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(accountDetailFetched(_:)), name: .accountDetailFetched, object: nil)
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.tableView.refreshControl = refreshControl
+        self.tableView.showsVerticalScrollIndicator = true
+        
+        addLongPressOnTableView()
+        
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsOutstandingLedger, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
     }
     
     override func bindViewModel() {
@@ -124,7 +166,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.grossOutstandingLabel.font = AppFonts.Regular.withSize(16.0)
         self.onAccountLabel.font = AppFonts.Regular.withSize(16.0)
         self.netOutstandingLabel.font = AppFonts.Regular.withSize(16.0)
-
+        
         self.grossOutstandingValueLabel.font = AppFonts.Regular.withSize(16.0)
         self.onAccountValueLabel.font = AppFonts.Regular.withSize(16.0)
         self.netOutstandingValueLabel.font = AppFonts.Regular.withSize(16.0)
@@ -136,7 +178,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.summeryLabel.text = LocalizedString.Summary.localized
         
         self.grossOutstandingLabel.text = LocalizedString.GrossOutstanding.localized
-        self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: #imageLiteral(resourceName: "ic_next_arrow_zeroSpacing"), endText: "", font: AppFonts.Regular.withSize(16.0))
+        self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: AppImages.ic_next_arrow_zeroSpacing, endText: "", font: AppFonts.Regular.withSize(16.0))
         self.netOutstandingLabel.text = LocalizedString.NetOutstanding.localized
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
@@ -162,37 +204,59 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     override func setupColors() {
+        self.view.backgroundColor = AppColors.themeBlack26
         self.summeryLabel.textColor = AppColors.themeGray40
         
         self.tableView.backgroundColor = AppColors.themeWhite
         
-        self.searchContainerView.backgroundColor = AppColors.themeWhite
-        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+        self.searchContainerView.backgroundColor = AppColors.themeBlack26
+        self.searchBarContainerView.backgroundColor = AppColors.themeBlack26
+        self.subHeaderContainer.backgroundColor = AppColors.themeBlack26
+        self.subheaderDetailsConstainer.backgroundColor = AppColors.themeBlack26
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
         
-        self.makePaymentTitleLabel.textColor = AppColors.themeWhite
+        self.makePaymentTitleLabel.textColor = AppColors.unicolorWhite
+        self.searchBar.textFieldColor = AppColors.miniPlaneBack
+        self.mainSearchBar.textFieldColor = AppColors.miniPlaneBack
         
-        self.makePaymentContainerView.addGredient(isVertical: false)
         self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
+        
+        self.dividerView.defaultBackgroundColor = AppColors.dividerColor
+//        self.dividerView.backgroundColor = AppColors.dividerColor2
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.reloadList()
+    }
+    
+    @objc func accountDetailFetched(_ note: Notification) {
+        if let object = note.object as? AccountDetailPostModel {
+            printDebug("accountDetailFetched")
+            self.viewModel.accountOutstanding = object.outstandingLadger
+            reloadList()
+            setupTexts()
+        }
     }
     
     //MARK:- Methods
     //MARK:- Private
     override func setupNavBar() {
         if self.currentViewState == .normal {
-            self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+            self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
             
-            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_three_dots"), selectedImage: #imageLiteral(resourceName: "ic_three_dots"), normalTitle: nil, selectedTitle: nil)
+            self.topNavView.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton, normalTitle: nil, selectedTitle: nil)
         }
         else {
-            self.topNavView.configureNavBar(title: LocalizedString.SelectBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+            self.topNavView.configureNavBar(title: LocalizedString.SelectBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
             
             self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         }
+        topNavView.backgroundColor = AppColors.clear
     }
     
-    private func manageHeader(animated: Bool) {
-
+    private func manageHeader(animated: Bool, isForSpeechToText: Bool = false) {
+        
         if (self.currentViewState == .normal) {
             self.subHeaderContainer.isHidden = false
             self.view.endEditing(true)
@@ -202,14 +266,14 @@ class AccountOutstandingLadgerVC: BaseVC {
             self.searchModeSearchBarTopCurrent = self.searchModeSearchBarTopConstraint.constant
         }
         
-        if (self.currentViewState == .searching) {
+        if (self.viewModel.isSearching) {//(self.currentViewState == .searching)
             self.searchDataContainerView.isHidden = false
         }
         
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             
-            if (sSelf.currentViewState == .searching) {
+            if (sSelf.viewModel.isSearching) {//(sSelf.currentViewState == .searching)
                 sSelf.subHeaderContainerTopConstraint.constant = -(sSelf.subHeaderContainer.height)
                 sSelf.subHeaderContainer.alpha = 0.0
                 sSelf.searchDataContainerView.alpha = 1.0
@@ -220,23 +284,26 @@ class AccountOutstandingLadgerVC: BaseVC {
                 sSelf.subHeaderContainer.alpha = 1.0
                 sSelf.searchDataContainerView.alpha = 0.0
                 sSelf.searchModeSearchBarTopConstraint.constant = sSelf.searchModeSearchBarTopCurrent
+                sSelf.subheaderDetailsConstainer.isHidden = false
             }
             
             sSelf.view.layoutIfNeeded()
             
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-                sSelf.subHeaderContainer.isHidden = (sSelf.currentViewState == .searching)
-                sSelf.searchTableView.reloadData()
-                if (sSelf.currentViewState == .searching) {
-                    sSelf.searchDataContainerView.isHidden = false
+        }, completion: { [weak self](isDone) in
+            guard let sSelf = self else {return}
+            sSelf.subHeaderContainer.isHidden = sSelf.viewModel.isSearching//(sSelf.currentViewState == .searching)
+            sSelf.searchTableView.reloadData()
+            if (sSelf.viewModel.isSearching) {//(sSelf.currentViewState == .searching)
+                sSelf.searchDataContainerView.isHidden = false
+                if !isForSpeechToText{
                     sSelf.mainSearchBar.becomeFirstResponder()
-                    sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
                 }
-                else {
-                    sSelf.searchDataContainerView.isHidden = true
-                    sSelf.searchDataContainerView.backgroundColor = AppColors.clear
-                }
+                sSelf.searchDataContainerView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
+            }
+            else {
+                sSelf.searchDataContainerView.isHidden = true
+                sSelf.searchDataContainerView.backgroundColor = AppColors.clear
+            }
         })
     }
     
@@ -252,11 +319,14 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.OutstandingLedger.localized, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //select bookings pay
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsOutstandingLedgerSelectBookingsOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
                 if self.currentViewState == .selecting {
                     self.currentViewState = .normal
+                    self.viewModel.isSearching = false
                 }
                 else {
                     self.currentViewState = .selecting
@@ -266,11 +336,28 @@ class AccountOutstandingLadgerVC: BaseVC {
             }
             else if index == 1 {
                 //email tapped
+                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsSendEmailOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+                AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             }
             else {
                 //download pdf tapped
-                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger&limit=20", screenTitle: LocalizedString.OutstandingLedger.localized)
+
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsDownloadPDFOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+                self.topNavView.isToShowIndicatorView = true
+                self.topNavView.startActivityIndicaorLoading()
+                self.topNavView.firstRightButton.isHidden = true
+                self.topNavView.secondRightButton.isHidden = true
+                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=outstanding", screenTitle: LocalizedString.OutstandingLedger.localized, showLoader: false, complition: { [weak self] (status) in
+                    self?.topNavView.isToShowIndicatorView = false
+                    self?.topNavView.stopActivityIndicaorLoading()
+                    self?.topNavView.firstRightButton.isHidden = false
+                    self?.topNavView.secondRightButton.isHidden = false
+                })
+                
                 printDebug("download pdf tapped")
             }
         }
@@ -280,6 +367,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         if isHidden {
             self.makePaymentContainerView.isHidden = false
+            self.gradientView.isHidden = false
         }
         
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
@@ -289,33 +377,73 @@ class AccountOutstandingLadgerVC: BaseVC {
             guard let sSelf = self else {return}
             
             sSelf.makePaymentContainerView.isHidden = isHidden
+            sSelf.gradientView.isHidden = isHidden
         }
     }
     
     private func setPayableAmount() {
-        var totalAmount: Double = abs(self.viewModel.accountOutstanding?.grossAmount ?? 0.0)
-        
+        let totalAmount: Double = self.viewModel.accountOutstanding?.netAmount ?? 0.0
+        let attrText:NSMutableAttributedString
         if self.currentViewState == .selecting {
-            let selected = self.viewModel.totalAmountForSelected
-            totalAmount = (selected > 0.0) ? selected : 0.0
+            let selected = (self.viewModel.totalAmountSelected > 0.0) ? self.viewModel.totalAmountSelected : 0
+            let currency = self.viewModel.selectedEventCurrencyCode
+            attrText = selected.getTextWithChangedCurrency(with: currency, using: AppFonts.SemiBold.withSize(20.0))
+            self.makePaymentTitleLabel.alpha = (selected > 0) ? 1.0 : 0.6
+        }else{
+            attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+            self.makePaymentTitleLabel.alpha = (totalAmount > 0) ? 1.0 : 0.6
         }
-        
-        let attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
-        attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.themeWhite], range: NSRange(location: 0, length: attrText.length))
+        attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.unicolorWhite], range: NSRange(location: 0, length: attrText.length))
         self.payableAmountLabel.attributedText = attrText
-        self.makePaymentTitleLabel.alpha = (totalAmount > 0) ? 1.0 : 0.6
         self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
     }
     
     private func manageLoader(shouldStart: Bool) {
-        self.indicatorView.style = .white
-        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.style = .medium//.white
+        self.indicatorView.color = AppColors.unicolorWhite
         self.indicatorView.startAnimating()
-        
+        self.makePaymentTitleLabel.text = shouldStart ? "" : "Make Payment"
         self.loaderContainer.isHidden = !shouldStart
     }
     
+    private func addLongPressOnTableView() {
+        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AccountOutstandingLadgerVC.handleLongPress(_:)))
+        longPressGesture.delegate = self
+        tableView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            
+            let touchPoint = longPressGestureRecognizer.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                printDebug(indexPath)
+                //                tableView.separatorStyle = .singleLine
+                func  selectRow() {
+                    self.tableView(self.tableView, didSelectRowAt: indexPath)
+                }
+                if self.currentViewState != .selecting {
+                    delay(seconds: 0.1) {
+                        selectRow()
+                    }
+                } else {
+                    selectRow()
+                }
+                //                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            }
+            if self.currentViewState != .selecting {
+                self.currentViewState = .selecting
+                self.reloadList()
+            }
+        }
+    }
+    
     //MARK:- Public
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getAccountDetails(showProgres: false)
+    }
+    
     func reloadList() {
         
         self.setupNavBar()
@@ -337,12 +465,18 @@ class AccountOutstandingLadgerVC: BaseVC {
     
     //MARK:- Action
     @IBAction func onAccountButtonAction(_ sender: UIButton) {
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsOutstandingLedgerOnAccountOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
         if let obj = self.viewModel.accountOutstanding {
-            AppFlowManager.default.moveToOnAccountDetailVC(outstanding: obj)
+            AppFlowManager.default.moveToOnAccountDetailVC(outstanding: obj, accountLaders: self.viewModel.accountLadegerDetails)
         }
     }
     @IBAction func makePaymentButtonAction(_ sender: UIButton) {
         if self.makePaymentTitleLabel.alpha >= 1.0 {
+
+            FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsMakePaymenrOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
             self.viewModel.getOutstandingPayment()
         }
     }
@@ -354,37 +488,65 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
     func clearSearchData() {
         self.mainSearchBar.text = ""
         self.searchBar.text = ""
-        self.viewModel.searchedAccountDetails.removeAll()
-        self.viewModel.selectedEvent.removeAll()
-        self.viewModel.accountDetails = self.viewModel._accountDetails
+        self.viewModel.setSearchedAccountDetails(data: [:])
+        self.viewModel.setAccountDetails(data: self.viewModel._accountDetails)
         self.reloadList()
     }
     
     func preserveSearchData() {
         self.searchBar.text = self.mainSearchBar.text
-        self.viewModel.accountDetails = self.viewModel.searchedAccountDetails
+        self.viewModel.setAccountDetails(data: self.viewModel.searchedAccountDetails)
         self.reloadList()
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
+    {
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsCancelSearchBarOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
         if searchBar === self.mainSearchBar {
-            self.currentViewState = .normal
+//            self.currentViewState = .normal
+            self.viewModel.isSearching = false
+            self.manageHeader(animated: true)
             self.clearSearchData()
         }
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         if (searchBar === self.searchBar) {
-            self.currentViewState = .searching
+//            self.currentViewState = .searching
+            self.viewModel.isSearching = true
+            self.manageHeader(animated: true)
             return false
         }
         return true
     }
     
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        if !self.viewModel.isSearching{
+            self.viewModel.isSearching = true
+            self.manageHeader(animated: true, isForSpeechToText: true)
+        }
+        if searchBar === self.searchBar{
+            self.view.endEditing(true)
+        }
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.preserveSearchData()
-        self.currentViewState = .normal
-        self.view.endEditing(true)
+        if (searchBar.text?.isEmpty ?? false){
+            self.searchBarCancelButtonClicked(searchBar)
+        }else{
+            let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                             "SearchQuery":mainSearchBar.text ?? ""]
+            FirebaseEventLogs.shared.logSearchBarEvents(with: .OutstandingAccountSearchOptionSelected, value: jsonDict)
+
+            self.preserveSearchData()
+            //        self.currentViewState = .normal
+            self.view.endEditing(true)
+            
+        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -394,19 +556,24 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar === self.mainSearchBar, searchText.count >= AppConstants.kSearchTextLimit {
-            self.noResultemptyView.searchTextLabel.isHidden = false
-            self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
+        if searchBar === self.mainSearchBar {
+            //searchText.count >= AppConstants.kSearchTextLimit
             self.viewModel.searchEvent(forText: searchText)
+            if !searchText.isEmpty {
+                self.noResultemptyView.searchTextLabel.isHidden = false
+                self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
+            } else {
+                self.clearSearchData()
+            }
         }
         else {
             //reset tot the old state
-            if (searchBar.text ?? "").isEmpty {
-                self.clearSearchData()
-            }
-            else {
-                self.reloadList()
-            }
+            //            if (searchBar.text ?? "").isEmpty {
+            //                self.clearSearchData()
+            //            }
+            //            else {
+            //                self.reloadList()
+            //            }
         }
     }
 }
@@ -416,16 +583,23 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
 extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .navigateBack, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
         AppFlowManager.default.popViewController(animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsMenuOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
         if self.currentViewState == .normal {
             self.showMoreOptions()
         }
         else {
             self.currentViewState = .normal
+            self.viewModel.isSearching = false
             self.viewModel.selectedEvent.removeAll()
             self.reloadList()
         }
@@ -433,17 +607,15 @@ extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC(delegate: self, voucherTypes: ["Sales", "Receipt"], oldFilter: nil)
+        //AppFlowManager.default.moveToADEventFilterVC(delegate: self, voucherTypes: ["Sales", "Receipt"], oldFilter: nil)
     }
 }
 
 //MARK:- Filter VC delegate methods
 //MARK:-
-extension AccountOutstandingLadgerVC: ADEventFilterVCDelegate {
-    func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
-        printDebug(filter)
-    }
-}
+//extension AccountOutstandingLadgerVC: ADEventFilterVCDelegate {
+//
+//}
 
 
 //MARK:- ScrollView delegate methods
@@ -455,6 +627,7 @@ extension AccountOutstandingLadgerVC {
         let constToHide: CGFloat = -(self.subHeaderContainer.height)
         if isHidden, self.subHeaderContainerTopConstraint.constant == constToHide {
             //if already hidden then return
+            
             return
         }
         else if !isHidden, self.subHeaderContainerTopConstraint.constant == 0.0  {
@@ -465,16 +638,18 @@ extension AccountOutstandingLadgerVC {
         self.subheaderDetailsConstainer.isHidden = false
         UIView.animate(withDuration: animated ? 0.2 : 0.0, animations: {[weak self] in
             guard let sSelf = self else {return}
+            let value = isHidden ? constToHide : 0.0
+            if sSelf.subHeaderContainerTopConstraint.constant != value {
+                sSelf.subHeaderContainerTopConstraint.constant = value
+                sSelf.view.layoutIfNeeded()
+            }
+        }, completion: { [weak self](isDone) in
+            guard let sSelf = self else {return}
             
-            sSelf.subHeaderContainerTopConstraint.constant = isHidden ? constToHide : 0.0
-            sSelf.view.layoutIfNeeded()
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-
-                sSelf.subHeaderContainer.isHidden = isHidden
-                if !isHidden {
-                    sSelf.searchModeSearchBarTopConstraint.constant = ((sSelf.subHeaderContainer.height + sSelf.topNavView.height) - sSelf.mainSearchBar.height)
-                }
+            sSelf.subHeaderContainer.isHidden = isHidden
+            if !isHidden {
+                sSelf.searchModeSearchBarTopConstraint.constant = ((sSelf.subHeaderContainer.height + sSelf.topNavView.height) - sSelf.mainSearchBar.height)
+            }
         })
     }
     
@@ -482,11 +657,11 @@ extension AccountOutstandingLadgerVC {
         
         let constToHide: CGFloat = -(self.subHeaderContainer.height)
         let constToShow: CGFloat = -(self.subHeaderContainer.height - self.searchBarContainerView.height)
-        if isHidden, self.subHeaderContainerTopConstraint.constant == constToHide {
+        if isHidden, self.subHeaderContainerTopConstraint.constant >= constToHide, self.subHeaderContainerTopConstraint.constant != 0 {
             //if already hidden then return
             return
         }
-        else if !isHidden, self.subHeaderContainerTopConstraint.constant == 0.0  {
+        else if !isHidden, self.subHeaderContainerTopConstraint.constant >= 0.0  {
             //if already shown then return
             return
         }
@@ -495,16 +670,18 @@ extension AccountOutstandingLadgerVC {
         self.subHeaderContainer.isHidden = false
         UIView.animate(withDuration: animated ? 0.2 : 0.0, animations: {[weak self] in
             guard let sSelf = self else {return}
+            let value = isHidden ? constToHide : constToShow
+            if sSelf.subHeaderContainerTopConstraint.constant != value {
+                sSelf.subHeaderContainerTopConstraint.constant = value
+                sSelf.view.layoutIfNeeded()
+            }
+        }, completion: { [weak self](isDone) in
+            guard let sSelf = self else {return}
             
-            sSelf.subHeaderContainerTopConstraint.constant = isHidden ? constToHide : constToShow
-            sSelf.view.layoutIfNeeded()
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-                
-                sSelf.subHeaderContainer.isHidden = isHidden
-                if !isHidden {
-                    sSelf.searchModeSearchBarTopConstraint.constant = 44.0
-                }
+            sSelf.subHeaderContainer.isHidden = isHidden
+            if !isHidden {
+                sSelf.searchModeSearchBarTopConstraint.constant = 44.0
+            }
         })
     }
     
@@ -516,7 +693,7 @@ extension AccountOutstandingLadgerVC {
         
         let maxLimit = Int(scrollView.contentSize.height - scrollView.height)
         let yChanged = Int(self.oldOffset.y) - yOffset
-
+        
         guard maxLimit > 0, 0...maxLimit ~= yOffset, abs(yChanged) > 3 else {return}
         
         //checking for the boundry limits and returning
@@ -532,7 +709,6 @@ extension AccountOutstandingLadgerVC {
         }
         else {
             //if the offset is under the boundery limits
-            print(yChanged, yOffset)
             if (0...Int(self.subHeaderContainerHeightConstraint.constant)) ~= yOffset {
                 if yChanged > 0 {
                     //show full header
@@ -557,7 +733,9 @@ extension AccountOutstandingLadgerVC {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.manageHeader(scrollView)
+        if  !self.viewModel.isSearching{//self.currentViewState != .searching
+            self.manageHeader(scrollView)
+        }
     }
 }
 
@@ -565,30 +743,102 @@ extension AccountOutstandingLadgerVC {
 //MARK:- View model delegate methods
 //MARK:-
 extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
+    
+    private func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsOutstandingLedgerPayOnlineOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .outstandingLedger)
+                
+            case 1:
+                //PayOfflineNRegister
+                                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsOutstandingLedgerPayOfflineOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
+                printDebug("PayOfflineNRegister")
+                
+                
+            default:
+                printDebug("no need to implement")
+            }
+        }
+    }
+    
+    
     func willGetOutstandingPayment() {
         self.manageLoader(shouldStart: true)
     }
     
     func getOutstandingPaymentSuccess() {
         self.manageLoader(shouldStart: false)
-        AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
+        showDepositOptions()
+        //        AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
     }
     
     func getOutstandingPaymentFail() {
         self.manageLoader(shouldStart: false)
     }
     
-    func willGetAccountDetails() {
+    func willGetAccountDetails(showProgres: Bool) {
+        //AppGlobals.shared.startLoading()
+        self.topNavView.firstRightButton.isUserInteractionEnabled = false
+        self.topNavView.secondRightButton.isUserInteractionEnabled = false
     }
     
-    func getAccountDetailsSuccess() {
+    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool) {
+        self.refreshControl.endRefreshing()
+        self.topNavView.firstRightButton.isUserInteractionEnabled = true
+        self.topNavView.secondRightButton.isUserInteractionEnabled = true
         self.reloadList()
+        NotificationCenter.default.post(name: .accountDetailFetched, object: model)
     }
     
-    func getAccountDetailsFail() {
+    func getAccountDetailsFail(showProgres: Bool) {
+        self.refreshControl.endRefreshing()
     }
     
     func searchEventsSuccess() {
         self.reloadList()
     }
 }
+
+extension AccountOutstandingLadgerVC: SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+
+        guard !text.isEmpty else {return}
+        mainSearchBar.hideMiceButton(isHidden: false)
+        self.mainSearchBar.text = text
+        self.viewModel.searchEvent(forText: text)
+        self.view.endEditing(true)
+    }
+
+    
+}
+
+
+//extension AccountOutstandingLadgerVC {
+//    private func addSwipeSelectGestureOnTableView() {
+//        let swipeGeture = UIPanGestureRecognizer(target: self, action: #selector(twoFingerSwiped(recognizer:)))
+//        swipeGeture.minimumNumberOfTouches = 2
+//        swipeGeture.maximumNumberOfTouches = 2
+//        swipeGeture.delegate = self
+//        swipeGeture.cancelsTouchesInView = true
+//        tableView.addGestureRecognizer(swipeGeture)
+//    }
+//
+//    @objc private func twoFingerSwiped(recognizer: UIPanGestureRecognizer) {
+//        print(recognizer.location(in: tableView))
+//    }
+//
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        true
+//    }
+//}

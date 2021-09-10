@@ -17,12 +17,10 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     @IBOutlet weak var crossButton: ATBlurButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var lastNameLabel: UILabel!
-    @IBOutlet weak var ageLabel: UILabel!
-    @IBOutlet weak var lastNameAgeContainer: UIView!
     @IBOutlet weak var roomLabel: UILabel!
     
     weak var delegate: SelectedContactCollectionCellDelegate?
+    var productType:ProductType = .flight
 
     var contact: ATContact? {
         didSet {
@@ -48,11 +46,13 @@ class SelectedContactCollectionCell: UICollectionViewCell {
         super.awakeFromNib()
         self.initialSetup()
         self.setupTextAndColor()
+        self.setBorder()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         resetView()
+        self.setBorder()
     }
     
     override func layoutSubviews() {
@@ -66,35 +66,39 @@ class SelectedContactCollectionCell: UICollectionViewCell {
         self.crossButton.blurStyle = .dark
         //self.crossButton.blurAlpha = 0.6
         self.crossButton.borderWidth = 2.0
+        self.crossButton.borderColor = AppColors.whiteAndClear
         self.crossButton.layer.masksToBounds = true
         self.crossButton.addTarget(self, action: #selector(crossButtonAction(_:)), for: UIControl.Event.touchUpInside)
         resetView()
+        profileImageView.contentMode = .scaleAspectFill
     }
     
     private func setupTextAndColor() {
         self.nameLabel.font = AppFonts.Regular.withSize(14.0)
         self.nameLabel.textColor = AppColors.themeBlack
-        self.lastNameLabel.font = AppFonts.Regular.withSize(14.0)
-        self.ageLabel.font = AppFonts.Regular.withSize(14.0)
-        self.lastNameLabel.textColor = AppColors.themeBlack
-        self.ageLabel.textColor = AppColors.themeGray40
         self.roomLabel.font = AppFonts.Regular.withSize(14.0)
         self.roomLabel.textColor = AppColors.themeGray40
         
     }
     
     private func resetView() {
-        lastNameLabel.isHidden = true
-        ageLabel.isHidden = true
-        lastNameAgeContainer.isHidden = true
-        lastNameLabel.text = ""
-        ageLabel.text = ""
         roomLabel.text = ""
+    }
+    
+    private func setBorder(){
+        self.crossButton.makeCircular()
+        self.crossButton.layer.borderWidth = 0.5
+        self.crossButton.layer.borderColor = AppColors.themeBlack26.cgColor
+        
     }
     
     private func populateData() {
         
         if self.isUsingForGuest {
+            let imageBackGroundColor = isSelectedForGuest ? AppColors.themeGray20 : AppColors.imageBackGroundColor
+            let textColor = isSelectedForGuest ? AppColors.themeBlack : AppColors.themeGray60
+
+            
             roomLabel.text = " "
             self.profileImageView.layer.borderColor = AppColors.clear.cgColor
             self.profileImageView.layer.borderWidth = 0.0
@@ -104,9 +108,22 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                 self.nameLabel.text = fName
                 self.crossButton.isHidden = false
             }
-            else if let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
+            else if let lName = self.contact?.lastName, lName.isEmpty, let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
                 self.crossButton.isHidden = true
-                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
+                switch type{
+                case .Adult:
+                    self.nameLabel.text = "\(LocalizedString.Adult.localized) \(number)"
+                case .Child:
+                    if let year = self.contact?.age, year > 0, productType == .hotel{
+                        self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)(\(year)y)"
+                    }else{
+                        self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)"
+                    }
+                   
+                case .Infant:
+                   self.nameLabel.text = "\(LocalizedString.Infant.localized) \(number)"
+                }
+//                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
                 
 //                if let year = self.contact?.age, year > 0 {
 //                    ageLabel.text = "(\(year)y)"
@@ -114,32 +131,45 @@ class SelectedContactCollectionCell: UICollectionViewCell {
 //                }
                 
                 
+            }else if let lName = self.contact?.lastName, !lName.isEmpty {
+                    self.nameLabel.text = lName
+                    self.crossButton.isHidden = false                
+            }else {
+                self.nameLabel.text = " "
+                self.crossButton.isHidden = false
             }
-            if let lName = self.contact?.lastName, !lName.isEmpty {
-                lastNameLabel.text = lName
-                lastNameLabel.isHidden = false
-            }
-            if let year = self.contact?.age, year > 0 {
-                ageLabel.text = "(\(year)y)"
-                ageLabel.isHidden = false
-            }
+            
             if let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
                 if type == PassengersType.Adult, number == 1, roomNo > 0 {
                     roomLabel.text = "\(LocalizedString.Room.localized) \(roomNo)"
                 }
             }
             
-            var placeHolder: UIImage = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            var placeHolder: UIImage = AppImages.ic_deselected_hotel_guest_adult
             if let ptype = self.contact?.passengerType {
                 if isSelectedForGuest {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                    switch ptype{
+                    case .Adult:
+                        placeHolder = AppImages.ic_selected_hotel_guest_adult
+                    case .Child:
+                        placeHolder = AppImages.ic_selected_hotel_guest_child
+                    case .Infant:
+                        placeHolder = AppImages.ic_selected_hotel_guest_infant
+                    }
+//                    placeHolder = (ptype == .Adult) ? AppImages.ic_selected_hotel_guest_adult : AppImages.ic_selected_hotel_guest_child
                     self.nameLabel.textColor = AppColors.themeBlack
-                    self.lastNameLabel.textColor = AppColors.themeBlack
                 }
                 else {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                    switch ptype{
+                    case .Adult:
+                        placeHolder = AppImages.ic_deselected_hotel_guest_adult
+                    case .Child:
+                        placeHolder = AppImages.ic_deselected_hotel_guest_child
+                    case .Infant:
+                        placeHolder = AppImages.ic_deselected_hotel_guest_infant
+                    }
+//                    placeHolder = (ptype == .Adult) ? AppImages.ic_deselected_hotel_guest_adult : AppImages.ic_deselected_hotel_guest_child
                     self.nameLabel.textColor = AppColors.themeGray40
-                    self.lastNameLabel.textColor = AppColors.themeGray40
                 }
             }
             
@@ -148,16 +178,31 @@ class SelectedContactCollectionCell: UICollectionViewCell {
             self.profileImageView.image = placeHolder
             if let img = self.contact?.profilePicture, !img.isEmpty {
                 self.profileImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
-                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                self.profileImageView.layer.borderWidth = 1.0
+//                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                self.profileImageView.layer.borderWidth = 1.0
+            }else if let imageData = self.contact?.imageData {
+                self.profileImageView.image = UIImage(data: imageData)
             }
-            else if let fName = self.contact?.firstName, !fName.isEmpty, let flImage = self.contact?.flImage {
-                self.profileImageView.image = flImage
-                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                self.profileImageView.layer.borderWidth = 1.0
+            else if let fName = self.contact?.firstName, let lName = self.contact?.lastName {
+                if (!fName.isEmpty || !lName.isEmpty) {
+                self.profileImageView.image = AppGlobals.shared.getImageFor(firstName: fName, lastName: lName, font: AppFonts.Light.withSize(36.0),textColor: textColor, offSet: CGPoint(x: 0, y: 12), backGroundColor: imageBackGroundColor)
+                }
+
             }
+                
+                
+                
+//            else if let fName = self.contact?.firstName, !fName.isEmpty, let flImage = self.contact?.flImage {
+//                self.profileImageView.image = flImage
+//                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                self.profileImageView.layer.borderWidth = 1.0
+//            }else if let lName = self.contact?.lastName, !lName.isEmpty, let flImage = self.contact?.flImage {
+//                self.profileImageView.image = flImage
+//                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                self.profileImageView.layer.borderWidth = 1.0
+//            }
             
-            lastNameAgeContainer.isHidden = false
+            
         }
         else {
             self.nameLabel.text = self.contact?.firstName ?? ""
@@ -171,7 +216,7 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                 self.profileImageView.setImageWithUrl(img, placeholder: placeholder, showIndicator: false)
             }
             self.crossButton.isHidden = false
-            self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+            self.profileImageView.layer.borderColor = AppColors.themeGray60.cgColor
             self.profileImageView.layer.borderWidth = 1.0
         }
     }
@@ -228,13 +273,14 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
     }
     
     private func initialSetup() {
-        self.crossButton.borderWidth = 2.0
         self.crossButton.blurColor = AppColors.clear
         self.crossButton.blurStyle = .dark
-        
         //self.crossButton.blurAlpha = 0.6
-        
+        self.crossButton.borderWidth = 2.0
+        self.crossButton.borderColor = AppColors.whiteAndClear
+        self.crossButton.layer.masksToBounds = true
         self.crossButton.addTarget(self, action: #selector(crossButtonAction(_:)), for: UIControl.Event.touchUpInside)
+        profileImageView.contentMode = .scaleAspectFill
     }
     
     private func setupTextAndColor() {
@@ -257,19 +303,44 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
             }
             else if let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
                 self.crossButton.isHidden = true
-                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
+//                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
+                switch type{
+                case .Adult:
+                    self.nameLabel.text = "\(LocalizedString.Adult.localized) \(number)"
+                case .Child:
+                    self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)"
+                case .Infant:
+                   self.nameLabel.text = "\(LocalizedString.Infant.localized) \(number)"
+                }
+
                 
             }
             
             
-            var placeHolder: UIImage = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            var placeHolder: UIImage = AppImages.ic_deselected_hotel_guest_adult
             if let ptype = self.contact?.passengerType {
                 if isSelectedForGuest {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                    switch ptype{
+                    case .Adult:
+                        placeHolder = AppImages.ic_selected_hotel_guest_adult
+                    case .Child:
+                        placeHolder = AppImages.ic_selected_hotel_guest_child
+                    case .Infant:
+                        placeHolder = AppImages.ic_selected_hotel_guest_infant
+                    }
+//                    placeHolder = (ptype == .Adult) ? AppImages.ic_selected_hotel_guest_adult : AppImages.ic_selected_hotel_guest_child
                     self.nameLabel.textColor = AppColors.themeBlack
                 }
                 else {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                    switch ptype{
+                    case .Adult:
+                        placeHolder = AppImages.ic_deselected_hotel_guest_adult
+                    case .Child:
+                        placeHolder = AppImages.ic_deselected_hotel_guest_child
+                    case .Infant:
+                        placeHolder = AppImages.ic_deselected_hotel_guest_infant
+                    }
+//                    placeHolder = (ptype == .Adult) ? AppImages.ic_deselected_hotel_guest_adult : AppImages.ic_deselected_hotel_guest_child
                     self.nameLabel.textColor = AppColors.themeGray40
                 }
             }
@@ -290,7 +361,7 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
             
         }
         else {
-            if let firstName = self.contact?.firstName, !firstName.isEmpty {
+            if let firstName = self.contact?.fullName, !firstName.isEmpty {
                 self.nameLabel.text = firstName
             } else if let lastName = self.contact?.lastName , !lastName.isEmpty {
                 self.nameLabel.text = lastName
@@ -298,7 +369,7 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
                 self.nameLabel.text = ""
             }
             
-            let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
+            let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0),backGroundColor: AppColors.imageBackGroundColor)
             self.profileImageView.image = placeholder
             if let imgData = self.contact?.imageData {
                 self.profileImageView.image = UIImage(data: imgData)
@@ -307,8 +378,8 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
                 self.profileImageView.setImageWithUrl(img, placeholder: placeholder, showIndicator: false)
             }
             self.crossButton.isHidden = false
-            self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
-            self.profileImageView.layer.borderWidth = 1.0
+//            self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//            self.profileImageView.layer.borderWidth = 1.0
         }
     }
     

@@ -7,9 +7,11 @@
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
 //  Service: https://developers.google.com/maps/terms
 //
+
+
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN;
 
 /**
  * Describes a single level in a building.
@@ -19,8 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GMSIndoorLevel : NSObject
 
-- (instancetype)init NS_UNAVAILABLE;
-
 /** Localized display name for the level, e.g. "Ground floor". */
 @property(nonatomic, copy, readonly, nullable) NSString *name;
 
@@ -29,4 +29,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END;

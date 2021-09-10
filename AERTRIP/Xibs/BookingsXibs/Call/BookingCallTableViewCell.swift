@@ -14,11 +14,13 @@ enum CallCellType {
     case airports
     case none
     case email
+    case webcheckin
 }
 
 class BookingCallTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dividerViewLeadingConst: NSLayoutConstraint!
     @IBOutlet weak var cellImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -33,7 +35,7 @@ class BookingCallTableViewCell: ATTableViewCell {
     // MARK: - Override methods
     @IBOutlet weak var imageViewTrailingConstraing: NSLayoutConstraint!
     @IBOutlet weak var airportCodeLabelLeadingConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var rightImageView: UIImageView!
     
     override func setupFonts() {
         self.airportCodeLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -44,19 +46,21 @@ class BookingCallTableViewCell: ATTableViewCell {
     override func setupColors() {
         self.airportCodeLabel.textColor = AppColors.themeGreen
         self.titleLabel.textColor = AppColors.themeBlack
-        self.phoneLabel.textColor = AppColors.themeGray40
+        self.phoneLabel.textColor = AppColors.themeGray153
     }
     
     func configureCell(code: String = "", title: String, phoneLabel: String, cellType: CallCellType = .none, email: String = "") {
+        self.rightImageView.image = nil
         self.airportCodeLabel.isHidden = true
         switch cellType {
         case .none:
-            self.cellImageView.image = #imageLiteral(resourceName: "aertripGreenLogo")
+            self.cellImageView.image = AppImages.upwardAertripLogo//#imageLiteral(resourceName: "aertripGreenLogo")
             self.titleLabel.text = title
             self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
         case .email:
-            self.cellImageView.image = #imageLiteral(resourceName: "headPhoneIcon")
+            self.cellImageView.image = AppImages.headPhoneIcon
             let fullText: String = title + "\n" + email
+            self.titleLabel.numberOfLines = 2
             self.titleLabel.attributedText = self.getAttributedBoldText(text: fullText, boldText: email)
             self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
         case .airlines:
@@ -72,6 +76,17 @@ class BookingCallTableViewCell: ATTableViewCell {
             self.airportCodeLabel.text = code
             self.titleLabel.text = title
             self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
+            
+        case .webcheckin:
+            if !code.isEmpty {
+                let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: code)
+                self.cellImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }
+            self.titleLabel.text = title
+            self.phoneLabel.text = ""
+            
+            self.rightImageView.image = AppImages.send_icon.withRenderingMode(.alwaysTemplate)
+            self.rightImageView.tintColor = AppColors.themeGray60
         default:
             break
         }

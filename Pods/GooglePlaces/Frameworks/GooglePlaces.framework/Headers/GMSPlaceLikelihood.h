@@ -1,6 +1,6 @@
 //
 //  GMSPlaceLikelihood.h
-//  Google Places SDK for iOS
+//  Google Places API for iOS
 //
 //  Copyright 2016 Google Inc.
 //
@@ -11,9 +11,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class GMSPlace;
+NS_ASSUME_NONNULL_BEGIN;
 
-NS_ASSUME_NONNULL_BEGIN
+@class GMSPlace;
 
 /**
  * Represents a |GMSPlace| and the relative likelihood of the place being the best match within the
@@ -34,14 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, assign, readonly) double likelihood;
 
-- (instancetype)initWithPlace:(GMSPlace *)place
-                   likelihood:(double)likelihood NS_DESIGNATED_INITIALIZER;
-
-/**
- * Default init is not available. Please use the designated initializer.
- */
-- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithPlace:(GMSPlace *)place likelihood:(double)likelihood;
 
 @end
 
-NS_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END;

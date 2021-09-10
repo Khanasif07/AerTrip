@@ -10,6 +10,7 @@ import UIKit
 
 protocol BookingDocumentsCollectionViewCellDelegate: class {
     func cancelButtonAction(forIndex indexPath: IndexPath)
+    func longPressButtonAction(forIndex indexPath: IndexPath)
 }
 
 class BookingDocumentsCollectionViewCell: UICollectionViewCell {
@@ -42,7 +43,7 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
     private var bottomConstraintForDownloading: CGFloat {
         return 9.0
     }
-    
+    var longPressGesture:UILongPressGestureRecognizer?
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -66,6 +67,11 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     //MARK:- Functions
     //MARK:===========
     private func configUI() {
@@ -73,17 +79,26 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.nameLabel.textColor = AppColors.themeBlack
         self.documentsSizeLabel.font = AppFonts.Regular.withSize(14.0)
         self.documentsSizeLabel.textColor = AppColors.themeGray40
-        self.documentsImageView.image = #imageLiteral(resourceName: "pdf")
+        self.documentsImageView.image = AppImages.pdf
         self.imageContainerViewTopConstraint.constant = self.normalTopConstraint
         self.imageContainerViewWidthConstraint.constant = self.normalWidthConstraint
         self.imageContainerViewHeightConstraint.constant = self.normalHeightConstraint
         self.imageContainerViewBottomConstraint.constant = self.normalBottomConstraint
         self.dowloadingPlaceHolderImgView.image = nil
         self.loaderSetUp()
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(recognizer:)))
+        longPressGesture?.minimumPressDuration = 0.5 // 1 second press
+        //longPressGesture?.delaysTouchesEnded = true
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
-    internal func configCell(name: String , documentsSize: String , request: DocumentDownloadingModel) {
-        self.nameLabel.text = name
+    internal func configCell(name: String , documentsSize: String , request: DocumentDownloadingModel, type:String = "") {
+        if type.isEmpty{
+            self.nameLabel.text = name
+        }else{
+            self.nameLabel.text = "\(name).\(type)"
+        }
+        
         self.documentsSizeLabel.text = documentsSize
         var previousProgress: Float = 0.0
         request.progressUpdate = { [weak self] progress in
@@ -123,11 +138,15 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    internal func notDownloadingStatusSetUp(name: String) {
+    internal func notDownloadingStatusSetUp(name: String , type: String = "") {
         self.downloadingIcon.isHidden = false
         self.progressView.isHidden = true
         self.nameLabel.textColor = AppColors.themeBlack
-        self.nameLabel.text = name
+        if type.isEmpty{
+            self.nameLabel.text = name
+        }else{
+            self.nameLabel.text = "\(name).\(type)"
+        }
         self.imageContainerViewTopConstraint.constant = self.normalTopConstraint
         self.imageContainerViewWidthConstraint.constant = self.normalWidthConstraint
         self.imageContainerViewHeightConstraint.constant = self.normalHeightConstraint
@@ -144,14 +163,18 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.imageContainerViewWidthConstraint.constant = self.widthConstraintForDownloading
         self.imageContainerViewHeightConstraint.constant = self.heightConstraintForDownloading
         self.imageContainerViewBottomConstraint.constant = self.bottomConstraintForDownloading
-        self.dowloadingPlaceHolderImgView.image = #imageLiteral(resourceName: "DownloadingPlaceHolder")
+        self.dowloadingPlaceHolderImgView.image = AppImages.DownloadingPlaceHolder
     }
     
-    internal func downloadedStatusSetUp(name: String) {
+    internal func downloadedStatusSetUp(name: String, type: String = "") {
         self.nameLabel.textColor = AppColors.themeBlack
         self.downloadingIcon.isHidden = true
         self.progressView.isHidden = true
-        self.nameLabel.text = name
+        if type.isEmpty{
+            self.nameLabel.text = name
+        }else{
+            self.nameLabel.text = "\(name).\(type)"
+        }
         self.imageContainerViewTopConstraint.constant = self.normalTopConstraint
         self.imageContainerViewWidthConstraint.constant = self.normalWidthConstraint
         self.imageContainerViewHeightConstraint.constant = self.normalHeightConstraint
@@ -165,6 +188,14 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         if let superVw = self.superview as? UICollectionView , let indexPath = superVw.indexPath(for: self), let safeDelegate = self.delegate {
             safeDelegate.cancelButtonAction(forIndex: indexPath)
             self.progressView.setProgressWithAnimation(duration: 0.0, toValue: 0.0)
+        }
+    }
+    
+    @objc func longPressGesture(recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .began{
+        if let superVw = self.superview as? UICollectionView , let indexPath = superVw.indexPath(for: self), let safeDelegate = self.delegate {
+        safeDelegate.longPressButtonAction(forIndex: indexPath)
+        }
         }
     }
 }

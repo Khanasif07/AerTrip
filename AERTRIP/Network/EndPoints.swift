@@ -12,9 +12,33 @@ enum APIEndPoint: String {
     // MARK: - Base URLs
     
     //MARK: - Base URLs
-    case apiKey       = "3a457a74be76d6c3603059b559f6addf"
-    case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
+    //Previously implemented API key
+//    case apiKey       = "3a457a74be76d6c3603059b559f6addf"//prod Android:- 7472e9071e9cf87bf2c12876a1fe2006
+    
+    case apiKey = "tN601pBsSsAdurccNv3wRfBjoATkgf7i"
 
+    case apiKeyProd = "xuGAG03GMx75Ey1b6E0HYyK6PLEAX60V"
+    
+    //dev
+    case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
+    
+    //beta-rz
+//    case baseUrlPath = "https://beta-rz.aertrip.com/api/v1/"
+    
+    //prod
+//    case baseUrlPath = "https://aertrip.com/api/v1/"
+
+    
+    //dev
+    case shareableBaseUrl = "https://beta.aertrip.com/"
+    
+    //beta-rz
+//    case shareableBaseUrl = "https://beta-rz.aertrip.com/"
+
+    //prod
+//    case shareableBaseUrl = "https://aertrip.com/"
+
+    
     //MARK: - Account URLs -
 
     case isActiveUser                  = "users/is-active-user"
@@ -30,6 +54,9 @@ enum APIEndPoint: String {
     case verifyRegistration            = "users/verify-registration"
     case resetPassword                 = "users/validate-password-reset-token"
     case getTravellerDetail            = "users/traveller-detail"
+    case validateFromToken            = "users/validate-from-token"
+
+    
     case dropDownSalutation            = "default/dropdown-keys"
     case flightsPreferences            = "flights/preference-master"
     case flyerSearch                   = "airlines/search"
@@ -57,6 +84,10 @@ enum APIEndPoint: String {
     case hotelInfo                     = "hotels/details"
     case hotelDistanceAndTravelTime    = "https://maps.googleapis.com/maps/api/"
     case hotelRecentSearches           = "recent-search/get"
+    case changePassword                = "users/change-password"
+    case setPassword                   = "users/set-password"
+    case getTagSuggestion              = "user-passenger/user-tags"
+
     
     // Hotel Result Api
     case getPinnedTemplate = "hotels/get-pinned-template"
@@ -65,7 +96,10 @@ enum APIEndPoint: String {
     case confirmation = "hotels/confirmation"
     case recheckRates = "hotels/recheck-rates"
     case resutlFallBack = "hotels/result-fallback"
-    
+    case getShareLink = "hotels/get-share-link"
+
+
+
     // Email Itineraries
     case emailItineraries = ""
     //    case emailItineraries              = "dashboard/booking-action?booking_id=9035&type=email"
@@ -79,6 +113,7 @@ enum APIEndPoint: String {
     case ownedTrips = "trips/owned"
     case tripsEventMove = "trips/event/move"
     case tripsUpdateBooking = "trips/update-booking"
+    case addToTripFlight = "trips/event/flights/save"
     
     // payment
     case makePayment = "payment/make-payment"
@@ -96,6 +131,7 @@ enum APIEndPoint: String {
     
     // booking Detail
     case getBookingDetails = "dashboard/get-booking-details"
+    case getMultipleBookingDetails = "dashboard/get-multiple-booking-details"
     case getBookingFees = "dashboard/get-booking-fees"
     case getFareRules = "dashboard/get-fare-rules"
     case getCaseHistory = "dashboard/case-history"
@@ -104,6 +140,9 @@ enum APIEndPoint: String {
     case getTravellerEmails = "dashboard/get-traveller-emails"
     case rescheduleRequest = "reschedule/request"
     case addOnRequest = "addon/request"
+    case communicationDetail = "dashboard/communication-detail"
+    case pass = "dashboard/pass"
+
     // Final Checkout
     
     // ACCOUNT
@@ -111,7 +150,10 @@ enum APIEndPoint: String {
     case accountReportAction = "user-accounts/report-action"
     case outstandingPayment = "user-accounts/outstanding-payment"
     case registerPayment = "payment/register-payment"
-    
+    case bookingOutstandingPayment = "user-accounts/booking-outstanding-payment"
+    case updateConvenienceFee = "itinerary/get"
+    case accountsummary = "user-accounts/get-summary"
+
     //my booking
     case addonPayment = "quotation/addon-payment"
     
@@ -119,6 +161,63 @@ enum APIEndPoint: String {
     case getPaymentMethod = "itinerary/get-payment-methods"
     case shareText = "su/create"
     
+    case chatBotStart = "aerin/start"
+    
+    case currencies = "default/supported-currencies"
+//    case currencies = "default/currencies"
+
+
+    //Flights
+    case fareConfirmation = "flights/confirmation"
+    case addonsMaster = "flights/addons-master"
+    case gstValidation = "flights/validate-gst-number"
+    case applyFlightCouponCode = "flights/itinerary?action=coupons"
+    case flightReconfirmationApi = "flights/re-confirmation"
+    case flightItinerary = "flights/itinerary"
+    case refundCase = "itinerary/refund-case"
+    case otherFare = "flights/otherfares"
+    
+    case travelGuidelines = "https://aertrip.com/covid-guide"
+    
+    //FlightAddOns
+    case seatMap = "flights/seat-map-list"
+    case postBookingAddOn = "addon/get-addon-availability"
+    case addOnConfirmation = "addon/addon-confirmation"
+    case getAddonsQuatation = "itinerary/get-quotation"
+    case getAddonsReceipt = "receipt/get"
+    
+    
+    //Flight Details
+    case flightDetails_Baggage = "flights/baggage"
+    case flightDetails_OnTimePerformance = "flights/delay-index"
+    case flightDetails_FareInfo = "flights/get-minifare-rules"
+    case flightDetails_FareRules = "flights/fare-rules"
+    
+//    Share
+    case flights_getShortUrlForShare = "flights/get-pinned-url"
+    case flights_getPinnedTemplate = "flights/get-pinned-template"
+    
+    //OTP Verification
+    case sendOtp = "users/send-wallet-otp"
+    case validateOtp = "users/validate-wallet-otp"
+    case sendOtpForMobile = "users/user-default-mobile"
+    case validateOtpForMobile = "users/validate-profile-otp"
+    case cancelOtpValidation = "users/validation-cancel"
+    case setUserMobileCheck = "users/set-user-mobile-check"
+    case setUserMobile = "users/set-user-mobile"
+    case versionControl = "users/version-control"
+//    case getUserData = "users/meta"
+    case validateOtpForSetMobile = "users/user-mobile-validate-otp"
+    case cancelOtpForSetMobile = "users/user-mobile-validation-cancel"
+    case enableDisableWalletOtp = "users/status-wallet-otp"
+    case validateDisableOtp = "users/disable-wallet-otp"
+    case cancelWalletEnableDisable = "users/user-disable-wallet-otp-cancel"
+    case changeLogin = "users/change-login"
+    case updateAccountDetails = "users/edit-user-details"
+    case updateRefundMode = "users/update-refund-mode"
+    case currenciesList = "currencies/list"
+    
+    case userMeta = "users/meta"
 }
 
 // MARK: - endpoint extension for url -

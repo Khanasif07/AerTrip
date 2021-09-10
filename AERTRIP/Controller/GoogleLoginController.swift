@@ -27,8 +27,7 @@ class GoogleLoginController : NSObject {
     private override init() {}
     
     func configure() {
-        
-        let clientId = "175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com"
+        let clientId = AppKeys.googleClientID
         GIDSignIn.sharedInstance().clientID = clientId
         GIDSignIn.sharedInstance().delegate = self
     }
@@ -87,6 +86,7 @@ extension GoogleLoginController : GIDSignInDelegate {
         } else {
             failure?(error)
         }
+        
         success = nil
         failure = nil
     }
@@ -99,9 +99,9 @@ extension GoogleLoginController : GIDSignInDelegate {
     // MARK: - To dismiss from your controller
     func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
         contentViewController.dismiss(animated: true, completion: nil)
-        
         self.logout()
     }
+    
 }
 
 // MARK: - Fetch google contacts

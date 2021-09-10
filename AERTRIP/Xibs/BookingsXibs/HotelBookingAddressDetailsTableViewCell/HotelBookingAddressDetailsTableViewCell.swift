@@ -43,12 +43,20 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
         self.configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColor()
+    }
+    
     //MARK:- Functions
     //MARK:===========
     private func configureUI() {
-        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+//        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        let shadow = AppShadowProperties()
+        self.containerView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+        
         //Font
-        self.hotelNameLabel.font = AppFonts.Regular.withSize(26.1)
+        self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22)
         self.hotelAddressLabel.font = AppFonts.Regular.withSize(16)
         self.checkInLabel.font = AppFonts.Regular.withSize(14)
         self.checkOutLabel.font = AppFonts.Regular.withSize(14)
@@ -65,13 +73,21 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
         //Color
         self.hotelNameLabel.textColor = AppColors.themeBlack
         self.hotelAddressLabel.textColor = AppColors.themeGray60
-        self.checkInLabel.textColor = AppColors.themeGray40
-        self.checkOutLabel.textColor = AppColors.themeGray40
+        self.checkInLabel.textColor = AppColors.themeGray153
+        self.checkOutLabel.textColor = AppColors.themeGray153
         self.checkInDateLabel.textColor = AppColors.themeBlack
         self.checkOutDateLabel.textColor = AppColors.themeBlack
-        self.checkInDayLabel.textColor = AppColors.themeGray40
-        self.checkOutDayLabel.textColor = AppColors.themeGray40
+        self.checkInDayLabel.textColor = AppColors.themeGray153
+        self.checkOutDayLabel.textColor = AppColors.themeGray153
         self.totalNightsLabel.textColor = AppColors.themeBlack
+        self.setupColor()
+    }
+    
+    
+    private func setupColor(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.checkInOutContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     internal func configCell(hotelName: String, hotelAddress: String, hotelStarRating: Double, tripAdvisorRating: Double, checkInDate: Date? , checkOutDate: Date? , totalNights: Int) {

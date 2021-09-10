@@ -12,7 +12,12 @@ protocol SelectTripVCDelegate: class {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?)
 }
 
+protocol TripCancelDelegate:NSObjectProtocol {
+    func addTripCancelled()
+}
+
 class SelectTripVC: BaseVC {
+    
     // MARK: - IBOutlets
     
     // MARK: -
@@ -37,7 +42,13 @@ class SelectTripVC: BaseVC {
     
     let viewModel = SelectTripVM()
     weak var delegate: SelectTripVCDelegate?
+    weak var cancelDelegate:TripCancelDelegate?
     var selectionComplition: ((TripModel, TripDetails?) -> Void)?
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
+    var dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    
+    lazy var parentController:UIViewController? = (self.presentingViewController as? UINavigationController)?.viewControllers.first
+    
     
     // MARK: - Private
     
@@ -48,7 +59,8 @@ class SelectTripVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
-        
+        self.tableView.contentInset = UIEdgeInsets(top: topNavView.height , left: 0.0, bottom: 10.0, right: 0.0)
+
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
@@ -73,12 +85,24 @@ class SelectTripVC: BaseVC {
         if viewModel.allTrips.isEmpty {
             viewModel.fetchAllTrips()
         }
+        viewModel.setSelectedTripIndexPath()
     }
     
     override func setupColors() {
         creatNewButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        
-        AppGlobals.shared.addBlurEffect(forView: creatNewContainerView)
+        if self.isLightTheme(){
+            AppGlobals.shared.addBlurEffect(forView: creatNewContainerView)
+        } else {
+            let subview = self.creatNewContainerView.subviews.filter{$0 is UIVisualEffectView}
+            for view in subview{
+                view.removeFromSuperview()
+            }
+        }
+        topNavView.darkView.backgroundColor = AppColors.themeBlack26
+        self.creatNewContainerView.backgroundColor = AppColors.themeBlack26
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.tableView.backgroundColor = AppColors.themeWhite
+
     }
     
     override func setupTexts() {
@@ -92,11 +116,21 @@ class SelectTripVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        statusBarStyle = .default
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
     }
     
     override func bindViewModel() {
         viewModel.delegate = self
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+        self.setupColors()
     }
     
     // MARK: - Methods
@@ -108,6 +142,7 @@ class SelectTripVC: BaseVC {
     // MARK: - Action
     
     @IBAction func createNewButtonAction(_ sender: UIButton) {
+        (self.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .OpenCreateNewTrip)
         AppFlowManager.default.presentCreateNewTripVC(delegate: self, onViewController: self)
     }
 }
@@ -118,6 +153,7 @@ class SelectTripVC: BaseVC {
 
 extension SelectTripVC: CreateNewTripVCDelegate {
     func createNewTripVC(sender: CreateNewTripVC, didCreated trip: TripModel) {
+        (self.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .CreateNewTrip)
         viewModel.allTrips.insert(trip, at: 0)
         viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
         tableView.reloadData()
@@ -154,18 +190,31 @@ extension SelectTripVC: SelectTripVMDelegate {
 
 extension SelectTripVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        (self.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .CancelAddToTrips)
+        self.cancelDelegate?.addTripCancelled()
         dismiss(animated: true, completion: nil)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        if  let indexPath = viewModel.selectedIndexPath {
-            // move and update trip
-            viewModel.moveAndUpdateTripAPI(selectedTrip: viewModel.allTrips[indexPath.row])
-        } else {
-            if viewModel.usingFor == .bookingTripChange {
-                AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectTrip.localized)
-            } else {
+        
+        switch self.viewModel.usingFor{
+        case .hotel, .flight:
+            if viewModel.selectedIndexPath != nil {
                 selectionCompleted()
+            } else {
+                AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectTrip.localized)
+                
+            }
+        case .bookingTripChange, .bookingAddToTrip:
+            if  let indexPath = viewModel.selectedIndexPath {
+                // move and update trip
+                viewModel.moveAndUpdateTripAPI(selectedTrip: viewModel.allTrips[indexPath.row])
+            } else {
+                if viewModel.usingFor == .bookingTripChange {
+                    AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectTrip.localized)
+                } else {
+                    selectionCompleted()
+                }
             }
         }
     }
@@ -174,6 +223,13 @@ extension SelectTripVC: TopNavigationViewDelegate {
         if let indexPath = viewModel.selectedIndexPath {
             if let handler = self.selectionComplition {
                 handler(viewModel.allTrips[indexPath.row], viewModel.tripDetails)
+            }
+            if viewModel.tripDetails == nil {
+                var trip = TripDetails()
+                trip.event_id = viewModel.eventId
+                trip.trip_id = viewModel.allTrips[indexPath.row].id
+                trip.name = viewModel.allTrips[indexPath.row].name
+                viewModel.tripDetails = trip
             }
             delegate?.selectTripVC(sender: self, didSelect: viewModel.allTrips[indexPath.row], tripDetails: viewModel.tripDetails)
         }
@@ -203,13 +259,16 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
         cell?.textLabel?.font = AppFonts.Regular.withSize(18.0)
         cell?.textLabel?.text = viewModel.allTrips[indexPath.row].name
         cell?.tintColor = AppColors.themeGreen
-        cell?.accessoryType = .none
+        cell?.accessoryView = nil
         
         if let idxPath = viewModel.selectedIndexPath, idxPath.row == indexPath.row {
-            cell?.accessoryType = .checkmark
+            let checkMarckImageView = UIImageView(image: AppImages.checkIcon)
+            checkMarckImageView.contentMode = .center
+            cell?.accessoryView = checkMarckImageView
         }
-        
-        return cell!
+        cell?.textLabel?.textColor = AppColors.themeBlack
+        cell?.backgroundColor = AppColors.themeWhite
+        return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -221,29 +280,29 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
 extension SelectTripVC {
     
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-          let touchPoint = sender.location(in: view?.window)
-          var initialTouchPoint = CGPoint.zero
-          
-          switch sender.state {
-          case .began:
-              initialTouchPoint = touchPoint
-          case .changed:
-              if touchPoint.y > initialTouchPoint.y {
-                  view.frame.origin.y = touchPoint.y - initialTouchPoint.y
-              }
-          case .ended, .cancelled:
-              if touchPoint.y - initialTouchPoint.y > 300 {
-                  dismiss(animated: true, completion: nil)
-              } else {
-                  UIView.animate(withDuration: 0.2, animations: {
-                      self.view.frame = CGRect(x: 0,
-                                               y: 0,
-                                               width: self.view.frame.size.width,
-                                               height: self.view.frame.size.height)
-                  })
-              }
-          case .failed, .possible:
-              break
-          }
-      }
+        let touchPoint = sender.location(in: view?.window)
+        var initialTouchPoint = CGPoint.zero
+        
+        switch sender.state {
+        case .began:
+            initialTouchPoint = touchPoint
+        case .changed:
+            if touchPoint.y > initialTouchPoint.y {
+                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
+            }
+        case .ended, .cancelled:
+            if touchPoint.y - initialTouchPoint.y > 300 {
+                dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.frame = CGRect(x: 0,
+                                             y: 0,
+                                             width: self.view.frame.size.width,
+                                             height: self.view.frame.size.height)
+                })
+            }
+        case .failed, .possible:
+            break
+        }
+    }
 }

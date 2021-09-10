@@ -67,12 +67,12 @@ class SelectDestinationVM: NSObject {
             switch(self){
             case .didYouMean: return 0
             case .city: return 1
-            case .area: return 2
-            case .poi: return 3
-            case .hotel: return 4
+            case .area: return 3
+            case .poi: return 4
+            case .hotel: return 5
             case .custom(let ttl):
                 if ttl.lowercased().contains("top".lowercased()) {
-                    return 5
+                    return 2
                 }
                 return 6
             }
@@ -100,6 +100,9 @@ class SelectDestinationVM: NSObject {
     var recentSearches: [SearchedDestination] {
         return self._recentSearches ?? [SearchedDestination]()
     }
+    
+    var showDidYouMeanLbl = false
+    var headerViewHeight: (min: CGFloat, max: CGFloat) = (70, 100)
     
     weak var delegate: SelectDestinationVMDelegate?
     
@@ -153,9 +156,16 @@ class SelectDestinationVM: NSObject {
         param["q"] = forText
         APICaller.shared.getSearchedDestinationHotels(params: param) { [weak self] (success, errors, hotels) in
             guard let sSelf = self else {return}
+            var hotelsDict = hotels
             
             if success {
-                sSelf.searchedHotels = hotels                
+                if let showDidYouMean = hotelsDict["showDidYouMean"] as? Bool, showDidYouMean {
+                    sSelf.showDidYouMeanLbl = true
+                    hotelsDict.removeValue(forKey: "showDidYouMean")
+                } else {
+                    sSelf.showDidYouMeanLbl = false
+                }
+                sSelf.searchedHotels = hotelsDict
                 sSelf.delegate?.searchDestinationSuccess()
             }
             else {
@@ -183,13 +193,15 @@ class SelectDestinationVM: NSObject {
                         if !recent.contains(where: { (dest) -> Bool in
                             dest.dest_id == hotel.dest_id
                         }) {
-                            tamp.append(hotel)
+                            if tamp.count < 5 {
+                                tamp.append(hotel)
+                            }
                         }
                     }
                     sSelf.popularHotels = tamp
                 }
                 else {
-                    sSelf.popularHotels = hotels
+                    sSelf.popularHotels = hotels.count > 5 ? Array(hotels[0..<5]) : hotels
                 }
                 
                 sSelf.delegate?.getAllPopularHotelsSuccess()
@@ -237,7 +249,11 @@ class SelectDestinationVM: NSObject {
     }
     
     func hotelsNearByMe() {
-        APICaller.shared.getHotelsNearByMe(params: [:]) { [weak self] (success, error, hotel) in
+        var params = JSONDictionary()
+        if let value = LocationManager.shared.lastUpdatedCoordinate {
+            params["latLong"] = "\(value.latitude),\(value.longitude)"
+        }
+        APICaller.shared.getHotelsNearByMe(params: params) { [weak self] (success, error, hotel) in
             
             guard let sSelf = self else {return}
             

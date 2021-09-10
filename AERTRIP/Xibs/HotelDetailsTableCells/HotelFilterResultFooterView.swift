@@ -47,12 +47,12 @@ class HotelFilterResultFooterView: UITableViewHeaderFooterView {
     ///ConfigureUI
     private func configureUI() {
         //Colors
-//        self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+//        self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors)
 //        self.containerView.backgroundColor = AppColors.themeGreen
-        self.fromLabel.textColor =  AppColors.themeWhite
-        self.hotelFeesLabel.textColor =  AppColors.themeWhite
-        self.selectRoomLabel.textColor =  AppColors.themeWhite
-        self.noRoomsAvailable.textColor =  AppColors.themeWhite
+        self.fromLabel.textColor =  AppColors.unicolorWhite
+        self.hotelFeesLabel.textColor =  AppColors.unicolorWhite
+        self.selectRoomLabel.textColor =  AppColors.unicolorWhite
+        self.noRoomsAvailable.textColor =  AppColors.hotelDetailOnGuestSelection
         
         //Size
         let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)

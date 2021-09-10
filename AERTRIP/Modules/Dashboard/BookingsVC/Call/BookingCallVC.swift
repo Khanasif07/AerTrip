@@ -13,29 +13,55 @@ class BookingCallVC: BaseVC {
     // MARK: - IB Outlet
     
     @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var topDeviderView: ATDividerView!
     @IBOutlet weak var callTableView: ATTableView!
+    @IBOutlet weak var navBarHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Varibles
     
     let viewModel = BookingCallVM()
   
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     // MARK: - Override methods
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
+    }
+    
     override func initialSetup() {
+        
+        topNavBar.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            navBarHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
+        }
+        self.callTableView.contentInset = UIEdgeInsets(top: topNavBar.height , left: 0.0, bottom: 0.0, right: 0.0)
         self.callTableView.dataSource = self
         self.callTableView.delegate = self
         self.callTableView.reloadData()
-        
         self.viewModel.getIntialData()
         
         self.setupNavBar()
         self.registerXib()
+        self.callTableView.backgroundColor = AppColors.themeGray04
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsContactNumberList, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
+
+
     }
     
     override func setupNavBar() {
         self.topNavBar.delegate = self
-        self.topNavBar.configureNavBar(title: LocalizedString.Call.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavBar.configureNavBar(title: LocalizedString.Call.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        topNavBar.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
     }
     
     // MARK: - Helper methods
@@ -62,7 +88,16 @@ class BookingCallVC: BaseVC {
         }
         
         bookingCell.dividerView.isHidden = self.viewModel.aertripData.count - 1 == indexPath.row
-        
+        if self.viewModel.section.count == 1 {
+            if self.viewModel.aertripData.count - 1 == indexPath.row {
+                bookingCell.dividerViewLeadingConst.constant = 0
+                bookingCell.dividerView.isHidden = false
+            } else {
+                bookingCell.dividerViewLeadingConst.constant = 59
+            }
+        }
+        bookingCell.containerView.backgroundColor = AppColors.themeBlack26
+        bookingCell.contentView.backgroundColor = AppColors.themeBlack26
         return bookingCell
     }
     
@@ -71,7 +106,10 @@ class BookingCallVC: BaseVC {
             fatalError("BookingCallTableViewCell not found")
         }
         bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: self.viewModel.airlineData[indexPath.row].phone, cellType: .airlines)
-        bookingCell.dividerView.isHidden = self.viewModel.airlineData.count - 1 == indexPath.row
+        bookingCell.dividerView.isHidden = false//self.viewModel.airlineData.count - 1 == indexPath.row
+        bookingCell.dividerViewLeadingConst.constant = (self.viewModel.airlineData.count - 1 == indexPath.row) ? 0 : 59
+        bookingCell.containerView.backgroundColor = AppColors.themeBlack26
+        bookingCell.contentView.backgroundColor = AppColors.themeBlack26
         return bookingCell
     }
     
@@ -87,7 +125,10 @@ class BookingCallVC: BaseVC {
             }
             let title = self.viewModel.airportData[indexPath.row].city + "," + self.viewModel.airportData[indexPath.row].countryCode
             bookingCell.configureCell(code: self.viewModel.airportData[indexPath.row].ataCode, title: title, phoneLabel: self.viewModel.airportData[indexPath.row].phone, cellType: .airports)
-            bookingCell.dividerView.isHidden = self.viewModel.airportData.count - 1 == indexPath.row
+            bookingCell.dividerView.isHidden = false//self.viewModel.airportData.count - 1 == indexPath.row
+            bookingCell.dividerViewLeadingConst.constant = self.viewModel.airportData.count - 1 == indexPath.row ? 0.0 : 59.0
+            bookingCell.containerView.backgroundColor = AppColors.themeBlack26
+            bookingCell.contentView.backgroundColor = AppColors.themeBlack26
             return bookingCell
         }
     }
@@ -110,30 +151,10 @@ class BookingCallVC: BaseVC {
             bookingCell.configureCell(code: "", title: self.viewModel.hotelName, phoneLabel: self.viewModel.hotelData[indexPath.row].phone, cellType: .none)
             bookingCell.dividerView.isHidden = self.viewModel.hotelData.count - 1 == indexPath.row
             bookingCell.dividerView.isHidden = indexPath.section == self.viewModel.section.count - 1 ? false : true
-            bookingCell.dividerViewLeadingConst.constant = indexPath.section == self.viewModel.section.count - 1 ? 0.0 : 43.0
+            bookingCell.dividerViewLeadingConst.constant = indexPath.section == self.viewModel.section.count - 1 ? 0.0 : 59.0
+            bookingCell.containerView.backgroundColor = AppColors.themeBlack26
+            bookingCell.contentView.backgroundColor = AppColors.themeBlack26
             return bookingCell
-        }
-    }
-    
-    func makePhoneCall(phoneNumber: String) {
-        var uc = URLComponents()
-        uc.scheme = "tel"
-        uc.path = phoneNumber
-        
-        if let phoneURL = uc.url {
-//            let alert = UIAlertController(title: phoneNumber, message: nil, preferredStyle: .alert)
-//            alert.view.tintColor = AppColors.themeGreen
-//            alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
-//
-//            }))
-        
-                UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
-           
-              //  UIApplication.shared.openURL(phoneURL as URL)
-            //
-            //   alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            // self.present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -147,7 +168,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.viewModel.usingFor == .flight {
-            return [self.viewModel.contactInfo?.aertrip.count, self.viewModel.contactInfo?.airlines.count, self.viewModel.airportData.count + 1][section] ?? 0
+            return [self.viewModel.contactInfo?.aertrip.count, self.viewModel.contactInfo?.airlines.count, self.viewModel.airportData.count][section] ?? 0
         } else {
            return[self.viewModel.aertripData.count,self.viewModel.hotelData.count + 1][section]
         }
@@ -158,8 +179,9 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
         guard let callHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ViewProfileDetailTableViewSectionView") as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        
+        callHeader.topSeparatorView.isHidden = (section == 0)
         callHeader.headerLabel.text = self.viewModel.section[section]
+        callHeader.containerView.backgroundColor = AppColors.themeGray04
         return callHeader
     }
     
@@ -233,7 +255,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
                 if indexPath.row == 0 {
                     return 44.0
                 } else {
-                    return 60.0
+                    return !(self.viewModel.aertripData[indexPath.row].email.isEmpty) ? 60.0 : 44.0
                 }
             case 1:
                 return 44.0
@@ -253,7 +275,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
                 if indexPath.row == 0 {
                     return 44.0
                 } else {
-                    return 60.0
+                    return !(self.viewModel.aertripData[indexPath.row].email.isEmpty) ? 60.0 : 44.0
                 }
             case 1:
                 if indexPath.row == self.viewModel.hotelData.count {
@@ -272,6 +294,9 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
 
 extension BookingCallVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

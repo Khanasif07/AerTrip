@@ -15,6 +15,10 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
         return self.viewModel.allBanks.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 35.0
     }
@@ -23,7 +27,8 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
             return nil
         }
-        
+        cell.contentView.backgroundColor = AppColors.themeGray04
+        cell.bottomDividerView.isHidden = (self.viewModel.allBanks.count - 1) == section
         return cell.contentView
     }
     
@@ -78,7 +83,7 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 7 {
+        if indexPath.row == 7 && !self.viewModel.allBanks[indexPath.section].depositSlip.isEmpty{
             //download slip
             AppGlobals.shared.viewPdf(urlPath: self.viewModel.allBanks[indexPath.section].depositSlip, screenTitle: "Slip")
         }

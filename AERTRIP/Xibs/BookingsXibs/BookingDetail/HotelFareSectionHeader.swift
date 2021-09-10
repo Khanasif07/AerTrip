@@ -21,8 +21,11 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
     
     @IBOutlet weak var arrowButton: UIButton!
     @IBOutlet weak var discountViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var grossFareTitleTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var discountTitleLabelTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var discountBackView: UIView!
     
     // MARK: - Properties
     weak var delegate: HotelFareSectionHeaderDelegate?
@@ -32,8 +35,15 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
     override func awakeFromNib() {
         self.setUpText()
         self.setUpFont()
-        self.setUpTextColor()
+        self.setUpColor()
         self.addGesture()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        grossPriceLabel.attributedText = nil
+        discountPriceLabel.attributedText = nil
+
     }
     
     private func setUpText() {
@@ -43,16 +53,19 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
     
     private func setUpFont() {
         self.grossFareTitleLabel.font = AppFonts.Regular.withSize(16.0)
-        self.discountPriceLabel.font = AppFonts.Regular.withSize(16.0)
+        self.discountsTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.grossPriceLabel.font = AppFonts.Regular.withSize(16.0)
         self.discountPriceLabel.font = AppFonts.Regular.withSize(16.0)
     }
     
-    private func setUpTextColor() {
+    private func setUpColor() {
+        self.discountBackView.backgroundColor = AppColors.themeBlack26
+        self.topBackgroundView.backgroundColor = AppColors.themeBlack26
         self.grossFareTitleLabel.textColor = AppColors.themeBlack
-        self.discountPriceLabel.textColor = AppColors.themeBlack
         self.grossPriceLabel.textColor = AppColors.themeBlack
+        self.discountsTitleLabel.textColor = AppColors.themeBlack
         self.discountPriceLabel.textColor = AppColors.themeBlack
+        self.backgroundColor = AppColors.themeBlack26
     }
 
     private func addGesture() {

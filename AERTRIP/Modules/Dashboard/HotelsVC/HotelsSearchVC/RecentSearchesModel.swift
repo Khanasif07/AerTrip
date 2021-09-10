@@ -38,7 +38,12 @@ struct RecentSearchesModel {
     var time_ago: String = ""
     var lat: String = ""
     var lng: String = ""
-
+    var search_nearby: Bool = false
+    var type = ChatVM.RecentSearchFor.hotel
+    var flight: RecentSearchDisplayModel?
+    
+    
+    var currentIndexInList:Int?//For checking selected index is first or not for ingnoring previouse applied filter.
     //Mark:- Initialization
     //=====================
     init() {
@@ -57,13 +62,14 @@ struct RecentSearchesModel {
                 APIKeys.value.rawValue: self.totalNights,
                 APIKeys.value.rawValue: self.guestsValue,
                 APIKeys.added_on.rawValue: self.added_on,
-                APIKeys.time_ago.rawValue: self.time_ago]
+                APIKeys.time_ago.rawValue: self.time_ago,
+                APIKeys.search_nearby.rawValue: self.search_nearby]
     }
     
     init(json: JSONDictionary) {
         
         if let obj = json[APIKeys.startDate.rawValue] {
-            self.startDate = "\(obj)".removeNull
+            self.startDate = "\(obj)".removeNull.stringIn_yyyyMMdd
         }
         if let added_on = json[APIKeys.added_on.rawValue] as? Int64 {
             self.added_on = added_on
@@ -94,7 +100,6 @@ struct RecentSearchesModel {
                 if let dest_name = placeData[APIKeys.dest_name.rawValue] {
                     self.dest_name = "\(dest_name)".removeNull
                 }
-
             }
             
             if let lat = obj[APIKeys.lat.rawValue] {
@@ -135,6 +140,11 @@ struct RecentSearchesModel {
             if let filterData = obj[APIKeys.filter.rawValue] as? JSONDictionary {
                 self.filter = RecentSearchesFilter.filterData(json: filterData)
             }
+            
+            if let search_nearby = obj[APIKeys.search_nearby.rawValue] as? Bool {
+                self.search_nearby = search_nearby
+            }
+            
         }
     }
     
@@ -148,6 +158,52 @@ struct RecentSearchesModel {
             recentSearchesData.append(obj)
         }
         return recentSearchesData
+    }
+    
+    static func recentSearchDataWithType(type : ChatVM.RecentSearchFor ,jsonArr: [JSONDictionary], extraData: JSONDictionary? = nil) -> [RecentSearchesModel] {
+        var recentSearchesData = [RecentSearchesModel]()
+        for json in jsonArr {
+            var obj = RecentSearchesModel(json: json)
+            if type == .flight {
+                obj.flight = RecentSearchDisplayModel(dictionary: json)
+                obj.flight?.quary[APIKeys.extra_data.rawValue] = extraData
+            }
+            obj.type = type
+            recentSearchesData.append(obj)
+        }
+        return recentSearchesData
+    }
+    
+    func getTextWidth(_ height: CGFloat) -> CGFloat {
+        var titleWidth: CGFloat = 0
+        var dateWidth: CGFloat = 0
+        var title = ""
+        // var textWidth = width + 86
+        //        if recentSearchesData.search_nearby {
+        //
+        var date = ""
+        if let checkInDate = self.checkInDate.toDate(dateFormat: "E, dd MMM yy"), let checkOutDate = self.checkOutDate.toDate(dateFormat: "E, dd MMM yy") {
+            date = checkInDate.toString(dateFormat: "dd MMM") + " - " + checkOutDate.toString(dateFormat: "dd MMM")
+        }
+        dateWidth = date.widthOfText(height, font: AppFonts.Regular.withSize(14.0))
+        //            textWidth = width + 78
+        //        } else {
+        let cityName = self.dest_name.split(separator: ",").first ?? ""
+        let countryCode = self.dest_name.split(separator: ",").last ?? ""
+        //        self.cityNameLabel.text = "\(cityName)"
+        let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
+        let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
+        
+        var stateText = self.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
+        //stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
+        
+        title = "\(cityName) " + stateText
+        titleWidth = AppGlobals.shared.AttributedFontAndColorForText(text: title, atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack).width(withConstrainedHeight: height)
+        // textWidth = width + 86
+        
+        //        }
+        printDebug(title)
+        return titleWidth > dateWidth ? titleWidth : dateWidth
     }
 }
 
@@ -247,7 +303,7 @@ struct RecentSearchesFilter {
     var thirdTripAdvisorStar: Bool = false
     var fourthTripAdvisorStar: Bool = false
     var fifthTripAdvisorStar: Bool = false
-
+    
     //Amenities
     var amenities: JSONDictionary = [:]
     //var amenities: RecentAmenities?
@@ -272,6 +328,11 @@ struct RecentSearchesFilter {
     
     //Others
     var others: [String : Any] = [:]//others
+    
+    //Distance
+    var distance: Int = 0
+    var sort: SortUsing = .BestSellers
+    var priceType: Price = .PerNight
     
     //Mark:- Initialization
     //=====================
@@ -325,8 +386,14 @@ struct RecentSearchesFilter {
             if let obj = priceData[APIKeys.minPrice.rawValue] as? Int {
                 self.minPrice = obj
             }
+            if let obj = priceData[APIKeys.minPrice.rawValue] as? String {
+                self.minPrice = obj.toInt ?? 0
+            }
             if let obj = priceData[APIKeys.maxPrice.rawValue] as? Int {
                 self.maxPrice = obj
+            }
+            if let obj = priceData[APIKeys.maxPrice.rawValue] as? String {
+                self.maxPrice = obj.toInt ?? 0
             }
         }
         
@@ -363,6 +430,30 @@ struct RecentSearchesFilter {
         if let othersData = json[APIKeys.others.rawValue] as? JSONDictionary {
             self.others = othersData
         }
+        
+        let jsonData = JSON(json)
+        
+        distance = jsonData[APIKeys.distance.rawValue].intValue
+        priceType = jsonData[APIKeys.priceType.rawValue].stringValue == Price.Total.stringValue() ? .Total : .PerNight
+        
+        let sortType = jsonData[APIKeys.sort.rawValue][APIKeys.sortType.rawValue].stringValue
+        let isAscending = jsonData[APIKeys.sort.rawValue][APIKeys.orderAscending.rawValue].boolValue
+        
+        switch sortType {
+        case "bestSellers":
+            sort = .BestSellers
+        case "priceLowToHigh":
+            sort = .PriceLowToHigh(ascending: isAscending)
+        case "taRatingHighToLow":
+            sort = .TripAdvisorRatingHighToLow(ascending: isAscending)
+        case "starRatingHighToLow":
+            sort = .StartRatingHighToLow(ascending: isAscending)
+        case "distanceNearestFirst":
+            sort = .DistanceNearestFirst(ascending: isAscending)
+        default:
+            sort = .BestSellers
+        }
+        
     }
     
     //Mark:- Functions

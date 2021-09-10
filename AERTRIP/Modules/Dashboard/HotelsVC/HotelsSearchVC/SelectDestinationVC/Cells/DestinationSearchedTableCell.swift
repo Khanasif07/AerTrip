@@ -13,6 +13,7 @@ class DestinationSearchedTableCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var dividerLeadingConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,7 +28,11 @@ class DestinationSearchedTableCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     private func setupFontAndColor() {
         
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
@@ -37,8 +42,10 @@ class DestinationSearchedTableCell: UITableViewCell {
         self.addressLabel.textColor = AppColors.themeGray40
     }
     
+    
     func configureData(data: SearchedDestination, forText: String) {
-        if !data.city.isEmpty {
+        
+        if data.dest_type.capitalized == "City" && !data.city.isEmpty {
             self.titleLabel.attributedText =  self.getAttributedBoldText(text: data.city, boldText: forText, fullTextColor: AppColors.themeBlack)
         } else {
             let newValue = data.value.components(separatedBy: ",")
@@ -55,7 +62,7 @@ class DestinationSearchedTableCell: UITableViewCell {
     private func getAttributedBoldText(text: String, boldText: String, fullTextColor: UIColor) -> NSMutableAttributedString {
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [.foregroundColor: fullTextColor])
         
-        attString.addAttribute(.foregroundColor, value: AppColors.themeGreen, range: (text.lowercased() as NSString).range(of: boldText.lowercased()))
+        attString.addAttribute(.foregroundColor, value: AppColors.commonThemeGreen, range: (text.lowercased() as NSString).range(of: boldText.lowercased()))
         return attString
     }
 }

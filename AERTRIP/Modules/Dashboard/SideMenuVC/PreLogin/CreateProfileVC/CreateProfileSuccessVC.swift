@@ -20,7 +20,7 @@ class CreateProfileSuccessVC: BaseVC {
             self.successButton.layoutSubviews()
         }
     }
-    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+    var gradientColors: [UIColor] = AppConstants.appthemeGradientColors {
         didSet {
             self.successButton.layoutSubviews()
         }

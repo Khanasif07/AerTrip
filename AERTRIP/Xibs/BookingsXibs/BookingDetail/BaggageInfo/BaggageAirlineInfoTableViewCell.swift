@@ -18,13 +18,12 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
     //MARK: - IB Outlets
     @IBOutlet weak var airlineImageView: UIImageView!
     @IBOutlet weak var airlineNameLabel: UILabel!
-    @IBOutlet weak var airlineCodeLabel: UILabel!
     @IBOutlet weak var dimensionButton: UIButton!
     
     // MARK: - Variables
     weak var delegate: BaggageAirlineInfoTableViewCellDelegate?
     
-    var flightDetail: FlightDetail? {
+    var flightDetail: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }
@@ -42,15 +41,15 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
     
     private func setUpFont() {
         self.airlineNameLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.airlineCodeLabel.font = AppFonts.Regular.withSize(14.0)
         self.dimensionButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
         
     }
     
     private func setUpTextColor() {
         self.airlineNameLabel.textColor = AppColors.themeBlack
-        self.airlineCodeLabel.textColor = AppColors.themeGray40
         self.dimensionButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.airlineImageView.roundTopCorners(cornerRadius: 3.0)
     }
     
     private func setUpText() {
@@ -58,22 +57,45 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
     }
     
     
-    private func configureCell() {
-        self.airlineNameLabel.text = self.flightDetail?.carrier ?? ""
+    func hideDimesionButton(){
         
-        var finalDetails = ""
-        if let obj = self.flightDetail?.operatedBy, !obj.isEmpty {
-            finalDetails = obj
+        var detail: BaggageInfo?
+        self.dimensionButton.isHidden = true
+        if let obj = self.flightDetail?.baggage?.cabinBg?.infant {
+            detail = obj
+        }
+        if let obj = self.flightDetail?.baggage?.cabinBg?.child {
+            detail = obj
+        }
+        if let obj = self.flightDetail?.baggage?.cabinBg?.adult {
+            detail = obj
+        }
+        if let dimension = detail?.weight, let cm = detail?.dimension?.cm{
+            let weight = dimension.removeAllWhitespaces.lowercased().replacingOccurrences(of: "kg", with: "")
+            if weight.isEmpty || weight == "-9" || weight == "0" || cm.height == 0 || cm.width == 0 || cm.depth == 0 {
+                self.dimensionButton.isHidden = true
+            }else{
+                self.dimensionButton.isHidden = false
+            }
         }
         
-        let detail = "\(self.flightDetail?.carrierCode ?? LocalizedString.na.localized)-\(self.flightDetail?.flightNumber ?? LocalizedString.na.localized)・\(self.flightDetail?.cabinClass ?? LocalizedString.na.localized) \((self.flightDetail?.bookingClass.isEmpty ?? false) ? "" : ("(\(self.flightDetail?.bookingClass ?? ""))"))"
+    }
+    
+    private func configureCell() {
+        self.airlineNameLabel.text = "\(self.flightDetail?.departCity ?? "") → \(self.flightDetail?.arrivalCity ?? "")"
+//        var finalDetails = ""
+//        if let obj = self.flightDetail?.operatedBy, !obj.isEmpty {
+//            finalDetails = obj
+//        }
         
-        finalDetails += finalDetails.isEmpty ? detail : "\n\(detail)"
-        
-        self.airlineCodeLabel.text = finalDetails
+//        let detail = "\(self.flightDetail?.carrierCode ?? LocalizedString.na.localized)-\(self.flightDetail?.flightNumber ?? LocalizedString.na.localized)・\(self.flightDetail?.cabinClass ?? LocalizedString.na.localized) \((self.flightDetail?.bookingClass.isEmpty ?? false) ? "" : ("(\(self.flightDetail?.bookingClass ?? ""))"))"
+//
+//        finalDetails += finalDetails.isEmpty ? detail : "\n\(detail)"
+//
+//        self.airlineCodeLabel.text = finalDetails
         
         if let code = self.flightDetail?.carrierCode, !code.isEmpty {
-            let imageUrl = "https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
+            let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: code)
             self.airlineImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
         }
     }

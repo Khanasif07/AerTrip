@@ -33,9 +33,11 @@ class CreateYourAccountVM {
     func isValidEmail(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
+            self.logEvent(with: .EnterIncorrectEmail)
             AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized)
             return false
         } else if self.email.checkInvalidity(.Email) {
+            self.logEvent(with: .EnterIncorrectEmail)
             AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
             return false
         }
@@ -65,5 +67,13 @@ extension CreateYourAccountVM {
             }
         })
         
+    }
+}
+
+
+///Firebase event log
+extension CreateYourAccountVM{
+    func logEvent(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logRegisterEvents(with: event)
     }
 }

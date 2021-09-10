@@ -20,7 +20,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (section == 0) ? 12 : (self.viewModel.userEnteredDetails.uploadedSlips.count + 2)
+        return (section == 0) ? 14 : (self.viewModel.userEnteredDetails.uploadedSlips.count + 3)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -31,11 +31,11 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 //deposit amoutn cell
                 return 92.0
                 
-            case 1, 4:
+            case 1, 4, 6:
                 //blank gap
                 return 35.0
                 
-            case 2, 5, 6, 7, 8, 9, 10:
+            case 2, 5, 7, 8, 9, 10, 11, 12:
                 //select bank name and all other data colletion cells
                 return 60.0
                 
@@ -43,7 +43,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 //see bank details
                 return 44.0
                 
-            case 11:
+            case 13:
                 //additional note
                 return (self.currentUsingAs == .chequeOrDD) ? 100.0 : 103.0
                 
@@ -55,17 +55,20 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             if indexPath.row < self.viewModel.userEnteredDetails.uploadedSlips.count {
                 //uploaded document type
-                return 55.0
+                return 61.0
             }
             else {
                 let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
                 if newIndex == 0 {
                     //uploaded deposit slip
-                    return (self.currentUsingAs == .chequeOrDD) ? 81.0 : 84.0
+                    return (self.currentUsingAs == .chequeOrDD) ? 78.0 : 81.0
                 }
                 else if newIndex == 1 {
                     //terms of use
-                    return 110.0
+                    return 85.0
+                }else if newIndex == 2 {
+                    //blank gap
+                    return 35.0
                 }
             }
             return 0.0
@@ -80,9 +83,9 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 //deposit amoutn cell
                 return self.getDepositAmountCell()
                 
-            case 1, 4:
+            case 1, 4, 6:
                 //blank gap
-                return self.getBlankCell()
+                return self.getBlankCell(isTopDividerHiiden: (indexPath.row != 4))
                 
             case 2:
                 //select bank name
@@ -93,6 +96,11 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 return self.getSeeBankDetailsCell()
                 
             case 5:
+                //select bank name
+                let selectedTitle = (self.currentUsingAs == .chequeOrDD) ? LocalizedString.ChequeDemandDraft.localized : LocalizedString.FundTransfer.localized
+                return self.getTextEditableTableViewCell(title: LocalizedString.ModeOfPayment.localized, value: selectedTitle, placeholder: LocalizedString.ModeOfPayment.localized, isDivider: false, isSelectionEnable: false)
+                
+            case 7:
                 //deposit date
                 if self.currentUsingAs == .chequeOrDD {
                     return self.getTextEditableTableViewCell(title: LocalizedString.DraftOrChequeDepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true, isSelectionEnable: false)
@@ -101,7 +109,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                     return self.getTextEditableTableViewCell(title: LocalizedString.DepositDate.localized, value: self.viewModel.userEnteredDetails.depositDateStr, placeholder: LocalizedString.SelectDate.localized, isDivider: true, isSelectionEnable: false)
                 }
                 
-            case 6:
+            case 8:
                 if self.currentUsingAs == .chequeOrDD {
                     //chaque/dd numer
                     return self.getFloatableTextFieldCell(value: self.viewModel.userEnteredDetails.ddNum, placeholder: LocalizedString.EnterDraftOrChequeNumber.localized, isDivider: true)
@@ -111,7 +119,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                     return self.getTextEditableTableViewCell(title: LocalizedString.TransferType.localized, value: self.viewModel.userEnteredDetails.transferType, placeholder: "\(LocalizedString.Select.localized) \(LocalizedString.TransferType.localized.lowercased())", isDivider: true, isSelectionEnable: false)
                 }
                 
-            case 7:
+            case 9:
                 if self.currentUsingAs == .chequeOrDD {
                     //branch details
                     return self.getFloatableTextFieldCell(value: self.viewModel.userEnteredDetails.depositBranchDetail, placeholder: LocalizedString.DepositBranchDetails.localized, isDivider: true)
@@ -121,19 +129,19 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                     return self.getFloatableTextFieldCell(value: self.viewModel.userEnteredDetails.utrCode, placeholder: LocalizedString.EnterUTRSwiftCode.localized, isDivider: true)
                 }
                 
-            case 8:
+            case 10:
                 //your bank
                 return self.getTextEditableTableViewCell(title: LocalizedString.YourBank.localized, value: self.viewModel.userEnteredDetails.userBank, placeholder: LocalizedString.SelectBank.localized, isDivider: true, isSelectionEnable: false)
                 
-            case 9:
+            case 11:
                 //your account name
                 return self.getFloatableTextFieldCell(value: self.viewModel.userEnteredDetails.userAccountName, placeholder: LocalizedString.EnterAccountName.localized, isDivider: true)
                 
-            case 10:
+            case 12:
                 //your account number
                 return self.getFloatableTextFieldCell(value: self.viewModel.userEnteredDetails.userAccountNum, placeholder: LocalizedString.EnterAccountNumber.localized, isDivider: true)
                 
-            case 11:
+            case 13:
                 //additional note
                 return self.getTextViewCell(title: LocalizedString.AdditionalNote.localized, value: self.viewModel.userEnteredDetails.additionalNote, placeholder: "(\(LocalizedString.Optional.localized))", isDivider: true)
                 
@@ -159,6 +167,9 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 else if newIndex == 1 {
                     //terms of use
                     return self.getAgreeTermsCell()
+                }else if newIndex == 2 {
+                    //blank gap
+                    return self.getBlankCell(isBottomDividerHidden: true)
                 }
             }
             return UITableViewCell()
@@ -171,18 +182,19 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.ChooseOptionToSelect.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.ChooseOptionToSelect.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] (_, index) in
+            guard let strongSelf = self else {return}
             if index == 0 {
                 //Camera
-                self.checkAndOpenCamera(delegate: self)
+                strongSelf.checkAndOpenCamera(delegate: strongSelf)
             }
             else if index == 1 {
                 //PhotoLibrary
-                self.checkAndOpenLibrary(delegate: self)
+                strongSelf.checkAndOpenLibrary(delegate: strongSelf)
             }
             else {
                 //Document
-                self.openDocumentPicker()
+                strongSelf.openDocumentPicker()
             }
         }
     }
@@ -190,7 +202,9 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0, indexPath.row == 3 {
             //see bank details
-            AppFlowManager.default.presentAertripBankDetailsVC(bankDetails: self.viewModel.paymentModeDetails?.types ?? [])
+            
+            let index = self.selectedBankIndex() ?? 0
+            AppFlowManager.default.presentAertripBankDetailsVC(bankDetails: self.viewModel.paymentModeDetails?.types ?? [], currentIndex: index)
         }
         else if indexPath.section == 1 {
             let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
@@ -217,7 +231,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.iconImageView.image = title.fileIcon
         cell.deleteButton.addTarget(self, action: #selector(self.fileDeleteButtonAction(_:)), for: .touchUpInside)
         cell.imageCenterYConstraint.constant = 4.0
-
+        
         return cell
     }
     
@@ -227,20 +241,33 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        depositCell.amountTextField.delegate = self
+        //depositCell.amountTextField.delegate = self
         depositCell.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
-        depositCell.amount = self.viewModel.userEnteredDetails.depositAmount
-        depositCell.delegate = self
+        let price = self.getConvertedAmount(for: self.viewModel.userEnteredDetails.depositAmount, with: self.viewModel.itineraryData?.currencyRate, isForCancellation: false)
         
+        depositCell.amount = price//self.viewModel.userEnteredDetails.depositAmount
+        depositCell.delegate = self
+        depositCell.usingFor = .offlineDeposite
+        if self.currentUsingFor == .addOns{
+            depositCell.amountTextField.backgroundColor = AppColors.clear
+            depositCell.isUserInteractionEnabled = false
+        }
+        depositCell.bottomDivider.isSettingForErrorState = ((self.viewModel.userEnteredDetails.depositAmount == 0) && self.viewModel.isPayButtonTapped)
+        depositCell.currencyLabel.text = self.viewModel.currency
+        depositCell.topDividerView.isHidden = false
+        depositCell.bottomDivider.isHidden = false
+        depositCell.contentView.backgroundColor = AppColors.themeBlack26
         return depositCell
     }
     
-    func getBlankCell() -> UITableViewCell {
+    func getBlankCell(isBottomDividerHidden: Bool = false, isTopDividerHiiden:Bool = false) -> UITableViewCell {
         //blank gap
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
             printDebug("Cell not found")
             return UITableViewCell()
         }
+        cell.bottomDividerView.isHidden = isBottomDividerHidden
+        cell.topDividerView.isHidden = isTopDividerHiiden
         cell.clipsToBounds = true
         
         return cell
@@ -269,10 +296,11 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.isHiddenButton = false
+//        cell.containerTopConstraint.constant = 8.0
         cell.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
         cell.titleLabel.textColor = AppColors.themeGreen
         cell.titleLabel.text = LocalizedString.UploadDepositConfirmationSlip.localized
-        cell.selectionButton.setImage(#imageLiteral(resourceName: "ic_upload_slip"), for: .normal)
+        cell.selectionButton.setImage(AppImages.ic_upload_slip, for: .normal)
         cell.selectButtonTopConstraint.constant = 30.0
         
         return cell
@@ -283,11 +311,10 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             printDebug("Cell not found")
             return UITableViewCell()
         }
-        
+        cell.dividerView.isHidden = true
         cell.isHiddenButton = false
-        cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick"), for: .normal)
+        cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? AppImages.CheckedGreenRadioButton : AppImages.UncheckedGreenRadioButton, for: .normal)
         cell.selectButtonTopConstraint.constant = 26.0
-        
         let termsOfUse = ActiveType.custom(pattern: "\\s\(LocalizedString.terms_of_use.localized)\\b")
         
         let allTypes = [termsOfUse]
@@ -307,15 +334,16 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             label.handleCustomTap(for: termsOfUse) { _ in
                 
-                guard let url = URL(string: AppConstants.termsOfUse) else { return }
-                let safariVC = SFSafariViewController(url: url)
-                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+                guard let url = URL(string: AppKeys.termsOfUse) else { return }
+//                let safariVC = SFSafariViewController(url: url)
+//                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+//                safariVC.delegate = self
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.terms_of_use.localized)
             }
         }
         return cell
     }
-
+    
     
     func getTextEditableTableViewCell(title: String, value: String = "", placeholder: String, isDivider: Bool, isSelectionEnable: Bool = true) -> UITableViewCell {
         //blank gap
@@ -323,17 +351,20 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             printDebug("Cell not found")
             return UITableViewCell()
         }
- 
+        cell.titleLabel.font = AppFonts.Regular.withSize(14.0)
+        cell.titleLabel.textColor = AppColors.themeGray40
         cell.titleLabel.text = title
         cell.editableTextField.text = value.isEmpty ? placeholder : value
         cell.editableTextField.placeholder = ""
         cell.editableTextField.isHiddenBottomLine = true
         cell.editableTextField.isSelectionOptionEnabled = isSelectionEnable
         
-        cell.separatorView.isHidden = !isDivider
+//        cell.separatorView.isHidden = !isDivider
+        cell.separatorLeadingConstraints.constant = (!isDivider) ? 0 : 16
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
-
+        cell.showError(isError: (value.isEmpty && self.viewModel.isPayButtonTapped))
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -344,16 +375,19 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
+        cell.editableTextField.titleFont = AppFonts.Regular.withSize(14)
         cell.textFieldTopConstraint.constant = 8.0
         cell.textFiledBottomConstraint.constant = 0.0
+        cell.editableTextField.titleYPadding = 0
+        cell.editableTextField.hintYPadding = -8
         cell.editableTextField.isHiddenBottomLine = true
-        cell.editableTextField.text = value
-        cell.editableTextField.setUpAttributedPlaceholder(placeholderString: placeholder)
+        cell.editableTextField.text = value//symbol
+        cell.editableTextField.setUpAttributedPlaceholder(placeholderString: placeholder, with: "")
         cell.separatorView.isHidden = !isDivider
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
-
-        
+        cell.showErrorForAccountDeposit(isError: (value.isEmpty && self.viewModel.isPayButtonTapped))
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -368,12 +402,25 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.addNoteTextView.text = value
         cell.addNoteTextView.placeholder = placeholder
         cell.addNoteTextView.textColor = AppColors.themeBlack
-        cell.addNoteTextView.placeholderInsets = .zero
+        //cell.addNoteTextView.placeholderInsets = .zero
         cell.sepratorView.isHidden = !isDivider
         cell.addNoteTextView.delegate = self
-        cell.addNoteTextView.textContainerInset = .zero
-        
+        //cell.addNoteTextView.textContainerInset = .zero
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
+    }
+    
+    
+    func updateCellSeparator(at indexPath: IndexPath){
+        if let cell = self.checkOutTableView.cellForRow(at: indexPath) as? HCEmailTextFieldCell{
+            cell.separatorView.isSettingForErrorState = false
+            
+        } else if let cell = self.checkOutTableView.cellForRow(at: indexPath) as? TextEditableTableViewCell{
+            cell.separatorView.isSettingForErrorState = false
+        } else if let cell = self.checkOutTableView.cellForRow(at: indexPath) as? AccountDepositAmountCell{
+            cell.bottomDivider.isSettingForErrorState = false
+        }
+        
     }
 }
 
@@ -381,6 +428,12 @@ extension AccountOfflineDepositVC: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
     }
+    
+    func selectedBankIndex()-> Int?{
+        let index = self.viewModel.paymentModeDetails?.allBanksName.firstIndex(of: self.viewModel.userEnteredDetails.aertripBank)
+        return index
+    }
+    
 }
 
 
@@ -422,44 +475,67 @@ extension AccountOfflineDepositVC {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if let indexPath = self.checkOutTableView.indexPath(forItem: textField) {
+            self.updateCellSeparator(at: indexPath)
             if indexPath.section == 0 {
                 switch indexPath.row {
                     
                 case 2:
                     //select bank name
                     PKMultiPicker.noOfComponent = 1
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.paymentModeDetails?.allBanksName ?? [], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.paymentModeDetails?.allBanksName ?? [], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.aertripBank = firstSelect
                     }
-                    
-                case 5:
-                    //deposit date
-                    let selected = (textField.text ?? "").toDate(dateFormat: "dd-MM-YYYY")
-                    PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-YYYY", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
-                        textField.text = dateStr
-                        self.viewModel.userEnteredDetails.depositDate = dateStr.toDate(dateFormat: "dd-MM-YYYY")
+                    textField.tintColor = AppColors.clear
+                                        
+                    case 5:
+                    //select mode of payment
+                    PKMultiPicker.noOfComponent = 1
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: [LocalizedString.FundTransfer.localized, LocalizedString.ChequeDemandDraft.localized], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
+                        textField.text = firstSelect
+                        if firstSelect == LocalizedString.ChequeDemandDraft.localized {
+                            self.currentUsingAs = .chequeOrDD
+                            self.viewModel.paymentModeDetails = self.viewModel.itineraryData?.chequeOrDD
+                        } else {
+                            self.currentUsingAs = .fundTransfer
+                            self.viewModel.paymentModeDetails = self.viewModel.itineraryData?.fundTransfer
+                        }
+                        
                     }
+                    textField.tintColor = AppColors.clear
                     
-                case 6:
+                case 7:
+                    //deposit date
+                    let selected = (textField.text ?? "").toDate(dateFormat: "dd-MM-yyyy")
+                    PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-yyyy", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
+                        textField.text = dateStr
+                        self.viewModel.userEnteredDetails.depositDate = dateStr.toDate(dateFormat: "dd-MM-yyyy")
+                    }
+                    textField.tintColor = AppColors.clear
+                case 8:
                     
                     if self.currentUsingAs == .fundTransfer {
+                        var pickerValue = ["Same Bank Transfer", "NEFT", "IMPS"]
+                        if self.viewModel.userEnteredDetails.depositAmount >= 200000{
+                            pickerValue.append("RTGS")
+                        }
                         //transfer type
                         PKMultiPicker.noOfComponent = 1
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["NEFT", "IMPS"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: pickerValue, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
                             textField.text = firstSelect
                             self.viewModel.userEnteredDetails.transferType = firstSelect
                         }
+                        textField.tintColor = AppColors.clear
                     }
                     
-                case 8:
+                case 10:
                     //select your bank name
                     PKMultiPicker.noOfComponent = 1
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.bankMaster, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.bankMaster, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.userBank = firstSelect
                     }
-                    
+                    textField.tintColor = AppColors.clear
                 default:
                     printDebug("")
                     return true
@@ -470,7 +546,7 @@ extension AccountOfflineDepositVC {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-
+        
         if let indexPath = self.checkOutTableView.indexPath(forItem: textField) {
             if indexPath.section == 0 {
                 
@@ -478,14 +554,14 @@ extension AccountOfflineDepositVC {
                 case 0:
                     //deposit amoutn cell
                     self.viewModel.userEnteredDetails.depositAmount = (textField.text ?? "").removeAllWhitespaces.toDouble ?? 0.0
-
-                case 6:
+                    
+                case 8:
                     if self.currentUsingAs == .chequeOrDD {
                         //chaque/dd numer
                         self.viewModel.userEnteredDetails.ddNum = (textField.text ?? "").removeAllWhitespaces
                     }
                     
-                case 7:
+                case 9:
                     if self.currentUsingAs == .chequeOrDD {
                         //branch details
                         self.viewModel.userEnteredDetails.depositBranchDetail = (textField.text ?? "").removeAllWhitespaces
@@ -495,11 +571,11 @@ extension AccountOfflineDepositVC {
                         self.viewModel.userEnteredDetails.utrCode = (textField.text ?? "").removeAllWhitespaces
                     }
                     
-                case 9:
+                case 11:
                     //your account name
-                    self.viewModel.userEnteredDetails.userAccountName = (textField.text ?? "").removeAllWhitespaces
-
-                case 10:
+                    self.viewModel.userEnteredDetails.userAccountName = (textField.text ?? "").removeLeadingTrailingWhitespaces
+                    
+                case 12:
                     //your account number
                     self.viewModel.userEnteredDetails.userAccountNum = (textField.text ?? "").removeAllWhitespaces
                     
@@ -512,9 +588,17 @@ extension AccountOfflineDepositVC {
     
     func textViewDidChange(_ textView: UITextView) {
         if let indexPath = self.checkOutTableView.indexPath(forItem: textView) {
-            if indexPath.section == 0, indexPath.row == 11 {
+            if indexPath.section == 0, indexPath.row == 13 {
                 //additional note
                 self.viewModel.userEnteredDetails.additionalNote = (textView.text ?? "").removeAllWhitespaces
+            }
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let indexPath = self.checkOutTableView.indexPath(forItem: textField) {
+            if indexPath.section == 0 && indexPath.row == 5 {
+                self.checkOutTableView.reloadData()
             }
         }
     }
@@ -524,6 +608,10 @@ extension AccountOfflineDepositVC {
 extension AccountOfflineDepositVC: AccountDepositAmountCellDelegate {
     func amountDidChanged(amount: Double, amountString: String) {
         self.viewModel.userEnteredDetails.depositAmount = amount
+        if self.viewModel.userEnteredDetails.depositAmount < 200000, self.viewModel.userEnteredDetails.transferType.uppercased() == "RTGS"{
+            self.viewModel.userEnteredDetails.transferType = ""
+            self.checkOutTableView.reloadData()
+        }
     }
 }
 

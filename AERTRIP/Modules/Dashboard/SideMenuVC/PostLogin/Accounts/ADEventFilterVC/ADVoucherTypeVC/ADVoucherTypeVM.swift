@@ -8,18 +8,18 @@
 
 import Foundation
 
-class ADVoucherTypeVM {
-    
-    //MARK:- Properties
-    //MARK:- Public
-    var selectedIndexPath: IndexPath?
-    var allTypes: [String] = []
-    
-    //MARK:- Private
-    
-    
-    //MARK:- Methods
-    //MARK:- Public
-    
-    //MARK:- Private
-}
+//class ADVoucherTypeVM {
+//
+//    //MARK:- Properties
+//    //MARK:- Public
+//    var selectedIndexPath: IndexPath?
+//    var allTypes: [String] = []
+//
+//    //MARK:- Private
+//    
+//
+//    //MARK:- Methods
+//    //MARK:- Public
+//
+//    //MARK:- Private
+//}

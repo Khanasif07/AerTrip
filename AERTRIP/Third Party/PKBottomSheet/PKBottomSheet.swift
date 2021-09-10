@@ -168,8 +168,9 @@ class PKBottomSheet: UIView {
         headerHeightConstraint.constant = headerHeight
         
         if let hView = self.headerView {
-            hView.translatesAutoresizingMaskIntoConstraints = true
             hView.frame = headerContainerView.bounds
+            hView.frame.size.width = UIScreen.main.bounds.width
+            hView.translatesAutoresizingMaskIntoConstraints = true
             headerContainerView.addSubview(hView)
         }
         
@@ -266,7 +267,7 @@ class PKBottomSheet: UIView {
 extension PKBottomSheet {
     class var instanceFromNib: PKBottomSheet {
         let myClassNib = UINib(nibName: "PKBottomSheet", bundle: nil)
-        return myClassNib.instantiate(withOwner: nil, options: nil)[0] as! PKBottomSheet
+        return myClassNib.instantiate(withOwner: nil, options: nil)[0] as? PKBottomSheet ?? PKBottomSheet()
     }
     
     class func present(onViewController: UIViewController, presentedViewController: UIViewController, headerView: UIView?) {

@@ -20,7 +20,8 @@ class PeriodicStatementListVC: BaseVC {
     //MARK:- Properties
     //MARK:- Public
     let viewModel = PeriodicStatementListVM()
-    
+    let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+
     //MARK:- Private
     private lazy var emptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
@@ -49,17 +50,27 @@ class PeriodicStatementListVC: BaseVC {
         self.tableView.backgroundView = self.emptyView
         self.tableView.backgroundView?.isHidden = true
         self.dividerView.isHidden = false
+        self.tableView.backgroundColor = AppColors.themeGray04
         
         self.tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
     }
         
     private func viewStatement(forId: String, screenTitle: String) {
         //open pdf for booking id
-        AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=statement&statement_id[]=\(forId)", screenTitle: screenTitle)
+        AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=statement&statement_id[]=\(forId)", screenTitle: screenTitle, complition: {_ in
+            self.activityIndicator.stopAnimating()
+        })
     }
 
     //MARK:- Public
-    
+    func displayLoader(){
+        let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2)
+        activityIndicator.color = AppColors.themeGreen
+        activityIndicator.backgroundColor = .clear
+        activityIndicator.startAnimating()
+        self.view.addSubview(activityIndicator)
+    }
     
     //MARK:- Action
 }
@@ -76,6 +87,20 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
         return 35.0
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return (self.viewModel.allDates.count - 1 == section) ? 35  : CGFloat.leastNonzeroMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if (self.viewModel.allDates.count - 1 == section){
+            let ftr = UIView()
+            ftr.backgroundColor = AppColors.clear
+            return ftr
+        }else{
+            return nil
+        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
@@ -87,7 +112,8 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
             dateStr.removeFirst(3)
         }
         
-        headerView.headerLabel.text = dateStr
+        headerView.headerLabel.text = dateStr.uppercased()
+        headerView.headerLabel.textColor = AppColors.themeGray153
         headerView.backgroundColor = AppColors.themeGray04
         headerView.containerView.backgroundColor = AppColors.themeGray04
         return headerView
@@ -118,7 +144,7 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
             cell.dividerView.isHidden = (indexPath.row >= (allCount - 1))
             cell.dividerViewLeadingConstraint.constant = 16.0
         }
-        
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -131,10 +157,21 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+
         if let event = self.getEvent(forIndexPath: indexPath).event {
+
+            let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                             "StatementId":event.id]
+            FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsPeriodicStatementViewStatementDetailsSelectedFromList, value: jsonDict)
+            
+            displayLoader()
+            
             self.viewStatement(forId: event.id, screenTitle: "Statement\(indexPath.row + 1)")
         }
     }
+    
+    
 }
 
 

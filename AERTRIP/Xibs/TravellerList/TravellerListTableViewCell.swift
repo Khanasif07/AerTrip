@@ -16,54 +16,64 @@ class TravellerListTableViewCell: UITableViewCell {
     @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var selectTravellerButton: UIButton!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerStackView: UIStackView!
+    @IBOutlet weak var bottomSeperatorView: ATDividerView!
+    
+    
 //    @IBOutlet weak var edgeToEdgeBottomSeparatorView: ATDividerView!
     
 //    @IBOutlet weak var edgeToEdgeTopSeparatorView: ATDividerView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        bottomSeperatorView.isHidden = true
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         searchedText = ""
+        bottomSeperatorView.isHidden = true
     }
     
-    var travellerData: TravellerData? {
-        didSet {
-            configureCell()
-        }
-    }
+//    var travellerData: TravellerData? {
+//        didSet {
+//            configureCell()
+//        }
+//    }
     
-    var travellerModelData: TravellerModel? {
+    var travellerModelData: (firstName: String, lastName: String, fullName: String, dob: String, salutation: String, id: String)? {
         didSet {
             configureCellForTraveller()
         }
     }
     var searchedText = ""
+    //var travelerData: (travellerName: String, travelerAge: String)
     
     // MARK: - Helper methods
     
-    private func configureCell() {
-        profileImageView.image = travellerData?.salutationImage
-        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation, (travellerData?.profileImage.isEmpty ?? false) {
-            if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
-                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
-                
-            } else {
-                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
-            }
-        } 
-        
-        
-    }
+//    private func configureCell() {
+//        profileImageView.image = travellerData?.salutationImage
+//        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation, (travellerData?.profileImage.isEmpty ?? false) {
+//            if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
+//                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+//                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
+//
+//            } else {
+//                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+//                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
+//            }
+//        }
+//
+//
+//    }
     
     private func configureCellForTraveller() {
+        self.userNameLabel.textColor = AppColors.themeBlack
         selectTravellerButton.isHidden = true
         leadingConstraint.constant = 16
+        containerStackView.spacing = 16
         profileImageView.image = AppGlobals.shared.getEmojiIcon(dob: travellerModelData?.dob ?? "", salutation: travellerModelData?.salutation ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        
         let fullName = travellerModelData?.fullName ?? ""
         var age = ""
         if let dob = travellerModelData?.dob,!dob.isEmpty {
@@ -74,7 +84,8 @@ class TravellerListTableViewCell: UITableViewCell {
         if !age.isEmpty {
             self.userNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
         }
-        self.userNameLabel.AttributedFontForText(text: searchedText, textFont: AppFonts.SemiBold.withSize(18.0))
+        self.userNameLabel.AttributedFontForText(text: searchedText, textFont: AppFonts.SemiBold.withSize(18.0), caseSentiveSearch: true)
+        
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {

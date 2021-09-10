@@ -8,6 +8,7 @@
 
 import MXParallaxHeader
 import UIKit
+import PhoneNumberKit
 
 protocol ViewProfileVCDelegate: class {
     func backButtonAction(_ sender: UIButton)
@@ -35,10 +36,11 @@ class ViewProfileVC: BaseVC {
     
     weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
-    var sections = ["details", "accounts", "logOut"]
-    var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized, LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized, LocalizedString.NewsLetters.localized]
-    var accounts = [LocalizedString.Settings, LocalizedString.Notification]
-    var logOut = [LocalizedString.LogOut]
+    let viewProfileFooterView = "ViewProfileFooterView"
+    var sections = ["details", "logOut"]
+    var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized,  LocalizedString.QuickPay.localized,  LocalizedString.LinkedAccounts.localized, LocalizedString.AccountDetails.localized]
+    var logOut = [LocalizedString.Settings,  LocalizedString.LogOut]
+    //[LocalizedString.ChangePassword, LocalizedString.changeMobileNumber, LocalizedString.disableWalletOtp, LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView?
     
     var maxValue: CGFloat = 1.0
@@ -61,7 +63,7 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         self.profileImageHeaderView?.currentlyUsingAs = .viewProfile
         self.profileImageHeaderView?.delegate = self
-        self.profileImageHeaderView?.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+        self.profileImageHeaderView?.profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         //        self.profileImageHeaderView?.profileImageViewBottomConstraint.constant = 18
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
@@ -73,13 +75,14 @@ class ViewProfileVC: BaseVC {
         super.viewWillAppear(animated)
         
         if let main = AppFlowManager.default.mainHomeVC, main.isPushedToNext {
-            self.statusBarStyle = topNavView.backView.isHidden ? .lightContent : .default
+            //self.statusBarStyle = topNavView.backView.isHidden ? .default : .lightContent
+            self.updateForParallexProgress()
         }
         else if let sideMenu = AppFlowManager.default.sideMenuController, !sideMenu.isOpen {
             self.statusBarStyle = .lightContent
         }
         else {
-            self.statusBarStyle = .default
+            self.statusBarStyle = .darkContent
         }
         
         // self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
@@ -99,7 +102,7 @@ class ViewProfileVC: BaseVC {
         delay(seconds: 0.5) { [weak self] in
             self?.topNavView.isToShowIndicatorView = false
         }
-        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
     }
     
@@ -113,12 +116,17 @@ class ViewProfileVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
+//        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
             // self.viewModel.webserviceForGetTravelDetail()
-        }
+//        }
     }
     
-    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.profileImageHeaderView?.profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+        self.updateProfileImage()
+
+    }
     
     // MARK: - Helper Methods
     
@@ -132,28 +140,30 @@ class ViewProfileVC: BaseVC {
         
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
+        tableView.register(UINib(nibName: viewProfileFooterView, bundle: nil), forHeaderFooterViewReuseIdentifier: viewProfileFooterView)
+
         
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
         
         let editStr = "\(LocalizedString.Edit.rawValue) "
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editStr, selectedTitle: editStr, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editStr, selectedTitle: editStr, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
-        let tintedImage = #imageLiteral(resourceName: "Back").withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        let tintedImage = AppImages.Back.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.topNavView.leftButton.setImage(tintedImage, for: .normal)
-        self.topNavView.leftButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.leftButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.topNavView.leftButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.leftButton.isSelected = false
         
-        self.topNavView.firstRightButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.firstRightButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.firstRightButton.isSelected = false
         
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
-
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 17.0))
-        tableView.tableFooterView = footerView
+        
+        //let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 17.0))
+        //tableView.tableFooterView = footerView
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.bounces = true
@@ -182,20 +192,20 @@ class ViewProfileVC: BaseVC {
     func updateUserData() {
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
-        self.profileImageHeaderView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
         
-        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-            self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? AppPlaceholderImage.user, showIndicator: false)
-            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
-            self.profileImageHeaderView?.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
-            self.profileImageHeaderView?.blurEffectView.alpha = 1.0
-        } else {
+        do {
+            let mobileNum = UserInfo.loggedInUser?.mobileWithISD ?? ""
+            let phoneNumber = try PhoneNumberKit().parse(mobileNum)
+            print(phoneNumber)
+            let formattedNumber = PhoneNumberKit().format(phoneNumber, toType: .international)
+            self.profileImageHeaderView?.mobileNumberLabel.text = formattedNumber
+        } catch {
             
-            self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
-            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur
-            self.profileImageHeaderView?.blurEffectView.alpha = 0.0
-            self.profileImageHeaderView?.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
         }
+        
+        self.updateProfileImage()
+        
+        self.profileImageHeaderView?.profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
     }
     
     func getUpdatedTitle() -> String {
@@ -205,16 +215,36 @@ class ViewProfileVC: BaseVC {
         }
         return updatedTitle
     }
+    
+    private func updateProfileImage(){
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? AppPlaceholderImage.user, showIndicator: false)
+            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
+            self.profileImageHeaderView?.blurEffectView.alpha = 1.0
+        } else {
+            
+            self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur
+            self.profileImageHeaderView?.blurEffectView.alpha = 0.0
+        }
+    }
+    
+    
 }
 
 extension ViewProfileVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        if viewModel.isComingFromDeepLink {
+            navigationController?.popViewController(animated: true)
+            return
+        }
         isBackBtnTapped = true
         self.delegate?.backButtonAction(sender)
         self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.viewModel.logEvents(with: .ClickOnEditMainUserProfile)
         self.activityIndicator.isHidden = false
         self.topNavView.firstRightButton.isHidden = true
         self.activityIndicator.startAnimating()
@@ -244,22 +274,20 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         switch self.sections[section] {
         case "details":
             return self.details.count
-        case "accounts":
-            return self.accounts.count
         case "logOut":
             return self.logOut.count
         default:
             return 1
         }
     }
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 80.0
+        if indexPath.row == 0  {
+            return 79.0
         } else if indexPath.row == self.details.count - 1 && indexPath.section == 0 {
-            return 80.0
-        } else if indexPath.row == self.accounts.count - 1 && indexPath.section == 1{
-            return 80.0
+            return 79.0
         }
         else {
             return 61.0
@@ -270,32 +298,47 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ViewProfileTableViewCell else {
             fatalError("ViewProfileTableViewCell not found")
         }
+        cell.selectionStyle = .gray
         if indexPath.row != 0 {
-            cell.topViewHeightConst.constant = 18
+            cell.topViewHeightConst.constant = 0
         } else {
-            cell.topViewHeightConst.constant = 36
+            cell.topViewHeightConst.constant = 19
         }
         switch self.sections[indexPath.section] {
         case "details":
-            cell.bottomViewHeightConst.constant =  indexPath.row == self.details.count - 1 ? 36 : 18
-            cell.separatorView.isHidden = true
+            cell.bottomViewHeightConst.constant =  indexPath.row == self.details.count - 1 ? 18 : 0
+            cell.separatorView.isHidden = self.details[indexPath.row] != LocalizedString.AccountDetails.localized
             cell.menuOptionLabel.isHidden = false
             cell.configureCell(self.details[indexPath.row])
-            
-            return cell
-        case "accounts":
-            cell.bottomViewHeightConst.constant =  indexPath.row == self.accounts.count - 1 ? 36 : 18
-            if self.accounts[indexPath.row].rawValue == "Settings" {
-                cell.separatorView.isHidden = false
-            } else {
-                cell.separatorView.isHidden = true
-            }
-            cell.configureCell(self.accounts[indexPath.row].rawValue)
+            cell.contentView.layoutIfNeeded()
             return cell
         case "logOut":
-            cell.bottomViewHeightConst.constant = 18
-            cell.separatorView.isHidden = false
-            cell.configureCell(self.logOut[indexPath.row].rawValue)
+            cell.bottomViewHeightConst.constant =  0
+            cell.separatorView.isHidden = true
+            switch self.logOut[indexPath.row]{
+            case LocalizedString.ChangePassword:
+                let title = (UserInfo.loggedInUser?.hasPassword == true) ? LocalizedString.ChangePassword.localized : LocalizedString.Set_password.localized
+                cell.configureCell(title)
+//            case LocalizedString.changeMobileNumber:
+//                let title = (UserInfo.loggedInUser?.mobile != "" ) ? LocalizedString.changeMobileNumber.localized : LocalizedString.setMobileNumner.localized
+//                cell.configureCell(title)
+//            case LocalizedString.disableWalletOtp:
+//                let title = (UserInfo.loggedInUser?.isWalletEnable == true) ? "Disable Wallet OTP" : "Enable Wallet OTP"
+//                cell.configureCell(title)
+            default: cell.configureCell(self.logOut[indexPath.row].localized)
+            
+            }
+            
+//            if self.logOut[indexPath.row].localized == LocalizedString.ChangePassword.localized {
+//                let title = (UserInfo.loggedInUser?.hasPassword == true) ? LocalizedString.ChangePassword.localized : LocalizedString.Set_password.localized
+//                cell.configureCell(title)
+//            } else if self.logOut[indexPath.row].localized == LocalizedString.changeMobileNumber.localized{
+//                let title = (UserInfo.loggedInUser?.mobile != "" ) ? LocalizedString.changeMobileNumber.localized : LocalizedString.setMobileNumner.localized
+//                cell.configureCell(title)
+//            }else{
+//                cell.configureCell(self.logOut[indexPath.row].localized)
+//            }
+            cell.contentView.layoutIfNeeded()
             return cell
         default:
             return UITableViewCell()
@@ -303,54 +346,123 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         switch self.sections[indexPath.section] {
-        case "details":
-            self.statusBarStyle = .default
-            switch indexPath.row {
+       
+            case "details":
+                self.statusBarStyle = .darkContent
+                    switch self.details[indexPath.row] {
             // Open traveller detail listing
-            case 0:
-                AppFlowManager.default.moveToTravellerListVC()
+                    case LocalizedString.TravellerList.localized:
+                        AppFlowManager.default.moveToTravellerListVC()
+                        self.viewModel.logEventsWithoutParam(with: .OpenTravellersList)
+                    // Open View All hotel details
+                    case LocalizedString.HotelPreferences.localized:
+                        AppFlowManager.default.moveToViewAllHotelsVC()
+                        self.viewModel.logEventsWithoutParam(with: .OpenFavouriteHotels)
+                    // Open Quick pay
+                    case LocalizedString.QuickPay.localized:
+                        AppFlowManager.default.moveToQuickPayVC()
+                        self.viewModel.logEventsWithoutParam(with: .OpenQuickPay)
+                    // Open linked accout VC
+                    case LocalizedString.LinkedAccounts.localized:
+                        AppFlowManager.default.moveToLinkedAccountsVC()
+                        self.viewModel.logEventsWithoutParam(with: .OpenLinkedAccounts)
+                    case LocalizedString.AccountDetails.localized:
+//                        AppToast.default.showToastMessage(message: "This feature is coming soon")
+                        self.viewModel.logEventsWithoutParam(with: .OpenLinkedAccounts)
+                        AppFlowManager.default.moveToAccountDetailsVC()
+
+//                        self.openUpdateAccount()
+                        
+                    default:
+                        AppToast.default.showToastMessage(message: "This feature is coming soon")
+                        break
+                }
+            
+            //        case "accounts":
+            //            self.statusBarStyle = .default
+            //            if indexPath.row == 0 {
+            //                //settings
+            //                AppFlowManager.default.moveToSettingsVC()
+            //            } else {
+            //                AppFlowManager.default.moveToNotificationVC()
+            //            }
+        //
+        case "logOut":
+            switch self.logOut[indexPath.row] {
+             case LocalizedString.ChangePassword
+                :
+                AppFlowManager.default.moveToChangePasswordVC(type: (UserInfo.loggedInUser?.hasPassword == true) ? .changePassword : .setPassword, delegate: self)
                 
-            // Open View All hotel details
-            case 1:
-                AppFlowManager.default.moveToViewAllHotelsVC()
-                
-            // Open Quick pay
-            case 2:
-                AppFlowManager.default.moveToQuickPayVC()
-                
-            // Open linked accout VC
-            case 3:
-                AppFlowManager.default.moveToLinkedAccountsVC()
+            // show logout option
+//            case LocalizedString.changeMobileNumber: self.changeMobileNumber()
+//            case LocalizedString.disableWalletOtp: self.enableDisableOtp()
+            case LocalizedString.LogOut:
+                let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
+                _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+                    
+                    if index == 0 {
+                        self.viewModel.logEventsWithoutParam(with: .LogOut)
+                        self.viewModel.webserviceForLogOut()
+                    }
+                }
+            case LocalizedString.Settings: AppFlowManager.default.moveToSettingsVC()
                 
             default:
+                AppToast.default.showToastMessage(message: "This feature is coming soon")
                 break
             }
-            
-        case "accounts":
-            self.statusBarStyle = .default
-            if indexPath.row == 0 {
-                //settings
-                AppFlowManager.default.moveToSettingsVC()
-            } else {
-                AppFlowManager.default.moveToNotificationVC()
-            }
-            
-        case "logOut":
-            
-            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
-            _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
-                
-                if index == 0 {
-                    self.viewModel.webserviceForLogOut()
-                }
-            }
-            
         default:
             break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return section == 1 ? 227 : CGFloat.leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 1 {
+            guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: viewProfileFooterView) as? ViewProfileFooterView else {return nil}
+            return footerView
+        }
+            return nil
+    }
+    
+   
+    
+//    func changeMobileNumber(){
+//        if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
+//            if (UserInfo.loggedInUser?.hasPassword == true){
+//                let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+//                vc.modalPresentationStyle = .overFullScreen
+//        //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+//                vc.viewModel.varificationType = .setMobileNumber
+//                vc.delegate = self
+//                self.present(vc, animated: true, completion: nil)
+//            }else{
+//                AppToast.default.showToastMessage(message: "Please set your account password!")
+//            }
+//
+//        }else{
+//            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+//            vc.modalPresentationStyle = .overFullScreen
+//    //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+//            vc.viewModel.varificationType = .phoneNumberChangeOtp
+//            vc.delegate = self
+//            self.present(vc, animated: true, completion: nil)
+//        }
+//
+//    }
+    
+//    func enableDisableOtp(){
+//        let vc = EnableDisableWalletOTPVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+//        vc.modalPresentationStyle = .overFullScreen
+//        vc.delegate = self
+//        self.present(vc, animated: true, completion: nil)
+//    }
     
 }
 
@@ -392,12 +504,14 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             
             self.currentProgressIntValue = intValue
             self.currentProgress = newProgress.toCGFloat
-
+            
         }
         //
         if prallexProgress  <= 0.7 {
             if isNavBarHidden {
-                self.statusBarStyle = .lightContent
+                if let parent = self.parent as? BaseVC {
+                    parent.statusBarStyle = .lightContent
+                }
                 
                 self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
                     
@@ -405,16 +519,19 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                     
                     self?.topNavView.leftButton.isSelected = false
                     
-                    self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                    self?.topNavView.leftButton.tintColor = AppColors.unicolorWhite
                     
                     self?.topNavView.navTitleLabel.text = ""
                     
-                    self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                    self?.topNavView.backView.backgroundColor = .clear//AppColors.themeWhite
                     
+                    self?.topNavView.backgroundColor = .clear
                 }
                 
             } else {
-                self.statusBarStyle = .default
+                if let parent = self.parent as? BaseVC {
+                    parent.statusBarStyle = .default
+                }
                 
                 self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                     
@@ -429,8 +546,11 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 }
             }
         } else {
-            
-            self.statusBarStyle = isBackBtnTapped ? .default : .lightContent
+            if navigationController?.viewControllers.last is FlightResultBaseViewController {
+                
+            } else if let parent = self.parent as? BaseVC {
+                parent.statusBarStyle = isBackBtnTapped ? .darkContent : .lightContent
+            }
             
             self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
                 
@@ -438,11 +558,12 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 
                 self?.topNavView.leftButton.isSelected = false
                 
-                self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                self?.topNavView.leftButton.tintColor = AppColors.unicolorWhite
                 
                 self?.topNavView.navTitleLabel.text = ""
                 
-                self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                self?.topNavView.backView.backgroundColor = .clear//AppColors.themeWhite
+                self?.topNavView.backgroundColor = .clear
             }
             
         }
@@ -452,7 +573,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
-
+        
         // Nimish
         updateProfileImageViewFrame()
         // Nimish
@@ -461,6 +582,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         //        self.updateForParallexProgress()
     }
     func updateProfileImageViewFrame(){
+        guard profileImageHeaderView != nil else {return}
         profileImageHeaderView!.profileImageView.layer.cornerRadius = profileImageHeaderView!.profileImageView.frame.size.width / 2
     }
     
@@ -474,6 +596,7 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
     }
     
     func profileImageTapped() {
+        self.viewModel.logEvents(with: .ClickOnMainUserProfile)
         printDebug("profile Image Tapped View ProfileVc")
         AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), usingFor: .viewProfile)
     }
@@ -496,6 +619,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         CoreDataManager.shared.deleteData("TravellerData")
         CoreDataManager.shared.deleteData("BookingData")
         CoreDataManager.shared.deleteData("HotelSearched")
+        FacebookController.shared.facebookLogout()
         UserDefaults.removeObject(forKey: UserDefaults.Key.currentUserCookies.rawValue)
         UserDefaults.removeObject(forKey: UserDefaults.Key.xAuthToken.rawValue)
         UserInfo.hotelFilterApplied = nil
@@ -521,11 +645,28 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     func getFail(errors: ErrorCodes) {
         self.profileImageHeaderView?.stopLoading()
         if AppGlobals.shared.isNetworkRechable() {
-            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            if !((UserInfo.loggedInUser?.userCreditType ?? UserCreditType.statement) == .topup){
+//                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
         } else {
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
         }
     }
 }
 
+extension ViewProfileVC: ChangePasswordVCDelegate{//, OtpConfirmationDelegate, WalletEnableDisableDelegate {
+//    func otpValidationCompleted(_ isSuccess: Bool) {
+//        self.updateUserData()
+//        self.tableView.reloadData()
+//    }
+//
+//    func otpEnableDisableCompleted(_ isSuccess: Bool){
+//        self.tableView.reloadData()
+//    }
+//
+    func passowordChangedSuccessFully() {
+        self.tableView.reloadData()
+    }
+    
+}
 

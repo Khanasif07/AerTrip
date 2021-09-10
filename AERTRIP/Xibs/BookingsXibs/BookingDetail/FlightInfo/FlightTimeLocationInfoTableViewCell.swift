@@ -25,8 +25,8 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var destinationFlightNameLbel: UILabel!
     @IBOutlet weak var destinationFlightAddressLabel: UILabel!
     @IBOutlet weak var destinationTerminalLabel: UILabel!
-    @IBOutlet weak var sourceNameHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var desNameHeightConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var sourceNameHeightConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var desNameHeightConstraint: NSLayoutConstraint!
     
     
     // Travel Time Label
@@ -35,14 +35,23 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var travelTimeLabel: UILabel!
     @IBOutlet weak var dottedView: UIView!
     @IBOutlet weak var wingNameLabel: UILabel!
+    @IBOutlet weak var moonIconHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var moonIconLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var travelTimeLableCenterConstraint: NSLayoutConstraint!
     
-    var flightDetail: FlightDetail? {
+    var flightDetail: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }
     }
     
-    private let defaultStr = LocalizedString.na.localized
+    private let defaultStr = ""//LocalizedString.na.localized
+    
+    var isMoonIConNeedToHide:Bool = false{
+        didSet{
+            configureMoonIcon()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,10 +60,15 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         self.setUpTextColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.wingNameLabel.attributedText = nil
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.dottedView.makeDottedLine()
+        self.dottedView.makeDottedLine(dashColor: AppColors.themeGray20)
         self.manageNameHeight()
     }
     
@@ -115,7 +129,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         
         // Travel
         self.travelTimeLabel.text = details.flightTime.asString(units: [.hour, .minute], style: .abbreviated)
-        self.wingNameLabel.text = details.equipmentDetails
+        self.wingNameLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "\(details.equipmentDetails) ", image: AppImages.flightInfoarrow, endText: "", font: AppFonts.Regular.withSize(12.0))
         
         self.manageNameHeight()
     }
@@ -125,21 +139,21 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     }
     
     private func manageNameHeight() {
-        let sourceName = self.sourceFlightNameLbel.text ?? ""
-        let desName = self.destinationFlightNameLbel.text ?? ""
-        let textToCount = (sourceName.count > desName.count) ? sourceName : desName
-        
-        var height = textToCount.sizeCount(withFont: AppFonts.Regular.withSize(14.0), bundingSize: CGSize(width: self.sourceFlightNameLbel.width, height: 10000.0)).height
-        
-        if height <= 20.0 {
-            height = 20.0
-        }
-        else if height > 20.0 {
-            height = 40.0
-        }
-        
-        self.sourceNameHeightConstraint.constant = height
-        self.desNameHeightConstraint.constant = height
+//        let sourceName = self.sourceFlightNameLbel.text ?? ""
+//        let desName = self.destinationFlightNameLbel.text ?? ""
+//        let textToCount = (sourceName.count > desName.count) ? sourceName : desName
+//
+//        var height = textToCount.sizeCount(withFont: AppFonts.Regular.withSize(14.0), bundingSize: CGSize(width: self.sourceFlightNameLbel.width, height: 10000.0)).height
+//
+//        if height <= 20.0 {
+//            height = 20.0
+//        }
+//        else if height > 20.0 {
+//            height = 40.0
+//        }
+//
+//        self.sourceNameHeightConstraint.constant = height
+//        self.desNameHeightConstraint.constant = height
     }
     
     // MARK: - Helper methods
@@ -180,6 +194,15 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         // Travel Time
         self.travelTimeLabel.textColor = AppColors.themeGray60
         self.wingNameLabel.textColor = AppColors.themeGray40
+        
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
+ 
+    
+    func configureMoonIcon(){
+        moonIconHeightConstraint.constant = (isMoonIConNeedToHide) ? 0.0 : 12.0
+        moonIconLeadingConstraint.constant = (isMoonIConNeedToHide) ? 0.0 : 5.0
+        travelTimeLableCenterConstraint.constant = (isMoonIConNeedToHide) ? 0.0 : 8.5
     }
     
 }

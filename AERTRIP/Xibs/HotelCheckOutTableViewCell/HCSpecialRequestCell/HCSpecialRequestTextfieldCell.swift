@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HCSpecialRequestTextfieldCellDelegate: class {
-    func didPassSpecialRequestAndAirLineText(infoText: String, indexPath: IndexPath)
+    func didPassSpecialRequestAndAirLineText(infoText: String, textField: UITextField)
 }
 
 class HCSpecialRequestTextfieldCell: UITableViewCell {
@@ -19,9 +19,10 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
     
     //Mark:- IBOutlets
     //================
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var topDividerView: ATDividerView!
     @IBOutlet weak var topDividerViewTopConstraints: NSLayoutConstraint!
-    @IBOutlet weak var infoTextField: UITextField! {
+    @IBOutlet weak var infoTextField: PKFloatLabelTextField! {
         didSet {
             self.infoTextField.delegate = self
             self.infoTextField.rightViewMode = .whileEditing
@@ -33,6 +34,7 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
     @IBOutlet weak var bottomDividerViewTrailingConstraints: NSLayoutConstraint!
     @IBOutlet weak var bottomDividerViewLeadingConstraints: NSLayoutConstraint!
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topDividerTopConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -51,11 +53,20 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
         self.infoTextField.font = AppFonts.Regular.withSize(18.0)
         
         //Text
-        self.infoTextField.setAttributedPlaceHolder(placeHolderText: "")
+        //self.infoTextField.setAttributedPlaceHolder(placeHolderText: "")
+        
+        self.infoTextField.titleYPadding = 11.0
+        self.infoTextField.hintYPadding = 11.0
+        
     }
     
-    internal func configCell(placeHolderText: String) {
-        self.infoTextField.placeholder = placeHolderText
+    internal func configCell(placeHolderText: String, placeholderColor: UIColor? = nil) {
+//        self.infoTextField.placeholder = placeHolderText
+        self.infoTextField.setupTextField(placehoder: placeHolderText,with: "", keyboardType: .default, returnType: .default, isSecureText: false, placeholderColor: placeholderColor)
+        self.infoTextField.isHiddenBottomLine = true
+        self.infoTextField.lineHeight = 0.5
+        self.infoTextField.selectedLineHeight = 0.5
+        self.bottomDividerView.isHidden = false
     }
 }
 
@@ -66,9 +77,8 @@ extension HCSpecialRequestTextfieldCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        if let superView = self.superview as? UITableView , let indexPath = superView.indexPath(forItem: textField) {
-            self.delegate?.didPassSpecialRequestAndAirLineText(infoText: finalText,indexPath: indexPath)
-        }
+        self.delegate?.didPassSpecialRequestAndAirLineText(infoText: finalText,textField: textField)
+
         return true
     }
 }

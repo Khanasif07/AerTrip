@@ -141,7 +141,7 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                if sucess, let response = jsonData[APIKeys.response.rawValue].dictionaryObject {
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
                     let shortUrl = response[APIKeys.shortUrl.rawValue] as? String
                     completionBlock(true, [],shortUrl ?? "")
                 } else {
@@ -192,6 +192,7 @@ extension APICaller {
     
     func loginForPaymentAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool,_ logInId: String , _ isGuestUser: String  ,_ errorCodes: ErrorCodes)->Void ) {
         AppNetworking.POST(endPoint: APIEndPoint.login, parameters: params, success: { [weak self] (json) in
+            printDebug(json)
             guard let sSelf = self else {return}
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
@@ -249,6 +250,27 @@ extension APICaller {
         }
     }
     
+    func getShareLinkAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ shortTemplateUrl: String)->Void ) {
+            
+            AppNetworking.POST(endPoint: APIEndPoint.getShareLink, parameters: params, success: { [weak self] (json) in
+                guard let sSelf = self else {return}
+                
+                printDebug(json)
+                sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                    if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
+                        let shortUrl = response[APIKeys.url.rawValue] as? String
+                        completionBlock(true, [],shortUrl ?? "")
+                    } else {
+                        completionBlock(false, [],"")
+                    }
+                }, failure: { (errors) in
+                    ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                    completionBlock(false, errors, "")
+                })
+            }) { (error) in
+                    completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
+            }
+        }
 }
 
 
@@ -265,3 +287,4 @@ extension APICaller {
         }
     }
 }
+

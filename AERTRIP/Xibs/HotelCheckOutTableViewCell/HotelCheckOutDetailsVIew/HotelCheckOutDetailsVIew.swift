@@ -25,7 +25,8 @@ class HotelCheckOutDetailsVIew: UIView {
     internal weak var delegate: HotelCheckOutDetailsVIewDelegate?
     internal var roomRates = [[RoomsRates : Int]]()
     internal let hotelImageHeight: CGFloat = 211.0
-
+    internal var didsmissOnScrollPosition: CGFloat = 200.0
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var hotelDetailsTableView: ATTableView! {
@@ -42,7 +43,7 @@ class HotelCheckOutDetailsVIew: UIView {
     }
     @IBOutlet weak var smallLineView: UIView! {
         didSet {
-            self.smallLineView.cornerRadius = self.smallLineView.height/2.0
+            self.smallLineView.cornerradius = self.smallLineView.height/2.0
             self.smallLineView.clipsToBounds = true
         }
     }    
@@ -87,17 +88,17 @@ class HotelCheckOutDetailsVIew: UIView {
         self.backgroundColor = .clear
         self.headerView.delegate = self
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-        let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+        let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.saveHotels
+        let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.save_icon_green
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
-        self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.headerView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.hotelDetailsTableView.roundTopCorners(cornerRadius: 10.0)
         self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
     }
     
     private func registerXibs() {
         self.hotelDetailsTableView.registerCell(nibName: HotelDetailsImgSlideCell.reusableIdentifier)
-        self.hotelDetailsTableView.registerCell(nibName: HotelRatingInfoCell.reusableIdentifier)
+        self.hotelDetailsTableView.registerCell(nibName: HCDataHotelRatingInfoTableViewCell.reusableIdentifier)
         self.hotelDetailsTableView.registerCell(nibName: HotelInfoAddressCell.reusableIdentifier)
         self.hotelDetailsTableView.registerCell(nibName: HotelDetailAmenitiesCell.reusableIdentifier)
         self.hotelDetailsTableView.registerCell(nibName: TripAdvisorTableViewCell.reusableIdentifier)

@@ -24,6 +24,7 @@ class HotelsGroupExpendedVC: StatusBarAnimatableViewController {
             collectionView.delegate = self
         }
     }
+    @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     weak var delegate: HotelsGroupExpendedVCDelegate?
     
     //MARK:- Properties
@@ -42,6 +43,7 @@ class HotelsGroupExpendedVC: StatusBarAnimatableViewController {
     let viewModel = HotelsGroupExtendedVM()
     private var selectedIndexPath: IndexPath?
     var sheetView: PKBottomSheet?
+    var viewTranslation = CGPoint(x: 0, y: 0)
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -55,22 +57,39 @@ class HotelsGroupExpendedVC: StatusBarAnimatableViewController {
     override func bindViewModel() {
         //self.viewModel.delegate = self
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.statusBarColor = AppColors.clear
+    }
+    
+    override func currencyChanged(_ note: Notification) {
+        self.collectionView.reloadData()
+    }
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
         headerThumbView.layer.cornerRadius = headerThumbView.height / 2.0
         headerThumbView.layer.masksToBounds = true
+        self.view.backgroundColor = AppColors.themeWhite
+        self.collectionView.backgroundColor = AppColors.themeBlack26
+        headerView.roundCorners(corners: [.topLeft,.topRight], radius: 10)
+        if #available(iOS 13.0, *) {} else {
+            headerViewTopConstraint.constant = AppFlowManager.default.safeAreaInsets.top + 8
+            let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+            swipeGesture.delegate = self
+            self.view.addGestureRecognizer(swipeGesture)
+        }
         
         self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
         
-        self.collectionView.isHidden = true
+        self.collectionView.isHidden = false//true
         
-        delay(seconds: 0.2) { [weak self] in
-            self?.saveCardsRact(forCards: 3)
-            self?.collectionView.isHidden = false
-            self?.animateCardsToShow()
-        }
+//        delay(seconds: 0.2) { [weak self] in
+//            self?.saveCardsRact(forCards: 3)
+//            self?.collectionView.isHidden = false
+//            self?.animateCardsToShow()
+//        }
     }
     
     private func saveCardsRact(forCards: Int) {
@@ -124,6 +143,8 @@ class HotelsGroupExpendedVC: StatusBarAnimatableViewController {
         }
         
     }
+    
+     
 }
 
 
@@ -143,15 +164,16 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         cell.hotelListData = self.viewModel.samePlaceHotels[indexPath.item]
         cell.saveButton.isSelected = self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? false : true
         //        cell.hotelNameLabel.text = "\(indexPath.item + 1)"
-        //        cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
-        //        cell.containerBottomConstraint.constant = 5.0
+                cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
+        cell.containerBottomConstraint.constant = (indexPath.item == (self.viewModel.samePlaceHotels.count - 1)) ? 16.0 : 5.0
+        cell.layoutIfNeeded()
         cell.delegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let height = (indexPath.item == 0) ? 214.0 : 203.0
+        let height = ((indexPath.item == 0) || (indexPath.item == (self.viewModel.samePlaceHotels.count - 1))) ? 214.0 : 203.0
         return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
     }
     
@@ -167,9 +189,26 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
 //        }
         if let cell = collectionView.cellForItem(at: indexPath) as? HotelCardCollectionViewCell{
             self.selectedIndexPath = indexPath
-            self.presentController(cell: cell, hotelInfo: self.viewModel.samePlaceHotels[indexPath.item], sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            self.presentControllerDefault(cell: cell, hotelInfo: self.viewModel.samePlaceHotels[indexPath.item], sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
         }
     }
+    
+    
+    func presentControllerDefault(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+        vc.viewModel.hotelInfo = hotelInfo
+        vc.delegate = self
+        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+        var img = cell.selfImage
+        if cell.selfImage == nil{
+            img = cell.viewScreenShot()
+        }
+        vc.backImage = img
+        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        self.present(nav, animated: true)
+        
+    }
+    
     
     func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
         
@@ -183,8 +222,8 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         }
         vc.backImage = img
         cell.freezeAnimations()
-        let currentCellFrame = cell.layer.presentation()!.frame
-        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
+        let currentCellFrame = cell.layer.presentation()?.frame ?? CGRect.zero
+        let cardFrame = cell.superview?.convert(currentCellFrame, to: nil) ?? CGRect.zero
         vc.modalPresentationStyle = .custom
         let frameWithoutTransform = { () -> CGRect in
             let center = cell.center
@@ -195,7 +234,7 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
                 width: size.width,
                 height: size.height
             )
-            return cell.superview!.convert(r, to: nil)
+            return cell.superview?.convert(r, to: nil) ?? CGRect.zero
         }()
         
         let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
@@ -246,7 +285,6 @@ extension HotelsGroupExpendedVC: HotelCardCollectionViewCellDelegate {
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView) {
         printDebug("handle scrolling enabled")
     }
-    
 }
 
 
@@ -254,6 +292,54 @@ extension HotelsGroupExpendedVC: HotelCardCollectionViewCellDelegate {
 
 extension HotelsGroupExpendedVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
-        print("favourite updated")
+        printDebug("favourite updated")
+    }
+    
+    func imageUpdated() {
+        if let indexPath = self.selectedIndexPath {
+            self.collectionView.reloadItems(at: [indexPath])
+        }
+    }
+}
+extension HotelsGroupExpendedVC {
+    
+    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = .identity
+            })
+        }
+        
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down, self.collectionView.contentOffset.y <= 0
+            else {
+            reset()
+            return
+        }
+        
+        switch sender.state {
+        case .changed:
+            viewTranslation = sender.translation(in: self.view)
+            moveView()
+        case .ended:
+            if viewTranslation.y < 200 {
+                reset()
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+        case .cancelled:
+            reset()
+        default:
+            break
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

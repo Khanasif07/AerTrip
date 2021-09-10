@@ -1,0 +1,231 @@
+//
+//  BookingFlightDetailVC.swift
+//  AERTRIP
+//
+//  Created by apple on 09/05/19.
+//  Copyright © 2019 Pramod Kumar. All rights reserved.
+//
+
+import UIKit
+
+enum BookingDetailType {
+    case flightInfo
+    case baggage
+    case fareInfo
+}
+
+
+class BookingFlightDetailVC: BaseVC {
+    
+    // MARK: - IBOutlet
+    
+    @IBOutlet weak var navigationViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topNavigationView: TopNavigationView!
+    @IBOutlet weak var containerView: UIView!
+    
+    // MARK: - Variables
+    private var currentIndex: Int = 0
+    private var allTabsStr: [String] = []
+    // Parchment View
+    fileprivate var parchmentView : PagingViewController?
+    private var allChildVCs :[UIViewController] = []
+    
+    let viewModel = BookingDetailVM()
+    
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
+    }
+    
+    override func initialSetup() {
+        self.view.layoutIfNeeded()
+        //self.viewModel.getBookingFees()
+        configureNavBar()
+        delay(seconds: 0.1) {[weak self] in
+            
+            guard let self = self else  {return}
+            self.setUpViewPager()
+        }
+        topNavigationView.backgroundColor = AppColors.selectDestinationHeaderColor
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            navigationViewHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = .white
+        }
+        topNavigationView.dividerView.isHidden = !self.isLightTheme()
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetails, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
+
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.parchmentView?.view.frame = self.containerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        topNavigationView.dividerView.isHidden = !self.isLightTheme()
+    }
+    
+    private func configureNavBar() {
+        
+        self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+        self.topNavigationView.navTitleLabel.frame = CGRect(x: 30 , y: statusBarHeight + 1.0 , width: UIScreen.main.bounds.size.width  - 60.0 , height: 23)
+        self.topNavigationView.navTitleLabel.lineBreakMode = .byTruncatingTail
+        self.topNavigationView.navTitleLabel.numberOfLines = 1
+        self.topNavigationView.navTitleLabel.textAlignment = .center
+        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.tripStr
+        self.topNavigationView.delegate = self
+        topNavigationView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
+    }
+    
+    // Asif Change
+    private func setUpViewPager() {
+        self.currentIndex = 0
+        self.allChildVCs.removeAll()
+        self.allTabsStr.removeAll()
+        self.allTabsStr.append(LocalizedString.FlightInfo.localized)
+        self.allTabsStr.append(LocalizedString.Baggage.localized)
+        self.allTabsStr.append(LocalizedString.FareInfo.localized)
+        
+        let flightInfoVC = FlightBookingInfoVC.instantiate(fromAppStoryboard: .Bookings)
+        flightInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
+        flightInfoVC.viewModel.legSectionTap = self.viewModel.legSectionTap
+        self.allChildVCs.append(flightInfoVC)
+        
+        let flightBaggageInfoVC = FlightBaggageInfoVC.instantiate(fromAppStoryboard: .Bookings)
+        flightBaggageInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
+        flightBaggageInfoVC.viewModel.legSectionTap = self.viewModel.legSectionTap
+        flightBaggageInfoVC.dimesionDelegate = self
+        self.allChildVCs.append(flightBaggageInfoVC)
+        
+        let flightFareInfoVC = FlightFareInfoVC.instantiate(fromAppStoryboard: .Bookings)
+        flightFareInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
+        flightFareInfoVC.viewModel.legSectionTap = self.viewModel.legSectionTap
+        self.allChildVCs.append(flightFareInfoVC)
+        
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
+        }
+        setupParchmentPageController()
+    }
+    
+    // Added to replace the existing page controller, added Asif Khan
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController()
+        self.parchmentView?.menuItemSpacing =  (UIDevice.screenWidth - 251.0)/2
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left:  35.0, bottom: 0.0, right:   35)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.register(nib, for: MenuItem.self)
+        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.containerView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
+        self.parchmentView?.select(index: 0)
+        
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+        
+        self.parchmentView?.menuBackgroundColor = AppColors.selectDestinationHeaderColor//UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = AppColors.selectDestinationHeaderColor//UIColor.clear
+        
+    }
+}
+
+
+// MARK: - Top Navigation View Delegate
+
+extension BookingFlightDetailVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        //AppFlowManager.default.mainNavigationController.popViewController(animated: true)
+    }
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+// MARK:- PagingViewController DataSource
+extension BookingFlightDetailVC : PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
+    
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int{
+        self.allTabsStr.count
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
+        return self.allChildVCs[index]
+    }
+    
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
+    }
+    
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
+        
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? MenuItem{
+            let text = pagingIndexItem.title
+            
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+            return text.widthOfString(usingFont: font)
+        }
+        
+        return 100.0
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
+        
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            self.currentIndex = pagingIndexItem.index
+        }
+    }
+}
+extension BookingFlightDetailVC: BookingDetailVMDelegate, BaggageDimesionPresentDelegate {
+    func dimesionButtonTapprd(with dimension: Dimension, weight: String)
+    {
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetailsBaggageDimensionOptionsSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
+
+        let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
+        baggageDimensionVC.settingForBookingDetails = true
+        baggageDimensionVC.weight = weight
+        baggageDimensionVC.dimesionsObj = dimension
+        self.present(baggageDimensionVC, animated: true, completion: nil)
+    }
+    
+    func willGetBookingFees() {}
+    
+    func getBookingFeesSuccess() {
+    }
+    
+    func getBookingFeesFail() {}
+}

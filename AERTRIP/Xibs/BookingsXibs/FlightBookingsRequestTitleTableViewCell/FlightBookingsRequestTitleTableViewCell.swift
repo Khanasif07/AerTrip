@@ -17,6 +17,7 @@ class FlightBookingsRequestTitleTableViewCell: UITableViewCell {
     //MARK:===========
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var requestTitleLabel: UILabel!
+    @IBOutlet weak var requestLabelTopConstraint: NSLayoutConstraint!
     
     //MARK:- LifeCycle
     //MARK:===========
@@ -31,6 +32,8 @@ class FlightBookingsRequestTitleTableViewCell: UITableViewCell {
         self.requestTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.requestTitleLabel.textColor = AppColors.themeGray40
         self.requestTitleLabel.text = LocalizedString.Requests.localized
+        self.containerView.backgroundColor = AppColors.themeWhite
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
 
     

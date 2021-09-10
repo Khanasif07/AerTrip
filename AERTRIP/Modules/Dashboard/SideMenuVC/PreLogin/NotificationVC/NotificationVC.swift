@@ -16,10 +16,7 @@ class NotificationVC: BaseVC {
     @IBOutlet weak var subTiteLabel: UILabel!
     
     
-    
     // MARK: - Override methods
-    
-    
     override func initialSetup() {
         self.configureNavBar()
     }
@@ -27,7 +24,6 @@ class NotificationVC: BaseVC {
     override func setupTexts() {
         self.titleLabel.text = LocalizedString.NoNotificationYet.localized
         self.subTiteLabel.text = LocalizedString.NotificationInfo.localized
-        
     }
     
     override func setupFonts() {
@@ -38,6 +34,7 @@ class NotificationVC: BaseVC {
     override func setupColors() {
         self.titleLabel.textColor = AppColors.themeBlack
         self.subTiteLabel.textColor = AppColors.themeGray60
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     
@@ -45,7 +42,7 @@ class NotificationVC: BaseVC {
     // MARK: - Helper methods
     
     private func configureNavBar() {
-        self.topNavigation.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+        self.topNavigation.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
         self.topNavigation.delegate = self
     }
     

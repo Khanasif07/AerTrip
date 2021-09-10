@@ -20,6 +20,9 @@ struct DepositItinerary {
     
     var bankMaster: [String] = []
     
+    var currency:String?
+    
+    var currencyRate: CurrencyConversionRate?
     
     init(json: JSONDictionary) {
         
@@ -29,6 +32,14 @@ struct DepositItinerary {
         
         if let obj = json["net_amount"] {
             self.netAmount = "\(obj)".toDouble ?? 0.0
+        }
+        
+        if let currency = json["currency"]{
+            self.currency = "\(currency)".removeNull
+        }
+        
+        if let rate = json["currency_rate"] as? JSONDictionary{
+            self.currencyRate = CurrencyConversionRate(json: rate)
         }
         
         if let paymentModes = json["payment_modes"] as? JSONDictionary {

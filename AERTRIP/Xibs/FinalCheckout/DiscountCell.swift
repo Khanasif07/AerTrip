@@ -27,6 +27,11 @@ class DiscountCell: UITableViewCell {
         self.setUpColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        amountLabel.attributedText = nil
+    }
+    
     private func setUpText() {
         self.titleLabel.text = LocalizedString.CouponDiscount.localized
         self.amountLabel.text = 500.0.amountInDelimeterWithSymbol
@@ -40,10 +45,22 @@ class DiscountCell: UITableViewCell {
     private func setUpColor() {
         self.titleLabel.textColor = AppColors.themeBlack
         self.amountLabel.textColor = AppColors.themeBlack
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     func configureCell(title: String, amount: String) {
         self.titleLabel.text = title
         self.amountLabel.text = amount
     }
+    
+    func configureForAddons(title: NSAttributedString, amount: NSAttributedString) {
+        self.titleLabel.attributedText = title
+        self.amountLabel.attributedText = amount
+    }
+    
+    func configureCellForInvoice(title: String, amount: NSAttributedString) {
+        self.titleLabel.text = title
+        self.amountLabel.attributedText = amount
+    }
+    
 }

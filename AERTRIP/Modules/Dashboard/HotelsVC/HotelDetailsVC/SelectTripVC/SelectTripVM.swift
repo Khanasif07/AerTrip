@@ -21,6 +21,7 @@ protocol SelectTripVMDelegate: class {
 enum TripUsingFor {
     case bookingTripChange
     case hotel
+    case flight
     case bookingAddToTrip
 }
 
@@ -36,7 +37,11 @@ class SelectTripVM {
     var tripInfo: TripInfo?
     var usingFor: TripUsingFor = .hotel
     
-    var allTrips: [TripModel] = []
+    var allTrips: [TripModel] = [] {
+        didSet {
+            self.setSelectedTripIndexPath()
+        }
+    }
     var eventId: String = ""
     var newTripId: String = ""
     
@@ -47,6 +52,33 @@ class SelectTripVM {
     // MARK: - Private
     
     // MARK: - Public
+    
+    func setSelectedTripIndexPath() {
+        if usingFor == .bookingTripChange {
+            if let selectedTripId = tripInfo?.tripId {
+                for (index, trip) in allTrips.enumerated() {
+                    if trip.id == selectedTripId {
+                        selectedIndexPath = IndexPath(row: index, section: 0)
+                        break
+                    }
+                }
+            }else{
+                if let firstIndex = self.allTrips.firstIndex(where: {$0.id == tripDetails?.trip_id}){
+                    selectedIndexPath = IndexPath(row: firstIndex, section: 0)
+                }else if let firstIndex = self.allTrips.firstIndex(where: {$0.isDefault}){
+                    selectedIndexPath = IndexPath(row: firstIndex, section: 0)
+                }
+            }
+        } else {
+        for (index, trip) in allTrips.enumerated() {
+            if trip.isDefault {
+               selectedIndexPath = IndexPath(row: index, section: 0)
+                break
+            }
+        }
+        }
+        
+    }
     
     func fetchAllTrips() {
         delegate?.willFetchAllTrips()
@@ -77,6 +109,8 @@ class SelectTripVM {
                 sSelf.eventId = id
                 sSelf.tripDetails?.trip_id = selectedTrip.id
                 sSelf.tripDetails?.name = selectedTrip.name
+                sSelf.tripInfo?.tripId = selectedTrip.id
+                sSelf.tripInfo?.name = selectedTrip.name
                 sSelf.newTripId = tripId ?? ""
                 sSelf.saveMovedTrip()
             }
@@ -100,6 +134,7 @@ class SelectTripVM {
             guard let sSelf = self else { return }
             if success {
                 sSelf.tripDetails?.event_id = sSelf.eventId
+                sSelf.tripInfo?.eventId = sSelf.eventId
                 sSelf.delegate?.moveAndUpdateTripAPISuccess()
             }
             else {

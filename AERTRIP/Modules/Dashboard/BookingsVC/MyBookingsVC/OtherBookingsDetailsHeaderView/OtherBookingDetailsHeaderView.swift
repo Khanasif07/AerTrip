@@ -12,6 +12,8 @@ class OtherBookingDetailsHeaderView: UIView {
     
     //MARK:- Variables
     //MARK:===========
+    private var time: Float = 0.0
+    private var timer: Timer?
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -21,7 +23,13 @@ class OtherBookingDetailsHeaderView: UIView {
     @IBOutlet weak var bookingIdAndDateTitleLabel: UILabel!
     @IBOutlet weak var bookingIdAndDateLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
-
+    @IBOutlet weak var progressView: AppProgressView!
+    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var progressBottomConstraint: NSLayoutConstraint!
+    
+    
+    var isBottomStroke = false
+    
     //MARK:- LifeCycle
     //MARK:===========
     override init(frame: CGRect) {
@@ -43,7 +51,10 @@ class OtherBookingDetailsHeaderView: UIView {
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
-//        self.configureUI()
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+        self.progressView?.isHidden = true
+        self.bookingDataContainerView.backgroundColor = AppColors.themeBlack26
+        //        self.configureUI()
     }
     
     internal func configureUI(bookingEventTypeImage: UIImage , bookingIdStr: String , bookingIdNumbers: String , date: String , isDividerView: Bool = true) {
@@ -60,8 +71,8 @@ class OtherBookingDetailsHeaderView: UIView {
         //Colors
         self.bookingIdAndDateTitleLabel.textColor = AppColors.themeGray40
         
-        self.dividerView.isHidden = !isDividerView
-
+        self.dividerView.isHidden = true//!isDividerView
+        
     }
     
     
@@ -75,7 +86,7 @@ class OtherBookingDetailsHeaderView: UIView {
         let finalString = "\(bookingIdNumbers) | \(date)"
         
         let attributedString = NSMutableAttributedString(string: finalString)
-
+        
         attributedString.addAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack], range: NSRange(location: 0, length: finalString.count))
         
         if let num = bookingIdNumbers.components(separatedBy: "/").last, !num.isEmpty {
@@ -83,8 +94,56 @@ class OtherBookingDetailsHeaderView: UIView {
         }
         self.bookingIdAndDateLabel.attributedText = attributedString
     }
-
     
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.backgroundView.backgroundColor = AppColors.screensBackground.color
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer?.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer?.invalidate()
+            delay(seconds: 0.5) {
+                self.timer?.invalidate()
+                self.progressView?.isHidden = true
+                self.backgroundView.backgroundColor = .white
+//                if self.isBottomStroke{
+                    self.dividerView.isHidden = !self.isBottomStroke//false
+//                }else{
+//
+//                }
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
     //MARK:- IBActions
     //MARK:===========
 }

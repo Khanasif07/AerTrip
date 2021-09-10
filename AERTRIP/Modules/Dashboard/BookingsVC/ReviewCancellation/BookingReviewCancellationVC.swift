@@ -15,6 +15,7 @@ class BookingReviewCancellationVC: BaseVC {
     // MARK: - IB Outlet
     
     @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var gradientView: UIView!
     
     // refund View
     @IBOutlet weak var refundView: UIView!
@@ -33,20 +34,27 @@ class BookingReviewCancellationVC: BaseVC {
     // Cancellation View
     @IBOutlet weak var cancellationTitleLabel: UILabel!
     @IBOutlet weak var cancellationTextField: UITextField!
-    @IBOutlet weak var commentTextView: PKTextView!
+    @IBOutlet weak var commentTextView: UITextView!
+    @IBOutlet weak var commentPlaceholderLbl: UILabel!
+    
     @IBOutlet weak var totalNetRefundView: UIView!
     @IBOutlet weak var totalNetRefundViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var totalNetRefundLabel: UILabel!
     @IBOutlet weak var refundAmountLabel: UILabel!
-    
     @IBOutlet weak var infoLabel: UILabel!
-    
-
-    
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var cancellationReasonDivider: ATDividerView!
+    @IBOutlet weak var refundModeDivider: ATDividerView!
+    @IBOutlet weak var commectSeparator: ATDividerView!
+    @IBOutlet weak var emptyView: UIView!
+    
+    
+    
     //MARK: - Variables
     let viewModel = BookingReviewCancellationVM()
     private var keyboardHeight: CGFloat = 0.0
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
 
     // MARK: - Override methods
     
@@ -54,34 +62,59 @@ class BookingReviewCancellationVC: BaseVC {
         super.viewWillAppear(animated)
         
         self.commentTextView.delegate = self
-
+        statusBarStyle = presentingStatusBarStyle
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if self.viewModel.currentUsingAs == .flightCancellationReview {
-             self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
-        } else if self.viewModel.currentUsingAs == .hotelCancellationReview {
-           self.refundAmountLabel.text = self.viewModel.totalRefundForHotel.delimiterWithSymbol
-        }
-       
+        self.setRefundAmountForHotelsAndFlight()
     }
     
     override func initialSetup() {
+        self.requestCancellationButton.isShadowColorNeeded = true
         self.requestCancellationButton.shouldShowPressAnimation = false
+        self.requestCancellationButton.gradientColors = [AppColors.clear, AppColors.clear]
+        self.requestCancellationButton.shadowColor = AppColors.clear
+        self.commentPlaceholderLbl.textColor = AppColors.themeGray20
+        self.commentPlaceholderLbl.font = AppFonts.Regular.withSize(18)
+        self.commentTextView.font = AppFonts.Regular.withSize(18)
         switch self.viewModel.currentUsingAs {
         case .flightCancellationReview, .hotelCancellationReview:
-            self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
-            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
+            self.commentPlaceholderLbl.text = LocalizedString.EnterYourCommentOptional.localized
+
+        
+            if viewModel.currentUsingAs == .flightCancellationReview{
+                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewCancellationRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
+
+            }else{
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewReschedulingRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
+
+            }
+
         case .specialRequest:
             self.cancellationReasonView.isHidden = true
             self.cancellationViewHeightConstraint.constant = 0.0
             self.totalNetRefundView.isHidden = true
             self.totalNetRefundViewHeightConstraint.constant = 0.0
-            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 0.0, right: 0.0)
+            self.requestCancellationButton.alpha = 0.6
+        
+
+            FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewSpecialRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
+
+
         }
         
         self.refundModeTextField.delegate = self
@@ -98,6 +131,12 @@ class BookingReviewCancellationVC: BaseVC {
             self.viewModel.getCancellationRefundModeReasons()
         }
         self.manageTextFieldHeight()
+        self.gradientView.addGredient(isVertical: false)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     override func setupTexts() {
@@ -115,7 +154,8 @@ class BookingReviewCancellationVC: BaseVC {
             self.refundModeTitleLabel.text = LocalizedString.RefundMode.localized
             self.refundModeTextField.text = LocalizedString.Select.localized
             self.totalNetRefundLabel.text = LocalizedString.TotalNetRefund.localized
-            self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+//            self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+            self.setRefundAmountForHotelsAndFlight()
             self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
             self.cancellationTitleLabel.text = LocalizedString.ReasonForCancellation.localized
             self.cancellationTextField.text = LocalizedString.Select.localized
@@ -125,7 +165,7 @@ class BookingReviewCancellationVC: BaseVC {
             self.refundModeTitleLabel.text = LocalizedString.RequestType.localized
             self.refundModeTextField.text = LocalizedString.Select.localized
             self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
-            self.commentTextView.placeholder = LocalizedString.WriteAboutYourSpecialRequest.localized
+            self.commentPlaceholderLbl.text = LocalizedString.WriteAboutYourSpecialRequest.localized
         }
     }
     
@@ -134,22 +174,33 @@ class BookingReviewCancellationVC: BaseVC {
         self.refundModeTextField.font = AppFonts.Regular.withSize(18.0)
         self.totalNetRefundLabel.font = AppFonts.Regular.withSize(18.0)
         self.refundAmountLabel.font = AppFonts.Regular.withSize(18.0)
-        self.requestCancellationButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         self.infoLabel.font = AppFonts.Regular.withSize(14.0)
         self.cancellationTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.cancellationTextField.font = AppFonts.Regular.withSize(18.0)
+        self.requestCancellationButton.setTitleFont(font: AppFonts.SemiBold.withSize(20.0), for: .normal)
+        self.requestCancellationButton.setTitleFont(font: AppFonts.SemiBold.withSize(20.0), for: .selected)
+        self.requestCancellationButton.setTitleFont(font: AppFonts.SemiBold.withSize(20.0), for: .highlighted)
     }
     
     override func setupColors() {
-        self.refundModeTitleLabel.textColor = AppColors.themeGray40
+        self.refundModeTitleLabel.textColor = AppColors.themeGray153
         self.refundModeTextField.textColor = AppColors.textFieldTextColor51
         self.manageContinueButton()
 
         self.totalNetRefundLabel.textColor = AppColors.themeBlack
         self.refundAmountLabel.textColor = AppColors.themeBlack
-        self.infoLabel.textColor = AppColors.themeGray40
-        self.cancellationTitleLabel.textColor = AppColors.themeGray40
+        self.infoLabel.textColor = AppColors.themeGray153
+        self.cancellationTitleLabel.textColor = AppColors.themeGray153
         self.cancellationTextField.textColor = AppColors.themeBlack
+        self.setColorsForDarkMode()
+    }
+    
+    
+    private func setColorsForDarkMode(){
+        [self.view, self.refundView, cancellationReasonView, commentTextView, totalNetRefundView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
+        self.emptyView.backgroundColor = AppColors.themeGray04
     }
     
     // MARK: - Override methods
@@ -170,19 +221,26 @@ class BookingReviewCancellationVC: BaseVC {
     private func manageTextFieldHeight() {
         var allOthersHeight: CGFloat = 0.0
         if self.viewModel.currentUsingAs == .flightCancellationReview || self.viewModel.currentUsingAs == .hotelCancellationReview {
-            allOthersHeight = 300.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+            allOthersHeight = 296.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         } else {
-            allOthersHeight = 186.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+            allOthersHeight = 195.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         }
         let blankSpace: CGFloat = UIDevice.screenHeight - (allOthersHeight)
         
         var textHeight: CGFloat = 0.0
         
         if self.commentTextView.text.isEmpty {
-            textHeight = 34.0
+            if UIDevice.isIPhoneX{
+                textHeight = 36.0
+            }else{
+                textHeight = 45.0
+            }
+            commentTextView.frame.size.height = textHeight
+            
         }
         else {
-            textHeight = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 14.0
+            let txtViewHt = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 15.0
+            textHeight = max(txtViewHt, textHeight)
         }
         
         var calculatedBlank: CGFloat = blankSpace - (textHeight)
@@ -193,9 +251,9 @@ class BookingReviewCancellationVC: BaseVC {
         }
         
         self.bottomViewHeightConstraint.constant = calculatedBlank
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
-            self?.view.layoutIfNeeded()
-        })
+//        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self.view.layoutIfNeeded()
+//        })
     }
     override func setupNavBar() {
         switch self.viewModel.currentUsingAs {
@@ -213,6 +271,29 @@ class BookingReviewCancellationVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    
+    private func setRefundAmountForHotelsAndFlight(){
+        if self.viewModel.currentUsingAs == .flightCancellationReview {
+            if self.viewModel.totRefundForFlight <= 0 && self.viewModel.isForflightCancellation{
+                self.refundAmountLabel.attributedText = self.getConvertedPrice(for: 0, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(18), isForCancellation: false)
+//                self.refundAmountLabel.text = (0).delimiterWithSymbol
+                self.totalNetRefundViewHeightConstraint.constant = 0.0
+                self.totalNetRefundView.isHidden = true
+            }else{
+                self.totalNetRefundView.isHidden = false
+//                self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+                
+                self.refundAmountLabel.attributedText = self.getConvertedPrice(for: self.viewModel.totRefundForFlight, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(18), isForCancellation: false)
+            }
+             
+        } else if self.viewModel.currentUsingAs == .hotelCancellationReview {
+//           self.refundAmountLabel.text = self.viewModel.totalRefundForHotel.delimiterWithSymbol
+            
+            self.refundAmountLabel.attributedText = self.getConvertedPrice(for: self.viewModel.totalRefundForHotel, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(18), isForCancellation: false)
+            
+        }
+    }
+    
     // MARK: - IBAction
     @IBAction func requestContinueButtonTapped(_ sender: UIButton) {
         if self.viewModel.isUserDataVerified(showMessage: true) {
@@ -222,8 +303,37 @@ class BookingReviewCancellationVC: BaseVC {
             else {
                 self.viewModel.makeCancellationRequest()
             }
+        }else{
+            if self.viewModel.currentUsingAs == .specialRequest{
+                if self.viewModel.selectedSpecialRequest.isEmpty || self.viewModel.selectedSpecialRequest.lowercased() == LocalizedString.Select.localized.lowercased() {
+                    self.setErrorForSelectMode(isError: true)
+                }
+                if self.viewModel.comment.isEmpty || self.viewModel.comment.lowercased() == LocalizedString.Select.localized.lowercased() {
+                    self.commectSeparator.isSettingForErrorState = true
+                }
+            }else{
+                if self.viewModel.selectedMode.isEmpty || self.viewModel.selectedMode.lowercased() == LocalizedString.Select.localized.lowercased(){
+                    self.setErrorForSelectMode(isError: true)
+                }
+                if self.viewModel.selectedReason.isEmpty || self.viewModel.selectedReason.lowercased() == LocalizedString.Select.localized.localized{
+                    self.setErrorForCancellationReason(isError: true)
+                }
+            }
+            
         }
     }
+    
+    
+    func setErrorForSelectMode(isError:Bool){
+        self.refundModeDivider.isSettingForErrorState = isError
+//        self.refundModeTextField.textColor = isError ? AppColors.themeRed : AppColors.themeBlack
+    }
+    
+    func setErrorForCancellationReason(isError:Bool){
+        self.cancellationReasonDivider.isSettingForErrorState = isError
+//        self.cancellationTextField.textColor = isError ? AppColors.themeRed : AppColors.themeBlack
+    }
+    
     
     
     // MARK: - Helpe methods
@@ -232,7 +342,7 @@ class BookingReviewCancellationVC: BaseVC {
         // if want to manage the button enable/disable state then uncomment the Code 2 and comment Code 1
 
         //CODE 1
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+        self.requestCancellationButton.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(1.0), for: .normal)
         self.requestCancellationButton.isUserInteractionEnabled = true
         
         
@@ -276,62 +386,80 @@ extension BookingReviewCancellationVC {
     func textViewDidChange(_ textView: UITextView) {
         self.viewModel.comment = textView.text
         self.manageTextFieldHeight()
+        commentPlaceholderLbl.isHidden = !textView.text.isEmpty
+        if !textView.text.isEmpty && viewModel.selectedSpecialRequest != LocalizedString.Select.localized {
+            requestCancellationButton.alpha = 1
+        } else {
+            requestCancellationButton.alpha = 0.6
+        }
     }
     
-        func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.commectSeparator.isSettingForErrorState = false
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        
+        if self.viewModel.currentUsingAs == .specialRequest {
+            PKMultiPicker.noOfComponent = 1
+            if self.viewModel.specialRequests.count == 1 {
+                AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                return false
+            } else {
+                self.setErrorForSelectMode(isError: false)
+                PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
+                    textField.text = firstSelect
+                    self.viewModel.selectedSpecialRequest = firstSelect
+                    if firstSelect != LocalizedString.Select.localized && !viewModel.comment.isEmpty {
+                        requestCancellationButton.alpha = 1
+                    } else {
+                        requestCancellationButton.alpha = 0.6
+                    }
+                    self.manageContinueButton()
+                    
+                }
+                
+            }
             
-            
-            if self.viewModel.currentUsingAs == .specialRequest {
+        }
+        else {
+            if textField === refundModeTextField {
+                self.setErrorForSelectMode(isError: false)
                 PKMultiPicker.noOfComponent = 1
-                if self.viewModel.specialRequests.count == 1 {
+                if self.viewModel.refundModes.count == 1 {
                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
                     return false
                 } else {
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
                         textField.text = firstSelect
-                        self.viewModel.selectedSpecialRequest = firstSelect
-                self.manageContinueButton()
-
-                    }
-
-                }
-               
-            }
-            else {
-                if textField === refundModeTextField {
-                    PKMultiPicker.noOfComponent = 1
-                    if self.viewModel.refundModes.count == 1 {
-                         AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
-                         return false
-                    } else {
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                            textField.text = firstSelect
-                            self.viewModel.selectedMode = firstSelect
-                            self.manageContinueButton()
-
-                        }
-                  
+                        self.viewModel.selectedMode = firstSelect
+                        self.manageContinueButton()
+                        
                     }
                     
                 }
-                else {
-                    PKMultiPicker.noOfComponent = 1
-                    if self.viewModel.cancellationReasons.count == 1  {
-                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
-                     return false
-                    } else {
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                            textField.text = firstSelect
-                            self.viewModel.selectedReason = firstSelect
-                    self.manageContinueButton()
-
-                        }
-                    }
-                   
-                }
+                
             }
-            return true
+            else {
+                self.setErrorForCancellationReason(isError: false)
+                PKMultiPicker.noOfComponent = 1
+                if self.viewModel.cancellationReasons.count == 1  {
+                    AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                    return false
+                } else {
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
+                        textField.text = firstSelect
+                        self.viewModel.selectedReason = firstSelect
+                        self.manageContinueButton()
+                        
+                    }
+                }
+                
+            }
         }
+        return true
+    }
 }
 
 

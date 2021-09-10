@@ -71,7 +71,7 @@ extension APICaller {
         AppNetworking.GET(endPoint: APIEndPoint.searchDestinationHotels, parameters: params, success: { [weak self] json in
             
             guard let sSelf = self else { return }
-            
+            printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let arr = jsonData[APIKeys.data.rawValue].arrayObject as? [JSONDictionary] {
                     let (hotels, _) = SearchedDestination.models(jsonArr: arr)
@@ -101,7 +101,7 @@ extension APICaller {
         AppNetworking.GET(endPoint: APIEndPoint.hotelsNearByMeLocations, parameters: params, success: { [weak self] json in
             
             guard let sSelf = self else { return }
-            
+            printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let arr = jsonData[APIKeys.data.rawValue].arrayObject as? [JSONDictionary] {
                     let (hotels, _) = SearchedDestination.models(jsonArr: arr)
@@ -170,7 +170,7 @@ extension APICaller {
                     HotelFilterVM.shared.rightRangePrice = HotelFilterVM.shared.maximumPrice
                     HotelFilterVM.shared.defaultLeftRangePrice = HotelFilterVM.shared.minimumPrice
                     HotelFilterVM.shared.defaultRightRangePrice = HotelFilterVM.shared.maximumPrice
-                   
+                    
                     completionBlock(true, [], hotelsInfo, done ?? false)
                 }
                 else {
@@ -197,8 +197,8 @@ extension APICaller {
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
-                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let enquiryId = response["enquiry_id"] as? String {
-                    completionBlock(true, [], enquiryId)
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let enquiryId = response["enquiry_id"] as? Int {
+                    completionBlock(true, [], "\(enquiryId)")
                 }
                 else {
                     completionBlock(true, [], "")
@@ -220,7 +220,7 @@ extension APICaller {
     }
     
     func recentHotelsSearchesApi( loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ recentSearchesData: [RecentSearchesModel]) -> Void) {
-        let endPoints = "https://beta.aertrip.com/api/v1/recent-search/get?product=hotel"
+        let endPoints = "\(APIEndPoint.baseUrlPath.rawValue)recent-search/get?product=hotel"
         AppNetworking.GET(endPoint: endPoints, loader: loader, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
@@ -272,7 +272,6 @@ extension APICaller {
             }
         }
     }
-    
     
     
     func fetchConfirmItineraryData(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ data: ItineraryData?) -> Void) {

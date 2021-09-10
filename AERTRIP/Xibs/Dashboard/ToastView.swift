@@ -31,7 +31,7 @@ class ToastView: UIView {
     
     func setupTextColorAndFont() {
         
-        self.cornerRadius = 8
+        self.cornerradius = 8
 //        self.clipsToBounds = true
         self.messageLabel.font    = AppFonts.Regular.withSize(16)
         self.messageLabel.textColor = AppColors.themeWhite
@@ -110,7 +110,7 @@ extension ToastView {
     
     private func getAttrText(title: String, message: String) -> NSMutableAttributedString {
         if self.isSettingForDelete {
-            return AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "ic_delete_toast"), endText: "  \(LocalizedString.Deleted.localized.lowercased())", font: AppFonts.Regular.withSize(16))
+            return AppGlobals.shared.getTextWithImage(startText: "", image: AppImages.ic_delete_toast, endText: "  \(LocalizedString.Deleted.localized.lowercased())", font: AppFonts.Regular.withSize(16))
         }
         else {
             

@@ -20,7 +20,7 @@ extension TopNavigationViewDelegate {
 }
 
 
-class TopNavigationView: UIView {
+class TopNavigationView: PassthroughView {
     
     enum BackgroundType {
         case clear
@@ -45,7 +45,7 @@ class TopNavigationView: UIView {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var firstRightBtnTrailingConst: NSLayoutConstraint!
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerView: PassthroughView!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var navTitleLabel: UILabel!
     @IBOutlet weak var firstRightButton: UIButton!
@@ -53,7 +53,7 @@ class TopNavigationView: UIView {
     @IBOutlet weak var titleLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
-    @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var backView: PassthroughView!
     @IBOutlet weak var backViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var firstRightButtonTrailingConstraint: NSLayoutConstraint!
@@ -66,6 +66,10 @@ class TopNavigationView: UIView {
         }
     }
     
+    @IBOutlet weak var darkView: UIView!
+    @IBOutlet weak var darkViewHeight: NSLayoutConstraint!
+    
+    var isNeedExtraSpace  = false
     
     //MARK:- View Life Cycle
     //MARK:-
@@ -84,6 +88,12 @@ class TopNavigationView: UIView {
         super.layoutSubviews()
         
         self.updateTitleFrames()
+        updateDarkViewHeight()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateForTraitChange()
     }
     
     //MARK:- Methods
@@ -98,6 +108,9 @@ class TopNavigationView: UIView {
         self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.isToShowIndicatorView = false
         self.configureNavBar(title: "")
+        darkView.backgroundColor = AppColors.themeWhiteDashboard
+        updateForTraitChange()
+        darkView.isHidden = true
         
     }
     
@@ -146,7 +159,7 @@ class TopNavigationView: UIView {
             backVisualEfectView.effect = UIBlurEffect(style: .prominent)
             backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
             
-            backView.backgroundColor = UIColor.red.withAlphaComponent(0.4)
+            backView.backgroundColor = .clear //UIColor.red.withAlphaComponent(0.4)
             backView.addSubview(backVisualEfectView)
         }
     }
@@ -170,6 +183,9 @@ class TopNavigationView: UIView {
         
         if !self.firstRightButton.isHidden {
             trail = self.firstRightButton.width
+        }
+        if self.isNeedExtraSpace{
+            trail += 5.0
         }
         if !self.secondRightButton.isHidden {
             trail += self.secondRightButton.width
@@ -197,10 +213,10 @@ class TopNavigationView: UIView {
         }
     }
     
-    func configureNavBar(title: String?, isLeftButton: Bool = true, isFirstRightButton: Bool = false, isSecondRightButton: Bool = false, isDivider: Bool = true, backgroundType: BackgroundType = BackgroundType.blurMainView(isDark: false)) {
+    func configureNavBar(title: String?, isLeftButton: Bool = true, isFirstRightButton: Bool = false, isSecondRightButton: Bool = false, isDivider: Bool = true, backgroundType: BackgroundType = BackgroundType.blurMainView(isDark: false), isLeftButtonEnabled : Bool = true) {
        
+        self.leftButton.isEnabled = isLeftButtonEnabled
         self.navTitleLabel.text = title
-        
         self.leftButton.isHidden = !isLeftButton
         self.firstRightButton.isHidden = !isFirstRightButton
         self.secondRightButton.isHidden = !isSecondRightButton
@@ -212,7 +228,9 @@ class TopNavigationView: UIView {
         self.configureSecondRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
     }
     
-    func configureLeftButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0), isHideBackView: Bool = true) {
+    func configureLeftButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0), isHideBackView: Bool = true, isLeftButtonEnabled : Bool = true) {
+        
+        self.leftButton.isEnabled = isLeftButtonEnabled
         
         self.leftButton.setTitle(normalTitle, for: .normal)
         self.leftButton.setTitle(selectedTitle, for: .selected)
@@ -229,6 +247,15 @@ class TopNavigationView: UIView {
         self.backView.alpha = isHideBackView ? 0.0 :  1.0
         
         self.updateTitleFrames()
+        
+        if isLeftButtonEnabled {
+            leftButton.setTitleColor(normalColor, for: UIControl.State.normal)
+
+        }else {
+            leftButton.setTitleColor(UIColor.TWO_ZERO_FOUR_COLOR, for: UIControl.State.normal)
+
+        }
+        
     }
     
     func configureFirstRightButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0)) {
@@ -263,6 +290,19 @@ class TopNavigationView: UIView {
         self.updateTitleFrames()
     }
     
+    private func updateForTraitChange() {
+        if traitCollection.userInterfaceStyle == .dark {
+//            darkView.isHidden = false
+        } else {
+//            darkView.isHidden = true
+        }
+    }
+    
+    private func updateDarkViewHeight() {
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        darkViewHeight.constant = self.frame.height + statusHeight
+    }
+    
     
     //MARK:- Actions
     @IBAction private func leftBtnTapped(_ sender: UIButton) {
@@ -278,11 +318,12 @@ class TopNavigationView: UIView {
     }
     
     func startActivityIndicaorLoading() {
+        self.isToShowIndicatorView = true
         self.activityIndicatorView.startAnimating()
     }
     
     func stopActivityIndicaorLoading() {
         self.activityIndicatorView.stopAnimating()
-
+        self.isToShowIndicatorView = false
     }
 }

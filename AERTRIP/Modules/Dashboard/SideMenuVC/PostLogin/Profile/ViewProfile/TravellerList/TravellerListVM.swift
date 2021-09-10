@@ -13,8 +13,8 @@ import UIKit
 
 protocol TravellerListVMDelegate: class {
     func willSearchForTraveller(_ isShowLoader: Bool)
-    func searchTravellerSuccess()
-    func searchTravellerFail(errors: ErrorCodes)
+    func searchTravellerSuccess(_ isShowLoader: Bool)
+    func searchTravellerFail(errors: ErrorCodes, _ isShowLoader: Bool)
     func willCallDeleteTravellerAPI()
     func deleteTravellerAPISuccess()
     func deleteTravellerAPIFailure(errors: ErrorCodes)
@@ -35,7 +35,7 @@ class TravellerListVM: NSObject {
 //                 self?.travellersDict = travellers
                     TravellerData.insert(dataDictArray: travellers, completionBlock: { (all) in
                         DispatchQueue.mainAsync {
-                            self?.delegate?.searchTravellerSuccess()
+                            self?.delegate?.searchTravellerSuccess(isShowLoader)
                         }
                     })
 
@@ -46,7 +46,7 @@ class TravellerListVM: NSObject {
 //                }
 //                self?.delegate?.searchTravellerSuccess()
             } else {
-                self?.delegate?.searchTravellerFail(errors: errorCodes)
+                self?.delegate?.searchTravellerFail(errors: errorCodes, isShowLoader)
             }
         }
     }
@@ -63,5 +63,12 @@ class TravellerListVM: NSObject {
                 self?.delegate?.deleteTravellerAPIFailure(errors: errors)
             }
         }
+    }
+}
+
+///Logs Firebase events
+extension TravellerListVM {
+    func logEventsForFirebase(with event: FirebaseEventLogs.EventsTypeName, value: String? = nil){
+        FirebaseEventLogs.shared.logTravellersListEvents(with: event, value: value)
     }
 }

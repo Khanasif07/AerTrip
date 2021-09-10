@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AppToast: NSObject {
+class AppToast : NSObject {
     
     enum ButtonIcon {
         case cross
@@ -17,7 +17,7 @@ class AppToast: NSObject {
         var image: UIImage {
             switch self {
             case .cross:
-                return #imageLiteral(resourceName: "ic_toast_cross").withRenderingMode(.alwaysOriginal)
+                return AppImages.ic_toast_cross.withRenderingMode(.alwaysOriginal)
             }
         }
         
@@ -37,18 +37,25 @@ class AppToast: NSObject {
     let tagAsSubview: Int = 5932
     
      func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "",spaceFromBottom: CGFloat = 10.0, buttonAction: (()->Void)? = nil,toastDidClose: (()->Void)? = nil) {
-        
-        
+                
         if !AppToast.isPreviousView, !message.isEmpty {
 
-            self.parentViewController = onViewController
             self.toastDidClose = toastDidClose
             self.buttonAction = buttonAction
-            if let view = onViewController?.view {
-                if buttonTitle.isEmpty {
-                AertripToastView.toast(in: view, withText: message)
-                } else {
-                    AertripToastView.toast(in: view, withText: message, buttonTitle: buttonTitle, delegate: self)
+            DispatchQueue.main.async {
+                
+                if let view = onViewController?.view {
+                    if buttonTitle.isEmpty {
+                        self.hideToast(onViewController, animated: true)
+                        //Gurpreet
+                        //                    delay(seconds: 0.3) {
+                        AertripToastView.toast(in: view, withText: message)
+                        //                    }
+                    } else {
+                        CustomToast.shared.fadeAllToasts()
+                        self.parentViewController = onViewController
+                        AertripToastView.toast(in: view, withText: message, buttonTitle: buttonTitle, delegate: self)
+                    }
                 }
             }
             

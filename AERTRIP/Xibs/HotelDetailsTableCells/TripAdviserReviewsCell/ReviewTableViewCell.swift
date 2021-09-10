@@ -16,12 +16,18 @@ class ReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var progressBarView: PKProgressView!
     @IBOutlet weak var numbOfReviews: UILabel!
     @IBOutlet weak var progressViewBottomConstraints: NSLayoutConstraint!
-
+    @IBOutlet weak var progressViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var noOfReviewsWidthContraint: NSLayoutConstraint!
+    
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+    }
+    
+    deinit {
+        printDebug("deinit ReviewTableViewCell")
     }
 
     //Mark:- Functions
@@ -36,11 +42,14 @@ class ReviewTableViewCell: UITableViewCell {
 
         self.reviewTitle.textColor = AppColors.themeBlack
         self.numbOfReviews.textColor = AppColors.themeBlack
+        self.progressBarView.progressTint = AppColors.reviewGreen
+        self.progressBarView.progressBorderColor = AppColors.reviewGreen
+        
     }
     
     internal func configCell(title: String ,totalNumbReviews: String, currentReviews: String) {
         self.reviewTitle.text = title
         self.progressBarView.progress = CGFloat((currentReviews.toDouble ?? 0.0)/(totalNumbReviews.toDouble ?? 0.0))
-        self.numbOfReviews.text = (currentReviews.toDouble ?? 0.0).kFormatted
+        self.numbOfReviews.text = (currentReviews.toDouble ?? 0.0).formatedCount()
     }
 }

@@ -20,7 +20,8 @@ class ApplyCouponTableViewCell: UITableViewCell {
     @IBOutlet weak var couponView: UIView!
     @IBOutlet weak var appliedCouponLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
-    
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var arrowImage: UIImageView!
     // MARK: - Properties
     weak var delegate : ApplyCouponTableViewCellDelegate?
     
@@ -28,21 +29,31 @@ class ApplyCouponTableViewCell: UITableViewCell {
     // MARK: - View life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.manageLoader()
         self.setupFonts()
         self.setUpColors()
         self.setUpText()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.couponLabel.attributedText = nil
+        self.appliedCouponLabel.attributedText = nil
     }
 
     // MARK: - Helper methods
     
     private func setupFonts() {
         couponLabel.font = AppFonts.Regular.withSize(18.0)
+        appliedCouponLabel.font = AppFonts.Regular.withSize(18.0)
+
     }
     
     private func setUpColors() {
        couponLabel.textColor = AppColors.themeBlack
        appliedCouponLabel.textColor = AppColors.themeGreen
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.couponView.backgroundColor = AppColors.themeBlack26
     }
     
     private func setUpText() {
@@ -53,5 +64,26 @@ class ApplyCouponTableViewCell: UITableViewCell {
         delegate?.removeCouponTapped()
     }
     
+    
+    private func manageLoader() {
+        self.indicator.style = .medium// .gray
+        self.indicator.tintColor = AppColors.themeGreen
+        self.indicator.color = AppColors.themeGreen
+        self.indicator.startAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.indicator.stopAnimating()
+                
+            }else{
+                self.indicator.startAnimating()
+            }
+            self.closeButton.isHidden = !isHidden
+            self.arrowImage.isHidden = !isHidden
+        }
+    }
    
 }

@@ -31,4 +31,47 @@ extension Double {
         guard let formattedString = formatter.string(from: self) else { return "" }
         return formattedString
     }
+    
+    func formatedCount() ->String{
+        var thousandNum = self/1000
+        var millionNum = self/1000000
+        if self >= 1000 && self < 1000000{
+            if(floor(thousandNum) == thousandNum){
+                return("\(Int(thousandNum))k")
+            }
+            return("\(thousandNum.roundToPlaces(places: 1))k")
+        }
+        if self >= 1000000{
+            if(floor(millionNum) == millionNum){
+                return("\(Int(thousandNum))k")
+            }
+            return ("\(millionNum.roundToPlaces(places: 1))M")
+        }
+        else{
+            if(floor(self) == self){
+                return ("\(Int(self))")
+            }
+            return ("\(self)")
+        }
+                
+    }
+    
+    mutating func roundToPlaces(places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return  (self * divisor).rounded() / divisor
+    }
+    var removeZeroAfterDecimal: String{
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: self)) ?? "0"
+    }
+
+    var numberAfterDecimal:String{
+        let powerOfTen:Double = pow(10.0, 2.0)
+        let targetedDecimalPlaces:Int = Int(self * powerOfTen)%Int(powerOfTen)
+        return "\(targetedDecimalPlaces)"
+    }
+    
 }

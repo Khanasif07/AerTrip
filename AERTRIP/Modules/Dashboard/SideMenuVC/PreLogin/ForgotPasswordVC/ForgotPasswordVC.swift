@@ -30,10 +30,10 @@ class ForgotPasswordVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
-        if self.viewModel.isFirstTime {
-            self.setupInitialAnimation()
-            self.setupViewDidLoadAnimation()
-        }
+        //        if self.viewModel.isFirstTime {
+        //            self.setupInitialAnimation()
+        //            self.setupViewDidLoadAnimation()
+        //        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +48,7 @@ class ForgotPasswordVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.continueButton.layer.cornerRadius = self.continueButton.height/2
-       // self.continueButton.layer.masksToBounds = true
+        // self.continueButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
@@ -58,7 +58,7 @@ class ForgotPasswordVC: BaseVC {
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
-
+        
         
     }
     
@@ -75,6 +75,7 @@ class ForgotPasswordVC: BaseVC {
         self.intructionLabel.textColor  = AppColors.themeBlack
         self.continueButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.continueButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.emailTextField.lineErrorColor = AppColors.themeRed
     }
     
     override func bindViewModel() {
@@ -87,9 +88,14 @@ class ForgotPasswordVC: BaseVC {
     @IBAction func continueButtonAction(_ sender: ATButton) {
         
         self.view.endEditing(true)
-
+        
         if self.viewModel.isValidEmail(vc: self) {
             self.viewModel.webserviceForForgotPassword(sender)
+        }else {
+            let isValidEmail = !self.viewModel.email.checkInvalidity(.Email)
+            self.emailTextField.isError = !isValidEmail
+            let emailPlaceHolder = self.emailTextField.placeholder ?? ""
+            self.emailTextField.attributedPlaceholder = NSAttributedString(string: emailPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         }
     }
 }
@@ -109,14 +115,18 @@ private extension ForgotPasswordVC {
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
         
-        self.continueButton.isEnabled = false
+        //self.continueButton.isEnabled = false
         self.emailTextField.delegate = self
         self.emailTextField.text = self.viewModel.email
         self.emailTextField.autocorrectionType = .no
-        self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection 
+        //self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection 
         self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
-        topNavBar.leftButton.isHidden = true
+        //topNavBar.leftButton.isHidden = true
+        
+        self.continueButton.isEnabledShadow = true
+        textFieldValueChanged(emailTextField)
+        
     }
 }
 
@@ -133,13 +143,17 @@ extension ForgotPasswordVC {
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.email = textField.text ?? ""
-        self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection
+        //self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection
+        self.continueButton.isEnabledShadow = !self.viewModel.isValidateForContinueButtonSelection
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         //for verify the data
         if textField === self.emailTextField {
-            self.emailTextField.isError = self.viewModel.email.checkInvalidity(.Email)
+            let isValidEmail = !self.viewModel.email.checkInvalidity(.Email)
+            self.emailTextField.isError = !isValidEmail
+            let emailPlaceHolder = self.emailTextField.placeholder ?? ""
+            self.emailTextField.attributedPlaceholder = NSAttributedString(string: emailPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         }
     }
     

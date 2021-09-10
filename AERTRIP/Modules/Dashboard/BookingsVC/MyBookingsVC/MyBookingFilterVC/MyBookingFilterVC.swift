@@ -7,7 +7,6 @@
 //
 // Asif Change =================
 import UIKit
-import Parchment
 
 class MyBookingFilterVC: BaseVC {
     
@@ -19,12 +18,18 @@ class MyBookingFilterVC: BaseVC {
     //        return [travelDateButton, eventTypeButton, bookingDateButton]
     //    }
     
-    private var minDate: Date?
+    var minDate: Date?
+    var maxDate: Date?
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
     private var allChildVCs :[UIViewController] = []
     private var isFilterArray:[Bool] = [true,true,true]
     private var previousOffset = CGPoint.zero
+    
+    var statusBarHeight : CGFloat {
+        return AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+//        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+    }
     
     //MARK:- IBOutlets
     @IBOutlet weak var topNavBar: TopNavigationView!{
@@ -38,15 +43,16 @@ class MyBookingFilterVC: BaseVC {
     @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var mainBackView: UIView!
+    @IBOutlet weak var mainContainerHeightConstraint: NSLayoutConstraint!
     
- 
     //MARK:- LifeCycle
     override func initialSetup() {
-        
+        self.mainContainerHeightConstraint.constant = 498 + statusBarHeight
         self.fetchMinDateFromCoreData()
+        self.fetchMaxDateFromCoreData()
         self.setCounts()
         
-        self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
+        self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
         self.topNavBar.firstRightBtnTrailingConst.constant = 0.0
         let clearStr = "  \(LocalizedString.ClearAll.localized)"
         let doneStr = "\(LocalizedString.Done.localized)  "
@@ -56,16 +62,22 @@ class MyBookingFilterVC: BaseVC {
         self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         self.edgesForExtendedLayout = UIRectEdge(rawValue: 4)
         
-        let height = UIApplication.shared.statusBarFrame.height
+        let height = self.statusBarHeight
         self.navigationViewTopConstraint.constant = CGFloat(height)
         
-        self.hide(animated: false)
-        delay(seconds: 0.01) { [weak self] in
-            self?.show(animated: true)
+//        self.mainBackView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
+        delay(seconds: 1.0) { [weak self] in
+           self?.setupGesture()
         }
-        self.setupGesture()
+        
         self.setUpViewPager()
         self.setBadge()
+        self.hide(animated: false)
+//        delay(seconds: 0.01) { [weak self] in
+            self.show(animated: true)
+//        }
+        
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilter)
     }
     
     override func setupTexts() {
@@ -76,19 +88,26 @@ class MyBookingFilterVC: BaseVC {
     }
     
     override func setupColors() {
-        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray40
+        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray153
+        self.mainBackView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.childContainerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        printDebug("viewDidLayoutSubviews")
+        if !self.childContainerView.bounds.equalTo(self.parchmentView?.view.frame ?? .zero){
+            printDebug("viewDidLayoutSubviews")
         self.parchmentView?.view.frame = self.childContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
+        }
     }
     
     //MARK:- Functions
     private func setCounts() {
         
         self.topNavBar.navTitleLabel.text = "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results"
+        
+        
     }
     private func notifyToFilterApplied() {
         
@@ -96,14 +115,28 @@ class MyBookingFilterVC: BaseVC {
         
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         // dalay for 1 seconds for the filter applied same as Android
-        perform(#selector(sendNotification), with: nil, afterDelay: 1.0)
+        perform(#selector(sendNotification), with: nil, afterDelay: 0.2)
     }
     
     @objc private func sendNotification() {
         self.sendDataChangedNotification(data: ATNotification.myBookingFilterApplied)
         
-        delay(seconds: 0.5) { [weak self] in
+        delay(seconds: 0.2) { [weak self] in
             self?.setCounts()
+        }
+    }
+    
+    private func checkDoneBtnState() {
+        if  MyBookingFilterVM.shared.isFilterAplied() {
+            //self.topNavBar.firstRightButton.isEnabled = true
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            self.topNavBar.leftButton.isEnabled = true
+            self.topNavBar.leftButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        } else {
+            //self.topNavBar.firstRightButton.isEnabled = false
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            self.topNavBar.leftButton.isEnabled = false
+            self.topNavBar.leftButton.setTitleColor(AppColors.themeGray40, for: .normal)
         }
     }
     
@@ -115,9 +148,19 @@ class MyBookingFilterVC: BaseVC {
             self.minDate = minDt.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
     }
+    
+    private func fetchMaxDateFromCoreData() {
+        if let dict = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "dateHeader", usingFunction: "max").first, let maxDt = dict["max"] as? String {
+            
+            printDebug("Max date \(maxDt)")
+            self.maxDate = maxDt.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+    }
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
+//            self.mainContainerView.transform = .identity
+            self.mainBackView.alpha = 1.0
             self.view.layoutIfNeeded()
         }) { (isDone) in
             //            self.allTabDetailConatinerView.delegate = self
@@ -135,6 +178,8 @@ class MyBookingFilterVC: BaseVC {
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = -(self.mainContainerView.height)
+//            self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: -self.mainContainerView.height)
+            self.mainBackView.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: { _ in
             if shouldRemove {
@@ -173,13 +218,12 @@ class MyBookingFilterVC: BaseVC {
         self.parchmentView?.menuItemSpacing = (UIDevice.screenWidth - 335.5) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 13.0, bottom: 0.0, right: 11.0)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
-//        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
         self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
@@ -187,19 +231,18 @@ class MyBookingFilterVC: BaseVC {
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
         self.childContainerView.addSubview(self.parchmentView!.view)
-        
+        self.parchmentView?.menuBackgroundColor = AppColors.clear
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
-        self.parchmentView?.select(index: 0)
-        
+        self.parchmentView?.select(index: MyBookingFilterVM.shared.lastSelectedIndex)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
     }
     
     //MARK:- IBActions
     @objc func  outsideAreaTapped() {
-        self.cancelAllOperation()
+        //self.cancelAllOperation()
         self.hide(animated: true, shouldRemove: true)
     }
 }
@@ -209,8 +252,28 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //clear all
+        MyBookingFilterVM.shared.setToDefault()
         self.sendDataChangedNotification(data: ATNotification.myBookingFilterCleared)
-        self.hide(animated: true, shouldRemove: true)
+       // self.hide(animated: true, shouldRemove: true)
+        
+        self.allChildVCs.forEach { (viewController) in
+            if let vc = viewController as? TravelDateVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? EventTypeVC {
+                vc.setFilterValues()
+            }
+            
+        }
+        setBadge()
+        
+        delay(seconds: 0.5) {
+            self.setCounts()
+        }
+
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterClearedFromFilterScreen)
+
+        
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -225,26 +288,35 @@ extension MyBookingFilterVC: EventTypeVCDelegate {
         MyBookingFilterVM.shared.isFirstTime = false
         MyBookingFilterVM.shared.eventType = selection
         self.notifyToFilterApplied()
+
     }
 }
 
 extension MyBookingFilterVC: TravelDateVCDelegate {
-    func didSelect(fromDate: Date, forType: TravelDateVC.UsingFor) {
+    func didSelect(fromDate: Date?, forType: TravelDateVC.UsingFor) {
         if forType == .bookingDate {
             MyBookingFilterVM.shared.bookingFromDate = fromDate
+            
+
         }
         else if forType == .travelDate {
             MyBookingFilterVM.shared.travelFromDate = fromDate
+            
+
         }
         self.notifyToFilterApplied()
     }
     
-    func didSelect(toDate: Date, forType: TravelDateVC.UsingFor) {
+    func didSelect(toDate: Date?, forType: TravelDateVC.UsingFor) {
         if forType == .bookingDate {
             MyBookingFilterVM.shared.bookingToDate = toDate
+            
+
         }
         else if forType == .travelDate {
             MyBookingFilterVM.shared.travelToDate = toDate
+            
+
         }
         self.notifyToFilterApplied()
     }
@@ -258,6 +330,8 @@ extension MyBookingFilterVC {
         let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
         vc.delegate = self
         vc.minFromDate = minDate
+        vc.bookingsMinDate = MyBookingFilterVM.shared.minBookingDate
+        vc.bookingsMaxDate = MyBookingFilterVM.shared.maxBookingDate
         vc.oldFromDate = MyBookingFilterVM.shared.bookingFromDate
         vc.oldToDate = MyBookingFilterVM.shared.bookingToDate
         vc.currentlyUsingAs = .bookingDate
@@ -279,6 +353,7 @@ extension MyBookingFilterVC {
         let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
         vc.delegate = self
         vc.minFromDate = minDate
+        vc.maxDate = maxDate
         vc.oldFromDate = MyBookingFilterVM.shared.travelFromDate
         vc.oldToDate = MyBookingFilterVM.shared.travelToDate
         vc.currentlyUsingAs = .travelDate
@@ -301,6 +376,7 @@ extension MyBookingFilterVC {
             }
         }
           self.parchmentView?.reloadMenu()
+        self.checkDoneBtnState()
     }
 }
 
@@ -329,11 +405,12 @@ extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControll
         return MenuItem(title: self.allTabsStr[index], index: index, isSelected: isFilterArray[index] )
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        let pagingIndexItem = pagingItem as! MenuItem
-        self.currentIndex = pagingIndexItem.index
-        MyBookingFilterVM.shared.lastSelectedIndex =  self.currentIndex
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            self.currentIndex = pagingIndexItem.index
+            MyBookingFilterVM.shared.lastSelectedIndex =  self.currentIndex
+        }
     }
 }
 

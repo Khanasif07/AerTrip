@@ -11,8 +11,10 @@ import UIKit
 protocol EditProfileImageHeaderViewDelegate: class {
     func editButtonTapped()
     func salutationViewTapped(title: String)
-    func selectGroupTapped()
+    func selectGroupTapped(_ textfield: UITextField)
     func textFieldText(_ textfield: UITextField)
+    func endNicknameEditting()
+    func shouldBeginNicknameEditting()
 }
 
 class EditProfileImageHeaderView: UIView {
@@ -25,9 +27,11 @@ class EditProfileImageHeaderView: UIView {
     @IBOutlet weak var groupLabel: UILabel!
     @IBOutlet weak var groupTitleLabel: UILabel!
     @IBOutlet weak var selectGroupDownArrow: UIImageView!
+    @IBOutlet weak var groupTextField: UITextField!
     
     @IBOutlet weak var genderTitleLabel: UILabel!
-    @IBOutlet weak var selectGroupViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectGroupValueView: UIView!
+//    @IBOutlet weak var selectGroupViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var selectGroupView: UIView!
     
     // Unicode Switch
@@ -35,6 +39,16 @@ class EditProfileImageHeaderView: UIView {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var verticalDividerView: UIView!
     @IBOutlet weak var switchParentContainerView: UIView!
+    
+    @IBOutlet weak var firstNameDividerView: ATDividerView!
+    @IBOutlet weak var lastNameDividerView: ATDividerView!
+    @IBOutlet weak var RelationOrNickNameView: UIView!
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var groupAndRelationStackView: UIStackView!
+    @IBOutlet weak var relationshipOrNickNameLabel: UILabel!
+    @IBOutlet weak var relationshipOrNickNameTextField: UITextField!
+    
+    
     
     // MARK: - Variables
     
@@ -46,8 +60,8 @@ class EditProfileImageHeaderView: UIView {
         editButton.setTitle(LocalizedString.Edit.rawValue.localizedLowercase, for: .normal)
         //        salutaionLabel.text = LocalizedString.Title.rawValue
         self.setUpUnicodeSwitch()
-        firstNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.FirstName.localized)
-        lastNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.LastName.localized)
+        firstNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.FirstName.localized, with: "*")
+        lastNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.LastName.localized,  with: "*")
         
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
@@ -61,10 +75,10 @@ class EditProfileImageHeaderView: UIView {
         
         let selectGrouptap = UITapGestureRecognizer(target: self, action: #selector(selectGroupTapped(_:)))
         selectGroupView.isUserInteractionEnabled = true
-        selectGroupView.addGestureRecognizer(selectGrouptap)
+        selectGroupValueView.addGestureRecognizer(selectGrouptap)
         
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
-        profileImageView.layer.borderColor = AppColors.themeGray10.cgColor
+        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         profileImageView.layer.borderWidth = 2.0
         profileImageView.clipsToBounds = true
         
@@ -73,6 +87,26 @@ class EditProfileImageHeaderView: UIView {
         
         firstNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         lastNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        
+        firstNameTextField.addRightPaddingView(width: 16)
+        lastNameTextField.addRightPaddingView(width: 16)
+
+        relationshipOrNickNameLabel.text = "Relation or Nickname"
+        relationshipOrNickNameLabel.font = AppFonts.Regular.withSize(14)
+        relationshipOrNickNameLabel.textColor = AppColors.themeGray40
+        
+        relationshipOrNickNameTextField.placeholder = "Enter Relation or Nickname"
+        relationshipOrNickNameTextField.font = AppFonts.Regular.withSize(18)
+        relationshipOrNickNameTextField.textColor = AppColors.themeBlack
+        relationshipOrNickNameTextField.delegate = self
+        relationshipOrNickNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.setColorForAddTraveller()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+        profileImageView.layer.borderWidth = 2.0
     }
     
     // MARK: - Helper methods
@@ -89,7 +123,18 @@ class EditProfileImageHeaderView: UIView {
         containerView.layer.cornerRadius = 20.0
         unicodeSwitch.sliderView.layer.cornerRadius = 18
         unicodeSwitch.sliderInset = 1.0
-        verticalDividerView.backgroundColor = AppColors.themeGray20
+        verticalDividerView.backgroundColor = AppColors.unicodeSwitchLineColor
+    }
+    
+    
+    func setColorForAddTraveller(){
+        [self, selectGroupValueView, RelationOrNickNameView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
+        self.emptyView.backgroundColor = AppColors.themeGray04
+        self.groupLabel.textColor = AppColors.themeBlack
+        self.firstNameTextField.textColor = AppColors.themeBlack
+        self.lastNameTextField.textColor = AppColors.themeBlack
     }
     
     // MARK: - IB Actions
@@ -99,7 +144,7 @@ class EditProfileImageHeaderView: UIView {
     }
     
     @objc func selectGroupTapped(_ sender: UITapGestureRecognizer) {
-        delegate?.selectGroupTapped()
+        delegate?.selectGroupTapped(groupTextField)
     }
     
     @IBAction func changeSelectedIndex(_ sender: ATUnicodeSwitch) {
@@ -158,11 +203,32 @@ extension EditProfileImageHeaderView: UITextFieldDelegate {
             self.firstNameTextField.resignFirstResponder()
             self.lastNameTextField.becomeFirstResponder()
             
-        } else {
+        } else if textField === self.lastNameTextField {
             self.lastNameTextField.resignFirstResponder()
             self.unicodeSwitch.becomeFirstResponder()
         }
         
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField === self.firstNameTextField {
+            self.firstNameDividerView.isSettingForErrorState = false
+        } else if textField === self.lastNameTextField{
+            self.lastNameDividerView.isSettingForErrorState = false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField === self.relationshipOrNickNameTextField{
+            self.delegate?.endNicknameEditting()
+        }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == self.relationshipOrNickNameTextField{
+            self.delegate?.shouldBeginNicknameEditting()
+        }
         return true
     }
 }

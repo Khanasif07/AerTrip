@@ -9,6 +9,10 @@
 import UIKit
 import IQKeyboardManager
 
+protocol BulkBookingVCDelegate: class {
+    func didSelectedDestination(checkinDate: Date?, checkOutDate: Date?, location: SearchedDestination?)
+}
+
 class BulkBookingVC: BaseVC {
     
     //Mark:- Properties
@@ -46,7 +50,7 @@ class BulkBookingVC: BaseVC {
     @IBOutlet weak var preferredHotelsLabel: UILabel!
     @IBOutlet weak var specialReqLabel: UILabel!
     @IBOutlet weak var bulkBookingPopUpBtn: UIButton!
- 
+    
     @IBOutlet weak var specialReqTextView: PKTextField!{
         didSet {
             specialReqTextView.pkDelegate = self
@@ -60,17 +64,24 @@ class BulkBookingVC: BaseVC {
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var prefredTextContainer: UIView!
     @IBOutlet weak var specialTextContainer: UIView!
-
+    
     
     //MARK:- Properties
     //MARK:- Public
     let viewModel = BulkBookingVM()
     var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
+    weak var delegate: BulkBookingVCDelegate?
+    var viewTranslation = CGPoint(x: 0, y: 0)
     
     //MARK:- Private
     
     //MARK:- ViewLifeCycle
     //MARK:-
+    
+    deinit {
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .CloseBulkBooking)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -132,11 +143,13 @@ class BulkBookingVC: BaseVC {
         self.childCountLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.specialReqTextView.font = AppFonts.Regular.withSize(16.0)
         self.dateFlexibleLabel.font = AppFonts.Regular.withSize(17.0)
+        self.cityNameLabel.font = AppFonts.SemiBold.withSize(26.0)
+        self.stateNameLabel.font = AppFonts.Regular.withSize(16.0)
     }
     
     override func setupTexts() {
         self.whereLabel.text = LocalizedString.WhereButton.localized
-
+        
         if let _ = self.returnUserId {
             self.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
         } else {
@@ -146,6 +159,7 @@ class BulkBookingVC: BaseVC {
         self.preferredHotelsLabel.text = LocalizedString.MyDatesAre.localized
         self.specialReqLabel.text = LocalizedString.SpecialRequest.localized
         self.dateFlexibleLabel.text = LocalizedString.Fixed.localized
+        self.viewModel.preferred = self.dateFlexibleLabel.text ?? ""
     }
     
     override func setupColors() {
@@ -166,8 +180,11 @@ class BulkBookingVC: BaseVC {
         self.specialReqTextView.attributedPlaceholder = NSMutableAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
         self.specialReqTextView.textAlignment = .center
         self.specialReqTextView.returnKeyType = .done
+        [self.whereContainerView, self.bulkBookingView, self.dateInfoView, self.prefredTextContainer, self.specialTextContainer, searchView, specialReqTextView, self.bottomView].forEach{view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
     }
-
+    
     //MARK:- Methods
     //MARK:- Private
     ///InitialSetUp
@@ -177,32 +194,39 @@ class BulkBookingVC: BaseVC {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         mainContainerView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
-        self.topNavView.addGestureRecognizer(swipeGesture)
-               
+        if #available(iOS 13.0, *) {} else {
+            self.mainContainerView.addGestureRecognizer(swipeGesture)
+        }
         
         self.view.alpha = 1.0
-        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+        self.view.backgroundColor = .clear//AppColors.themeBlack.withAlphaComponent(0.001)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
         self.mainContainerView.roundTopCorners(cornerRadius: 10.0)
-
+        
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.BulkBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        self.topNavView.backgroundColor = AppColors.selectDestinationHeaderColor
         self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         
         self.searchButtonOutlet.layer.cornerRadius = 25.0
         //self.rectangleView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
-        self.rectangleView.cornerRadius = 15.0
+        if #available(iOS 13.0, *) {
+            self.rectangleView.cornerradius = 10.0
+        } else {
+            self.rectangleView.cornerradius = 15.0
+            self.hide(animated: false)
+            delay(seconds: 0.1) { [weak self] in
+                self?.show(animated: true)
+            }
+        }
         self.rectangleView.layer.masksToBounds = true
         self.configureCheckInOutView()
         
         self.setWhere(cityName: "", stateName: "")
-        self.hide(animated: false)
-        delay(seconds: 0.1) { [weak self] in
-            self?.show(animated: true)
-        }
+        
         
         self.setSearchFormData()
         
@@ -211,7 +235,8 @@ class BulkBookingVC: BaseVC {
         
         let specTapGest = UITapGestureRecognizer(target: self, action: #selector(specialReqAction))
         self.specialTextContainer.addGestureRecognizer(specTapGest)
-
+        
+        self.navigationController?.presentationController?.delegate = self
     }
     
     private func setSearchFormData() {
@@ -225,7 +250,11 @@ class BulkBookingVC: BaseVC {
         self.viewModel.adultsCount = 10
         self.viewModel.childrenCounts = 0
         
-        self.setWhere(cityName: oldData.cityName, stateName: oldData.stateName)
+        if oldData.destType.lowercased() == "hotel" {
+            self.setWhere(cityName: oldData.destName, stateName: oldData.stateName)
+        } else {
+            self.setWhere(cityName: oldData.cityName, stateName: oldData.stateName)
+        }
         
         self.checkInOutView?.setDates(fromData: oldData)
         
@@ -234,14 +263,11 @@ class BulkBookingVC: BaseVC {
         for star in oldData.ratingCount {
             self.updateStarButtonState(forStar: star)
         }
-    
+        
     }
     
     private func setWhere(cityName: String, stateName: String) {
-        self.whereLabel.font = (cityName.isEmpty && stateName.isEmpty ) ? AppFonts.Regular.withSize(20.0) : AppFonts.Regular.withSize(16.0)
-        self.cityNameLabel.font = cityName.isEmpty ? AppFonts.SemiBold.withSize(26.0) : AppFonts.SemiBold.withSize(20.0)
-        self.stateNameLabel.font = AppFonts.Regular.withSize(16.0)
-
+        self.whereLabel.font = cityName.isEmpty ? AppFonts.Regular.withSize(20.0) : AppFonts.Regular.withSize(16.0)
         self.cityNameLabel.text = cityName
         self.stateNameLabel.text = stateName
         self.cityNameLabel.isHidden = cityName.isEmpty
@@ -253,6 +279,8 @@ class BulkBookingVC: BaseVC {
         self.checkInOutView = CheckInOutView(frame: self.datePickerView.bounds)
         if let view = self.checkInOutView {
             view.delegate = self
+            view.containerView.backgroundColor = AppColors.themeBlack26
+            view.backgroundColor = AppColors.themeBlack26
             self.datePickerView.addSubview(view)
         }
     }
@@ -263,7 +291,9 @@ class BulkBookingVC: BaseVC {
         
         func setValue() {
             self.mainCintainerBottomConstraint.constant = 0.0
+            if #available(iOS 13.0, *) {} else {
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            }
             self.view.layoutIfNeeded()
         }
         
@@ -281,7 +311,7 @@ class BulkBookingVC: BaseVC {
     ///Hide View
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         self.bottomView.isHidden = true
-        
+        applyBulkBookingChanges()
         func setValue() {
             self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.frame.height + 100)
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
@@ -299,7 +329,8 @@ class BulkBookingVC: BaseVC {
                 }
             }
             
-            animater.startAnimation()
+            //animater.startAnimation()
+            self.dismiss(animated: true, completion: nil)
         }
         else {
             setValue()
@@ -402,15 +433,18 @@ class BulkBookingVC: BaseVC {
     private func dataForApi(hotel: SearchedDestination) {
         self.viewModel.destination = hotel.city
         self.viewModel.source = hotel.dest_name
+        self.viewModel.searchedLocation = hotel
     }
     
     ///Update Room Data
     private func updateRoomData(rooms: Int, adults: Int, children: Int) {
-        self.roomCountLabel.text = "\(rooms)"
-        self.adultCountLabel.text = "\(adults)"
-        self.childCountLabel.text = "\(children)"
+        self.roomCountLabel.text = rooms > 100 ? "100+" : "\(rooms)"
+        self.adultCountLabel.text = adults > 200 ? "200+" : "\(adults)"
+        self.childCountLabel.text = children > 200 ? "200+" : "\(children)"
     }
-    
+    private func applyBulkBookingChanges() {
+        self.delegate?.didSelectedDestination(checkinDate: self.viewModel.checkIn, checkOutDate: self.viewModel.checkOut, location: self.viewModel.searchedLocation)
+    }
     //MARK:- Public
     
     
@@ -420,38 +454,42 @@ class BulkBookingVC: BaseVC {
     }
     
     @IBAction func bulkBookingPopUpAction(_ sender: Any) {
-//        dismissKeyboard()
+        //        dismissKeyboard()
         self.view.endEditing(true)
-        AppFlowManager.default.showBulkRoomSelectionVC(rooms: self.viewModel.roomCounts, adults:  self.viewModel.adultsCount, children:  self.viewModel.childrenCounts, delegate: self)
+        AppFlowManager.default.showBulkRoomSelectionVC(rooms: self.viewModel.roomCounts, adults:  self.viewModel.adultsCount, children:  self.viewModel.childrenCounts, delegate: self, navigationController: self.navigationController)
     }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
-        AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .bulkBooking)
+        AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .bulkBooking, navigationController: self.navigationController)
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .ClickWhere)
     }
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
+        
         if let _ = self.returnUserId  {
             if self.viewModel.isValidateData() {
-               sender.isLoading = true
-               self.viewModel.bulkBookingEnquiryApi()
+                sender.isLoading = true
+                self.viewModel.bulkBookingEnquiryApi()
+                FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SendBulkBookingQuery)
             }
         }
         else {
             self.statusBarStyle = .default
+//            delay(seconds: 0.1) {
+//                sender.isLoading = true
+//            }
             delay(seconds: 0.1) {
-                sender.isLoading = true
-            }
-            delay(seconds: 0.1) {
-                AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self] (isGuest) in
+                AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking,presentViewController: true) { [weak self] (isGuest) in
                     guard let sSelf = self else {return}
-                    if let vc = sSelf.parent {
-                        sSelf.statusBarStyle = .lightContent
-                        AppFlowManager.default.popToViewController(vc, animated: true)
-                    }
+                    sender.isLoading = true
+                    //                    if let vc = sSelf.navigationController {
+                    sSelf.statusBarStyle = .lightContent
+                    AppFlowManager.default.popToRootViewController(animated: true)
+                    //                    }
                     sSelf.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
                     delay(seconds: 0.05) {
-                           self?.searchButtonAction(sSelf.searchButtonOutlet)
+                        self?.searchButtonAction(sSelf.searchButtonOutlet)
                     }
                 }
             }
@@ -460,6 +498,7 @@ class BulkBookingVC: BaseVC {
     
     @objc func preferredButtonAction() {
         self.dateFlexibleLabel.text = self.dateFlexibleLabel.text == LocalizedString.Fixed.localized ? LocalizedString.Flexible.localized : LocalizedString.Fixed.localized
+        self.viewModel.preferred = self.dateFlexibleLabel.text ?? ""
     }
     
     @objc func specialReqAction() {
@@ -473,23 +512,27 @@ extension BulkBookingVC: PKTextFieldDelegate {
     
     func pkTextFieldDidBeginEditing(_ pkTextField: PKTextField) {
         printDebug(pkTextField)
-        self.statusBarStyle = .default
+        if pkTextField === specialReqTextView {
+            
+        } else {
+            self.statusBarStyle = .default
+        }
     }
     
     func pkTextFieldShouldReturn(_ pkTextField: PKTextField) -> Bool {
         pkTextField.endEditing(true)
-         self.statusBarStyle = .lightContent
-                  return true
+        self.statusBarStyle = .lightContent
+        return true
     }
     
     func pkTextFieldDidEndEditing(_ pkTextField: PKTextField) {
         var finalText: String = (pkTextField.text ?? "").removeSpaceAsSentence
-       finalText.insert(" ", at: finalText.startIndex)
+        finalText.insert(" ", at: finalText.startIndex)
         finalText.insert(" ", at: finalText.startIndex)
         pkTextField.text = finalText
         self.viewModel.specialRequest = finalText
-       
-
+        
+        
     }
     
     func pkTextField(_ pkTextField: PKTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -518,14 +561,17 @@ extension BulkBookingVC: SelectDestinationVCDelegate {
     func didSelectedDestination(hotel: SearchedDestination) {
         printDebug("selected: \(hotel)")
         var city = ""
-        if !hotel.city.isEmpty {
+        if hotel.dest_type.lowercased() == "hotel" {
+            self.cityNameLabel.text = hotel.dest_name
+            city = hotel.dest_name
+        }else if !hotel.city.isEmpty {
             city = hotel.city
         } else {
             let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)
             city = newValue.first ?? ""
         }
-
+        
         var splittedStringArray = hotel.value.components(separatedBy: ",")
         splittedStringArray.removeFirst()
         let stateName = splittedStringArray.joined(separator: ",")
@@ -533,6 +579,18 @@ extension BulkBookingVC: SelectDestinationVCDelegate {
         self.setWhere(cityName: city, stateName: stateName)
         
         self.dataForApi(hotel: hotel)
+        
+        if hotel.isHotelNearMeSelected {
+            FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchNearby)
+        }
+        
+        switch hotel.dest_type.lowercased() {
+        case "poi": FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchPOI)
+        case "area": FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchByArea)
+        case "city": FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchByCity)
+        case "hotel": FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchByHotel)
+        default: break
+        }
     }
 }
 
@@ -545,6 +603,10 @@ extension BulkBookingVC: BulkRoomSelectionVCDelegate {
         self.viewModel.adultsCount = adults
         self.viewModel.childrenCounts = children
         self.updateRoomData(rooms: rooms, adults: adults, children: children)
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .CountTotalRooms, value: "\(rooms)")
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .CountTotalAdults, value: "\(adults)")
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .CountTotalChildren, value: "\(children)")
+        
     }
 }
 
@@ -553,8 +615,9 @@ extension BulkBookingVC: BulkRoomSelectionVCDelegate {
 extension BulkBookingVC: BulkBookingVMDelegate {
     func bulkBookingEnquirySuccess(enquiryId: String) {
         printDebug(enquiryId)
+        self.applyBulkBookingChanges()
         self.searchButtonOutlet.isLoading = false
-        self.hide(animated: true, shouldRemove: true)
+        //self.hide(animated: true, shouldRemove: true)
         
         var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
         config.text = LocalizedString.Submit.localized
@@ -562,9 +625,11 @@ extension BulkBookingVC: BulkBookingVMDelegate {
         if let font = self.searchButtonOutlet.titleLabel?.font {
             config.textFont = font
         }
+        let point = searchButtonOutlet.convert(searchButtonOutlet.frame.origin, to: self.mainContainerView)
+        let y = self.view.height - (point.y)
         config.width = self.searchButtonOutlet.width
-        
-        AppFlowManager.default.showBulkEnquiryVC(buttonConfig: config)
+        config.spaceFromBottom = y
+        AppFlowManager.default.showBulkEnquiryVC(buttonConfig: config, delegate: self)
     }
     
     func bulkBookingEnquiryFail(errors:ErrorCodes) {
@@ -578,12 +643,14 @@ extension BulkBookingVC: BulkBookingVMDelegate {
 extension BulkBookingVC: CheckInOutViewDelegate {
     
     func selectCheckInDate(_ sender: UIButton) {
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: true)
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: true, navigationController: self.navigationController, isFromHotelBulkBooking:true)
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .OpenCheckIn)
     }
     
     func selectCheckOutDate(_ sender: UIButton) {
         
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: false)
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: false, navigationController: self.navigationController, isFromHotelBulkBooking:true)
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .OpenCheckOut)
     }
 }
 
@@ -594,106 +661,132 @@ extension BulkBookingVC: CalendarDataHandler {
         if startDate != nil {
             self.viewModel.oldData.checkInDate = startDate.toString(dateFormat: "yyyy-MM-dd")
         } else {
-             self.viewModel.oldData.checkInDate = ""
+            self.viewModel.oldData.checkInDate = ""
         }
         if endDate != nil {
             self.viewModel.oldData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
         } else {
-             self.viewModel.oldData.checkOutDate = ""
+            self.viewModel.oldData.checkOutDate = ""
         }
+        self.viewModel.checkInDate = self.viewModel.oldData.checkInDate
+        self.viewModel.checkOutDate = self.viewModel.oldData.checkOutDate
+
         if let checkInOutVw = self.checkInOutView {
             checkInOutVw.setDates(fromData: self.viewModel.oldData)
         }
+        self.viewModel.checkIn = startDate
+        self.viewModel.checkOut = endDate
         printDebug(startDate)
         printDebug(endDate)
         printDebug(isHotelCalendar)
         printDebug(isReturn)
     }
+    
+    func tryToSelectMoreThan30Night() {
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .TryForMoreThan30Nights)
+    }
 }
 
 extension BulkBookingVC {
     //Handle Swipe Gesture
-      @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-          let touchPoint = sender.location(in: self.topNavView?.window)
-          let velocity = sender.velocity(in: self.topNavView)
-          print(velocity)
-          switch sender.state {
-          case .possible:
-              print(sender.state)
-          case .began:
-              self.initialTouchPoint = touchPoint
-          case .changed:
-              let touchPointDiffY = initialTouchPoint.y - touchPoint.y
-              print(touchPointDiffY)
-              if  touchPoint.y > 62.0 {
-                  if touchPointDiffY > 0 {
-                      self.mainCintainerBottomConstraint.constant = -( UIScreen.main.bounds.height - 62.0) + (68.0) + touchPointDiffY
-                  }
-                  else if touchPointDiffY < -68.0 {
-                      self.mainCintainerBottomConstraint.constant = touchPointDiffY
-                  }
-              }
-          case .cancelled:
-              print(sender.state)
-          case .ended:
-              print(sender.state)
-              panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
-          case .failed:
-              print(sender.state)
-              
-          }
-      }
-      
-      
-      ///Call to use Pan Gesture Final Animation
-      private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
-          //Down Direction
-          if velocity.y < 0 {
-              if velocity.y < -300 {
-                  self.openBottomSheet()
-              } else {
-                  if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
-                      self.openBottomSheet()
-                  } else {
-                      self.closeBottomSheet()
-                  }
-              }
-          }
-              //Up Direction
-          else {
-              if velocity.y > 300 {
-                  self.closeBottomSheet()
-              } else {
-                  if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
-                      self.openBottomSheet()
-                  } else {
-                      self.closeBottomSheet()
-                  }
-              }
-          }
-          print(velocity.y)
-      }
-      
-      func openBottomSheet() {
-          self.view.layoutIfNeeded()
-          UIView.animate(withDuration: 0.4) {
-              self.mainCintainerBottomConstraint.constant = 0.0
-              self.view.layoutIfNeeded()
-          }
-      }
-      
-      func closeBottomSheet() {
-          func setValue() {
-              self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height)
-              self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
-              self.view.layoutIfNeeded()
-          }
-          let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
-              setValue()
-          }
-          animater.addCompletion { (position) in
-              self.removeFromParentVC
-          }
-          animater.startAnimation()
-      }
+    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = .identity
+            })
+        }
+        
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down else {
+            reset()
+            return
+        }
+        
+        switch sender.state {
+        case .changed:
+            viewTranslation = sender.translation(in: self.view)
+            moveView()
+        case .ended:
+            if viewTranslation.y < 200 {
+                reset()
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+        case .cancelled:
+            reset()
+        default:
+            break
+        }
+    }
+    
+    
+    ///Call to use Pan Gesture Final Animation
+    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
+        //Down Direction
+        if velocity.y < 0 {
+            if velocity.y < -300 {
+                self.openBottomSheet()
+            } else {
+                if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
+                    self.openBottomSheet()
+                } else {
+                    self.closeBottomSheet()
+                }
+            }
+        }
+            //Up Direction
+        else {
+            if velocity.y > 300 {
+                self.closeBottomSheet()
+            } else {
+                if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
+                    self.openBottomSheet()
+                } else {
+                    self.closeBottomSheet()
+                }
+            }
+        }
+        printDebug(velocity.y)
+    }
+    
+    func openBottomSheet() {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.4) {
+            self.mainCintainerBottomConstraint.constant = 0.0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func closeBottomSheet() {
+        func setValue() {
+            self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height)
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+            self.view.layoutIfNeeded()
+        }
+        let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+            setValue()
+        }
+        animater.addCompletion { (position) in
+            self.removeFromParentVC
+        }
+        //animater.startAnimation()
+        self.dismiss(animated: true, completion: nil)
+    }
 }
+extension BulkBookingVC: BulkEnquirySuccessfulVCDelegate {
+    func doneButtonAction() {
+        self.hide(animated: true, shouldRemove: true)
+    }
+}
+extension BulkBookingVC: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        self.applyBulkBookingChanges()
+    }
+}
+

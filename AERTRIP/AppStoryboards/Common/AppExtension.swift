@@ -21,7 +21,7 @@ extension UIView {
         }
     }
     
-    func addGredient(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = [AppColors.themeGreen, AppColors.shadowBlue]) {
+    func addGredient(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = AppConstants.fareBreakupGradientColor) {
         removeGredient()
         let gradientLayer = CAGradientLayer()
         gradientLayer.name = "gradientLayer"
@@ -37,16 +37,45 @@ extension UIView {
         else {
             gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
             gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-            cgColors.reverse()
+            gradientLayer.locations = [0.0, 1.0]
+            //cgColors.reverse()
         }
         
 //        gradientLayer.cornerRadius = cornerRadius
 //        gradientLayer.masksToBounds = true
         
         gradientLayer.colors = cgColors
-        
+        self.removeGredient()
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
+    
+    func addGredientWithScreenWidth(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = AppConstants.appthemeGradientColors, spacing:CGFloat = 0.0) {
+            removeGredient()
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.name = "gradientLayer"
+            gradientLayer.frame = self.bounds
+        gradientLayer.frame.size.width = (UIScreen.main.bounds.width - 2 * spacing)
+            var cgColors = colors.map { (clr) -> CGColor in
+                clr.cgColor
+            }
+            
+            if isVertical {
+                gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+                gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+            }
+            else {
+                gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+                gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+                //cgColors.reverse()
+            }
+            
+    //        gradientLayer.cornerRadius = cornerRadius
+    //        gradientLayer.masksToBounds = true
+            
+            gradientLayer.colors = cgColors
+            
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        }
     
     func addGradientWithColor(color: UIColor) {
         let gradient = CAGradientLayer()
@@ -89,9 +118,10 @@ extension UIView {
     
     func addBlurEffect(backgroundColor: UIColor = AppColors.clear, style: UIBlurEffect.Style = UIBlurEffect.Style.light, alpha: CGFloat = 0.5) {
         
-        let blurV = getBlurView()
+        let blurV = getBlurView(style: style)
         blurV.alpha = alpha
         blurV.backgroundColor = backgroundColor
+        blurV.contentView.backgroundColor = .clear
         self.insertSubview(blurV, at: 0)
     }
     

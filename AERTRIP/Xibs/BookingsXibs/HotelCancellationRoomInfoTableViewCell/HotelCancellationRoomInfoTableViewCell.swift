@@ -17,7 +17,7 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
     
     //MARK:- Variables
     //MARK:===========
-    internal var chargesData:  [(chargeName: String, chargeAmount: String)] = []
+    internal var chargesData:  [(chargeName: String, chargeAmount: String, convertedAmount: NSAttributedString?)] = []
     internal weak var delegate: HotelCancellationRoomInfoTableViewCellDelegate?
     
     //MARK:- IBOutlets
@@ -34,6 +34,10 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var bottomDividerView: ATDividerView!
     @IBOutlet weak var topDividerViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomDividerViewLeadingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var nameAndChargesView: UIView!
 
     //MARK:- LifeCycle
     //MARK:===========
@@ -53,7 +57,7 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         //Color
         self.roomNumberLabel.textColor = AppColors.themeBlack
         self.roomNameLabel.textColor = AppColors.themeBlack
-        self.guestNamesLabel.textColor = AppColors.themeGray40
+        self.guestNamesLabel.textColor = AppColors.themeGray153
         
         self.chargesCollectionView.registerCell(nibName: HotleCancellationChargesCollectionViewCell.reusableIdentifier)
         self.chargesCollectionView.delegate = self
@@ -61,12 +65,19 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         
         self.topDividerView.isHidden = true
         self.bottomDividerView.isHidden = false
-        self.rightArrowImageView.image = #imageLiteral(resourceName: "rightArrow")
+        self.rightArrowImageView.image = AppImages.rightArrow
         
         self.rightArrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2) //make the arrow to down
+        self.setColor()
     }
     
-    internal func configureCell(roomNumber: String, roomDetails: RoomDetailModel, isRoomSelected: Bool, isExpanded: Bool) {
+    private func setColor(){
+        [headerView, titleView, nameAndChargesView, chargesCollectionView, containerView, contentView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
+    }
+    
+    internal func configureCell(roomNumber: String, roomDetails: RoomDetailModel, isRoomSelected: Bool, isExpanded: Bool, currencyRate: CurrencyConversionRate?) {
 
         self.roomNumberLabel.text = roomNumber
         self.roomNameLabel.text = roomDetails.roomType
@@ -82,22 +93,38 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         }
         self.guestNamesLabel.text = nameArray.joined(separator: ", ")
         if isRoomSelected {
-            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+            self.selectRoomButtonOutlet.setImage(AppImages.CheckedGreenRadioButton, for: .normal)
         } else {
-            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "untick"), for: .normal)
+            self.selectRoomButtonOutlet.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
         }
         self.topDividerView.isHidden = isExpanded
         self.bottomDividerView.isHidden = !isExpanded
         
         self.rightArrowImageView.transform = isExpanded ? CGAffineTransform(rotationAngle: -(CGFloat.pi/2)) : CGAffineTransform(rotationAngle: CGFloat.pi/2)
         
-        self.setChargeData(roomDetails: roomDetails)
+        self.setChargeData(roomDetails: roomDetails, currencyRate: currencyRate)
     }
     
-    private func setChargeData(roomDetails: RoomDetailModel) {
+    private func setChargeData(roomDetails: RoomDetailModel, currencyRate: CurrencyConversionRate?) {
         
-        self.chargesData = [(chargeName: LocalizedString.ConfirmationNo.localized, chargeAmount: roomDetails.voucher), (chargeName: LocalizedString.SaleAmount.localized, chargeAmount: roomDetails.amountPaid.delimiterWithSymbol), (chargeName: LocalizedString.CancellationCharges.localized, chargeAmount: roomDetails.cancellationCharges.delimiterWithSymbol), (chargeName: LocalizedString.NetRefund.localized, chargeAmount: roomDetails.netRefund.delimiterWithSymbol)]
+        if let currency = currencyRate{
+            self.chargesData = [
+                (chargeName: LocalizedString.ConfirmationNo.localized, chargeAmount: roomDetails.voucher.isEmpty ? "-" : roomDetails.voucher, convertedAmount: nil),
                 
+                (chargeName: LocalizedString.SaleAmount.localized, chargeAmount: roomDetails.amountPaid.amountInDelimeterWithSymbol, convertedAmount: roomDetails.amountPaid.convertAmount(with: currency, using: AppFonts.Regular.withSize(16))),
+                
+                (chargeName: LocalizedString.CancellationCharges.localized, chargeAmount: roomDetails.cancellationCharges.amountInDelimeterWithSymbol, convertedAmount: roomDetails.cancellationCharges.convertCancellationAmount(with: currency, using: AppFonts.Regular.withSize(16))),
+                
+                (chargeName: LocalizedString.NetRefund.localized, chargeAmount: roomDetails.netRefund.amountInDelimeterWithSymbol, convertedAmount: roomDetails.netRefund.convertAmount(with: currency, using: AppFonts.Regular.withSize(16)))
+            ]
+        }else{
+            self.chargesData = [
+                (chargeName: LocalizedString.ConfirmationNo.localized, chargeAmount: roomDetails.voucher.isEmpty ? "-" : roomDetails.voucher, convertedAmount: nil),
+                (chargeName: LocalizedString.SaleAmount.localized, chargeAmount: roomDetails.amountPaid.amountInDelimeterWithSymbol, convertedAmount: nil),
+                (chargeName: LocalizedString.CancellationCharges.localized, chargeAmount: roomDetails.cancellationCharges.amountInDelimeterWithSymbol, convertedAmount: nil),
+                (chargeName: LocalizedString.NetRefund.localized, chargeAmount: roomDetails.netRefund.amountInDelimeterWithSymbol, convertedAmount: nil)
+            ]
+        }
         self.chargesCollectionView.reloadData()
     }
     
@@ -126,7 +153,8 @@ extension HotelCancellationRoomInfoTableViewCell: UICollectionViewDelegate , UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotleCancellationChargesCollectionViewCell.reusableIdentifier, for: indexPath) as? HotleCancellationChargesCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(chargeName: self.chargesData[indexPath.row].chargeName, chargeAmount: self.chargesData[indexPath.row].chargeAmount)
+        cell.configureCell(chargeName: self.chargesData[indexPath.row].chargeName, chargeAmount: self.chargesData[indexPath.row].chargeAmount, convvertedAmount: self.chargesData[indexPath.row].convertedAmount)
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

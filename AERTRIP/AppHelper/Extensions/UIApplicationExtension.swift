@@ -14,12 +14,14 @@ extension UIApplication {
     
     ///Opens Settings app
     @nonobjc class var openSettingsApp:Void{
-        
+        guard let url =  URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
         if #available(iOS 10.0, *) {
-            self.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+            self.shared.open(url, options: [:], completionHandler: nil)
         } else {
             // Fallback on earlier versions
-            self.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
+            self.shared.openURL(url)
         }
     }
     
@@ -60,6 +62,7 @@ extension UIApplication {
                 guard let statusBarFrame = keyWindow?.windowScene?.statusBarManager?.statusBarFrame else { return nil }
                 let statusBarView = UIView(frame: statusBarFrame)
                 statusBarView.tag = tag
+                statusBarView.isUserInteractionEnabled = true
                 keyWindow?.addSubview(statusBarView)
                 return statusBarView
             }

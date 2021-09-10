@@ -6,6 +6,7 @@
 //
 
 import UIKit
+//import SwiftyJSON
 
 public struct PKCountryModel {
     var countryID: Int = 0
@@ -26,7 +27,12 @@ public struct PKCountryModel {
     var flagImage: UIImage? {
         return UIImage(named: self.countryFlag)
     }
-    
+    var currencyId : String = ""
+    var currencySymbol : String = ""
+    var currencyName : String = ""
+    var currencyCode : String = ""
+    var currencyIcon : String = ""
+
     init(json: [String: Any]) {
         if let obj = json["CountryID"] as? Int {
             self.countryID = obj
@@ -88,6 +94,27 @@ public struct PKCountryModel {
         if let obj = json["SortIndex"] as? Int {
             self.sortIndex = obj
         }
+        
+        if let obj = json["CurrencySymbol"] as? String {
+            self.currencySymbol = obj
+        }
+        
+        if let obj = json["CurrencyCode"] as? String {
+            self.currencyCode = obj
+        }
+        
+        if let obj = json["CurrencyName"] as? String {
+            self.currencyName = obj
+        }
+        
+    }
+    
+    init(json: JSON) {
+        currencyId = json[APIKeys.id.rawValue].stringValue
+        currencyCode = json[APIKeys.currency_code.rawValue].stringValue
+        currencyName = json[APIKeys.name.rawValue].stringValue
+        self.currencySymbol = self.getSymbolForCurrencyCode(code: json[APIKeys.currency_code.rawValue].stringValue)
+        currencyIcon = json[APIKeys.currency_icon.rawValue].stringValue
     }
     
     static func getModels(jsonArr: [[String:Any]]) -> [PKCountryModel] {
@@ -96,9 +123,53 @@ public struct PKCountryModel {
         }
         
         all.sort { (first, second) -> Bool in
-            first.sortIndex < second.sortIndex
+            first.countryEnglishName < second.countryEnglishName
         }
+        
+        
+//        
+//        all.sort { (first, second) -> Bool in
+//            first.sortIndex < second.sortIndex
+//        }
         
         return all
     }
+    
+    func getSymbolForCurrencyCode(code: String) -> String {
+        var candidates: [String] = []
+        let locales: [String] = NSLocale.availableLocaleIdentifiers
+        for localeID in locales {
+            guard let symbol = findMatchingSymbol(localeID: localeID, currencyCode: code) else {
+                continue
+            }
+            if symbol.count == 1 {
+                return symbol
+            }
+            candidates.append(symbol)
+        }
+        let sorted = sortAscByLength(list: candidates)
+        if sorted.count < 1 {
+            return ""
+        }
+        return sorted[0]
+    }
+
+    func findMatchingSymbol(localeID: String, currencyCode: String) -> String? {
+        let locale = Locale(identifier: localeID as String)
+        guard let code = locale.currencyCode else {
+            return nil
+        }
+        if code != currencyCode {
+            return nil
+        }
+        guard let symbol = locale.currencySymbol else {
+            return nil
+        }
+        return symbol
+    }
+
+    func sortAscByLength(list: [String]) -> [String] {
+        return list.sorted(by: { $0.count < $1.count })
+    }
 }
+

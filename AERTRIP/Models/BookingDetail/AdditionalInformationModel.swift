@@ -34,8 +34,8 @@ struct AdditionalInformation {
 
 struct ContactInfo {
     var aertrip: [Aertrip] = []
-    var airlines: [Airline] = []
-    var airport: [Airport] = []
+    var airlines: [BookingAirline] = []
+    var airport: [BookingAirport] = []
     var hotel : [Hotel] = []
     
     init() {
@@ -48,11 +48,11 @@ struct ContactInfo {
         }
         
         if let obj = json["airlines"] as? [JSONDictionary] {
-            airlines = Airline.getModels(json: obj)
+            airlines = BookingAirline.getBookingAirline(json: obj)
         }
         
         if let obj = json["airports"] as? [JSONDictionary] {
-            airport = Airport.getModel(json: obj)
+            airport = BookingAirport.getModel(json: obj)
         }
         
         if let obj = json["hotel"] as? [JSONDictionary] {
@@ -93,7 +93,7 @@ struct Aertrip {
 
 // Airline Details for Additional Informations
 
-struct Airline {
+struct BookingAirline {
     var airlineCode: String = ""
     var airlineName: String = ""
     var phone: String = ""
@@ -120,12 +120,36 @@ struct Airline {
         }
     }
     
-    static func getModels(json: [JSONDictionary]) -> [Airline] {
-        return json.map { Airline(json: $0) }
+    static func getBookingAirline(json: [JSONDictionary])-> [BookingAirline]{
+        var bookingAirline = [BookingAirline]()
+        bookingAirline.removeAll()
+        for jsn in json{
+            if let phone = jsn[APIKeys.phone.rawValue] as? String , !phone.isEmpty{
+                let phoneNumArr = phone.components(separatedBy: "/").filter{!$0.isEmpty}
+                if phoneNumArr.count == 1{
+                    bookingAirline.append(BookingAirline(json: jsn))
+                }else{
+                    for (index, value) in phoneNumArr.enumerated(){
+                        var bkingAirline = BookingAirline(json: jsn)
+                        bkingAirline.phone = value.removeLeadingTrailingWhitespaces
+                        if index != 0{
+                            bkingAirline.airlineCode = ""
+                            bkingAirline.airlineName = ""
+                        }
+                        bookingAirline.append(bkingAirline)
+                    }
+                }
+            }
+        }
+        return bookingAirline
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [BookingAirline] {
+        return json.map { BookingAirline(json: $0) }
     }
 }
 
-struct Airport {
+struct BookingAirport {
     var ataCode: String = ""
     var city: String = ""
     var countryCode: String = ""
@@ -160,8 +184,8 @@ struct Airport {
     
 
     
-    static func getModel(json: [JSONDictionary]) -> [Airport] {
-        return json.map { Airport(json: $0) }
+    static func getModel(json: [JSONDictionary]) -> [BookingAirport] {
+        return json.map { BookingAirport(json: $0) }
     }
 }
 

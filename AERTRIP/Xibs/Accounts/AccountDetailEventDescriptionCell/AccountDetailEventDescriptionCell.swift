@@ -39,7 +39,10 @@ class AccountDetailEventDescriptionCell: UITableViewCell {
     private func setFontAndColor() {
         
         self.mainContainerView.backgroundColor = AppColors.themeWhite
-        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: 1.0), opacity: 0.5, shadowRadius: 5.0)
+//        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0.0, height: 1.0), opacity: 0.5, shadowRadius: 5.0)
+        
+        let shadowProp = AppShadowProperties()
+        self.mainContainerView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
         
         self.clipsToBounds = true
         

@@ -173,7 +173,8 @@ void withoutCAAnimation(withoutAnimationBlock code)
     CGFloat sliderDiameter  = self.sliderCircleRadius * 2.f;
     
     CGPoint oldPosition = _sliderCircleLayer.position;
-    CGPathRef oldPath   = _trackLayer.path;
+    CAShapeLayer * trackLayerCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:_trackLayer]];
+    CGPathRef oldPath   = trackLayerCopy.path;
     
     CGFloat labelsY     = self.labelOrientation ? (self.bounds.size.height - totalHeight) / 2.f : (CGRectGetMaxY(contentFrame) + self.labelOffset);
     
@@ -443,6 +444,16 @@ void withoutCAAnimation(withoutAnimationBlock code)
 
 #pragma mark - Touches
 
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        return NO;
+    } else {
+        CGPoint position = [gestureRecognizer locationInView:self];
+        return !CGRectContainsPoint(self.bounds, position);
+    }
+}
+
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     startTouchPosition = [touch locationInView:self];
@@ -530,8 +541,9 @@ void withoutCAAnimation(withoutAnimationBlock code)
         _index = newIndex;
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
-    
-    animateLayouts = YES;
+    if (@available(iOS 14, *)) {
+        animateLayouts = NO;
+    }
     [self setNeedsLayout];
     _selectFeedback = nil;
 }

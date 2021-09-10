@@ -17,6 +17,7 @@ class MailComposerVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var acitivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var progressView: AppProgressView!
     
     // MARK: Variables
     
@@ -26,6 +27,11 @@ class MailComposerVC: BaseVC {
     var selectedMails: [String] = []
     let viewModel = MailComposerVM()
     var selectedUserEmail = ""
+    private var time: Float = 0.0
+    private var timer: Timer?
+    
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent,
+    dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     // MARK: - View Life cycle
     
@@ -34,25 +40,31 @@ class MailComposerVC: BaseVC {
         
         self.doInitialSetup()
         self.setupEmail()
+        self.updateSendButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        //self.statusBarColor = AppColors.clear
+        self.statusBarStyle = presentingStatusBarStyle
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //self.statusBarColor = AppColors.clear
+        self.statusBarStyle = dismissalStatusBarStyle
     }
     
     
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.tableView.backgroundColor = AppColors.themeBlack26
     }
     
     override func viewDidLayoutSubviews() {
@@ -81,11 +93,23 @@ class MailComposerVC: BaseVC {
     // MARK: - Helper methods
     
     private func doInitialSetup() {
+        self.tableView.contentInsetAdjustmentBehavior = .always
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.navBarSetUp()
+//        self.tableViewSetup()
+//        self.registerXib()
+//        self.setupHeader()
+//        self.setUpFooter()
+        self.viewModel.getPinnedTemplate()
+    }
+    
+    private func showEmailView() {
         self.tableViewSetup()
         self.registerXib()
         self.setupHeader()
         self.setUpFooter()
+        self.setupEmail()
+        self.updateSendButton()
     }
     
     private func navBarSetUp() {
@@ -97,6 +121,7 @@ class MailComposerVC: BaseVC {
         self.topNavView.configureNavBar(title: LocalizedString.EmailFavouriteHotelInfo.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithSpace.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.SendWithSpace.localized, selectedTitle: LocalizedString.SendWithSpace.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
+        self.topNavView.firstRightButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
     }
     
     private func tableViewSetup() {
@@ -112,36 +137,46 @@ class MailComposerVC: BaseVC {
     private func setupHeader() {
         self.mailComposerHeaderView = EmailComposerHeaderView.instanceFromNib()
         self.mailComposerHeaderView.delegate = self
-        let text = "\(UserInfo.loggedInUser?.firstName ?? "") \(UserInfo.loggedInUser?.lastName ?? "") \(LocalizedString.SharedMessage.localized)"
-        mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text, boldText: "\(UserInfo.loggedInUser?.firstName ?? "") \(UserInfo.loggedInUser?.lastName ?? "")")
+        var userFirstName = UserInfo.loggedInUser?.firstName ?? ""
+        userFirstName = userFirstName.substring(to: 11)
+        let text = "\(userFirstName) \(LocalizedString.SharedMessage.localized)"
+        mailComposerHeaderView.sharedStatusLabel.numberOfLines = 3
+        mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text, boldText: "\(userFirstName)")
+        mailComposerHeaderView.sharedStatusLabel.textAlignment = .center
         self.setUpCheckInOutView()
         self.tableView.tableHeaderView = mailComposerHeaderView
-        self.updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.toEmailTextView)
+        //self.updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.messageSubjectTextView)
+        mailComposerHeaderView.seeRatesButton.isUserInteractionEnabled = false
+        mailComposerHeaderView.clipsToBounds = true
     }
     
     private func setUpFooter() {
         self.mailComposerFooterView = EmailComposerFooterView.instanceFromNib()
+        self.mailComposerFooterView.seeRatesButton.isUserInteractionEnabled = false
         self.tableView.tableFooterView = self.mailComposerFooterView
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
-        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(30.0), .foregroundColor: AppColors.themeBlack])
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 6
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(30.0), .foregroundColor: AppColors.themeBlack, .paragraphStyle: paragraphStyle])
         attString.addAttributes([
-            .font: AppFonts.Bold.withSize(30.0),
-            .foregroundColor: AppColors.themeGray20
+            .font: AppFonts.SemiBold.withSize(30.0),
+            .foregroundColor: AppColors.themeBlack
         ], range: (text as NSString).range(of: boldText))
         return attString
     }
     
     private func setUpCheckInOutView() {
         // get all value in a format
-        let checkInDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
-        let checkOutDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
+        let currentFormat = "yyyy-MM-dd"
+        let checkInDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: currentFormat, requiredFormat: "dd MMM")
+        let checkOutDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: currentFormat, requiredFormat: "dd MMM")
         
-        let totalNights = (self.viewModel.hotelSearchRequest?.requestParameters.checkOut.toDate(dateFormat: "yyyy-mm-dd")! ?? Date()).daysFrom(viewModel.hotelSearchRequest?.requestParameters.checkIn.toDate(dateFormat: "yyyy-mm-dd")! ?? Date())
+        let totalNights = (self.viewModel.hotelSearchRequest?.requestParameters.checkOut.toDate(dateFormat: currentFormat) ?? Date()).daysFrom(viewModel.hotelSearchRequest?.requestParameters.checkIn.toDate(dateFormat: currentFormat) ?? Date())
         
-        let checkInDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: "yyyy-mm-dd", requiredFormat: "EEEE")
-        let checkOutDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: "yyyy-mm-dd", requiredFormat: "EEEE")
+        let checkInDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: currentFormat, requiredFormat: "EEEE")
+        let checkOutDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: currentFormat, requiredFormat: "EEEE")
         
         // setup the text
         self.mailComposerHeaderView.checkInDateLabel.text = checkInDate
@@ -151,9 +186,40 @@ class MailComposerVC: BaseVC {
         self.mailComposerHeaderView.checkOutDayLabel.text = checkOutDay
     }
     
+    
+    private func updateSendButton(){
+        
+        let mailsArray = self.mailComposerHeaderView.tagsField.tags.map { (tag) -> String in
+            return tag.text
+        }
+       // let mailsArray = mail?.components(separatedBy: ",") ?? []
+        let emails = mailsArray.filter({ $0 != " " &&  $0 != ""})
+        var isEmailValid = false
+        for email in emails{
+            isEmailValid = email.trimmingCharacters(in: .whitespacesAndNewlines).checkValidity(.Email)
+            if !isEmailValid{
+                self.topNavView.firstRightButton.isEnabled = false
+                self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+                return
+            }
+        }
+        
+        if !isEmailValid || self.viewModel.subject.isEmpty{
+            
+            //            self.email.checkValidity(.Email)
+            self.topNavView.firstRightButton.isEnabled = false
+            self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        }else{
+            self.topNavView.firstRightButton.isEnabled = true
+            self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        }
+        
+    }
+    
     private func setupEmail() {
         if let email = UserInfo.loggedInUser?.email {
             self.viewModel.fromEmails = [email]
+            self.mailComposerHeaderView.tagsField.addTag(email)
         }
     }
 }
@@ -167,15 +233,62 @@ extension MailComposerVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("Send mail")
-        let mail = self.mailComposerHeaderView.toEmailTextView.text
-        let mailsArray = mail?.components(separatedBy: ",") ?? []
+        self.view.endEditing(true)
+        //let mail = self.mailComposerHeaderView.toEmailTextView.text
+        let mailsArray = self.mailComposerHeaderView.tagsField.tags.map { (tag) -> String in
+            return tag.text
+        }
+        //let mailsArray = mail?.components(separatedBy: ",") ?? []
         self.viewModel.pinnedEmails = mailsArray.filter({ $0 != " " })
         if self.viewModel.pinnedEmails.contains("") {
-           AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterEmail.localized)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterEmail.localized)
         } else {
-              self.viewModel.callSendEmailMail()
+            self.viewModel.callSendEmailMail()
         }
-      
+        
+    }
+    
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer?.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer?.invalidate()
+            delay(seconds: 0.5) {
+                self.timer?.invalidate()
+                self.progressView?.isHidden = true
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
 }
 
@@ -196,44 +309,75 @@ extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 395
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 380
     }
 }
 
 // MARK: -  Mail Composer Header View Delegate methods
 
 extension MailComposerVC: EmailComposeerHeaderViewDelegate {
-
+    func emailTagAddedOrRemoved() {
+       self.updateSendButton()
+    }
+    
+    func textViewText(emailTextViewHeight: CGFloat) {
+        mailComposerHeaderView.emailContainerViewHeightConstraint.constant = emailTextViewHeight
+        updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.messageSubjectTextView)
+    }
+    
+    
     func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView) {
-        let minHeight = textView.font!.lineHeight * 1.0
-        let maxHeight = textView.font!.lineHeight * 5.0
+        guard let txtViewFont = textView.font else {return}
+        let minHeight = txtViewFont.lineHeight * 1.0
+        let maxHeight = txtViewFont.lineHeight * 5.0
         //for email textView (screenW-62)
         //for message textView (screenW-32)
-
-        var emailHeight = headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
-
-        var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
-
+        
+        var emailHeight = headerView.emailContainerViewHeightConstraint.constant//headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
+        
+        var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: txtViewFont, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
+        
+        var labelHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: AppFonts.Italic.withSize(18.0), bundingSize:         CGSize(width: (UIDevice.screenWidth - 32), height: 10000.0)).height
+        if labelHeight < 25 {
+            labelHeight = 25
+        }
         emailHeight = max(minHeight, emailHeight)
         emailHeight = min(maxHeight, emailHeight)
-
+        
         msgHeight = max(minHeight, msgHeight)
         msgHeight = min(maxHeight, msgHeight)
-
-        self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (577.0 + emailHeight + msgHeight))
-
+        
+        printDebug("headerView.checkOutMessageLabel.frame")
+        printDebug(headerView.checkOutMessageLabel.frame)
+        //let value = headerView.checkOutMessageLabel.numberOfLines * 23
+        self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (607.0 + emailHeight + msgHeight + labelHeight))
+        
         UIView.animate(withDuration: 0.3, animations: {
-            headerView.emailHeightConatraint.constant = emailHeight
+           // headerView.emailContainerViewHeightConstraint.constant = emailHeight
+            //headerView.tagsField.maxHeight = emailHeight
             headerView.subjectHeightConstraint.constant = msgHeight
-            self.view.layoutIfNeeded()
+            headerView.checkOutMessageLabelHeightConstraint.constant = labelHeight
+            //self.view.layoutIfNeeded()
         }, completion: { (isDone) in
-            headerView.toEmailTextView.isScrollEnabled = emailHeight >= maxHeight
+            //headerView.tagsField.enableScrolling = emailHeight >= maxHeight
             headerView.messageSubjectTextView.isScrollEnabled = msgHeight >= maxHeight
         })
     }
+    func textViewText(emailTextView: UITextView) {
+        delay(seconds: 0.2) {[weak self] in
+            self?.updateSendButton()
+        }
+        
+        
+    }
     
-    func textViewText(_ textView: UITextView) {
-        self.viewModel.subject = textView.text ?? ""
+    func textViewText(messageTextView: UITextView) {
+        self.viewModel.subject = messageTextView.text ?? ""
+        self.updateSendButton()
     }
     
     func openContactScreen() {
@@ -266,13 +410,14 @@ extension MailComposerVC: CNContactPickerDelegate {
         picker.dismiss(animated: true, completion: nil)
         if let _mail = contact.emailAddresses.first?.value as String? {
             printDebug("mail is \(_mail)")
-            self.mailComposerHeaderView.toEmailTextView.text.append(_mail)
-            self.mailComposerHeaderView.toEmailTextView.layoutIfNeeded()
-            self.updateHeightOfHeader(mailComposerHeaderView,mailComposerHeaderView.toEmailTextView)
+            self.mailComposerHeaderView.tagsField.addTag(_mail)
+           // self.mailComposerHeaderView.toEmailTextView.layoutIfNeeded()
+            self.updateHeightOfHeader(mailComposerHeaderView,mailComposerHeaderView.messageSubjectTextView)
             self.selectedUserEmail = _mail
         } else {
             AppToast.default.showToastMessage(message: LocalizedString.UnableToGetMail.localized, title:"", onViewController: self, duration: 0.6)
         }
+        self.updateSendButton()
         
     }
 }
@@ -280,13 +425,30 @@ extension MailComposerVC: CNContactPickerDelegate {
 // MARK: - Viewmodel delegates methods
 
 extension MailComposerVC: MailComoserVMDelegate {
+    func willGetPinnedTemplate() {
+        startProgress()
+    }
+    
+    func getPinnedTemplateSuccess() {
+        stopProgress()
+        showEmailView()
+    }
+    
+    func getPinnedTemplateFail() {
+        stopProgress()
+    }
+    
     func willSendEmail() {
         startLoading()
     }
     
     func didSendEmailSuccess() {
         stopLoading()
-        dismiss(animated: true, completion: nil)
+        self.view.isUserInteractionEnabled = false
+        self.dismiss(animated: true, completion: nil)
+        delay(seconds: 0.5) {
+            AppToast.default.showToastMessage(message: LocalizedString.FavoriteHotelsInfoSentMessage.localized)
+        }
     }
     
     func didSendemailFail(_ error: ErrorCodes) {

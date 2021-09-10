@@ -29,17 +29,29 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let bookingData = fetchedResultsController.object(at: indexPath)
-        let stepsH: CGFloat = CGFloat(bookingData.stepsArray?.count ?? 0) * 40.0
-        return stepsH + 92.0
+        let totalSteps = bookingData.stepsArray?.count ?? 0
+        let stepsH: CGFloat = CGFloat(totalSteps) * 40.0
+        var cellHeight: CGFloat = stepsH + 98.0 + (totalSteps > 0 ? 1 : 0)
+        if indexPath.row == 0 {
+            cellHeight += 8.0
+        }
+        if  let sections = self.fetchedResultsController.sections {
+            let sectionInfo = sections[indexPath.section]
+            if indexPath.row ==  (sectionInfo.numberOfObjects - 1) {
+                cellHeight += 8.0
+            }
+        }
+        return cellHeight
+        //        return stepsH + 98.0 + (totalSteps > 0 ? 1 : 0)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44.0
+        return section == 0 ? 45 : 35
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
-        
+
         guard let sections = self.fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }
@@ -55,10 +67,7 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
             let format = date.isCurrentYear ? "E, d MMM" : "d MMM yyyy"
             headerText = date.toString(dateFormat: format)
         }
-        headerView.dateLabel.text = headerText
-        headerView.dateLabelTopConstraint.constant = 11.0
-        headerView.contentView.backgroundColor = AppColors.themeWhite
-        headerView.backgroundColor = AppColors.themeWhite
+        headerView.configViewForBooking(date: headerText, isFirstHeaderView: section == 0 ? true : false)
         return headerView
     }
     
@@ -66,7 +75,14 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
         let bookingData = fetchedResultsController.object(at: indexPath)
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OthersBookingTableViewCell.reusableIdentifier, for: indexPath) as? OthersBookingTableViewCell else { return UITableViewCell() }
-        
+        if  let sections = self.fetchedResultsController.sections {
+            let sectionInfo = sections[indexPath.section]
+            cell.isLastCellInSection =  indexPath.row ==  (sectionInfo.numberOfObjects - 1)
+        } else {
+            cell.isLastCellInSection = false
+        }
+        cell.delegate = self
+        cell.isFirstCellInSection = indexPath.row == 0
         cell.bookingData = bookingData
         return cell
     }
@@ -75,14 +91,14 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
         let bookingData = fetchedResultsController.object(at: indexPath)
         if let bookingId = bookingData.bookingId, !bookingId.isEmpty {
             if bookingData.productType == .flight {
-                AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingId,tripCitiesStr: bookingData.tripCitiesStr )
+                AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingId,tripCitiesStr: bookingData.tripCitiesStr)
             }
             else if bookingData.productType == .other {
                 AppFlowManager.default.moveToOtherBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
             }
             else {
                 //open hotel details
-                 AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
+                AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
             }
             
         }
@@ -91,7 +107,7 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
 }
 
 extension CompletedVC {
-
+    
     internal func getSpaceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SpaceTableViewCell.reusableIdentifier, for: indexPath) as? SpaceTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = AppColors.themeWhite
@@ -105,5 +121,16 @@ extension CompletedVC: MyBookingFooterViewDelegate {
         self.isComingFromFilter = true
         self.loadSaveData()
         self.reloadTable()
+    }
+}
+extension CompletedVC: OthersBookingTableViewCellDelegate {
+    
+    func didSelectRequest(index: Int, data: BookingData) {
+        if let cases = data.cases as? [String], cases.indices.contains(index) {
+            var object = Case()
+            object.id = cases[index]
+            object.bookingId = data.bookingId ?? ""
+            AppFlowManager.default.moveToAddOnRequestVC(caseData: object, receipt: nil)
+        }
     }
 }

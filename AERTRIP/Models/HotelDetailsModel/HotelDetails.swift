@@ -56,6 +56,10 @@ struct HotelDetails {
     var distance: String = ""
     var thumbnail: [String] = [String]()
     var totalOccupant: Int = 0
+    var pan_required: Bool = false
+    var is_price_change: Bool = false
+    var amenities_group_order: [String : String] = [:]
+    var atImageData : [ATGalleryImage] = []
     
     //Mark:- Initialization
     //=====================
@@ -105,7 +109,10 @@ struct HotelDetails {
             APIKeys.info.rawValue: self.info,
             APIKeys.city.rawValue: self.city,
             APIKeys.is_refetch_cp.rawValue: self.is_refetch_cp,
-            APIKeys.occupant.rawValue: self.totalOccupant
+            APIKeys.occupant.rawValue: self.totalOccupant,
+            APIKeys.pan_required.rawValue: self.pan_required,
+            APIKeys.amenities_group_order.rawValue: self.amenities_group_order
+
         ]
     }
     
@@ -200,6 +207,11 @@ struct HotelDetails {
         }
         if let obj = json[APIKeys.photos.rawValue] as? [String] {
             self.photos = obj
+            self.atImageData = self.photos.map{ photo in
+                var imgData = ATGalleryImage()
+                imgData.imagePath = photo
+                return imgData
+            }
         }
         else if let dict = json[APIKeys.photos.rawValue] as? JSONDictionary {
             self.photos = dict.map {"\($0.1)"}
@@ -245,6 +257,19 @@ struct HotelDetails {
                 }
             }
         }
+        
+        if let obj = json[APIKeys.pan_required.rawValue] as? Bool {
+            self.pan_required = obj
+        }
+        
+        if let obj = json[APIKeys.is_price_change.rawValue] as? Bool {
+            self.is_price_change = obj
+        }
+        
+        if let obj = json[APIKeys.amenities_group_order.rawValue] as? [String : String] {
+            self.amenities_group_order = obj
+        }
+        
     }
     
     //Mark:- Functions
@@ -362,7 +387,7 @@ struct AmenitiesMain {
 //Mark:- Enums
 //============
 enum TableCellType {
-    case imageSlideCell , hotelRatingCell , addressCell , checkInOutDateCell , overViewCell , amenitiesCell , tripAdvisorRatingCell , searchTagCell , ratesEmptyStateCell , roomBedsTypeCell , inclusionCell , otherInclusionCell, cancellationPolicyCell , paymentPolicyCell , notesCell , checkOutCell , roomDetailsCell
+    case imageSlideCell , hotelRatingCell , addressCell , checkInOutDateCell , overViewCell , amenitiesCell , tripAdvisorRatingCell , searchTagCell , ratesEmptyStateCell , roomBedsTypeCell , inclusionCell , otherInclusionCell, cancellationPolicyCell , paymentPolicyCell , notesCell , checkOutCell , roomDetailsCell, noImageCell
 }
 
 //Mark:- Rates
@@ -594,6 +619,8 @@ struct RoomsRates: Hashable {
                         return true
                     }
                 }
+            }else{
+                return ((lhs.roomBedTypes == nil) && (rhs.roomBedTypes == nil))
             }
         }
         return false
@@ -831,7 +858,7 @@ struct PenaltyRates {
     //================
     var to: String = ""
     var from: String = ""
-    var penalty: Int = 0
+    var penalty: Double = 0
     var tz: String = ""
     var is_refundable: Bool = false
     
@@ -855,6 +882,8 @@ struct PenaltyRates {
             self.to = "\(obj)".removeNull
         }
         if let obj = json[APIKeys.penalty.rawValue] as? Int {
+            self.penalty = obj.toDouble 
+        }else if let obj = json[APIKeys.penalty.rawValue] as? Double {
             self.penalty = obj
         }
         if let obj = json[APIKeys.tz.rawValue] {

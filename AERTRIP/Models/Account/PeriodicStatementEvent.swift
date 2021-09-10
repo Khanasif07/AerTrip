@@ -55,18 +55,47 @@ struct PeriodicStatementEvent {
         return "\(from) - \(to)"
     }
     
+//    var statementMonth: String? {
+//        if let date = statementDate {
+//            return date.toString(dateFormat: "MM MMM YYYY")
+//        }
+//        return nil
+//    }
+    
+    
+    //
     var statementMonth: String? {
-        if let date = statementDate {
+        // statementDate change to periodFrom As per discussion with luvkesh for https://app.asana.com/0/1199093003059613/1199900641430525
+        if let date = self.periodFrom {
+            let component = Calendar.current.dateComponents([.month], from: date)
+            if let month = component.month{
+                let dateString =  date.toString(dateFormat: "MMM YYYY")
+                if month <= 3{
+                    return "\(month + 12) \(dateString)"
+                }else{
+                    let monStr = String(format: "%02d", month)
+                    return "\(monStr) \(dateString)"
+                }
+            }
             return date.toString(dateFormat: "MM MMM YYYY")
+        }
+        return nil
+    }
+    
+    var statementMonthToMatch:String?{
+        // statementDate change to periodFrom As per discussion with luvkesh for https://app.asana.com/0/1199093003059613/1199900641430525
+        if let date = self.periodFrom {
+            return date.toString(dateFormat: "MMM YYYY")
         }
         return nil
     }
     
     var statementYear: String? {
         
-        if let date = statementDate, let monthWithYear = self.statementMonth {
+        if let date = periodFrom, let monthWithYear = self.statementMonth,let newMonth =  statementMonthToMatch{
+            // statementDate change to periodFrom As per discussion with luvkesh for https://app.asana.com/0/1199093003059613/1199900641430525
             
-            if date.monthsForFinancialYear.contains(monthWithYear) {
+            if date.monthsForFinancialYear.contains(monthWithYear) || date.monthsForFinancialYear.contains(newMonth){
                 //srart with current year
                 let start = date.toString(dateFormat: "YYYY")
                 
@@ -134,7 +163,7 @@ struct PeriodicStatementEvent {
                     monthData.append(event)
                     
                     //sort the data according to the from date
-                    newTemp[sMonth] = monthData.sorted(by: { ($0.periodFrom?.timeIntervalSince1970 ?? 0) < ($1.periodFrom?.timeIntervalSince1970 ?? 0) })
+                    newTemp[sMonth] = monthData.sorted(by: { ($0.periodFrom?.timeIntervalSince1970 ?? 0) > ($1.periodFrom?.timeIntervalSince1970 ?? 0) })
                 }
                 else {
                     //create new one

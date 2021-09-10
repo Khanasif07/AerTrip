@@ -23,6 +23,9 @@ class BookingVoucherTableViewCell: ATTableViewCell {
     @IBOutlet weak var dividerViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var paymentTypeImageView: UIImageView!
+    @IBOutlet weak var topDividerView: ATDividerView!
+    
     
     var voucherData: Voucher = Voucher() {
         didSet {
@@ -30,19 +33,37 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         }
     }
     
-    var amount: Double = 0.0 {
-        didSet {
+//    var amount: Double = 0.0 {
+//        didSet {
+//            self.configureCellForAmount()
+//        }
+//    }
+    
+    var receipt:Receipt? = Receipt(){
+        didSet{
             self.configureCellForAmount()
         }
     }
     
+    
     var payButtonAction: ((ATButton)->Void)? = nil
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.paymentTypeImageView.isHidden = true
+        self.topDividerView.isHidden = true
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.topDividerView.isHidden = true
+    }
     
     // MARK: - Override methods
     override func doInitialSetup() {
         self.payNowButton.addGredient(isVertical: false)
-        self.payNowButton.layer.cornerRadius = 14.0
+        self.payNowButton.layer.cornerRadius = 25.0
         self.payNowButton.layer.masksToBounds = true
         
     }
@@ -50,8 +71,11 @@ class BookingVoucherTableViewCell: ATTableViewCell {
     override func setupFonts() {
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
         self.dateLabel.font = AppFonts.Regular.withSize(16.0)
-        self.priceLabel.font = AppFonts.Regular.withSize(22.0)
-        self.payNowButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
+        self.priceLabel.font = AppFonts.SemiBold.withSize(22.0)
+        self.payNowButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.payNowButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.payNowButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+
     }
     
     override func setupTexts() {
@@ -75,10 +99,18 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         self.payNowButton.isHidden = false
         self.priceLabel.isHidden = true
         self.arrowImageView.isHidden = true
+        let amount = self.receipt?.totalAmountDue ?? 0.0
+        let grossStr:NSMutableAttributedString
+        if let rate = self.receipt?.currencyRate{
+            grossStr = abs(amount).convertAmount(with: rate, using: AppFonts.SemiBold.withSize(24.0))
+        }else{
+            grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(24.0))
+        }
         
-        self.dateLabel.text = self.amount.amountInDelimeterWithSymbol
-        
-        if (self.amount < 0) {
+       
+//        self.dateLabel.text = self.amount.amountInDelimeterWithSymbol
+         self.dateLabel.attributedText = grossStr
+        if (amount < 0) {
             self.payNowButton.setTitle("Get Refund", for: .normal)
             self.payNowButton.isHidden = true
             self.titleLabel.text = "Amount to be refund"
@@ -117,14 +149,73 @@ class BookingVoucherTableViewCell: ATTableViewCell {
             titleStr = self.voucherData.basic?.type ?? LocalizedString.dash.localized
         }
         
+        let paymentMethod = self.voucherData.paymentInfo?.method.rawValue ?? LocalizedString.dash.localized
+        if paymentMethod == "wallet"{
+
+//            if  self.voucherData.paymentInfo?.walletName.lowercased() == "mobikwik"{
+//                paymentTypeImageView.image = AppImage.mobikwik
+//
+//            }
+            
+            
+            
+            switch self.voucherData.paymentInfo?.wallet
+            {
+            
+            case .airtelmoney:
+                paymentTypeImageView.image = AppImage.airtelmoney
+            case .amazonpay:
+                paymentTypeImageView.image = AppImage.amazonpay
+            case .freecharge:
+                paymentTypeImageView.image = AppImage.freecharge
+            case .jiomoney:
+                paymentTypeImageView.image = AppImage.jiomoney
+            case .mobikwik:
+                paymentTypeImageView.image = AppImage.mobikwik
+            case .olamoney:
+                paymentTypeImageView.image = AppImage.olamoney
+            case .paypal:
+                paymentTypeImageView.image = AppImage.paypal
+            case .payzapp:
+                paymentTypeImageView.image = AppImage.payzapp
+            case .phonepe:
+                paymentTypeImageView.image = AppImage.phonepe
+            case .phonepeswitch:
+                paymentTypeImageView.image = AppImage.phonepeswitch
+                
+            default:
+                self.paymentTypeImageView.image = AppImage.none
+            }
+            
+            
+            
+            
+        }else{if titleStr.lowercased().contains("netbanking"){
+            self.paymentTypeImageView.image = AppImages.netBanking
+        }else{
+            self.paymentTypeImageView.image = AppImages.visa
+        }
+            
+        }
         
-        self.titleLabel.text = titleStr
+        
+        if titleStr == LocalizedString.dash.localized{
+            self.titleLabel.text = ""
+        }else{
+            self.titleLabel.text = titleStr
+        }
         self.dateLabel.text = self.voucherData.basic?.transactionDateTime?.toString(dateFormat: "EEE, dd MMM yyyy") ?? ""
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         
-        let grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(20.0))
+        let grossStr:NSMutableAttributedString
+        if let rate = self.voucherData.basic?.currencyRate{
+            grossStr = abs(amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(22.0))
+        }else{
+            grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
+        }
+        
         grossStr.append((amount > 0) ? drAttr : crAttr)
         self.priceLabel.attributedText = grossStr
         

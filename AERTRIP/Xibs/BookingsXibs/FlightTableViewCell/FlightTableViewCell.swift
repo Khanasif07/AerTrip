@@ -31,13 +31,13 @@ class FlightTableViewCell: UITableViewCell {
     //Mark:- Functions
     //================
     private func configUI() {
-        self.bookingTypeImgView.image = #imageLiteral(resourceName: "flightIcon")
+        self.bookingTypeImgView.image = AppImages.twiterIcon
         self.plcaeNameLabel.textColor = AppColors.themeBlack
         self.travellersNameLabel.textColor = AppColors.themeGray40
         self.plcaeNameLabel.font = AppFonts.Regular.withSize(18.0)
         self.travellersNameLabel.font = AppFonts.Regular.withSize(14.0)
         self.backgroundColor = AppColors.screensBackground.color
-        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner ,.layerMinXMaxYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.1), offset: CGSize(width: 0.0, height: 2.0), opacity: 0.7, shadowRadius: 2.0)
+        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner ,.layerMinXMaxYCorner ,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0.0, height: 2.0), opacity: 0.7, shadowRadius: 2.0)
     }
     
     internal func configCell(plcaeName: String , travellersName: String) {

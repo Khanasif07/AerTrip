@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,13 +33,13 @@
                             <rect key="frame" x="16" y="0.5" width="382" height="49.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6V-Ek-Mgb">
-                                    <rect key="frame" x="0.0" y="20.5" width="342" height="18"/>
+                                    <rect key="frame" x="0.0" y="20.5" width="351" height="18"/>
                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vTx-3e-jg6">
-                                    <rect key="frame" x="351" y="18.5" width="22" height="22"/>
+                                    <rect key="frame" x="360" y="18.5" width="22" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="22" id="Knk-Fd-vT4"/>
                                         <constraint firstAttribute="width" secondItem="vTx-3e-jg6" secondAttribute="height" multiplier="1:1" id="lje-ch-q95"/>
@@ -51,7 +49,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="o6V-Ek-Mgb" firstAttribute="leading" secondItem="DSg-2a-pkg" secondAttribute="leading" id="CcD-aY-cRB"/>
-                                <constraint firstAttribute="trailing" secondItem="vTx-3e-jg6" secondAttribute="trailing" constant="9" id="qgF-CE-rCI"/>
+                                <constraint firstAttribute="trailing" secondItem="vTx-3e-jg6" secondAttribute="trailing" id="qgF-CE-rCI"/>
                                 <constraint firstAttribute="bottom" secondItem="o6V-Ek-Mgb" secondAttribute="bottom" constant="11" id="sag-jg-WcD"/>
                                 <constraint firstItem="vTx-3e-jg6" firstAttribute="leading" secondItem="o6V-Ek-Mgb" secondAttribute="trailing" constant="9" id="tpJ-Mu-IgS"/>
                                 <constraint firstItem="vTx-3e-jg6" firstAttribute="centerY" secondItem="o6V-Ek-Mgb" secondAttribute="centerY" id="zRu-1c-RMW"/>
@@ -70,19 +68,21 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="gvX-qn-4wX"/>
             <constraints>
                 <constraint firstItem="C8u-oE-DLY" firstAttribute="top" secondItem="npd-is-5H5" secondAttribute="top" id="6Xh-1J-aof"/>
                 <constraint firstAttribute="bottom" secondItem="C8u-oE-DLY" secondAttribute="bottom" id="j1r-Fe-eXq"/>
                 <constraint firstItem="gvX-qn-4wX" firstAttribute="trailing" secondItem="C8u-oE-DLY" secondAttribute="trailing" id="jXy-gg-6Iy"/>
                 <constraint firstItem="C8u-oE-DLY" firstAttribute="leading" secondItem="npd-is-5H5" secondAttribute="leading" id="nTl-gx-eQD"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="gvX-qn-4wX"/>
             <connections>
                 <outlet property="containerView" destination="C8u-oE-DLY" id="PRK-la-og9"/>
                 <outlet property="dividerView" destination="5Gj-Xf-lIU" id="X26-Ty-jQq"/>
                 <outlet property="iconHeightConstraint" destination="Knk-Fd-vT4" id="7g5-51-au8"/>
+                <outlet property="iconTrailingConstraint" destination="qgF-CE-rCI" id="aGH-la-X48"/>
                 <outlet property="statusImageView" destination="vTx-3e-jg6" id="D2Y-7k-imu"/>
                 <outlet property="statusLabel" destination="o6V-Ek-Mgb" id="I1P-qx-pfr"/>
+                <outlet property="statusView" destination="DSg-2a-pkg" id="eWr-hW-zBo"/>
             </connections>
             <point key="canvasLocation" x="150" y="135"/>
         </collectionReusableView>

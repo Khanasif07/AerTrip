@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class DashboardVC: BaseVC {
     
     @IBOutlet weak var innerScrollTopConst: NSLayoutConstraint!
@@ -21,10 +19,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var segmentContainerView: UIView!
     @IBOutlet weak var segmentCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var segmentHeightConstraint: NSLayoutConstraint!
-    
-    
     @IBOutlet weak var aertripLogoImageView: UIImageView!
-    
     @IBOutlet weak var homeAertripLogoImageView: UIImageView!
     //segment views
     @IBOutlet weak var aerinView: UIView!
@@ -38,6 +33,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
     @IBOutlet weak var splashView: UIView!
+    @IBOutlet weak var backgroundGradientView: AppGradientView!
     
     var overlayView = UIView()
     private var previousOffset = CGPoint.zero
@@ -46,7 +42,7 @@ class DashboardVC: BaseVC {
     private var firstTime = true
     private var userDidScrollUp = false
     private var isSelectingFromTabs = false
-    private var toBeSelect : SelectedOption = .aerin
+    var toBeSelect : SelectedOption = .aerin
     private var previousSelected : SelectedOption = .aerin
     private var alreadyTransformedValue : CGFloat = 0.0
     private var identitySize = CGSize.zero
@@ -55,13 +51,14 @@ class DashboardVC: BaseVC {
     private var isInitialAminationDone: Bool = false
     
     private var isAnimatingButtons = false
-        
+    var lastInnerScrollViewContentOffset = CGPoint.zero
+    var initialOffsetY : CGFloat = 0.0
+    var scrollingDirection = ""
     var itemWidth : CGFloat {
         return aerinView.width
     }
     
     enum SelectedOption : Int {
-        
         case aerin = 0
         case flight = 1
         case hotels = 2
@@ -75,6 +72,12 @@ class DashboardVC: BaseVC {
     var isLaunchThroughSplash = false
     private var isScrollHeightSet = false
     
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateProfileButton()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
@@ -84,22 +87,37 @@ class DashboardVC: BaseVC {
         aerinView.alpha = 1.0
         // nitin change
         if isLaunchThroughSplash {
-            self.splashView.isHidden = false
+            self.splashView.isHidden = true
         } else {
             self.splashView.isHidden = true
             self.addOverlayView()
         }
         
-        
+        self.backgroundGradientView.colors = AppConstants.appDashboardGradientColors.reversed()
         mainScrollView.delaysContentTouches = false
+        self.profileButton.imageView?.contentMode = .scaleAspectFill
+        //addViewOnTop()
+        updateProfileButton()
         
-        addViewOnTop()
+        delay(seconds: 0.2) {
+            switch self.toBeSelect {
+            case .aerin: self.aerinAction(UIButton())
+            case .flight: self.flightsAction(UIButton())
+            case .hotels: self.hotelsAction(UIButton())
+            case .trips: self.aerinAction(UIButton())
+            }
+        }
+        
+    }
+    
+    deinit {
+        printDebug("deinit DashboardVC")
     }
     
     private func addViewOnTop() {
         let safeAreaView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: UIApplication.shared.statusBarFrame.height))
         let safeAreaImgView = UIImageView(frame: safeAreaView.bounds)
-        safeAreaImgView.image = UIImage(named: "statusBarColor")
+        safeAreaImgView.image = AppImages.statusBarColor
         safeAreaView.addSubview(safeAreaImgView)
         view.addSubview(safeAreaView)
         view.bringSubviewToFront(safeAreaView)
@@ -110,21 +128,26 @@ class DashboardVC: BaseVC {
         let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
         let fullHeight = UIScreen.main.bounds.size.height
         
-        let temp = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
+        //Rishabh - Added 30 and changed mainscrollview bottom constraint to -30 in dashboard to resolve bottom card getting cut issue.
+        let temp = UIScreen.main.bounds.size.height + 30 - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
+        
         if !isScrollHeightSet {
             isScrollHeightSet = true
             let extraHeightForSafeArea: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 26 : 0
             innerScrollViewHeightConstraint.constant = temp + extraHeightForSafeArea
         }
-        self.profileButton.cornerRadius = self.profileButton.height/2
+        self.profileButton.cornerradius = self.profileButton.height/2
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        VersionControler.shared.checkForUpdate()
+        
         registerBulkEnquiryNotification()
-        if firstTime{
-             firstTime = false
+        
+        if firstTime {
+            firstTime = false
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
         }
@@ -134,7 +157,7 @@ class DashboardVC: BaseVC {
             self.setupInitialAnimation()
         }
         //addCustomBackgroundBlurView()
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -148,7 +171,7 @@ class DashboardVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-//        printDebug("data changed notfication received")
+        //        printDebug("data changed notfication received")
         //        resetItems()
         updateProfileButton()
     }
@@ -164,20 +187,21 @@ class DashboardVC: BaseVC {
     @objc final func bulkEnguirySent() {
         if selectedOption == .hotels {return}
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
-        
     }
     
     //MARK:- IBAction
-    @IBAction func aerinAction(_ sender: UIButton) {
+    @IBAction func aerinAction(_ ff: UIButton) {
         if selectedOption == .aerin || isAnimatingButtons {return}
+        FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoAerinbyTapping)
         toBeSelect = .aerin
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.aerin.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
     
     @IBAction func flightsAction(_ sender: UIButton) {
-        
         if selectedOption == .flight || isAnimatingButtons {return}
+        FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoFlightsbyTapping)
+
         toBeSelect = .flight
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.flight.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -186,6 +210,8 @@ class DashboardVC: BaseVC {
     @IBAction func hotelsAction(_ sender: UIButton) {
         
         if selectedOption == .hotels || isAnimatingButtons {return}
+        FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoHotelsbyTapping)
+
         toBeSelect = .hotels
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -195,6 +221,8 @@ class DashboardVC: BaseVC {
     @IBAction func tripsAction(_ sender: UIButton) {
         
         if selectedOption == .trips || isAnimatingButtons {return}
+        FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoTripsbyTapping)
+
         toBeSelect = .trips
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.trips.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -202,6 +230,13 @@ class DashboardVC: BaseVC {
     
     
     @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
+        if #available(iOS 14, *) {
+            if AppTransparencyManager.currentStatus == .notDetermined{
+                AppTransparencyManager.askForPermission()
+            }
+        }
+        FirebaseEventLogs.shared.logHomeEvents(with: .ProfileOptionSelected)
+
         AppFlowManager.default.sideMenuController?.toggleMenu() // nitin change
     }
     
@@ -279,19 +314,39 @@ class DashboardVC: BaseVC {
             self.overlayView.isHidden = true
             self.splashView.isHidden = true
         }
-
+        
     }
     
     private func updateProfileButton() {
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty{
-            let image = UserInfo.loggedInUser?.profilePlaceholder ?? AppGlobals.shared.getImageFor(firstName: nil, lastName: nil)
-            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: image)
+            var image = UserInfo.loggedInUser?.profilePlaceholder ?? UIImage()
+            if let _ = UserInfo.loggedInUser?.firstName {
+                image = AppGlobals.shared.getImageFor(firstName: UserInfo.loggedInUser?.firstName, lastName: UserInfo.loggedInUser?.lastName)
+            }
+            
+            // Commented as profile picture was not getting set for fb users that didn't have one
+            // not used kf.setImage on button as error could not be extracted
+            //self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: image, options: [.keepCurrentImageWhileLoading])
+            UIImageView().setImageWithUrl(imageUrl: imagePath, placeholder: image, showIndicator: false) { (downloadedImage, err) in
+                if let urlImg = downloadedImage {
+                    self.profileButton.setImage(urlImg, for: .normal)
+                } else {
+                    self.profileButton.setImage(image, for: .normal)
+                }
+            }
+            
+            self.profileButton.layer.borderColor = AppColors.dashProfileImgBorderColor.cgColor
+            self.profileButton.layer.borderWidth = 2.0
+//            profileButton.kf.setImage(with: URL(string: imagePath), for: .normal, placeholder: image, options: [.keepCurrentImageWhileLoading], progressBlock: nil) { (result) in
+//
+//            }
+
             //        self.profileButton.imageView?.setImageWithUrl(imagePath, placeholder: AppPlaceholderImage.user, showIndicator: false)
         } else {
             if let userInfo = UserInfo.loggedInUser {
                 let image = userInfo.profileImagePlaceholder()
                 self.profileButton.setImage(image, for: .normal)
-                self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+                self.profileButton.layer.borderColor = AppColors.dashProfileImgBorderColor.cgColor
                 self.profileButton.layer.borderWidth = 2.0
             }
             else {
@@ -315,7 +370,6 @@ class DashboardVC: BaseVC {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.view.addSubview(backView)
-        
         navigationItem.hidesBackButton = true
         self.navigationItem.leftBarButtonItem=nil
     }
@@ -326,19 +380,95 @@ extension DashboardVC  {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
         isSelectingFromTabs = false
+        
         previousSelected = selectedOption
+        if scrollView == innerScrollView {
+            lastInnerScrollViewContentOffset.x = scrollView.contentOffset.x
+            lastInnerScrollViewContentOffset.y = scrollView.contentOffset.y
+        }
     }
+    
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView == innerScrollView {
             
+            if lastInnerScrollViewContentOffset.x < scrollView.contentOffset.x {
+                // moved right
+                printDebug("right")
+                self.scrollingDirection = "right"
+            } else if lastInnerScrollViewContentOffset.x > scrollView.contentOffset.x {
+                // moved left
+                printDebug("left")
+                self.scrollingDirection = "left"
+            } else if lastInnerScrollViewContentOffset.y < scrollView.contentOffset.y {
+                printDebug("up")
+                self.scrollingDirection = "up"
+                innerScrollDidEndDragging(scrollView)
+            } else if lastInnerScrollViewContentOffset.y > scrollView.contentOffset.y {
+                printDebug("down")
+                self.scrollingDirection = "down"
+                innerScrollDidEndDragging(scrollView)
+            }
+        }
+    }
+    
+    func setTransformAfterDraging(selectedTap: SelectedOption, isOnlyAlpha: Bool){
+        
+        UIView.animate(withDuration: 0.2, animations:{
+            
+            
+            self.aerinView.alpha = (selectedTap == SelectedOption.aerin) ? 1.0 : 0.5
+            self.flightsView.alpha = (selectedTap == SelectedOption.flight) ? 1.0 : 0.5
+            self.hotelsView.alpha = (selectedTap == SelectedOption.hotels) ? 1.0 : 0.5
+            self.tripsView.alpha = (selectedTap == SelectedOption.trips) ? 1.0 : 0.5
+            
+            if !isOnlyAlpha{
+                
+                self.aerinView.transform = CGAffineTransform(scaleX: (selectedTap == SelectedOption.aerin) ? 1.0 : 0.75, y: (selectedTap == SelectedOption.aerin) ? 1.0 : 0.75)
+                
+                self.flightsView.transform = CGAffineTransform(scaleX: ((selectedTap == SelectedOption.flight) ? 1.0 : 0.75), y: ((selectedTap == SelectedOption.flight) ? 1.0 : 0.75))
+                
+                self.hotelsView.transform = CGAffineTransform(scaleX: ((selectedTap == SelectedOption.hotels) ? 1.0 : 0.75), y: ((selectedTap == SelectedOption.hotels) ? 1.0 : 0.75))
+                
+                self.tripsView.transform = CGAffineTransform(scaleX: ((selectedTap == SelectedOption.trips) ? 1.0 : 0.75), y: ((selectedTap == SelectedOption.trips) ? 1.0 : 0.75))
+            }
+            
+        })
+        
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == innerScrollView {
+            let page = Int(scrollView.contentOffset.x/scrollView.bounds.width)
+            guard let currentOption = SelectedOption(rawValue: page) else {return}
+            if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
+                if self.scrollingDirection.lowercased() == "right" || self.scrollingDirection.localized == "left"{
+                    self.setTransformAfterDraging(selectedTap: currentOption, isOnlyAlpha: false)
+                }
+            }else{
+                self.setTransformAfterDraging(selectedTap: currentOption, isOnlyAlpha: true)
+            }
+        }
+    }
+    
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        if #available(iOS 14, *) {
+            if AppTransparencyManager.currentStatus == .notDetermined{
+                AppTransparencyManager.askForPermission()
+            }
+        }
         if scrollView == mainScrollView {            
             var transform : CGFloat = 0.0
             
             let offset = scrollView.contentOffset
-            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
-                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
-                return
-            }
+            
+            // MARK: Commented by Rishabh for vertical rubberband effect
+            //            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
+            //                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
+            //                return
+            //            }
             
             let upperBound = scrollView.contentSize.height - scrollView.bounds.height
             guard 0...upperBound ~= offset.y else {
@@ -357,8 +487,8 @@ extension DashboardVC  {
                 self.homeAertripLogoImageView.alpha = 1
             }
             
-//            printDebug("current progress \(progress)")
-//            Asif change, InnerCollView top Const is given 5 pixel ======================
+            //            printDebug("current progress \(progress)")
+            //            Asif change, InnerCollView top Const is given 5 pixel ======================
             if scrollView.contentOffset.y - mainScrollViewOffset.y >= 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
@@ -370,7 +500,7 @@ extension DashboardVC  {
                 }
                 userDidScrollUp = true
                 self.innerScrollTopConst.constant = 19.0
-//                printDebug("Scrolling up \(transform)")
+                //                printDebug("Scrolling up \(transform)")
             }else{
                 let valueMoved = mainScrollViewOffset.y - scrollView.contentOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
@@ -378,17 +508,17 @@ extension DashboardVC  {
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
                 self.innerScrollTopConst.constant = 0.0
-//                 printDebug("Scrolling down \(transform)")
+                //                 printDebug("Scrolling down \(transform)")
             }
             updateSegmentYPosition(for: scrollView.contentOffset.y)
             updateSegmentTop(for: scrollView.contentOffset.y)
             updateInnerScrollTop(for: scrollView.contentOffset.y)
-            
+            let isIncreasing = (scrollView.contentOffset.y - self.initialOffsetY) < 0
             switch selectedOption{
-            case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp)
-            case .flight: checkAndApplyTransform(flightsView, transformValue: transform, scrolledUp: userDidScrollUp)
-            case .hotels: checkAndApplyTransform(hotelsView, transformValue: transform, scrolledUp: userDidScrollUp)
-            case .trips: checkAndApplyTransform(tripsView, transformValue: transform, scrolledUp: userDidScrollUp)
+            case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp, isIncreasing: isIncreasing, isForVertical:true)
+            case .flight: checkAndApplyTransform(flightsView, transformValue: transform, scrolledUp: userDidScrollUp, isIncreasing: isIncreasing, isForVertical:true)
+            case .hotels: checkAndApplyTransform(hotelsView, transformValue: transform, scrolledUp: userDidScrollUp, isIncreasing: isIncreasing, isForVertical:true)
+            case .trips: checkAndApplyTransform(tripsView, transformValue: transform, scrolledUp: userDidScrollUp, isIncreasing: isIncreasing, isForVertical:true)
             }
             
             mainScrollViewOffset = scrollView.contentOffset
@@ -406,16 +536,18 @@ extension DashboardVC  {
                 
                 let increaseTransform = 1.0 + progressValueMoved/4.0
                 let decreaseTransform = 1.0 - progressValueMoved/4.0
-                
-                if self.isSelectingFromTabs {
-                    if self.selectedOption != self.toBeSelect {
-                        animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                printDebug("increaseTransform: \(increaseTransform)")
+                printDebug("decreaseTransform: \(decreaseTransform)")
+                if scrollView.contentOffset.x >= 0 {
+                    if self.isSelectingFromTabs {
+                        if self.selectedOption != self.toBeSelect {
+                            animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                        }
+                    }
+                    else {
+                        animateForPage(moved: progressValueMoved, page: page, isForward: true, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
                     }
                 }
-                else {
-                    animateForPage(moved: progressValueMoved, page: page, isForward: true, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
-                }
-                
             }else{
                 
                 let valueMoved = previousOffset.x - offset.x
@@ -423,14 +555,17 @@ extension DashboardVC  {
                 
                 let increaseTransform = 1.0 + tabValueMoved/4
                 let decreaseTransform = 1.0 - tabValueMoved/4
-                
-                if self.isSelectingFromTabs {
-                    if self.selectedOption != self.toBeSelect {
-                        animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                printDebug("increaseTransform: \(increaseTransform)")
+                printDebug("decreaseTransform: \(decreaseTransform)")
+                if scrollView.contentOffset.x >= 0 {
+                    if self.isSelectingFromTabs {
+                        if self.selectedOption != self.toBeSelect {
+                            animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                        }
                     }
-                }
-                else {
-                    animateForPage(moved: tabValueMoved, page: page, isForward: false, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
+                    else {
+                        animateForPage(moved: tabValueMoved, page: page, isForward: false, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
+                    }
                 }
             }
             previousOffset = scrollView.contentOffset
@@ -438,16 +573,20 @@ extension DashboardVC  {
     }
     
     private func updateSegmentYPosition(for scrolledY: CGFloat) {
-        let valueToBe: CGFloat = 20.0
+        // MARK: Commented by Rishabh for vertical rubberband effect and top spacing
+        //        let valueToBe: CGFloat = 20
+        let valueToBe: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 30 : 25
         
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
         segmentCenterYConstraint.constant = ratio * scrolledY
-//        printDebug("segment y pos:  \(segmentCenterYConstraint.constant)")
+        //        printDebug("segment y pos:  \(segmentCenterYConstraint.constant)")
     }
     
     private func updateInnerScrollTop(for scrolledY: CGFloat) {
-        let valueToDecrease: CGFloat = 18.0
+        // MARK: Commented by Rishabh as dashboard icons were getting cut
+        //        let valueToDecrease: CGFloat = 18.0
+        let valueToDecrease: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 6 : 18
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
         let final = (ratio * scrolledY)
         if final == 0 {
@@ -455,10 +594,10 @@ extension DashboardVC  {
             innerScrollView.transform = CGAffineTransform.identity
         }
         else {
-//            printDebug("final value is \(final)")
-             //innerScrollView.transform = CGAffineTransform(translationX: 0, y: -(final))
-             self.innerScrollTopConst.constant = final
-             innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
+            //            printDebug("final value is \(final)")
+            //innerScrollView.transform = CGAffineTransform(translationX: 0, y: -(final))
+            self.innerScrollTopConst.constant = final
+            innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
     }
     
@@ -472,30 +611,65 @@ extension DashboardVC  {
         }
         else {
             self.innerScrollTopConst.constant = final
-           // segmentContainerView.transform = CGAffineTransform(translationX: -(final - 4), y: -(final - 0.3))
+            // segmentContainerView.transform = CGAffineTransform(translationX: -(final - 4), y: -(final - 0.3))
             segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
     }
     
-    private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
+    
+    private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool, isIncreasing:Bool, isForVertical:Bool = false){
         
         let initialTransform = view.transform
-        let transformedBounds = view.bounds.applying(initialTransform.scaledBy(x: transformValue, y: transformValue))
-        
+
         if isSelectingFromTabs {
             view.transform = (transformValue == 1.0) ? CGAffineTransform.identity : CGAffineTransform(scaleX: transformValue, y: transformValue)
         }
         else {
-//            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
-//                view.transform = CGAffineTransform.identity
-//            }else
-            if transformedBounds.size.width < smallerSize.width && scrolledUp{
-                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-            }else{
-                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+            //            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
+            //                view.transform = CGAffineTransform.identity
+            //            }else
+            
+            // MARK: Commented by Rishabh as it is causing jerk in small devices
+            //            if transformedBounds.size.width < smallerSize.width && scrolledUp{
+            //                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            //            }else{
+            //                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+            //            }
+            if !isForVertical{
+                if isIncreasing{
+                    if view.transform.a >= 1.0{
+                        return
+                    }
+                }else{
+                    if view.transform.a <= 0.75{
+                        return
+                    }
+                    
+                }
             }
+            view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+            
         }
     }
+    
+    //    private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
+    //
+    //        let initialTransform = view.transform
+    //        let transformedBounds = view.bounds.applying(initialTransform.scaledBy(x: transformValue, y: transformValue))
+    //
+    //        if isSelectingFromTabs {
+    //            view.transform = (transformValue == 1.0) ? CGAffineTransform.identity : CGAffineTransform(scaleX: transformValue, y: transformValue)
+    //        }
+    //        else {
+    //            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
+    //                view.transform = CGAffineTransform.identity
+    //            }else if transformedBounds.size.width < smallerSize.width && scrolledUp{
+    //                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+    //            }else{
+    //                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+    //            }
+    //        }
+    //    }
     
     private func updateUpLabels(with alpha : CGFloat){
         
@@ -545,8 +719,8 @@ extension DashboardVC  {
             fromV.alpha = 0.5
             toV.alpha = 1.0
             if !self.userDidScrollUp {
-                self.checkAndApplyTransform(fromV, transformValue: 0.75, scrolledUp: true)
-                self.checkAndApplyTransform(toV, transformValue: 1.0, scrolledUp: true)
+                self.checkAndApplyTransform(fromV, transformValue: 0.75, scrolledUp: true, isIncreasing: false)
+                self.checkAndApplyTransform(toV, transformValue: 1.0, scrolledUp: true, isIncreasing: true)
             }
         }
         
@@ -567,61 +741,160 @@ extension DashboardVC  {
         if isForward{
             switch currentOption{
             case .aerin:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoAerinbySwiping)
+
                 aerinView.alpha = max(aerinView.alpha - moved, 0.5)
                 flightsView.alpha = min(flightsView.alpha + moved, 1.0)
                 
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(aerinView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(aerinView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
                 
             case .flight:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoFlightsbySwiping)
+
                 flightsView.alpha = max(flightsView.alpha - moved, 0.5)
                 hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
             case .hotels:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoHotelsbySwiping)
+
                 hotelsView.alpha = max(hotelsView.alpha - moved, 0.5)
                 tripsView.alpha = min(tripsView.alpha + moved, 1.0)
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(tripsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(tripsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
-            case .trips: break
+            case .trips:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoTripsbySwiping)
+                break
             }
         }else{
             
             switch currentOption{
             case .aerin:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoAerinbySwiping)
+
                 flightsView.alpha = max(flightsView.alpha - moved, 0.5)
                 aerinView.alpha = min(aerinView.alpha + moved, 1.0)
                 
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(aerinView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(aerinView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
                 
             case .flight:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoFlightsbySwiping)
+
                 hotelsView.alpha = max(hotelsView.alpha - moved, 0.5)
                 flightsView.alpha = min(flightsView.alpha + moved, 1.0)
                 // Asif Change ====================== ======================  ======================
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
             case .hotels:
-                
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoHotelsbySwiping)
+
                 tripsView.alpha = max(tripsView.alpha - moved, 0.5)
                 hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
                 
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height -  19.0 {
-                    checkAndApplyTransform(tripsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(tripsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
-            case .trips: break
+            case .trips:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoTripsbySwiping)
+
+                break
             }
+        }
+    }
+}
+
+// MARK: Child scroll view methods
+// added by Rishabh
+extension DashboardVC {
+    
+    func innerScrollDidEndDragging(_ scrollView: UIScrollView) {
+        self.scrollToTopOrBottom()
+    }
+    
+    private func scrollToTopOrBottom(_ duration: TimeInterval = 0.3) {
+        let mainScrollYOffset = mainScrollView.contentOffset.y
+        let maxYOffsetForMainScroll = self.mainScrollView.contentSize.height - self.mainScrollView.height
+        let midConstant: CGFloat = (maxYOffsetForMainScroll/2) + 3
+        
+        if mainScrollYOffset < midConstant {
+            //            UIView.animate(withDuration: duration, animations: {
+            //
+            //            }, completion: { _ in
+            //
+            //            })
+            let animator = UIViewPropertyAnimator(duration: duration, curve: .linear) { [weak self] in
+                guard let `self` = self else {return}
+                
+                for offset in stride(from: mainScrollYOffset, through: 0, by: -0.1) {
+                    self.mainScrollView.contentOffset.y = offset
+                    self.mainScrollView.layoutIfNeeded()
+                }
+                switch self.selectedOption {
+                case .aerin:
+                    self.aerinView.transform = .identity
+                    self.aerinView.alpha = 1
+                case .flight:
+                    self.flightsView.transform = .identity
+                    self.flightsView.alpha = 1
+                case .hotels:
+                    self.hotelsView.transform = .identity
+                    self.hotelsView.alpha = 1
+                case .trips:
+                    self.tripsView.transform = .identity
+                    self.tripsView.alpha = 1
+                }
+            }
+            
+            animator.addCompletion { [weak self](pos) in
+                guard let `self` = self else {return}
+                if self.mainScrollView.contentOffset.y != 0 {
+                    self.scrollToTopOrBottom(0.15)
+                }
+            }
+            
+            animator.startAnimation()
+        } else {
+            //            UIView.animate(withDuration: duration, animations: {
+            //                for offset in stride(from: mainScrollYOffset, through: maxYOffsetForMainScroll, by: 0.1) {
+            //                    self.mainScrollView.contentOffset.y = offset
+            //                    self.mainScrollView.layoutIfNeeded()
+            //                }
+            //            }, completion: { _ in
+            //                if self.mainScrollView.contentOffset.y < maxYOffsetForMainScroll {
+            //                    self.scrollToTopOrBottom(0.15)
+            //                }
+            //            })
+            
+            let animator = UIViewPropertyAnimator(duration: duration, curve: .linear) { [weak self] in
+                guard let `self` = self else {return}
+                
+                for offset in stride(from: mainScrollYOffset, through: maxYOffsetForMainScroll, by: 0.1) {
+                    self.mainScrollView.contentOffset.y = offset
+                    self.mainScrollView.layoutIfNeeded()
+                }
+            }
+            
+            animator.addCompletion { [weak self](pos) in
+                guard let `self` = self else {return}
+                if self.mainScrollView.contentOffset.y < maxYOffsetForMainScroll {
+                    self.scrollToTopOrBottom(0.15)
+                }
+            }
+            
+            animator.startAnimation()
         }
     }
 }

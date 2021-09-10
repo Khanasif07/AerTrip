@@ -63,7 +63,7 @@ extension UIImage {
         }
         
         switch self.imageOrientation {
-            
+        
         case .upMirrored,.downMirrored:
             transform = transform.translatedBy(x: self.size.width, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
@@ -81,7 +81,7 @@ extension UIImage {
         ctx.concatenate(transform)
         
         switch self.imageOrientation {
-            
+        
         case .left,.leftMirrored,.right,.rightMirrored:
             ctx.draw(self.cgImage!, in: CGRect(x: 0, y: 0, width: self.size.height, height: self.size.width))
             
@@ -114,6 +114,9 @@ extension UIImage {
 extension UIImageView {
     
     func setImageWithUrl(_ imageUrl: String, placeholder: UIImage, showIndicator:Bool) {
+        
+//        printDebug("imageUrl...\(imageUrl)")
+        
         var imageUrl = imageUrl
         guard imageUrl.count > 0 else {
             self.image = placeholder
@@ -125,6 +128,43 @@ extension UIImageView {
                 self.kf.indicatorType = .activity
             }
             self.kf.setImage(with: url, placeholder: placeholder)
+        }
+        
+        self.image = placeholder
+        if imageUrl.hasPrefix("//") {
+            imageUrl = "https:" + imageUrl
+        }
+        if imageUrl.hasPrefix("http://") || imageUrl.hasPrefix("https://"), let url = URL(string: imageUrl){
+            setImage(url: url, showIndicator:showIndicator)
+        } else {
+            setImage(url: URL(fileURLWithPath: imageUrl), showIndicator:showIndicator)
+        }
+    }
+    
+    
+    func setImageWithUrl( imageUrl: String, placeholder: UIImage, showIndicator:Bool, completionHandler: ((_ image: UIImage?, _ error: Error?) -> Void)?) {
+        var imageUrl = imageUrl
+        guard imageUrl.count > 0 else {
+            self.image = placeholder
+            completionHandler?(nil, nil)
+            return
+        }
+        
+        func setImage(url: URL, showIndicator:Bool) {
+            if showIndicator{
+                self.kf.indicatorType = .activity
+            }
+            self.kf.setImage(with: url, placeholder: placeholder, completionHandler: {  result in
+                
+                switch result {
+                case .success(let value):
+                    //                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                    completionHandler?(value.image, nil)
+                case .failure(let error):
+                    //                    print("Job failed: \(error.localizedDescription)")
+                    completionHandler?(nil, error)
+                }
+            })
         }
         
         self.image = placeholder
@@ -153,8 +193,21 @@ extension UIImageView {
         self.addSubview(blurEffectView)
     }
     
-        
+    static func imageExistForURL(url: String) -> Bool {
+        return ImageCache.default.isCached(forKey: url)
+    }
     
+    static func clearImageCache() {
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache()
+        ImageCache.default.cleanExpiredDiskCache()
+    }
+    
+    static func downloadImage(url: String) {
+        if let imageUrl = URL(string: url) {
+            ImageDownloader.default.downloadImage(with: imageUrl)
+        }
+    }
 }
 
 
@@ -205,6 +258,110 @@ extension UIImage {
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return resultImage
+    }
+    
+}
+
+
+// FLIGHTS
+
+extension UIImage {
+    
+    func resizeImage(_ dimension: CGFloat, opaque: Bool, contentMode: UIView.ContentMode = .scaleAspectFit) -> UIImage {
+        var width: CGFloat
+        var height: CGFloat
+        var newImage: UIImage
+        
+        let size = self.size
+        let aspectRatio =  size.width/size.height
+        
+        switch contentMode {
+        case .scaleAspectFit:
+            if aspectRatio > 1 {                            // Landscape image
+                width = dimension
+                height = dimension / aspectRatio
+            } else {                                        // Portrait image
+                height = dimension
+                width = dimension * aspectRatio
+            }
+            
+        default:
+            fatalError("UIIMage.resizeToFit(): FATAL: Unimplemented ContentMode")
+        }
+        
+        if #available(iOS 10.0, *) {
+            let renderFormat = UIGraphicsImageRendererFormat.default()
+            renderFormat.opaque = opaque
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height), format: renderFormat)
+            newImage = renderer.image {
+                (context) in
+                self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+            }
+        } else {
+            UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), opaque, 0)
+            self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+            newImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+        }
+        
+        return newImage
+    }
+    
+    func withAlpha(_ alpha: CGFloat) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: .zero, blendMode: .normal, alpha: alpha)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    class func roundedRectImageFromImage(image:UIImage,imageSize:CGSize,cornerRadius:CGFloat)-> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(imageSize,false,0.0)
+        let bounds=CGRect(origin: .zero, size: imageSize)
+        UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).addClip()
+        image.draw(in: bounds)
+        let finalImage=UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return finalImage
+    }
+}
+
+// FLIGHTS
+
+extension UIImageView{
+    
+    func resourceFor( urlPath : String) {
+        
+        guard  let urlobj = URL(string: urlPath) else {
+            return
+        }
+        
+        let urlRequest = URLRequest(url: urlobj)
+        
+        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
+            
+            let image = UIImage(data: responseObj.data)
+            self.image = image
+        }else {
+            
+            let urlSession = URLSession.shared
+            let dataTask =  urlSession.dataTask(with: urlRequest) {[weak self ] ( downloadedData, response, error) in
+                
+                if (error != nil) {
+                    //                    print(error.debugDescription)
+                    return
+                }
+                if let data = downloadedData , let response = response {
+                    let cacheResponse = CachedURLResponse(response: response, data: data)
+                    URLCache.shared.storeCachedResponse(cacheResponse, for: urlRequest)
+                    DispatchQueue.main.async {
+                        self?.image = UIImage(data: data)
+                    }
+                }
+            }
+            
+            dataTask.resume()
+        }
     }
     
 }

@@ -32,9 +32,9 @@ extension UITextField {
     }
     
     ///Text field clear button setUp
-    func textFieldClearBtnSetUp() {
+    func textFieldClearBtnSetUp(with img: UIImage? = AppImages.ic_toast_cross) {
         if let clearButton : UIButton = self.value(forKey: "_clearButton") as? UIButton {
-            clearButton.setImage(#imageLiteral(resourceName: "ic_toast_cross"), for: .normal)
+            clearButton.setImage(img, for: .normal)
             clearButton.size = CGSize(width: 16.0, height: 16.0)
         }
     }
@@ -68,5 +68,56 @@ extension UITextField {
                                            height: self.frame.height)
         }
     }
-
+    
+    
+    func setUpTextField(placehoder: String,with symbol: String = "",foregroundColor: UIColor = AppColors.themeGray40,
+                           textColor: UIColor = AppColors.themeBlack,
+                           keyboardType: UIKeyboardType,
+                           returnType: UIReturnKeyType,
+                           isSecureText: Bool) {
+           
+           self.keyboardType       = keyboardType
+           self.placeholder        = placehoder
+           self.textColor          = textColor
+           self.isSecureTextEntry  = isSecureText
+           self.returnKeyType      = returnType
+           self.font           = AppFonts.Regular.withSize(18)
+           self.tintColor = AppColors.themeGreen
+           let attriburedString = NSMutableAttributedString(string: placehoder)
+           let asterix = NSAttributedString(string: symbol, attributes: [.foregroundColor: foregroundColor])
+           attriburedString.append(asterix)
+           
+           self.attributedPlaceholder = attriburedString
+       }
+    
+    func AttributedBackgroundColorForText(text : String, textColor : UIColor) {
+        
+        //self.textColor = UIColor.black
+        guard let labelString = self.text else { return }
+        
+        let main_string = labelString as NSString
+        let range = main_string.range(of: text)
+        
+        var  attribute = NSMutableAttributedString.init(string: main_string as String)
+        if let labelAttributedString = self.attributedText {
+            attribute = NSMutableAttributedString.init(attributedString: labelAttributedString)
+        }
+        attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: textColor , range: range)
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        self.attributedText = attribute
+    }
+    
+    func addLeftPaddingView(width: CGFloat) {
+        self.leftViewMode = UITextField.ViewMode.always
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.height))
+        self.leftView = paddingView
+        self.layoutSubviews()
+    }
+    
+    func addRightPaddingView(width: CGFloat) {
+        self.rightViewMode = UITextField.ViewMode.always
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.height))
+        self.rightView = paddingView
+        self.layoutSubviews()
+    }
 }

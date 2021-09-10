@@ -20,9 +20,31 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var selectionButton: UIButton!
+    @IBOutlet weak var selectButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectButtonLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var amountInOtherCurrency: UILabel!
+    @IBOutlet weak var pendingAmountInOtherCurrency: UILabel!
+    
     var event: AccountDetailEvent? {
         didSet {
             self.setData()
+        }
+    }
+    
+    var isSelectable: Bool = false {
+        didSet {
+            self.manageSelectable()
+        }
+    }
+    
+    var isHotelSelected: Bool = false {
+        didSet {
+            self.manageSelectedState()
         }
     }
     
@@ -36,12 +58,20 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         self.setFontAndColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setFontAndColor()
+    }
+    
     private func setFontAndColor() {
         
-        self.mainContainerView.backgroundColor = AppColors.themeWhite
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard//AppColors.themeWhite
 //        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: 1.0), opacity: 0.7, shadowRadius: 3.0)
         
-        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
+//        self.mainContainerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
+        
+        let shadowProp = AppShadowProperties()
+        self.mainContainerView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
 
         self.amountTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.pendingTitleLabel.font = AppFonts.Regular.withSize(14.0)
@@ -49,14 +79,27 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         self.amountValueLabel.font = AppFonts.Regular.withSize(18.0)
         self.pendingValueLabel.font = AppFonts.Regular.withSize(18.0)
         
-        self.amountTitleLabel.textColor = AppColors.themeGray40
-        self.pendingTitleLabel.textColor = AppColors.themeGray40
+        self.amountTitleLabel.textColor = AppColors.themeGray153
+        self.pendingTitleLabel.textColor = AppColors.themeGray153
         
         self.amountValueLabel.textColor = AppColors.themeBlack
         self.pendingValueLabel.textColor = AppColors.themeBlack
         
         self.amountTitleLabel.text = LocalizedString.Amount.localized
         self.pendingTitleLabel.text = LocalizedString.Pending.localized
+        
+        self.titleLabel.font = AppFonts.Regular.withSize(18.0)
+        
+        self.titleLabel.textColor = AppColors.themeBlack
+        
+        self.isSelectable = false
+        
+        self.amountInOtherCurrency.font = AppFonts.Regular.withSize(18.0)
+        self.pendingAmountInOtherCurrency.font = AppFonts.Regular.withSize(18.0)
+        self.amountInOtherCurrency.textColor = AppColors.themeGray153
+        self.pendingAmountInOtherCurrency.textColor = AppColors.themeGray153
+        self.amountInOtherCurrency.text = ""
+        self.pendingAmountInOtherCurrency.text = ""
     }
     
     private func resetAllText() {
@@ -67,6 +110,19 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         self.pendingValueLabel.attributedText = nil
         
         self.dateLabel.text = "Due Date:"
+        
+        self.iconImageView.image = nil
+        self.titleLabel.text = ""
+        self.titleLabel.attributedText = nil
+    }
+    
+    private func manageSelectable() {
+        self.selectButtonHeightConstraint.constant = self.isSelectable ? 22.0 : 0.0
+        self.selectButtonLeadingConstraint.constant = self.isSelectable ? 16.0 : 0.0
+    }
+    
+    private func manageSelectedState() {
+        self.selectionButton.isSelected = self.isHotelSelected
     }
     
     private func setData() {
@@ -75,6 +131,20 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
             self.resetAllText()
             return
         }
+        
+        self.iconImageView.image = event.iconImage
+//        self.titleLabel.text = event.title
+        if let atbTxt = event.attributedString{
+            self.titleLabel.text = nil
+            self.titleLabel.attributedText = atbTxt
+        }else{
+            self.titleLabel.attributedText = nil
+            self.titleLabel.text = event.title
+        }
+        
+        self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.CancellationFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed254)
+        self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.ReschedulingFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed254)
+
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
@@ -90,20 +160,20 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         //set date
         let days = event.overDueDays
         let dayStr = (days > 1) ? "days" : "day"
-        let overDueText = "Over Due by \(days) \(dayStr)"
+        let overDueText = "Over Due by \(abs(days)) \(dayStr)"
         
         let dueText = "Due Date:"
         
         var dateStr = ""
         if let date = event.dueDate {
-            dateStr = date.toString(dateFormat: "dd-MM-YYYY") + " |"
+            dateStr = date.toString(dateFormat: "dd-MM-YYYY") + "  • "//" |"
         }
         
         let finalText = "\(dueText) \(dateStr) \(overDueText)"
         
         let dateAttributedString = NSMutableAttributedString(string: finalText, attributes: [
             .font: AppFonts.Regular.withSize(14.0),
-            .foregroundColor: AppColors.themeGray40
+            .foregroundColor: AppColors.themeGray153
             ])
         
         //date beautify
@@ -113,9 +183,24 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         
         //days beautify
         if let overDueRange = finalText.range(of: overDueText)?.asNSRange(inString: finalText) {
-            dateAttributedString.addAttribute(.foregroundColor, value: AppColors.themeRed, range: overDueRange)
+            dateAttributedString.addAttribute(.foregroundColor, value: AppColors.themeRed254, range: overDueRange)
         }
         
         self.dateLabel.attributedText = dateAttributedString
+        
+        if let event = self.event, let rate = event.currencyRate{
+            self.amountInOtherCurrency.isHidden = false
+            self.pendingAmountInOtherCurrency.isHidden = false
+            let amt = abs(event.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16))
+            amt.append((event.amount < 0) ? drAttr : crAttr)
+            let pndAmt = abs(event.pendingAmount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16))
+            pndAmt.append((event.pendingAmount > 0) ? drAttr : crAttr)
+            self.amountInOtherCurrency.attributedText = amt
+            self.pendingAmountInOtherCurrency.attributedText = pndAmt
+            
+        }else{
+            self.amountInOtherCurrency.isHidden = true
+            self.pendingAmountInOtherCurrency.isHidden = true
+        }
     }
 }

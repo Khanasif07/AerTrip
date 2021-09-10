@@ -10,7 +10,7 @@ import UIKit
 
 protocol EditProfileTwoPartTableViewCellDelegate: class {
     func deleteCellTapped(_ indexPath: IndexPath)
-    func leftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer)
+    func leftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer, textField: UITextField)
     func textFieldText(_ indexPath: IndexPath, _ text: String)
     func textFieldEndEditing(_ indexPath: IndexPath, _ text: String)
 }
@@ -21,10 +21,13 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     @IBOutlet weak var leftView: UIView!
     @IBOutlet weak var leftTitleLabel: UILabel!
     @IBOutlet weak var blackDownImageView: UIImageView!
-    @IBOutlet weak var leftSeparatorView: UIView!
+    @IBOutlet weak var leftSeparatorView: ATDividerView!
     @IBOutlet weak var rightViewTextField: UITextField!
     @IBOutlet weak var rightSeparatorView: ATDividerView!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var leftViewTextField: UITextField!
+    @IBOutlet weak var leftSeparatorLeading: NSLayoutConstraint!
+    @IBOutlet weak var rightSeparatorLeading: NSLayoutConstraint!
     
     // MARK: - Variables
     
@@ -42,12 +45,23 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
         }
     }
     
+    var isSettingForEdit:Bool = false{
+        didSet{
+            if isSettingForEdit{
+                self.deleteButton.setImage(AppImages.editPencel, for: .normal)
+            }else{
+                self.deleteButton.setImage(AppImages.redMinusButton, for: .normal)
+            }
+        }
+    }
+    
     
     // MARK: - View Life cycle methods
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        leftTitleLabel.textColor = AppColors.textFieldTextColor51
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         addGesture()
     }
     
@@ -77,6 +91,41 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
         }
     }
     
+    func setSeparator(isNeeded:Bool, isError:Bool, isLast:Bool){
+        self.leftSeparatorView.isHidden = !isNeeded
+        self.rightSeparatorView.isHidden = !isNeeded
+        self.leftSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        self.rightSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        if let email = self.email, isError{
+            if isLast{
+                self.leftSeparatorView.isSettingForErrorState = ((!email.value.isEmail) || email.isDuplicate)
+            }
+            self.rightSeparatorView.isSettingForErrorState = ((!email.value.isEmail) || email.isDuplicate)
+        }else{
+            self.leftSeparatorView.isSettingForErrorState = false
+            self.rightSeparatorView.isSettingForErrorState = false
+        }
+        
+    }
+    
+    
+    func setSeparatorForSocial(isNeeded:Bool, isError:Bool, isLast:Bool){
+        self.leftSeparatorView.isHidden = !isNeeded
+        self.rightSeparatorView.isHidden = !isNeeded
+        self.leftSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        self.rightSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        if let social = self.social, isError{
+            if isLast{
+                self.leftSeparatorView.isSettingForErrorState = ((social.value.isEmpty) || social.isDuplicate)
+            }
+            self.rightSeparatorView.isSettingForErrorState = ((social.value.isEmpty) || social.isDuplicate)
+        }else{
+            self.leftSeparatorView.isSettingForErrorState = false
+            self.rightSeparatorView.isSettingForErrorState = false
+        }
+        
+    }
+    
     private func addGesture() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(leftViewTap(gesture:)))
         gesture.numberOfTapsRequired = 1
@@ -87,7 +136,7 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     
     @objc func leftViewTap(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {
-            editProfilTwoPartTableViewCelldelegate?.leftViewTap(idxPath, gesture)
+            editProfilTwoPartTableViewCelldelegate?.leftViewTap(idxPath, gesture, textField: self.leftViewTextField)
         }
     }
     
@@ -121,6 +170,11 @@ extension EditProfileTwoPartTableViewCell: UITextFieldDelegate {
         return true
     }
     
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.leftSeparatorView.isSettingForErrorState = false
+        self.rightSeparatorView.isSettingForErrorState = false
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

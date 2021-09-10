@@ -12,11 +12,11 @@ protocol HotelDetailAmenitiesCellDelegate: class {
     func viewAllButtonAction()
 }
 
-class HotelDetailAmenitiesCell: UITableViewCell {
+class HotelDetailAmenitiesCell : UITableViewCell {
 
     //Mark:- Variables
     //================
-    private let amenitiesItems: [UIImage] = [#imageLiteral(resourceName: "ame-wi-fi"),#imageLiteral(resourceName: "ame-room-service"),#imageLiteral(resourceName: "ame-gym"),#imageLiteral(resourceName: "ame-coffee-shop"),#imageLiteral(resourceName: "ame-business-center"),#imageLiteral(resourceName: "ame-internet"),#imageLiteral(resourceName: "ame-pool"),#imageLiteral(resourceName: "ame-restaurant-bar"),#imageLiteral(resourceName: "ame-air-conditioner"),#imageLiteral(resourceName: "ame-spa")]
+    private let amenitiesItems: [UIImage] = [AppImages.wifi,AppImages.RoomService,AppImages.Gym,AppImages.Coffee_Shop,AppImages.BusinessCenter,AppImages.Internet,AppImages.Pool,AppImages.RestaurantBar,AppImages.AirConditioner,AppImages.Spa]
     internal var amenitiesDetails: Amenities?
     weak var delegate: HotelDetailAmenitiesCellDelegate?
     
@@ -27,6 +27,7 @@ class HotelDetailAmenitiesCell: UITableViewCell {
         didSet {
             self.amenitiesCollectionView.delegate = self
             self.amenitiesCollectionView.dataSource = self
+            self.amenitiesCollectionView.isUserInteractionEnabled = false
         }
     }
     @IBOutlet weak var amenitiesLabel: UILabel!
@@ -38,7 +39,8 @@ class HotelDetailAmenitiesCell: UITableViewCell {
     }
     @IBOutlet weak var dividerViewLeadingCons: NSLayoutConstraint!
     @IBOutlet weak var dividerViewTrailingCons: NSLayoutConstraint!
-    
+    @IBOutlet weak var amenitiesTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -58,6 +60,10 @@ class HotelDetailAmenitiesCell: UITableViewCell {
         //Text Color
         self.amenitiesLabel.textColor = AppColors.themeBlack
         self.viewAllButtonOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+        
+//        self.contentView.backgroundColor = AppColors.clear
+//        self.backgroundColor = AppColors.clear
+        
         //Text SetUp
         self.amenitiesLabel.text = LocalizedString.Amenities.localized
         self.viewAllButtonOutlet.setTitle(LocalizedString.ViewAll.localized, for: .normal)
@@ -95,13 +101,17 @@ extension HotelDetailAmenitiesCell: UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSize = CGSize(width: (collectionView.frame.width)/5 , height: (collectionView.frame.height)/2.308)
+        let itemSize = CGSize(width: ((collectionView.frame.width)/5 - 7) , height: (collectionView.frame.height)/2.5)
         return itemSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.zero
+        return UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

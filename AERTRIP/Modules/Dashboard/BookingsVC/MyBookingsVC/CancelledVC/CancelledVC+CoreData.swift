@@ -28,6 +28,7 @@ extension CancelledVC {
         
         if !isForFirstTime {
             self.reloadList(isFirstTimeLoading: isForFirstTime)
+            mangePendingActionView()
         }
     }
     
@@ -36,12 +37,18 @@ extension CancelledVC {
         return NSPredicate(format: "bookingTabType == '3'")
     }
     
-    
+    private func mangePendingActionView() {
+        let pridicate = createFinalPredicate(showPending: true)
+        let result = CoreDataManager.shared.fetchData("BookingData", nsPredicate: pridicate) ?? []
+        printDebug("CancelledVC result.count: \(result.count)")
+        manageFooter(isHidden: result.isEmpty)
+        showFooterView = result.isEmpty
+    }
 }
 
 extension CancelledVC {
     //  Final Predicate
-    private func createFinalPredicate () -> NSPredicate? {
+    private func createFinalPredicate (showPending: Bool = false) -> NSPredicate? {
         
         var allPred: [NSPredicate] = []
         
@@ -61,7 +68,7 @@ extension CancelledVC {
             allPred.append(obj)
         }
         
-        if let obj = onlyPendingActionPredicate() {
+        if let obj = onlyPendingActionPredicate(showPending: showPending) {
             allPred.append(obj)
         }
         
@@ -92,13 +99,21 @@ extension CancelledVC {
             let paxArrStr = NSPredicate(format: "paxArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
             let stepsArrayStr = NSPredicate(format: "stepsArrayStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
             
-            return NSCompoundPredicate(orPredicateWithSubpredicates: [hotelName, tripType, destination, origin, product, serviceType, tripCitiesArrStr, routesArrStr, travelledCitiesArrStr, paxArrStr, stepsArrayStr])
+            let bookingNumberyStr = NSPredicate(format: "bookingNumber CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let bookingIdStr = NSPredicate(format: "bookingId CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            
+            //Searched By Flight number
+            let searchTxt = MyBookingFilterVM.shared.searchText.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "").lowercased()
+            let flightNumberyStr = NSPredicate(format: "flightNumbers CONTAINS[c] '\(searchTxt)'")
+            let airlineStr = NSPredicate(format: "airlines CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            
+            return NSCompoundPredicate(orPredicateWithSubpredicates: [hotelName, tripType, destination, origin, product, serviceType, tripCitiesArrStr, routesArrStr, travelledCitiesArrStr, paxArrStr, stepsArrayStr, bookingNumberyStr, bookingIdStr, flightNumberyStr, airlineStr])
         }
         return nil
     }
     
-    private func onlyPendingActionPredicate() -> NSPredicate?{
-        if self.isOnlyPendingAction {
+    private func onlyPendingActionPredicate(showPending: Bool = false) -> NSPredicate?{
+        if self.isOnlyPendingAction || showPending {
             return NSPredicate(format: "isContainsPending == '1'")
         }
         return nil
@@ -109,12 +124,13 @@ extension CancelledVC {
         
         var fromPredicate: NSPredicate?
         var toPredicate: NSPredicate?
+
         if let fromDate = MyBookingFilterVM.shared.bookingFromDate?.toString(dateFormat: "yyyy-MM-dd 00:00:00") {
             fromPredicate = NSPredicate(format: "bookingDate >= %@", fromDate)
         }
         
-        if let toDate = MyBookingFilterVM.shared.bookingToDate?.toString(dateFormat: "yyyy-MM-dd 00:00:00") {
-            toPredicate = NSPredicate(format: "bookingDate <= %@",toDate)
+        if let toDate = MyBookingFilterVM.shared.bookingToDate?.toString(dateFormat: "yyyy-MM-dd 24:00:00") {
+                toPredicate = NSPredicate(format: "bookingDate <= %@",toDate)
         }
         
         if let from = fromPredicate, let to = toPredicate {

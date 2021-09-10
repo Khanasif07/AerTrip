@@ -23,13 +23,20 @@ class ATSearchBar: UISearchBar {
         case unavailable
     }
     
-    private(set) var micButton: UIButton!
+    //private(set) var micButton: UIButton!
     
-    var isMicEnabled: Bool = true {
+    @objc var isMicEnabled: Bool = true {
         didSet {
             self.hideMiceButton(isHidden: !self.isMicEnabled)
         }
     }
+    
+    var textFieldColor:UIColor = AppColors.themeGray04SearchBar{
+        didSet{
+            self.setupTextField()
+        }
+    }
+    
     private var status = SpeechStatus.ready
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
@@ -47,8 +54,17 @@ class ATSearchBar: UISearchBar {
         
         self.initialSetup()
     }
+    
+    deinit {
+        printDebug("ATSearchBar deinit")
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidEndEditingNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidBeginEditingNotification, object: nil)
 
-    var mDelegate: ATSearchBarDelegate? {
+    }
+    
+
+    weak var mDelegate: ATSearchBarDelegate? {
         didSet {
             self.delegate = self.mDelegate
         }
@@ -63,51 +79,62 @@ class ATSearchBar: UISearchBar {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let xRatio = (self.width - (edgeInset.left + edgeInset.right)) / self.width
-        let yRatio = (self.width - (edgeInset.top + edgeInset.bottom)) / self.width
-        self.transform = CGAffineTransform(scaleX: xRatio, y: yRatio)
+      //  let xRatio = (self.width - (edgeInset.left + edgeInset.right)) / self.width
+       // let yRatio = (self.width - (edgeInset.top + edgeInset.bottom)) / self.width
+        //self.transform = CGAffineTransform(scaleX: xRatio, y: yRatio)
         
-        var micX = (self.width - self.height) + 15.0
-        
-        if self.showsCancelButton {
-            micX -= 58.0
-        }
-        self.micButton?.frame = CGRect(x: micX, y: 1.0, width: self.height, height: self.height)
+//        var micX = (self.width - (self.height + 6.0))
+//
+//        if self.showsCancelButton {
+//            micX -= 58.0
+//        }
+//        self.micButton?.frame = CGRect(x: micX, y: 1.0, width: self.height, height: self.height)
     }
     
     private func initialSetup() {
         self.backgroundImage = UIImage()
         
-        if let textField = self.value(forKey: "searchField") as? UITextField {
-            textField.backgroundColor = AppColors.themeGray04
-            textField.font = AppFonts.Regular.withSize(18.0)
-            textField.tintColor = AppColors.themeGreen
-        }
-        
         self.tintColor = AppColors.themeGreen
-        
-        self.micButton = UIButton(frame: CGRect(x: (self.width - self.height) + 15.0, y: 1.0, width: self.height, height: self.height))
-        self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .normal)
-       self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .selected)
-        
-        self.micButton.addTarget(self, action: #selector(micButtonAction(_:)), for: .touchUpInside)
+        self.setupTextField()
+//        self.micButton = UIButton(frame: CGRect(x: (self.width - self.height) + 15.0, y: 1.0, width: self.height, height: self.height))
+//        self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .normal)
+//       self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .selected)
+//        self.micButton.setTitle(nil, for: .normal)
+//        self.micButton.addTarget(self, action: #selector(micButtonAction(_:)), for: .touchUpInside)
 
-        self.hideMiceButton(isHidden: !self.isMicEnabled)
-        self.addSubview(self.micButton)
+        self.hideMiceButton(isHidden: self.isMicEnabled)
+        //self.addSubview(self.micButton)
         
         //self.setImage(#imageLiteral(resourceName: "icClear"), for: .clear, state: .normal)
+        //self.showsBookmarkButton = !self.isMicEnabled
+        self.setImage(AppImages.searchBarIcon, for: .search, state: .normal)
+
+        self.setImage(AppImages.ic_search_mic, for: .bookmark, state: .normal)
+        self.setPositionAdjustment(UIOffset(horizontal: +9, vertical: 0), for: .bookmark)
+        self.setPositionAdjustment(UIOffset(horizontal: +3, vertical: 0), for: .search)
+
+        self.searchTextPositionAdjustment = UIOffset(horizontal: 2, vertical: 0)
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing), name: UITextField.textDidEndEditingNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing), name: UITextField.textDidBeginEditingNotification, object: nil)
+
         self.layoutIfNeeded()
+        
     }
     
-    
+    private func setupTextField(){
+        if let textField = self.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = textFieldColor
+            textField.font = AppFonts.Regular.withSize(18.0)
+            textField.tintColor = AppColors.themeGreen
+        }
+    }
     
     func hideMiceButton(isHidden: Bool) {
-        self.micButton.isHidden = isHidden
-        self.bringSubviewToFront(self.micButton)
-        
+//        self.micButton.isHidden = isHidden
+//        self.bringSubviewToFront(self.micButton)
+        self.showsBookmarkButton = isHidden
 //        if (self.micButton != nil) {
 //        switch SFSpeechRecognizer.authorizationStatus() {
 //        case .notDetermined:
@@ -137,16 +164,19 @@ class ATSearchBar: UISearchBar {
     
     @objc private func textDidEndEditing() {
         if !(self.text ?? "").isEmpty {
+            self.hideMiceButton(isHidden: false)
+        } else {
             self.hideMiceButton(isHidden: true)
         }
+        (self.value(forKey: "cancelButton") as? UIButton)?.isEnabled = true
     }
     
     @objc private func textDidChange() {
         if self.isMicEnabled, (self.text ?? "").isEmpty {
-            self.hideMiceButton(isHidden: false)
+            self.hideMiceButton(isHidden: true)
         }
         else {
-            self.hideMiceButton(isHidden: true)
+            self.hideMiceButton(isHidden: false)
         }
     }
 }

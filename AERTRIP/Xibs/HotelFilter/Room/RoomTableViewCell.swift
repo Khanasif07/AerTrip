@@ -13,6 +13,7 @@ class RoomTableViewCell: UITableViewCell  {
     // MARK : - IB Outlets
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var statusButton: UIButton!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     
     var meal : ATMeal? {
@@ -36,6 +37,12 @@ class RoomTableViewCell: UITableViewCell  {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.dividerView.isHidden = true
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.dividerView.isHidden = true
     }
 
    

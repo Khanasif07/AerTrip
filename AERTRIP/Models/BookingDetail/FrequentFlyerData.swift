@@ -10,14 +10,14 @@ import Foundation
 
 struct FrequentFlyerData {
     var passenger: Pax?
-    var flights: [FlightDetail] = []
+    var flights: [BookingFlightDetail] = []
     
     
     init() {
        self.init(passenger: Pax(), flights: [])
     }
     
-    init(passenger: Pax, flights: [FlightDetail]) {
+    init(passenger: Pax, flights: [BookingFlightDetail]) {
         self.passenger = passenger
         self.flights = flights
     }
